@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 import {LoggerService} from '../../../core/services/logger.service';
 import {AppConfig} from '../../../config/app.config';
 
+//RouterModule.forChild(routes)
+
 
 @Component({
   selector: 'app-customers',
@@ -14,7 +16,7 @@ import {AppConfig} from '../../../config/app.config';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-  customers: Customer;
+  customers: Customer[];
   newCustomerForm: FormGroup;
   error: string;
   @ViewChild('form') myNgForm //just to call restForm method
@@ -39,10 +41,8 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customersService.getCustomers().subscribe<Array<Customer>>)
-      this.customers = data;
-
-    }
+    this.customersService.getCustomers().subscribe((customers: Array<Customer>) => {
+      this.customers = customers
+    });
   }
-
 }

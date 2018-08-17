@@ -5,17 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {APP_CONFIG, AppConfig} from './config/app.config'
 import {HttpClient, HttpClientModule } from '@angular/common/http';
-import { CustomersComponent } from './customers/customers.component';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CoreModule,
+    HttpClientModule,
+
+
   ],
   declarations: [
     AppComponent,
-    CustomersComponent,
+
     ],
   providers: [
     {provide: APP_CONFIG, useValue: AppConfig},

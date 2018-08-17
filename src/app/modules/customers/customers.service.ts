@@ -3,10 +3,9 @@ import {Observable, of, throwError as observableThrowError} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { AppConfig } from '../../config/app.config';
 import { Customer } from '../models/customer.model';
-//import material here
 import { LoggerService } from '../../core/services/logger.service';
 import {catchError, tap} from 'rxjs/operators';
-
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,11 +16,12 @@ export class CustomersService {
   customerEndPoint: string;
   customerUrl: string;
   customerApi: string;
+  message = 'Customer Created'
 
   constructor(
-    private http: HttpClient) { this.customerEndPoint = AppConfig.endpoints['url'],
-    this.customerUrl = AppConfig.routes['customer'],
-    this.customerApi = AppConfig.endpoints['url'] + AppConfig.routes['customer']}
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) { this.customerApi = AppConfig.endpoints['url'] + AppConfig.routes['customer']}
 
   private static handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -72,9 +72,8 @@ export class CustomersService {
   }), httpOptions).pipe(
     tap((customerSaved: Customer) => {
       LoggerService.log(`added customer w/ id=${customerSaved.id}`);
-      this.showSnackBar('heroCreated');
     }),
-    catchError(CustomerService.handleError<Customer>('addCustomer'))
+    catchError(CustomersService.handleError<Customer>('addCustomer'))
   );
 }
   deleteCustomerById(id: any): Observable<Array<Customer>> {
