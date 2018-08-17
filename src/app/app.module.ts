@@ -19,7 +19,6 @@ import { CoreModule } from './core/core.module';
   ],
   declarations: [
     AppComponent,
-
     ],
   providers: [
     {provide: APP_CONFIG, useValue: AppConfig},

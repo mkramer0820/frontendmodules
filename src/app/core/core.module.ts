@@ -6,6 +6,9 @@ import {RouterModule} from '@angular/router';
 import {CustomersService} from '.././modules/customers/customers.service';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {LoggerService} from './services/logger.service';
+import { HeaderComponent } from './header/header.component';
+import { HomePage } from './pages/home/home.component';
+import { Error404Component } from './pages/error404/error404.component';
 
 //import { Home }
 
@@ -22,7 +25,9 @@ import {LoggerService} from './services/logger.service';
     // HeaderComponent,
     // SearchBarComponent,
     // FooterComponent
-  ],
+    HeaderComponent,
+    HomePage,
+    Error404Component],
   exports: [
     // HeaderComponent,
     // SearchBarComponent,
