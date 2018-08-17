@@ -6,7 +6,7 @@ import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.page.html',
+  templateUrl: './home.component.html',
 })
 
 export class HomePage implements OnInit {

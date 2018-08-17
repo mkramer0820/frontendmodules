@@ -5,10 +5,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 
 const customersRoutes: Routes = [
-  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: '', redirectTo: '/customers', pathMatch: 'full'},
   // {path: '', component: HomePage},
   // {path: AppConfig.routes.error404, component: Error404Page},
-  {path: 'customer', component: CustomersComponent},
+  {path: 'customers', component: CustomersComponent},
   // {path: 'customers/:id', component: CustomersDetaiComponent}
 ];
 
