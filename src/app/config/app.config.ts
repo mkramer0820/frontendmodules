@@ -7,7 +7,9 @@ export let APP_CONFIG = new InjectionToken('app.config');
 export const AppConfig: IAppConfig = {
   routes: {
     // factory: 'factory',
-     customer: 'customers',
+     customer: 'customer',
+     customerApi: 'customer',
+     customerList: 'customer-list',
     // orders: 'orders',
     // tasks: 'tasks',
     error404: '404',

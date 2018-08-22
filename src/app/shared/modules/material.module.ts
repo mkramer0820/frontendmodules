@@ -1,3 +1,4 @@
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -12,12 +13,23 @@ import {
   MatProgressSpinnerModule,
   MatSliderModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatDatepicker,
+  MatNativeDateModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatOptionModule,
+  MatSlideToggleModule ,
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
@@ -31,9 +43,19 @@ import {NgModule} from '@angular/core';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSlideToggleModule ,
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
@@ -47,7 +69,15 @@ import {NgModule} from '@angular/core';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSlideToggleModule ,
   ],
 })
 

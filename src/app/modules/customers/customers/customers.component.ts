@@ -26,7 +26,7 @@ export class CustomersComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder) {
     this.newCustomerForm = this.formBuilder.group({
-      ' name': new FormControl('', [Validators.required]),
+      'name': new FormControl('', [Validators.required]),
       'address1': new FormControl(''),
       'address2': new FormControl(''),
       'address3': new FormControl(''),

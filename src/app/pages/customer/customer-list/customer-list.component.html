@@ -1,0 +1,21 @@
+<p>
+  customer-list works!
+</p>
+<mat-card *ngFor='let customer of customers'>
+    <!-- Title of an Card -->
+    <mat-card-title>
+      {{customer.name}}
+    </mat-card-title>
+    <mat-card-content>
+         <form [formGroup]='newCustomerForm' #form="ngForm">
+         <table>
+           <tr>
+             <td>
+               <mat-form-field class="input-container">
+                   <input matInput type="text"
+                          placeholder="name"
+                          value={{customer.name}}>
+               </mat-form-field>
+             </table>
+           </form>
+         </mat-card-content>

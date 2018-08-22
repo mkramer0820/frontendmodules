@@ -25,8 +25,7 @@ export class HeaderComponent implements OnInit {
 
 private loadMenus(): void {
   this.menuItems = [
-    {link: '/', name: ('home')},
-    {link: '/' + AppConfig.routes.customers, name: ('customers')}
+    {link: 'customer-list', name: ('customers')},
     ];
 }
 }

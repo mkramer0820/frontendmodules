@@ -9,6 +9,7 @@ import {LoggerService} from './services/logger.service';
 import { HeaderComponent } from './header/header.component';
 import { HomePage } from './pages/home/home.component';
 import { Error404Component } from './pages/error404/error404.component';
+import {ApiService} from '../config/api.service';
 
 //import { Home }
 
@@ -29,13 +30,14 @@ import { Error404Component } from './pages/error404/error404.component';
     HomePage,
     Error404Component],
   exports: [
-    // HeaderComponent,
+    HeaderComponent,
     // SearchBarComponent,
     // FooterComponent,
   ],
   providers: [
     CustomersService,
-    LoggerService
+    LoggerService,
+    ApiService
   ],
 })
 export class CoreModule {
