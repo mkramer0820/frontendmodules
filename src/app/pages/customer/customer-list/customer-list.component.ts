@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../config/api.service';
 import { Customer } from  '../../../modules/models/customer.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class CustomerListComponent implements OnInit {
   // private customer: Array<object> = [];
   customers: Customer[];
   newCustomerForm: FormGroup;
+  addCustomerDialogRef: MatDialogRef<AddCustomerComponent>;
 
   constructor(
     private apiService: ApiService,
     private formBuilder: FormBuilder,
+    private dialog: MatDialog,
   ){
     this.newCustomerForm = this.formBuilder.group({
       'name': new FormControl('', [Validators.required]),
@@ -41,5 +44,10 @@ export class CustomerListComponent implements OnInit {
         this.customers = customers;
         console.log(customers);
      });
+  }
+
+  public openAddCustomerDialog() {
+    this.addCustomerDialogRef = this.dialog.open(this.newCustomerForm);
+
   }
 }
