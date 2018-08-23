@@ -4,6 +4,7 @@ import { CustomerListComponent } from './customer/customer-list/customer-list.co
 import { ApiService} from '../config/api.service';
 import { SharedModule } from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CustomerAddComponent, CustomerAddDialogComponent} from './customer/customer-list/customer-list.component';
 
 
 @NgModule({
@@ -13,7 +14,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     SharedModule,
   ],
-  declarations: [CustomerListComponent],
+  declarations: [
+    CustomerListComponent,
+    CustomerAddDialogComponent,
+    CustomerAddComponent,
+  ],
   exports: [
     CustomerListComponent,
   ]

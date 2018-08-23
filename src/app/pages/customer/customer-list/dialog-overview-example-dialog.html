@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>Add Customer {{data.name}}</h1>
+<div mat-dialog-content>
+  <form>
+  <mat-form-field>
+    <input matInput placeholder="Name"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="address1"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="address2"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="address3"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="country"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="State-Prov"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Zip"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="email"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Phone"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Website"
+                    type="text">
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Description"
+                    type="text">
+  </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
