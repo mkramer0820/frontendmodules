@@ -1,3 +1,5 @@
+$width: 400px;
+
 .md-button {
   padding: 0 6px 0 6px;
   margin: 6px 8px 6px 8px;
@@ -9,4 +11,9 @@
   text-decoration:none;
   border: none;
   outline: none;
+}
+
+
+.example-full-width {
+  width: $width;
 }

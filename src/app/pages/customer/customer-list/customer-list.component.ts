@@ -90,7 +90,7 @@ export class CustomerAddComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CustomerAddDialogComponent, {
-      width: '250px',
+      width: '500px',
       data: {
         id: this.id,
         name: this.name,
