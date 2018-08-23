@@ -19,8 +19,14 @@ import {CustomerAddComponent, CustomerAddDialogComponent} from './customer/custo
     CustomerAddDialogComponent,
     CustomerAddComponent,
   ],
+  entryComponents:[
+    CustomerAddDialogComponent,
+    CustomerAddComponent,
+  ],
   exports: [
     CustomerListComponent,
+    CustomerAddDialogComponent,
+    CustomerAddComponent,
   ]
 })
 export class PagesModule { }

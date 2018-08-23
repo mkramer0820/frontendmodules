@@ -23,7 +23,7 @@ export class CustomerListComponent implements OnInit {
     private apiService: ApiService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-  ){
+  ) {
     this.newCustomerForm = this.formBuilder.group({
       'name': new FormControl('', [Validators.required]),
       'address1': new FormControl(''),
