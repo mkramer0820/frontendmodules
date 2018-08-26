@@ -1,0 +1,85 @@
+<div *ngFor='let customer of customers'>
+  <p>{{customer.name}}</p>
+</div>
+<mat-dialog-content>
+<form [formGroup]="customerForm" (ngSubmit)="createCustomer()">
+  <label>
+    Company Name:
+    <input type="text" formControlName="name" required>
+  </label>
+
+  <label>
+    Phone Number:
+    <input type="text" formControlName="phone">
+  </label>
+  <label>
+    Email Address:
+    <input type="text" formControlName="email">
+  </label>
+    <h3>Address Info:</h3>
+
+    <label>
+      Address 1:
+      <input type="text" formControlName="address1">
+    </label>
+
+    <label>
+      Address 2:
+      <input type="text" formControlName="address2">
+    </label>
+    
+    <label>
+      Address 3:
+      <input type="text" formControlName="address3">
+    </label>
+
+    <label>
+      Zip Code:
+      <input type="text" formControlName="zip">
+    </label>
+    <label>
+      State or Providence:
+      <input type="text" formControlName="state">
+    </label>
+    <label>
+      Country:
+      <input type="text" formControlName="country">
+    </label>
+<!--
+  <div formArrayName="tasks">
+    <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button>
+
+    <div *ngFor="let address of aliases.controls; let i=index">
+      -->
+      <!-- The repeated alias template
+      <label>
+        Alias:
+        <input type="text" [formControlName]="i">
+      </label>
+    </div>
+    -->
+
+  <button type="submit" [disabled]="!customerForm.valid">Submit</button>
+</form>
+
+<hr>
+
+
+<p>
+  Form Value: {{ customerForm.value | json }}
+</p>
+
+
+<p>
+  Form Status: {{ customerForm.status }}
+</p>
+
+<p>
+  <button (click)="createCustomer()">Update Profile</button>
+</p>
+</mat-dialog-content>
+<!-- 
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

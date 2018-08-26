@@ -12,6 +12,20 @@ export class Customer {
     public phone: string,
     public website: string,
     public description: string) {
-
+  }
 }
+
+export class DialogCustomerModel {
+     id: number;
+     name: string;
+     address1: string;
+     address2: string;
+     address3: string;
+     country: string;
+     state: string;
+     zip: string;
+     email: string;
+     phone: string;
+     website: string;
+     description: string;
 }
