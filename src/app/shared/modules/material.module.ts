@@ -23,6 +23,7 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatSlideToggleModule ,
+  MatTableModule,
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
@@ -52,6 +53,7 @@ import {NgModule} from '@angular/core';
     MatSelectModule,
     MatOptionModule,
     MatSlideToggleModule ,
+    MatTableModule,
   ],
   exports: [
     FormsModule,
@@ -78,6 +80,7 @@ import {NgModule} from '@angular/core';
     MatSelectModule,
     MatOptionModule,
     MatSlideToggleModule ,
+    MatTableModule,
   ],
 })
 

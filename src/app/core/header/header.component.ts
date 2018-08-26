@@ -27,6 +27,7 @@ private loadMenus(): void {
   this.menuItems = [
     {link: 'customer-list', name: ('customers')},
     {link: 'customer-add', name: ('Add Customer')},
+    {link: 'customer-table', name: 'Customer Table'},
     ];
 }
 }
