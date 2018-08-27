@@ -59,24 +59,14 @@
     </div>
     -->
 
-  <button type="submit" [disabled]="!customerForm.valid">Submit</button>
+  <button type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()">Submit</button>
+  <button type="close" [mat-dialog-close]="true">Exit</button>
 </form>
 
 <hr>
-
-
-<p>
-  Form Value: {{ customerForm.value | json }}
-</p>
-
-
-<p>
-  Form Status: {{ customerForm.status }}
-</p>
-
-<p>
-  <button (click)="createCustomer()">Update Profile</button>
-</p>
+<p>Form Value: {{ customerForm.value | json }}</p>
+  <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
+<p>Form Status: {{ customerForm.status }}</p>
 </mat-dialog-content>
 <!-- 
 Copyright 2017-2018 Google Inc. All Rights Reserved.

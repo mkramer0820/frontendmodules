@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
@@ -31,11 +31,24 @@ export class CustomerAddFormComponent implements OnInit {
   //])
   //});
 
-
   constructor(
     private fb: FormBuilder,
     private  apiService: ApiService,
+    private dialog: MatDialog,
   ) {
+    this.customerForm = this.fb.group({
+      'name': new FormControl('', [Validators.required]),
+      'address1': new FormControl(''),
+      'address2': new FormControl(''),
+      'address3': new FormControl(''),
+      'country': new FormControl(''),
+      'state': new FormControl(''),
+      'zip': new FormControl(''),
+      'email': new FormControl(''),
+      'phone': new FormControl(''),
+      'website': new FormControl(''),
+      'description': new FormControl(''),
+    });
   }
 
   ngOnInit() {
@@ -54,8 +67,8 @@ export class CustomerAddFormComponent implements OnInit {
     this.apiService.createCustomer(customer).subscribe((response) => {
       console.log(response);
       this.customerForm.reset();
-      });
-    }
+    });
+  }
 }
 
 

@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {Customer} from '../../../modules/models/customer.model';
 import {ApiService} from '../../../config/api.service';
-
+import {CustomerAddFormComponent} from '../customer-add/customer-add-form.component';
 
 
 @Component({
@@ -15,16 +15,16 @@ export class CustomerTableComponent implements OnInit {
   displayedColumns: string[] = [
     'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
     'COUNTRY', 'STATE', 'ZIP', 'EMAIL', 'PHONE',
-    'WEBSITE', 'DESCRIPTION'
+    'WEBSITE', 'DESCRIPTION', 'UPDATE',
   ];
-
   constructor(
     private apiService: ApiService,
+    private dialog: MatDialog,
+
   ) { }
 
   ngOnInit() {
     this.getCustomers();
-    this.printCustomer();
   }
   getCustomers() {
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
@@ -32,7 +32,26 @@ export class CustomerTableComponent implements OnInit {
       console.log(customers);
     });
   }
-  printCustomer() {
-    console.log(this.customers);
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CustomerAddFormComponent, {
+      width: '700px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+        this.customers = customers;
+        console.log(customers);
+      });
+    });
+  }
+  openUpdateDialog(id): void {
+    const dialogRef = this.dialog.open(CustomerAddFormComponent, {
+      width: '700px',
+    });
+    dialogRef.afterOpen().subscribe(result => {
+      this.apiService.getCustomerDetail(id).subscribe((customers: Object) => {
+        console.log(customers);
+      });
+    });
   }
 }

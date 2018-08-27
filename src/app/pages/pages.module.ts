@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomerAddFormComponent} from './customer/customer-add/customer-add-form.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
+import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { CustomerTableComponent } from './customer/customer-table/customer-table
     CustomerAddFormComponent,
     CustomerComponent,
     CustomerTableComponent,
+    CustomerUpdateComponent,
   ],
   entryComponents:[
     //CustomerAddDialogComponent,
@@ -36,6 +38,7 @@ import { CustomerTableComponent } from './customer/customer-table/customer-table
     //CustomerAddComponent,
     CustomerAddFormComponent,
     CustomerTableComponent,
+    CustomerUpdateComponent,
   ]
 })
 export class PagesModule { }
