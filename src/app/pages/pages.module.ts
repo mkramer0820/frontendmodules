@@ -9,6 +9,7 @@ import {CustomerAddFormComponent} from './customer/customer-add/customer-add-for
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
+import {CustomerService} from './customer.service';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CustomerUpdateComponent } from './customer/customer-update/customer-upd
     CustomerAddFormComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
-  ]
+  ],
+  providers: [CustomerService],
 })
 export class PagesModule { }

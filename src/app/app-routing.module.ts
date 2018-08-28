@@ -8,7 +8,7 @@ import {CustomerTableComponent} from './pages/customer/customer-table/customer-t
 // import {Error404Page} from './core/pages/error404/error404.page';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: '', redirectTo: '/customer-table', pathMatch: 'full'},
   {path: AppConfig.routes.customer, loadChildren: './modules/customers/customers.module#CustomersModule'},
   {path: 'customer-list', component: CustomerListComponent},
   {path: 'customer-add', component: CustomerAddFormComponent},

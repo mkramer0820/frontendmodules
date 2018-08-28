@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
 import {Customer} from '../../../modules/models/customer.model';
 import {MatDialog, MatDialogRef} from '@angular/material';
+import {CustomerService} from '../../customer.service';
 
 @Component({
   selector: 'customer-add-form',
   templateUrl: './customer-add-form.component.html',
   styleUrls: ['./customer-add-form.component.scss']
 })
-export class CustomerAddFormComponent implements OnInit {
+export class CustomerAddFormComponent implements OnInit, AfterViewInit {
+  newcustomer: any;
   customers: Customer[];
   customerForm = this.fb.group({
     name: ['', Validators.required],
@@ -35,6 +37,7 @@ export class CustomerAddFormComponent implements OnInit {
     private fb: FormBuilder,
     private  apiService: ApiService,
     private dialog: MatDialog,
+    private service: CustomerService,
   ) {
     this.customerForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
@@ -54,6 +57,9 @@ export class CustomerAddFormComponent implements OnInit {
   ngOnInit() {
       this.getCustomers();
     }
+    ngAfterViewInit() {
+      this.getCust();
+    }
 
   public getCustomers() {
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
@@ -68,6 +74,10 @@ export class CustomerAddFormComponent implements OnInit {
       console.log(response);
       this.customerForm.reset();
     });
+  }
+  getCust() {
+    this.newcustomer = this.service.getCustomer();
+    console.log(this.newcustomer);
   }
 }
 
