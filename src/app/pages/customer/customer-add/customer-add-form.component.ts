@@ -1,19 +1,20 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
 import {Customer} from '../../../modules/models/customer.model';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {CustomerService} from '../../customer.service';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+//import {CustomerService} from '../../customer.service';
+import {SharedService} from '../shared.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'customer-add-form',
   templateUrl: './customer-add-form.component.html',
   styleUrls: ['./customer-add-form.component.scss']
 })
-export class CustomerAddFormComponent implements OnInit, AfterViewInit {
-  newcustomer: any;
+export class CustomerAddFormComponent implements OnInit, OnDestroy {
+
   customers: Customer[];
   customerForm = this.fb.group({
     name: ['', Validators.required],
@@ -33,37 +34,38 @@ export class CustomerAddFormComponent implements OnInit, AfterViewInit {
   //])
   //});
 
+  message: any;
+  subscription: Subscription;
+
+
   constructor(
     private fb: FormBuilder,
     private  apiService: ApiService,
-    private dialog: MatDialog,
-    private service: CustomerService,
+    private service: SharedService,
   ) {
-    this.customerForm = this.fb.group({
-      'name': new FormControl('', [Validators.required]),
-      'address1': new FormControl(''),
-      'address2': new FormControl(''),
-      'address3': new FormControl(''),
-      'country': new FormControl(''),
-      'state': new FormControl(''),
-      'zip': new FormControl(''),
-      'email': new FormControl(''),
-      'phone': new FormControl(''),
-      'website': new FormControl(''),
-      'description': new FormControl(''),
-    });
+    this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
   }
 
   ngOnInit() {
+      //.this.getCust();
       this.getCustomers();
+      //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
+      this.custMessage();
     }
-    ngAfterViewInit() {
-      this.getCust();
-    }
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
 
+  custMessage(){
+    this.subscription = this.service.getMessage().subscribe(message => {
+       this.message = message;
+       let reiceve = this.message['customer'];
+       this.message = reiceve;
+      });
+    }
   public getCustomers() {
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
-      this.customers = customers['name'];
+      this.customers = customers;
       console.log(customers);
     });
   }
@@ -74,10 +76,6 @@ export class CustomerAddFormComponent implements OnInit, AfterViewInit {
       console.log(response);
       this.customerForm.reset();
     });
-  }
-  getCust() {
-    this.newcustomer = this.service.getCustomer();
-    console.log(this.newcustomer);
   }
 }
 

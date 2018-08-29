@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomerListComponent } from './customer/customer-list/customer-list.component';
-import { ApiService} from '../config/api.service';
+//import { ApiService} from '../config/api.service';
 import { SharedModule } from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import {CustomerAddComponent, CustomerAddDialogComponent} from './customer/customer-list/customer-list.component';
 import {CustomerAddFormComponent} from './customer/customer-add/customer-add-form.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
-import {CustomerService} from './customer.service';
+//import {SharedService} from './customer/shared.service';
 
 
 @NgModule({
@@ -20,27 +18,20 @@ import {CustomerService} from './customer.service';
     SharedModule,
   ],
   declarations: [
-    CustomerListComponent,
-    //CustomerAddDialogComponent,
-    //CustomerAddComponent,
     CustomerAddFormComponent,
     CustomerComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
   ],
   entryComponents:[
-    //CustomerAddDialogComponent,
-    //CustomerAddComponent,
     CustomerAddFormComponent,
+    CustomerUpdateComponent,
   ],
   exports: [
-    CustomerListComponent,
-    //CustomerAddDialogComponent,
-    //CustomerAddComponent,
     CustomerAddFormComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
   ],
-  providers: [CustomerService],
+  providers: [],
 })
 export class PagesModule { }

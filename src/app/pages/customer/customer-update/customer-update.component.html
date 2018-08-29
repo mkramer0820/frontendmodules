@@ -1,3 +1,57 @@
 <p>
   customer-update works!
 </p>
+<mat-dialog-content>
+<form [formGroup]="customerForm">
+  <label>
+    Company Name:
+    <input type="text" formControlName="name" required >
+  </label>
+
+  <label>
+    Phone Number:
+    <input type="text" formControlName="phone">
+  </label>
+  <label>
+    Email Address:
+    <input type="text" formControlName="email">
+  </label>
+    <h3>Address Info:</h3>
+
+    <label>
+      Address 1:
+      <input type="text" formControlName="address1">
+    </label>
+
+    <label>
+      Address 2:
+      <input type="text" formControlName="address2">
+    </label>
+
+    <label>
+      Address 3:
+      <input type="text" formControlName="address3">
+    </label>
+
+    <label>
+      Zip Code:
+      <input type="text" formControlName="zip">
+    </label>
+    <label>
+      State or Providence:
+      <input type="text" formControlName="state">
+    </label>
+    <label>
+      Country:
+      <input type="text" formControlName="country">
+    </label>
+    <button type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()">Submit</button>
+    <button type="close" [mat-dialog-close]="true">Exit</button>
+  </form>
+
+  <hr>
+  <p>Form Value: {{ customerForm.value | json }}</p>
+    <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
+  <p>Form Status: {{ customerForm.status }}</p>
+
+  </mat-dialog-content>
