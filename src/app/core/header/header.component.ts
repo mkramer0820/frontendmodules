@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {APP_CONFIG, AppConfig} from '../../config/app.config';
 import {IAppConfig} from '../../config/iapp.config';
+import {MatMenuTrigger} from '@angular/material';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
 private loadMenus(): void {
   this.menuItems = [
     {link: 'customer-add', name: ('Add Customer')},
-    {link: 'customer-table', name: ('Customers')},
+    {link: 'customer-table', name: ('View All Customers')},
     ];
 }
 }

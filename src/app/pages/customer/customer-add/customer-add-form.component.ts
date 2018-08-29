@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { FormArray } from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
 import {Customer} from '../../../modules/models/customer.model';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 //import {CustomerService} from '../../customer.service';
 import {SharedService} from '../shared.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './customer-add-form.component.html',
   styleUrls: ['./customer-add-form.component.scss']
 })
-export class CustomerAddFormComponent implements OnInit, OnDestroy {
+export class CustomerAddFormComponent implements OnInit {
 
   customers: Customer[];
   customerForm = this.fb.group({
@@ -36,17 +34,11 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
 
   customer: Customer[];
   subscription: Subscription;
-  name: string;
-  phone: string;
-
-
 
   constructor(
     private fb: FormBuilder,
     private  apiService: ApiService,
-    private service: SharedService,
   ) {
-    //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
     this.customerForm = this.fb.group({
       'name': new FormControl(''),
       'address1': new FormControl(''),
@@ -63,27 +55,8 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-      //.this.getCust();
-      //this.getCustomers();
-      //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
-      this.custMessage();
-    }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe()
-  }
-
-  custMessage(){
-    this.subscription = this.service.getMessage().subscribe(message => {
-       this.customer = message;
-      });
     }
-  public getCustomers() {
-    this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
-      this.customers = customers;
-      console.log(customers);
-    });
-  }
 
   createCustomer() {
     const customer = this.customerForm.value;

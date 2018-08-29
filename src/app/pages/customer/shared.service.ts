@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import {Customer} from '../../modules/models/customer.model';
+//import {Customer} from '../../modules/models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {

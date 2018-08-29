@@ -18,23 +18,28 @@ export class ApiService {
   getCustomers(): Observable<Customer[]> {
     return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`);
   }
-
   createCustomer(customer) {
     return this.httpClient.post(`${this.API_URL}/customer/`, customer);
   }
   getCustomerDetail(id): Observable<Customer[]> {
-    return this.httpClient.get<any>(`${this.API_URL}/customer/${id}`);
+    return this.httpClient.get<any>(`${this.API_URL}/customer/${id}/`);
   }
   updateCustomer(customer, id){
-   return this.httpClient.post(`${this.API_URL}/customer/${id}`, customer);
+   return this.httpClient.put(`${this.API_URL}/customer/${id}/`, customer);
   }
+
+  //factories
   factories() {
     return this.httpClient.get(`${this.API_URL}/factory/`);
   }
 
+
+  //orders
   getOrders() {
     return this.httpClient.get(`${this.API_URL}/orders/`);
   }
+
+  //tasks
   getTasks() {
     return this.httpClient.get(`${this.API_URL}/task/`);
   }

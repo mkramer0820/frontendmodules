@@ -1,57 +1,70 @@
-<p>
-  customer-update works!
-</p>
+
+<div *ngFor='let customer'>
+  {{customer}}
+</div>
+
 <mat-dialog-content>
 <form [formGroup]="customerForm">
   <label>
     Company Name:
-    <input type="text" formControlName="name" required >
+    <input type="text" [(ngModel)]="customer.name" formControlName="name" required value="{{customer.name}}" >
   </label>
 
   <label>
     Phone Number:
-    <input type="text" formControlName="phone">
+    <input type="text" [(ngModel)]="customer.phone"  formControlName="phone" value="{{customer.phone}}">
   </label>
   <label>
     Email Address:
-    <input type="text" formControlName="email">
+    <input type="text" [(ngModel)]="customer.email"  formControlName="email" value="{{customer.email}}">
   </label>
     <h3>Address Info:</h3>
 
     <label>
       Address 1:
-      <input type="text" formControlName="address1">
+      <input type="text" [(ngModel)]="customer.address1" formControlName="address1" value="{{customer.address1}}">
     </label>
 
     <label>
       Address 2:
-      <input type="text" formControlName="address2">
+      <input type="text" [(ngModel)]="customer.address2" formControlName="address2" value="{{customer.address2}}">
     </label>
 
     <label>
       Address 3:
-      <input type="text" formControlName="address3">
+      <input type="text" [(ngModel)]="customer.address3" formControlName="address3" value="{{customer.address3}}">
     </label>
 
     <label>
       Zip Code:
-      <input type="text" formControlName="zip">
+      <input type="text" [(ngModel)]="customer.zip" formControlName="zip" value="{{customer.zip}}">
     </label>
     <label>
       State or Providence:
-      <input type="text" formControlName="state">
+      <input type="text" [(ngModel)]="customer.state" formControlName="state" value="{{customer.state}}">
     </label>
     <label>
       Country:
-      <input type="text" formControlName="country">
+      <input type="text" [(ngModel)]="customer.country" formControlName="country" value="{{customer.country}}">
     </label>
-    <button type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()">Submit</button>
-    <button type="close" [mat-dialog-close]="true">Exit</button>
-  </form>
+    <label>
+      Description:
+      <input type="text" [(ngModel)]="customer.description" formControlName="description" value="{{customer.description}}">
+    </label>
 
-  <hr>
-  <p>Form Value: {{ customerForm.value | json }}</p>
-    <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
-  <p>Form Status: {{ customerForm.status }}</p>
+  <button type="update" [disabled]="!customerForm.valid" (click)="updateCustomer()">Update</button>
+  <button type="close" [mat-dialog-close]="true">Exit</button>
+</form>
 
-  </mat-dialog-content>
+
+<p>Form Value: {{ customerForm.value | json }}</p>
+  <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
+<p>Form Status: {{ customerForm.status }}</p>
+
+</mat-dialog-content>
+
+<!--
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

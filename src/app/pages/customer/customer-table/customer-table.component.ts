@@ -3,9 +3,8 @@ import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Customer} from '../../../modules/models/customer.model';
 import {ApiService} from '../../../config/api.service';
 import {CustomerAddFormComponent} from '../customer-add/customer-add-form.component';
-//import {CustomerService} from '../../customer.service';
+import {CustomerUpdateComponent} from '../customer-update/customer-update.component';
 import {SharedService} from '../shared.service';
-//import {CustomerUpdateComponent} from '../customer-update/customer-update.component';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -50,7 +49,7 @@ export class CustomerTableComponent implements OnInit {
     });
   }
   openUpdateDialog(id): void {
-    const dialogRef = this.dialog.open(CustomerAddFormComponent, {
+    const dialogRef = this.dialog.open(CustomerUpdateComponent, {
       width: '700px',
     });
     this.apiService.getCustomerDetail(id).subscribe((response: any) => {
@@ -58,25 +57,11 @@ export class CustomerTableComponent implements OnInit {
       this.sendMessage(this.message)
       this.subscription = this.service.getMessage().subscribe(message =>
          this.recieve = message);
-      //let message = this.recieve;
-      //this.recieve = message;
       console.log(this.recieve)
     });
     dialogRef.afterOpen().subscribe(result => {
       console.log(`Dailog result: ${result}`)
     });
-    /*this.apiService.getCustomerDetail(id).subscribe((response: any) => {
-      this.message = response;
-      //console.log(response)
-      this.sendMessage(this.message)
-      this.subscription = this.service.getMessage().subscribe(message => this.recieve = message);
-      console.log(this.recieve)
-        //return this.service.setCustomerData(response);
-        //this.customer = this.service.getCustomerData()
-        //console.log(customers);
-        //this.customer = customers;
-        //this.service.setOption(customers);
-      });*/
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
@@ -91,10 +76,11 @@ export class CustomerTableComponent implements OnInit {
       width: '700px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      //console.log('The dialog was closed');
       this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
         this.customers = customers;
-        //console.log(customers);
+        result = this.customers;
+        console.log(result)
+
       });
     });
   }
