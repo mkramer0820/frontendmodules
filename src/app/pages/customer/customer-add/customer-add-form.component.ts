@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
@@ -34,8 +34,9 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
   //])
   //});
 
-  message: any;
+  customer: any;
   subscription: Subscription;
+
 
 
   constructor(
@@ -43,24 +44,40 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
     private  apiService: ApiService,
     private service: SharedService,
   ) {
-    this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
+    //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
+    this.customerForm = this.fb.group({
+      'name': new FormControl('', [Validators.required]),
+      'address1': new FormControl(''),
+      'address2': new FormControl(''),
+      'address3': new FormControl(''),
+      'country': new FormControl(''),
+      'state': new FormControl(''),
+      'zip': new FormControl(''),
+      'email': new FormControl(''),
+      'phone': new FormControl(''),
+      'website': new FormControl(''),
+      'description': new FormControl(''),
+    });
   }
 
   ngOnInit() {
       //.this.getCust();
-      this.getCustomers();
+      //this.getCustomers();
       //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
       this.custMessage();
     }
+
   ngOnDestroy(){
     this.subscription.unsubscribe()
   }
 
   custMessage(){
     this.subscription = this.service.getMessage().subscribe(message => {
-       this.message = message;
-       let reiceve = this.message['customer'];
-       this.message = reiceve;
+       this.customer = message;
+       let reiceve = this.customer['customer'];
+       this.customer = reiceve;
+       this.customers = [reiceve];
+       console.log(this.customers)
       });
     }
   public getCustomers() {

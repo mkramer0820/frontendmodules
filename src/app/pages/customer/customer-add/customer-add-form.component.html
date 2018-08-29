@@ -1,55 +1,57 @@
-<div *ngIf="message">
-  {{message.name}}
-
-</div>
 
 
 
-<div *ngFor='let customer of customers'>
+
+<div *ngFor='let customer'>
+  {{customer}}
 </div>
 <mat-dialog-content>
 <form [formGroup]="customerForm">
   <label>
     Company Name:
-    <input type="text" formControlName="name" required value="{{message.name}}" >
+    <input type="text" formControlName="name" required value="{{customer.name}}" >
   </label>
 
   <label>
     Phone Number:
-    <input type="text" formControlName="phone" value="{{message.phone}}">
+    <input type="text" formControlName="phone" value="{{customer.phone}}">
   </label>
   <label>
     Email Address:
-    <input type="text" formControlName="email" value="{{message.email}}">
+    <input type="text" formControlName="email" value="{{customer.email}}">
   </label>
     <h3>Address Info:</h3>
 
     <label>
       Address 1:
-      <input type="text" formControlName="address1" value="{{message.address1}}">
+      <input type="text" formControlName="address1" value="{{customer.address1}}">
     </label>
 
     <label>
       Address 2:
-      <input type="text" formControlName="address2" value="{{message.address2}}">
+      <input type="text" formControlName="address2" value="{{customer.address2}}">
     </label>
 
     <label>
       Address 3:
-      <input type="text" formControlName="address3" value="{{message.adddress3}}">
+      <input type="text" formControlName="address3" value="{{customer.adddress3}}">
     </label>
 
     <label>
       Zip Code:
-      <input type="text" formControlName="zip" value="{{message.zip}}">
+      <input type="text" formControlName="zip" value="{{customer.zip}}">
     </label>
     <label>
       State or Providence:
-      <input type="text" formControlName="state" value="{{message.state}}">
+      <input type="text" formControlName="state" value="{{customer.state}}">
     </label>
     <label>
       Country:
-      <input type="text" formControlName="country" value="{{message.country}}">
+      <input type="text" formControlName="country" value="{{customer.country}}">
+    </label>
+    <label>
+      Country:
+      <input type="text" formControlName="description" value="{{customer.description}}">
     </label>
 <!--
   <div formArrayName="tasks">

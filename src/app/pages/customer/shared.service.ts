@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import {Customer} from '../../modules/models/customer.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
@@ -15,5 +16,6 @@ export class SharedService {
 
     getMessage(): Observable<any> {
         return this.subject.asObservable();
+        //return this.customer.asObservable();
     }
 }
