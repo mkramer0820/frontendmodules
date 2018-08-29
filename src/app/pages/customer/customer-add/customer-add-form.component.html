@@ -9,49 +9,49 @@
 <form [formGroup]="customerForm">
   <label>
     Company Name:
-    <input type="text" formControlName="name" required value="{{customer.name}}" >
+    <input type="text" [(ngModel)]="customer.name" formControlName="name" required value="{{customer.name}}" >
   </label>
 
   <label>
     Phone Number:
-    <input type="text" formControlName="phone" value="{{customer.phone}}">
+    <input type="text" [(ngModel)]="customer.phone"  formControlName="phone" value="{{customer.phone}}">
   </label>
   <label>
     Email Address:
-    <input type="text" formControlName="email" value="{{customer.email}}">
+    <input type="text" [(ngModel)]="customer.email"  formControlName="email" value="{{customer.email}}">
   </label>
     <h3>Address Info:</h3>
 
     <label>
       Address 1:
-      <input type="text" formControlName="address1" value="{{customer.address1}}">
+      <input type="text" [(ngModel)]="customer.address1" formControlName="address1" value="{{customer.address1}}">
     </label>
 
     <label>
       Address 2:
-      <input type="text" formControlName="address2" value="{{customer.address2}}">
+      <input type="text" [(ngModel)]="customer.address2" formControlName="address2" value="{{customer.address2}}">
     </label>
 
     <label>
       Address 3:
-      <input type="text" formControlName="address3" value="{{customer.adddress3}}">
+      <input type="text" [(ngModel)]="customer.address3" formControlName="address3" value="{{customer.address3}}">
     </label>
 
     <label>
       Zip Code:
-      <input type="text" formControlName="zip" value="{{customer.zip}}">
+      <input type="text" [(ngModel)]="customer.zip" formControlName="zip" value="{{customer.zip}}">
     </label>
     <label>
       State or Providence:
-      <input type="text" formControlName="state" value="{{customer.state}}">
+      <input type="text" [(ngModel)]="customer.state" formControlName="state" value="{{customer.state}}">
     </label>
     <label>
       Country:
-      <input type="text" formControlName="country" value="{{customer.country}}">
+      <input type="text" [(ngModel)]="customer.country" formControlName="country" value="{{customer.country}}">
     </label>
     <label>
-      Country:
-      <input type="text" formControlName="description" value="{{customer.description}}">
+      Description:
+      <input type="text" [(ngModel)]="customer.description" formControlName="description" value="{{customer.description}}">
     </label>
 <!--
   <div formArrayName="tasks">

@@ -57,9 +57,9 @@ export class CustomerTableComponent implements OnInit {
       this.message = response;
       this.sendMessage(this.message)
       this.subscription = this.service.getMessage().subscribe(message =>
-         this.recieve = message['customer']);
-      let message = this.recieve['customer'];
-      this.recieve = message;
+         this.recieve = message);
+      //let message = this.recieve;
+      //this.recieve = message;
       console.log(this.recieve)
     });
     dialogRef.afterOpen().subscribe(result => {

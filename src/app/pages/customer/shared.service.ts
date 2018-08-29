@@ -6,8 +6,8 @@ import {Customer} from '../../modules/models/customer.model';
 export class SharedService {
     public subject = new Subject<any>();
 
-    sendMessage(message: string) {
-        this.subject.next({ customer: message });
+    sendMessage(customer) {
+        this.subject.next( customer );
     }
 
     clearMessage() {

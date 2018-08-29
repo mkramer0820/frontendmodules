@@ -1,7 +1,7 @@
 
 
 <div *ngIf="recieve">
-  updating: {{recieve.name}}
+  updating: {{recieve | json}}
   <span *ngFor="let c of recieve">{{recieve.id}}</span>
 </div>
 

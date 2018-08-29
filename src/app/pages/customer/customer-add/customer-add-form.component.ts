@@ -34,8 +34,10 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
   //])
   //});
 
-  customer: any;
+  customer: Customer[];
   subscription: Subscription;
+  name: string;
+  phone: string;
 
 
 
@@ -46,7 +48,7 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
   ) {
     //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
     this.customerForm = this.fb.group({
-      'name': new FormControl('', [Validators.required]),
+      'name': new FormControl(''),
       'address1': new FormControl(''),
       'address2': new FormControl(''),
       'address3': new FormControl(''),
@@ -74,10 +76,6 @@ export class CustomerAddFormComponent implements OnInit, OnDestroy {
   custMessage(){
     this.subscription = this.service.getMessage().subscribe(message => {
        this.customer = message;
-       let reiceve = this.customer['customer'];
-       this.customer = reiceve;
-       this.customers = [reiceve];
-       console.log(this.customers)
       });
     }
   public getCustomers() {
