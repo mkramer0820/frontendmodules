@@ -25,6 +25,9 @@ export class ApiService {
   getCustomerDetail(id): Observable<Customer[]> {
     return this.httpClient.get<any>(`${this.API_URL}/customer/${id}`);
   }
+  updateCustomer(customer, id){
+   return this.httpClient.post(`${this.API_URL}/customer/${id}`, customer);
+  }
   factories() {
     return this.httpClient.get(`${this.API_URL}/factory/`);
   }
