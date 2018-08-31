@@ -28,6 +28,8 @@ private loadMenus(): void {
   this.menuItems = [
     {link: 'customer-add', name: ('Add Customer')},
     {link: 'customer-table', name: ('View All Customers')},
+    {link: 'order-add', name:('Add Order')},
+    {link: 'order-table', name:('Orders')}
     ];
 }
 }

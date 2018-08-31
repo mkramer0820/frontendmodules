@@ -1,0 +1,17 @@
+$width: 100%;
+$tabledata: 3%;
+$height: auto;
+$imgW: 50px;
+$imgH: auto;
+
+table {
+    width: $width;
+}
+
+td {
+  width: $tabledata;
+}
+img {
+   width:$imgW;
+    height:$imgH;
+}

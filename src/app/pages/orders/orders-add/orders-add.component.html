@@ -1,3 +1,76 @@
 <p>
   orders-add works!
 </p>
+<div class="container" *ngIf="!post; else forminfo" novalidate>
+   <form [formGroup]="orderForm" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+     <mat-form-field class="form-element">
+      <mat-select placeholder="customer" formControlName='buyer'>
+       <mat-option *ngFor="let customer of customers" [value]="customer.id" >
+       {{ customer.name }}
+       </mat-option>
+      </mat-select>
+     </mat-form-field>
+    <br />
+    <mat-form-field class="form-element">
+     <mat-select placeholder="Factory" formControlName='factory'>
+      <mat-option *ngFor="let f of factories" [value]="f.id" >
+      {{ f.name }}
+      </mat-option>
+     </mat-select>
+    </mat-form-field>
+    <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Customer Order #" formControlName="customer_order_number">
+     </mat-form-field>
+    <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Buyer Style #" formControlName="customer_order_number">
+     </mat-form-field>
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Jp Style #" formControlName="jp_style_number">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Factory Ship Date" formControlName="factory_ship_date">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Cost From Factory" formControlName="cost_from_factory">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Buyer's Price" formControlName="buyers_price">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Order Type" formControlName="order_type">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Quantity" formControlName="qty">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="Brand" formControlName="brand">
+     </mat-form-field>
+
+     <br />
+     <mat-form-field class="form-element">
+     <input matInput placeholder="color" formControlName="color">
+     </mat-form-field>
+
+     <br />
+     <button type="submit" [disabled]="!orderForm.valid" (click)="createOrder()">Create</button>
+     <button type="close" [mat-dialog-close]="true">Exit</button>
+   </form>
+
+
+     <p>Form Value: {{ orderForm.value | json }}</p>

@@ -32,11 +32,17 @@ export class ApiService {
   factories() {
     return this.httpClient.get(`${this.API_URL}/factory/`);
   }
+  getFactoryDetails(id): Observable<any[]> {
+    return this.httpClient.get<any>(`${this.API_URL}/factory/${id}/`)
+  }
 
 
   //orders
   getOrders() {
-    return this.httpClient.get(`${this.API_URL}/orders/`);
+    return this.httpClient.get(`${this.API_URL}/orders/names/`);
+  }
+  createOrder(order) {
+    return this.httpClient.post(`${this.API_URL}/orders/`, order)
   }
 
   //tasks
