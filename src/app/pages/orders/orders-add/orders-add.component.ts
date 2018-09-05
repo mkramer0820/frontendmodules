@@ -4,20 +4,49 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
 import {Customer} from '../../../modules/models/customer.model';
 import {Factory} from '../../../modules/models/factory.model';
-import { Observable }    from 'rxjs';
+import { Observable } from 'rxjs';
+import {VERSION} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
+
+const moment = _rollupMoment || _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const DD_MM_YYYY_Format = {
+    parse: {
+        dateInput: 'LL',
+    },
+    display: {
+        dateInput: 'MM/DD/YYYY',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @Component({
   selector: 'app-orders-add',
   templateUrl: './orders-add.component.html',
-  styleUrls: ['./orders-add.component.scss']
+  styleUrls: ['./orders-add.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
+  ]
 })
 export class OrdersAddComponent implements OnInit {
+  version = VERSION
   order: Order[];
   customers: Customer[];
   factories: Factory[];
+  brands= ['888', 'JP', 'AVE', 'OTHER'];
+  //types = ["Delivary Duty Paid", "Freight On Board"];
+  types = ["DDP", "FOB"];
   orderForm = this.fb.group({
-    buyer: [''],
+    buyer: new FormControl(''),
     factory: [''],
     customer_order_number: [''],
     buyer_style_number: [''],
@@ -36,6 +65,7 @@ export class OrdersAddComponent implements OnInit {
   //  this.fb.control('')
   //])
   //});
+  testdate: string;
   constructor(
     private fb: FormBuilder,
     private  apiService: ApiService,
@@ -46,7 +76,7 @@ export class OrdersAddComponent implements OnInit {
       'customer_order_number': new FormControl(''),
       'buyer_style_number': new FormControl(''),
       'jp_style_number': new FormControl(''),
-      'factory_ship_date': new FormControl(''),
+      'factory_ship_date': new FormControl(moment()),
       'cost_from_factory': new FormControl(''),
       'buyers_price': new FormControl(''),
       'qty': new FormControl(''),
@@ -82,7 +112,9 @@ export class OrdersAddComponent implements OnInit {
     });
   }
   createOrder() {
+    this.orderForm.controls["factory_ship_date"].setValue(this.orderForm.controls["factory_ship_date"].value.format('YYYY-MM-DD'));
     const order = this.orderForm.value;
+    console.log(order)
     this.apiService.createOrder(order).subscribe((response) => {
       console.log(response);
       this.orderForm.reset();

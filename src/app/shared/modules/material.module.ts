@@ -17,7 +17,6 @@ import {
   MatToolbarModule,
   MatFormFieldModule,
   MatDatepickerModule,
-  MatDatepicker,
   MatNativeDateModule,
   MatRadioModule,
   MatSelectModule,
@@ -25,6 +24,8 @@ import {
   MatSlideToggleModule ,
   MatTableModule,
 } from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+
 import {NgModule} from '@angular/core';
 
 @NgModule({
@@ -54,6 +55,8 @@ import {NgModule} from '@angular/core';
     MatOptionModule,
     MatSlideToggleModule ,
     MatTableModule,
+
+
   ],
   exports: [
     FormsModule,
@@ -81,6 +84,8 @@ import {NgModule} from '@angular/core';
     MatOptionModule,
     MatSlideToggleModule ,
     MatTableModule,
+    
+
   ],
 })
 

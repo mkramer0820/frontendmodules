@@ -34,7 +34,9 @@
 
      <br />
      <mat-form-field class="form-element">
-     <input matInput placeholder="Factory Ship Date" formControlName="factory_ship_date">
+     <input matInput [matDatepicker]="picker" placeholder="Factory Ship Date" formControlName="factory_ship_date" >
+     <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+     <mat-datepicker #picker></mat-datepicker>
      </mat-form-field>
 
      <br />
@@ -49,7 +51,11 @@
 
      <br />
      <mat-form-field class="form-element">
-     <input matInput placeholder="Order Type" formControlName="order_type">
+       <mat-select placeholder="Shipment type" formControlName="order_type">
+        <mat-option *ngFor="let t of types" [value]="order_type">
+        {{t}}
+        </mat-option>
+       </mat-select>
      </mat-form-field>
 
      <br />
@@ -59,7 +65,11 @@
 
      <br />
      <mat-form-field class="form-element">
-     <input matInput placeholder="Brand" formControlName="brand">
+       <mat-select placeholder="brand" formControlName='brand'>
+        <mat-option *ngFor="let brand of brands" [value]="brand" >
+        {{brand}}
+        </mat-option>
+       </mat-select>
      </mat-form-field>
 
      <br />
@@ -70,7 +80,8 @@
      <br />
      <button type="submit" [disabled]="!orderForm.valid" (click)="createOrder()">Create</button>
      <button type="close" [mat-dialog-close]="true">Exit</button>
+
    </form>
 
 
-     <p>Form Value: {{ orderForm.value | json }}</p>
+     <p>Form Value: {{ orderForm.value| json }}</p>
