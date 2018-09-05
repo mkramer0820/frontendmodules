@@ -2,7 +2,7 @@
   orders-add works!
 </p>
 <div class="container" *ngIf="!post; else forminfo" novalidate>
-   <form [formGroup]="orderForm" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+   <form [formGroup]="orderForm" class="form">
 
      <mat-form-field class="form-element">
       <mat-select placeholder="customer" formControlName='buyer'>
@@ -51,9 +51,9 @@
 
      <br />
      <mat-form-field class="form-element">
-       <mat-select placeholder="Shipment type" formControlName="order_type">
-        <mat-option *ngFor="let t of types" [value]="order_type">
-        {{t}}
+       <mat-select placeholder="Shipment Type" formControlName='order_type'>
+        <mat-option *ngFor="let order_type of types" [value]="order_type"> {{order_type}}
+
         </mat-option>
        </mat-select>
      </mat-form-field>

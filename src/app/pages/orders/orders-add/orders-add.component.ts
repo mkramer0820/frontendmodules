@@ -46,7 +46,7 @@ export class OrdersAddComponent implements OnInit {
   //types = ["Delivary Duty Paid", "Freight On Board"];
   types = ["DDP", "FOB"];
   orderForm = this.fb.group({
-    buyer: new FormControl(''),
+    buyer: [''],
     factory: [''],
     customer_order_number: [''],
     buyer_style_number: [''],
@@ -60,7 +60,8 @@ export class OrdersAddComponent implements OnInit {
     fiber_content: [''],
     jp_care_instructions: [''],
     color: [''],
-  }); //turn semicolon to commma to add nested json
+  });
+  //turn semicolon to commma to add nested json
   //tasks: this.fb.array([
   //  this.fb.control('')
   //])
@@ -112,7 +113,7 @@ export class OrdersAddComponent implements OnInit {
     });
   }
   createOrder() {
-    this.orderForm.controls["factory_ship_date"].setValue(this.orderForm.controls["factory_ship_date"].value.format('YYYY-MM-DD'));
+    this.orderForm.controls['factory_ship_date'].setValue(this.orderForm.controls['factory_ship_date'].value.format('YYYY-MM-DD'));
     const order = this.orderForm.value;
     console.log(order)
     this.apiService.createOrder(order).subscribe((response) => {
