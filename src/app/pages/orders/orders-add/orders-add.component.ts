@@ -44,7 +44,7 @@ export class OrdersAddComponent implements OnInit {
   factories: Factory[];
   brands= ['888', 'JP', 'AVE', 'OTHER'];
   //types = ["Delivary Duty Paid", "Freight On Board"];
-  types = ["DDP", "FOB"];
+  types = ['DDP', 'FOB', 'NA'];
   orderForm = this.fb.group({
     buyer: [''],
     factory: [''],

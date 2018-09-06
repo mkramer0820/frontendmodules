@@ -52,8 +52,8 @@
      <br />
      <mat-form-field class="form-element">
        <mat-select placeholder="Shipment Type" formControlName='order_type'>
-        <mat-option *ngFor="let order_type of types" [value]="order_type"> {{order_type}}
-
+        <mat-option *ngFor="let order_type of types" [value]='order_type'>
+          {{order_type}}
         </mat-option>
        </mat-select>
      </mat-form-field>
