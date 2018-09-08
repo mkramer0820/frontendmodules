@@ -6,6 +6,8 @@ import {CustomerTableComponent} from './pages/customer/customer-table/customer-t
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
 import {OrdersAddComponent} from './pages/orders/orders-add/orders-add.component';
 import {OrdersUpdateComponent} from './pages/orders/orders-update/orders-update.component';
+import {OrdersImageUploadComponent} from './pages/orders/orders-image-upload/orders-image-upload.component';
+import {CustomersComponent} from './modules/customers/customers/customers.component';
 // import {HomePage} from './core/pages/home/home.page';
 // import {Error404Page} from './core/pages/error404/error404.page';
 
@@ -16,13 +18,19 @@ const routes: Routes = [
   {path: 'order-table', component: OrdersTableComponent},
   {path: 'order-add', component: OrdersAddComponent},
   {path: 'order-update', component: OrdersUpdateComponent},
+  {path: 'order-image-upload', component: OrdersImageUploadComponent},
+  {path: 'test-customer', component: CustomersComponent},
+
   // {path: '', component: HomePage},
+
   // {path: AppConfig.routes.error404, component: Error404Page},
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [
+    RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
+],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

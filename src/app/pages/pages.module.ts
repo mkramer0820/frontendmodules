@@ -7,10 +7,10 @@ import {CustomerAddFormComponent} from './customer/customer-add/customer-add-for
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
-import { OrdersComponent } from './orders/orders.component';
 import { OrdersTableComponent } from './orders/orders-table/orders-table.component';
 import { OrdersAddComponent } from './orders/orders-add/orders-add.component';
 import { OrdersUpdateComponent } from './orders/orders-update/orders-update.component';
+import { OrdersImageUploadComponent } from './orders/orders-image-upload/orders-image-upload.component';
 //import {SharedService} from './customer/shared.service';
 
 
@@ -26,10 +26,10 @@ import { OrdersUpdateComponent } from './orders/orders-update/orders-update.comp
     CustomerComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
-    OrdersComponent,
     OrdersTableComponent,
     OrdersAddComponent,
     OrdersUpdateComponent,
+    OrdersImageUploadComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
@@ -39,8 +39,6 @@ import { OrdersUpdateComponent } from './orders/orders-update/orders-update.comp
     CustomerAddFormComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
-    OrdersComponent,
-    OrdersComponent,
     OrdersTableComponent,
     OrdersAddComponent,
     OrdersUpdateComponent,

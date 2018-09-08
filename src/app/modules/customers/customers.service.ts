@@ -5,7 +5,7 @@ import { AppConfig } from '../../config/app.config';
 import { Customer } from '../models/customer.model';
 import { LoggerService } from '../../core/services/logger.service';
 import {catchError, tap} from 'rxjs/operators';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+//import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,14 +14,15 @@ const httpOptions = {
 @Injectable()
 export class CustomersService {
   customerEndPoint: string;
-  customerUrl: string;
-  customerApi: string;
-  message = 'Customer Created'
+  urlOption: string;
+  apiUrl: string;
+  message = 'Customer Created';
+  customer: Customer[];
 
   constructor(
     private http: HttpClient,
-    private snackBar: MatSnackBar
-  ) { this.customerApi = AppConfig.endpoints['url'] + AppConfig.routes['customer']}
+    //private snackBar: MatSnackBar
+  ) { this.apiUrl = AppConfig.endpoints['url']}
 
   private static handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -43,12 +44,14 @@ export class CustomersService {
 
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.customerApi)
+    this.urlOption = AppConfig.urlOptions['customer']
+    return this.http.get<Customer[]>(this.apiUrl+this.urlOption)
       .pipe(
         tap(() => LoggerService.log(`fetched customers`)),
         catchError(CustomersService.handleError('getCustomers', []))
       );
-}
+    }
+/*
   getCustomersById(id: string): Observable<Customer> {
     const url = `${this.customerApi}/${id}`;
     return this.http.get<Customer>(url).pipe(
@@ -84,4 +87,5 @@ export class CustomersService {
       catchError(CustomersService.handleError<Array<Customer>>('deleteHero'))
     );
   }
+  */
 }

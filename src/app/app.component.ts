@@ -54,6 +54,16 @@ export class AppComponent implements AfterViewInit {
           iconName: 'view',
           route: 'order-table',
         },
+        {
+          displayName: 'Upload Image',
+          iconName: 'upload',
+          route: 'order-image-upload',
+        },
+        {
+          displayName: 'Update Order',
+          iconName: '',
+          route: 'order-update',
+        },
       ]},
   ];
 

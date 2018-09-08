@@ -13,7 +13,8 @@ import {PagesModule} from './pages/pages.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SharedModule} from './shared/shared.module';
 import {NavService} from './nav.service';
-
+import {CustomersModule} from './modules/customers/customers.module';
+import {CustomersRoutingModule} from './modules/customers/customers-routing.module';
 
 
 
@@ -28,6 +29,8 @@ import {NavService} from './nav.service';
     PagesModule,
     FlexLayoutModule,
     SharedModule,
+    CustomersModule,
+    CustomersRoutingModule,
 
   ],
   declarations: [

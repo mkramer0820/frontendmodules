@@ -44,6 +44,27 @@ export class ApiService {
   createOrder(order) {
     return this.httpClient.post(`${this.API_URL}/orders/`, order)
   }
+  uploadSweaterImg(uploadData) {
+    return this.httpClient.post(`${this.API_URL}/orders/`, uploadData, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe(event => {
+        console.log(event);
+         // handle event here
+       });
+    }
+  getOrderDetials(id) {
+    return this.httpClient.get<any>(`${this.API_URL}/orders/${id}/`);
+  }
+  updateOrder(id, order) {
+    return this.httpClient.put(`${this.API_URL}/orders/${id}/`, order, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe(event => {
+        console.log(event);
+         // handle event here
+       });
+  }
 
   //tasks
   getTasks() {
