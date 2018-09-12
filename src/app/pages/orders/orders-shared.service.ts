@@ -7,11 +7,13 @@ import {Order} from '../../modules/models/orders.model';
 
 
 
-@Injectable()
-export class SharedService {
+@Injectable({ providedIn: 'root' })
+export class OrdersSharedService {
 
   public subject = new Subject<any>();
-  public order: Order[];
+  public factory = new Subject<any>();
+  public buyer = new Subject<any>();
+
 
   API_URL = 'http://127.0.0.1:8000';
 
@@ -20,6 +22,7 @@ export class SharedService {
   sendMessage(order) {
       this.subject.next( order );
   }
+
 
   clearMessage() {
       this.subject.next();
@@ -30,11 +33,33 @@ export class SharedService {
       //return this.customer.asObservable();
   }
 
-///order api
+/*
+getFactory(): Observable<any> {
+  return this.factory.asObservable()
+}
+getBuyer(): Observable<any> {
+  return this.buyer.asObservable()
+}
+
+  sendFactoryMessage(factory) {
+      this.factory.next( factory );
+  }
+  sendBuyerMessage(buyer) {
+      this.buyer.next( buyer );
+  }
   getOrderDetails(id) {
     this.httpClient.get<any>(`${this.API_URL}/orders/${id}`).subscribe(resp => {
     //this.order = order;
     return this.sendMessage(resp)
-    })
+    });
+    /*
+    this.httpClient.get<any>(`${this.API_URL}/factory/`).subscribe(resp => {
+      return this.sendFactoryMessage(resp)
+    });
+    this.httpClient.get<any>(`${this.API_URL}/customer/`).subscribe(resp => {
+      return this.sendBuyerMessage(resp)
+    });
   }
+*/
+
 }

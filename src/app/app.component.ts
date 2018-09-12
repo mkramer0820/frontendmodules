@@ -1,8 +1,8 @@
 import {Component, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit} from '@angular/core';
-import {Meta, Title} from '@angular/platform-browser';
-import {NavigationEnd, Router} from '@angular/router';
-import {AppConfig} from './config/app.config';
-import {MatSnackBar} from '@angular/material';
+//import {Meta, Title} from '@angular/platform-browser';
+//import {NavigationEnd, Router} from '@angular/router';
+//import {AppConfig} from './config/app.config';
+//import {MatSnackBar} from '@angular/material';
 import {VERSION} from '@angular/material';
 import {NavItem} from './core/nav/nav-item';
 import {NavService} from './nav.service';
@@ -11,7 +11,7 @@ import {NavService} from './nav.service';
 
 
 
-declare const Modernizr;
+//declare const Modernizr;
 
 @Component({
   selector: 'app-root',
@@ -60,17 +60,17 @@ export class AppComponent implements AfterViewInit {
           route: 'order-image-upload',
         },
         {
-          displayName: 'Update Order',
-          iconName: '',
-          route: 'order-update',
+          displayName: 'Add New Order',
+          iconName: 'add',
+          route: 'order-add',
         },
       ]},
   ];
 
-  constructor(private title: Title,
-              private meta: Meta,
-              private snackBar: MatSnackBar,
-              private router: Router,
+  constructor(//private title: Title,
+              //private meta: Meta,
+              //private snackBar: MatSnackBar,
+              //private router: Router,
               private navService: NavService,
             ) {
     this.isOnline = navigator.onLine;

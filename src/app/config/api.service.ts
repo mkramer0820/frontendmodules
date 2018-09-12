@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import {Observable, of, throwError as observableThrowError } from 'rxjs';
-import {map} from 'rxjs/operators';
-import {catchError, tap} from 'rxjs/operators';
+import {Observable, /*of, throwError as observableThrowError*/ } from 'rxjs';
+//import {map} from 'rxjs/operators';
+//import {catchError, tap} from 'rxjs/operators';
 import {Customer} from '../modules/models/customer.model';
 
 
@@ -39,13 +39,16 @@ export class ApiService {
 
   //orders
   getOrders() {
-    return this.httpClient.get(`${this.API_URL}/orders/names/`);
+    return this.httpClient.get(`${this.API_URL}/orders/`);
+  }
+  getOrdersDetails(id) {
+    return this.httpClient.get(`${this.API_URL}/orders/${id}`);
   }
   createOrder(order) {
     return this.httpClient.post(`${this.API_URL}/orders/`, order)
   }
-  uploadSweaterImg(uploadData) {
-    return this.httpClient.post(`${this.API_URL}/orders/`, uploadData, {
+  uploadSweaterImg(uploadData, id) {
+    return this.httpClient.put(`${this.API_URL}/orders/${id}`, uploadData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {
@@ -53,11 +56,12 @@ export class ApiService {
          // handle event here
        });
     }
+
   getOrderDetials(id) {
     return this.httpClient.get<any>(`${this.API_URL}/orders/${id}/`);
   }
   updateOrder(id, order) {
-    return this.httpClient.put(`${this.API_URL}/orders/${id}/`, order, {
+    return this.httpClient.put(`${this.API_URL}/orders/${id}`, order, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {

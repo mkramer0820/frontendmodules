@@ -74,12 +74,6 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
        this.customer = message;
       });
     }
-  public getCustomers() {
-    this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
-      this.customers = customers;
-      console.log(customers);
-    });
-  }
 
   updateCustomer() {
     const customer = this.customerForm.value;

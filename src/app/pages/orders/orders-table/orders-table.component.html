@@ -1,3 +1,7 @@
+<div *ngIf="message">
+  {{message | json}}
+
+</div>
 <table mat-table [dataSource]="orders" matSort class="mat-elevation-z8" >
 
 <!-- Name Column -->
@@ -9,13 +13,13 @@
   <!-- Weight Column -->
   <ng-container matColumnDef="BUYER">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.buyer}} </td>
+    <td mat-cell *matCellDef="let orders"> {{orders.buyer_name}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="FACTORY">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> FACTORY </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.factory}} </td>
+    <td mat-cell *matCellDef="let orders"> {{orders.factory_name}} </td>
   </ng-container>
   <ng-container matColumnDef="ORDER NUMBER">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> CUSTOMER ORDER ID </th>
@@ -69,5 +73,13 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
     <td mat-cell *matCellDef="let orders"> {{orders.color}} </td>
   </ng-container>
+  <ng-container matColumnDef="UPDATE">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
+    <td mat-cell  *matCellDef="let orders"> <button mat-raised-button (click)="openUpdateDialog(orders.id)">Update</button></td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+  <div *ngIf="message">
+    {{message.id}}
+  </div>

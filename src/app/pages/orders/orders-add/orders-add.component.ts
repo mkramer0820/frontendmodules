@@ -93,6 +93,8 @@ export class OrdersAddComponent implements OnInit {
     this.getFactoryCustomer();
     }
 
+
+
   createCustomer() {
     const order = this.orderForm.value;
     this.apiService.createOrder(order).subscribe((response) => {

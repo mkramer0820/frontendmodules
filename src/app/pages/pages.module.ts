@@ -10,9 +10,10 @@ import { CustomerUpdateComponent } from './customer/customer-update/customer-upd
 import { OrdersTableComponent } from './orders/orders-table/orders-table.component';
 import { OrdersAddComponent } from './orders/orders-add/orders-add.component';
 import { OrdersUpdateComponent } from './orders/orders-update/orders-update.component';
-import { OrdersImageUploadComponent } from './orders/orders-image-upload/orders-image-upload.component';
+import { LoginComponent } from './login/login.component';
 //import {SharedService} from './customer/shared.service';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { OrdersImageUploadComponent } from './orders/orders-image-upload/orders-
     OrdersTableComponent,
     OrdersAddComponent,
     OrdersUpdateComponent,
-    OrdersImageUploadComponent,
+    LoginComponent,
+    //OrdersImageUploadComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
@@ -43,6 +45,10 @@ import { OrdersImageUploadComponent } from './orders/orders-image-upload/orders-
     OrdersAddComponent,
     OrdersUpdateComponent,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+  ],
 })
 export class PagesModule { }

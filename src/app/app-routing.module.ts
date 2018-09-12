@@ -6,21 +6,25 @@ import {CustomerTableComponent} from './pages/customer/customer-table/customer-t
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
 import {OrdersAddComponent} from './pages/orders/orders-add/orders-add.component';
 import {OrdersUpdateComponent} from './pages/orders/orders-update/orders-update.component';
-import {OrdersImageUploadComponent} from './pages/orders/orders-image-upload/orders-image-upload.component';
+//import {OrdersImageUploadComponent} from './pages/orders/orders-image-upload/orders-image-upload.component';
 import {CustomersComponent} from './modules/customers/customers/customers.component';
+import {LoginComponent} from './pages/login/login.component';
+import { AuthGuard } from './pages/_guards';
+
 // import {HomePage} from './core/pages/home/home.page';
 // import {Error404Page} from './core/pages/error404/error404.page';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/customer-table', pathMatch: 'full'},
+  {path: '', redirectTo: '/customer-table', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-add', component: CustomerAddFormComponent},
-  {path: 'customer-table', component: CustomerTableComponent},
+  {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
   {path: 'order-table', component: OrdersTableComponent},
   {path: 'order-add', component: OrdersAddComponent},
   {path: 'order-update', component: OrdersUpdateComponent},
-  {path: 'order-image-upload', component: OrdersImageUploadComponent},
+  //{path: 'order-image-upload', component: OrdersImageUploadComponent},
   {path: 'test-customer', component: CustomersComponent},
-
+  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   // {path: '', component: HomePage},
 
   // {path: AppConfig.routes.error404, component: Error404Page},

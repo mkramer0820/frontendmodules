@@ -3,6 +3,8 @@ export class Order {
     public id: number,
     public buyer: string,
     public factory: string,
+    public buyer_name: string,
+    public factory_name: string,
     public customer_order_number: string,
     public buyer_style_number: string,
     public jp_style_number: string,
