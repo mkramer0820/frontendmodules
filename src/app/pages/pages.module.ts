@@ -14,6 +14,10 @@ import { LoginComponent } from './login/login.component';
 //import {SharedService} from './customer/shared.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { FactoryComponent } from './factory/factory.component';
+import { FactoryTableComponent } from './factory/factory-table/factory-table.component';
+import { FactoryAddComponent } from './factory/factory-add/factory-add.component';
+import { FactoryUpdateComponent } from './factory/factory-update/factory-update.component';
 
 @NgModule({
   imports: [
@@ -31,11 +35,17 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     OrdersAddComponent,
     OrdersUpdateComponent,
     LoginComponent,
+    FactoryComponent,
+    FactoryTableComponent,
+    FactoryAddComponent,
+    FactoryUpdateComponent,
     //OrdersImageUploadComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
     CustomerUpdateComponent,
+    FactoryAddComponent,
+    FactoryUpdateComponent,
   ],
   exports: [
     CustomerAddFormComponent,
@@ -44,6 +54,9 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     OrdersTableComponent,
     OrdersAddComponent,
     OrdersUpdateComponent,
+    FactoryTableComponent,
+    FactoryAddComponent,
+    FactoryUpdateComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

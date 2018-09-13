@@ -29,7 +29,9 @@ private loadMenus(): void {
     {link: 'customer-add', name: ('Add Customer')},
     {link: 'customer-table', name: ('View All Customers')},
     {link: 'order-add', name:('Add Order')},
-    {link: 'order-table', name:('Orders')}
+    {link: 'order-table', name:('Orders')},
+    {link: 'factory-add', name: ('Add Factory')},
+    {link: 'factory-table', name: ('View all Factories')},
     ];
 }
 }

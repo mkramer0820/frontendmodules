@@ -41,6 +41,21 @@ export class AppComponent implements AfterViewInit {
       },
     ]},
     {
+    displayName: 'Factories',
+    iconName: '',
+    children: [
+      {
+        displayName: 'Add Factory',
+        iconName: 'add',
+        route: 'factory-add',
+      },
+      {
+        displayName: 'View Factories',
+        iconName: 'view',
+        route: 'factory-table',
+      },
+    ]},
+    {
       displayName: 'Orders',
       iconName: 'my_customer',
       children: [

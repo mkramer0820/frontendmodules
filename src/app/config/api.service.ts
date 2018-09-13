@@ -1,9 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import {Headers} from '@angular/http';
+
 import {Observable, /*of, throwError as observableThrowError*/ } from 'rxjs';
 //import {map} from 'rxjs/operators';
 //import {catchError, tap} from 'rxjs/operators';
 import {Customer} from '../modules/models/customer.model';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Accept' : 'application/json',
+    'Content-Type':  'application/json',
+    'Authorization' : 'Bearer' + localStorage.getItem('currentUser')
+  })
+};
 
 
 @Injectable({
@@ -11,13 +22,20 @@ import {Customer} from '../modules/models/customer.model';
 })
 export class ApiService {
 
+
   API_URL = 'http://127.0.0.1:8000';
 
   constructor(private httpClient: HttpClient) {}
+  token = localStorage.getItem('currentUser')
+  headers = new HttpHeaders().set("token", this.token)
+
 
   getCustomers(): Observable<Customer[]> {
-    return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`);
-  }
+    console.log(this.headers)
+    let headers = httpOptions
+    return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`, httpOptions)
+    }
+
   createCustomer(customer) {
     return this.httpClient.post(`${this.API_URL}/customer/`, customer);
   }
@@ -34,6 +52,12 @@ export class ApiService {
   }
   getFactoryDetails(id): Observable<any[]> {
     return this.httpClient.get<any>(`${this.API_URL}/factory/${id}/`)
+  }
+  createFactory(factory) {
+    return this.httpClient.post(`${this.API_URL}/factory/`, factory);
+  }
+  updateFactory(factory, id){
+   return this.httpClient.put(`${this.API_URL}/factory/${id}/`, factory);
   }
 
 
