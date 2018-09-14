@@ -1,0 +1,72 @@
+<p>
+  factory-contact works!
+</p>
+<div class="mat-elevation-z8">
+  <!--<form [formGroup]="form">-->
+  <table>
+
+    <mat-table #table [dataSource]="contacts">
+
+      <!--- Note that these columns can be defined in any order.
+      <mat-table #table [dataSource]="dataSource" formArrayName="contact">
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id. </mat-header-cell>
+        <mat-cell *matCellDef="let contacts"> {{contacts.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="first_name">
+        <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+        <mat-cell *matCellDef="let contacts"> {{contacts.first_name}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="contact_last_name">
+        <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let contacts"> {{contacts.last_name}} </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="contact_phone_number">
+        <mat-header-cell *matHeaderCellDef> Phone # </mat-header-cell>
+        <mat-cell *matCellDef="let contacts"> {{contacts.contact_phone_number}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contact_email">
+        <mat-header-cell *matHeaderCellDef> Phone # </mat-header-cell>
+        <mat-cell *matCellDef="let contacts"> {{contacts.contact_email}} </mat-cell>
+      </ng-container>
+
+      <!-- Complex Column
+      <ng-container matColumnDef="">
+        <mat-header-cell *matHeaderCellDef> contact_email </mat-header-cell>
+        <mat-cell *matCellDef="let contact; let i = index;" [formGroupName]="i">
+          <mat-select formControlName="active">
+            <mat-option [value]="active" *ngFor="let active of activeList">
+              {{ active }}
+            </mat-option>
+          </mat-select>
+        </mat-cell>
+      </ng-container> -->
+
+      <!-- Complex Column
+      <ng-container matColumnDef="anotherDropdown">
+        <mat-header-cell *matHeaderCellDef> AnotherDropdown </mat-header-cell>
+        <mat-cell *matCellDef="let contact; let i = index;" [formGroupName]="i">
+          <mat-select formControlName="anotherDropdown">
+            <mat-option [value]="active" *ngFor="let active of activeList">
+              {{ active }}
+            </mat-option>
+          </mat-select>
+        </mat-cell>
+      </ng-container> -->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+    </mat-table>
+<!--  </form>-->
+</table>
+</div>

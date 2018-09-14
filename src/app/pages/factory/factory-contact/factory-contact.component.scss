@@ -1,15 +1,21 @@
-$width: 100%;
+$width: 75%;
+$tablewidth: 100%;
 $tabledata: 3%;
 $height: auto;
 $imgW: 50px;
 $imgH: auto;
 $overflow: auto;
-$maxheight: 500px;
+
+div {
+  width: $width;
+  margin-left:12.5%;
+  margin-right:12.5%;
+}
 
 table {
-    width: $width;
+    width: $tablewidth;
     overflow: $overflow;
-    max-height: $maxheight;
+
 }
 
 td {
@@ -18,8 +24,4 @@ td {
 img {
    width:$imgW;
     height:$imgH;
-}
-mat-table {
-  overflow: $overflow;
-  max-height: $maxheight;
 }

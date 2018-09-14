@@ -18,6 +18,7 @@ import { FactoryComponent } from './factory/factory.component';
 import { FactoryTableComponent } from './factory/factory-table/factory-table.component';
 import { FactoryAddComponent } from './factory/factory-add/factory-add.component';
 import { FactoryUpdateComponent } from './factory/factory-update/factory-update.component';
+import { FactoryContactComponent } from './factory/factory-contact/factory-contact.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { FactoryUpdateComponent } from './factory/factory-update/factory-update.
     FactoryTableComponent,
     FactoryAddComponent,
     FactoryUpdateComponent,
+    FactoryContactComponent,
     //OrdersImageUploadComponent,
   ],
   entryComponents: [

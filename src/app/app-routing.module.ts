@@ -12,6 +12,7 @@ import {OrdersUpdateComponent} from './pages/orders/orders-update/orders-update.
 import {CustomersComponent} from './modules/customers/customers/customers.component';
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
+import { FactoryContactComponent } from './pages/factory/factory-contact/factory-contact.component';
 
 // import {HomePage} from './core/pages/home/home.page';
 // import {Error404Page} from './core/pages/error404/error404.page';
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'order-update', component: OrdersUpdateComponent},
   //{path: 'order-image-upload', component: OrdersImageUploadComponent},
   {path: 'test-customer', component: CustomersComponent},
+  {path: 'factory-contact', component: FactoryContactComponent},
   //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   // {path: '', component: HomePage},

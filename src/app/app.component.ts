@@ -54,6 +54,11 @@ export class AppComponent implements AfterViewInit {
         iconName: 'view',
         route: 'factory-table',
       },
+      {
+        displayName: 'Factory Contact Book',
+        iconName: 'person',
+        route: 'factory-contact',
+      },
     ]},
     {
       displayName: 'Orders',

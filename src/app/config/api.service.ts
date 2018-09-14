@@ -56,10 +56,16 @@ export class ApiService {
   createFactory(factory) {
     return this.httpClient.post(`${this.API_URL}/factory/`, factory);
   }
+  //factory contacts
   updateFactory(factory, id){
    return this.httpClient.put(`${this.API_URL}/factory/${id}/`, factory);
   }
-
+  getFactoryContacts() {
+    return this.httpClient.get(`${this.API_URL}/factory/contacts/`);
+  }
+  updateFactoryContacts(id, contact) {
+    return this.httpClient.put(`${this.API_URL}/factory/contacts/${id}`, contact);
+  }
 
   //orders
   getOrders() {
