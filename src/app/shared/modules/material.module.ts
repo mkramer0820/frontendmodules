@@ -31,6 +31,9 @@ import {
   MatRippleModule,
   MatSidenavModule,
   MatTabsModule,
+  MatSortModule,
+  MatTableDataSource,
+
 
 } from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -73,6 +76,8 @@ import {NgModule} from '@angular/core';
     MatOptionModule,
     MatSlideToggleModule ,
     MatTableModule,
+    MatSortModule,
+    
 
 
   ],
@@ -118,6 +123,8 @@ import {NgModule} from '@angular/core';
     MatRippleModule,
     MatSidenavModule,
     MatTabsModule,
+    MatSortModule,
+
 
 
   ],

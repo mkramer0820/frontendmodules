@@ -2,84 +2,100 @@
   {{message | json}}
 
 </div>
-<table mat-table [dataSource]="orders" matSort class="mat-elevation-z8" >
+<br />
+<div>
+  <mat-table [dataSource]="orders" matSort class="mat-elevation-z8" >
 
-<!-- Name Column -->
-  <ng-container matColumnDef="ID">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.id}} </td>
-  </ng-container>
+    <ng-container matColumnDef="ID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let order"> {{order.id}} </td>
+    </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="BUYER">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.buyer_name}} </td>
-  </ng-container>
+    <ng-container matColumnDef="BUYER">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER </th>
+      <td mat-cell *matCellDef="let order"> {{order.buyer_name}} </td>
+    </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="FACTORY">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> FACTORY </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.factory_name}} </td>
-  </ng-container>
-  <ng-container matColumnDef="ORDER NUMBER">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> CUSTOMER ORDER ID </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.customer_order_number}} </td>
-  </ng-container>
-  <ng-container matColumnDef="BUYER STYLE #">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER STYLE # </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.buyer_style_number}} </td>
-  </ng-container>
-<ng-container matColumnDef="JP STYLE #">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> JP STYLE # </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.jp_style_number}} </td>
-  </ng-container>
-  <ng-container matColumnDef="FACTORY SHIP DT">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Ship Date </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.factory_ship_date}} </td>
-  </ng-container>
-  <ng-container matColumnDef="COST FROM FACTORY">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost From Factory </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.cost_from_factory}} </td>
-  </ng-container>
-  <ng-container matColumnDef="BUYER PRICE">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Price Buyer Paid </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.buyers_price}} </td>
-  </ng-container>
-  <ng-container matColumnDef="ORDER TYPE">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Type </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.order_type}} </td>
-  </ng-container>
-  <ng-container matColumnDef="QTY">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.qty}} </td>
-  </ng-container>
-  <ng-container matColumnDef="SWEATER IMG">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
-    <td mat-cell *matCellDef="let orders"><img src='{{orders.sweater_image}}' /> </td>
-  </ng-container>
-  <ng-container matColumnDef="SWEATER DESCRIPTION">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.sweater_description}} </td>
-  </ng-container>
-  <ng-container matColumnDef="BRAND">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.brand}} </td>
-  </ng-container>
-  <ng-container matColumnDef="FIBER CONTENT">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiber Content </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.fiber_content}} </td>
-  </ng-container>
-    <ng-container matColumnDef="COLOR">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
-    <td mat-cell *matCellDef="let orders"> {{orders.color}} </td>
-  </ng-container>
-  <ng-container matColumnDef="UPDATE">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
-    <td mat-cell  *matCellDef="let orders"> <button mat-raised-button (click)="openUpdateDialog(orders.id)">Update</button></td>
-  </ng-container>
+    <ng-container matColumnDef="FACTORY">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> FACTORY </th>
+      <td mat-cell *matCellDef="let order"> {{order.factory_name}} </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
-  <div *ngIf="message">
-    {{message.id}}
-  </div>
+    <ng-container matColumnDef="ORDER NUMBER">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CUSTOMER ORDER ID </th>
+      <td mat-cell *matCellDef="let order"> {{order.customer_order_number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BUYER STYLE #">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER STYLE # </th>
+      <td mat-cell *matCellDef="let order"> {{order.buyer_style_number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="JP STYLE #">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> JP STYLE # </th>
+      <td mat-cell *matCellDef="let order"> {{order.jp_style_number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="FACTORY SHIP DT">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Ship Date </th>
+      <td mat-cell *matCellDef="let order"> {{order.factory_ship_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="COST FROM FACTORY">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost From Factory </th>
+      <td mat-cell *matCellDef="let order"> {{order.cost_from_factory}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BUYER PRICE">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price Buyer Paid </th>
+      <td mat-cell *matCellDef="let order"> {{order.buyers_price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ORDER TYPE">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Type </th>
+      <td mat-cell *matCellDef="let order"> {{order.order_type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="QTY">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+      <td mat-cell *matCellDef="let order"> {{order.qty}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SWEATER IMG">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+      <td mat-cell *matCellDef="let order"><img src='{{order.sweater_image}}' /> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SWEATER DESCRIPTION">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </th>
+      <td mat-cell *matCellDef="let order"> {{order.sweater_description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BRAND">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
+      <td mat-cell *matCellDef="let order"> {{order.brand}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="FIBER CONTENT">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiber Content </th>
+      <td mat-cell *matCellDef="let order"> {{order.fiber_content}} </td>
+    </ng-container>
+
+      <ng-container matColumnDef="COLOR">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+      <td mat-cell *matCellDef="let order"> {{order.color}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="UPDATE">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
+      <td mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openUpdateDialog(order.id)">Update</button></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+  </mat-table>
+</div>
+<div *ngFor='let item of dataSource'>
+  test
+  {{item}}
+</div>

@@ -93,8 +93,6 @@
 
 
 
-
-
      <br />
 
 
@@ -104,6 +102,13 @@
    </form>
 
      <p>Form Value: {{ orderForm.value| json }}</p>
+
+     <input type="file" (change)="upload($event.target.files)" (upload)="upload($event.target.files)" />
+     Upload Percent: {{percentDone}}% <br />
+
+     <ng-container *ngIf="uploadSuccess">
+       Upload Successful
+     </ng-container>
      <!--
      <mat-select placeholder="brand" formControlName='brand'>
       <mat-option *ngFor="let brand of brands" [value]="brand" >

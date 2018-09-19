@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../../config/api.service';
+import {HttpClientModule, HttpClient, HttpRequest, HttpResponse, HttpEventType} from '@angular/common/http';
 import {Order} from '../../../modules/models/orders.model';
 import {Customer} from '../../../modules/models/Customer.model';
 import {Factory} from '../../../modules/models/Factory.model';
@@ -43,6 +44,10 @@ export class OrdersUpdateComponent implements OnInit {
   customers: Customer[];
   factory: Factory[];
 
+  //image
+  percentDone: number;
+  uploadSuccess: boolean;
+
   subscription: Subscription;
   order: Order[];
   selectedOrder: Order[];
@@ -73,6 +78,7 @@ export class OrdersUpdateComponent implements OnInit {
   constructor(
               private sharedService: OrdersSharedService,
               private apiService: ApiService,
+              private http: HttpClient,
               private fb: FormBuilder,
             ) {
               this.orderForm = this.fb.group({
@@ -144,6 +150,26 @@ export class OrdersUpdateComponent implements OnInit {
       this.orderForm.get('fiber_content').setValue(myOrder['fiber_content']);
       this.orderForm.get('jp_care_instructions').setValue(myOrder['jp_care_instructions']);
       this.orderForm.get('color').setValue(myOrder['color']);
+    });
+  }
+  upload(files: File[]){
+    //pick from one of the 4 styles of file uploads below
+    this.uploadAndProgress(files);
+  }
+  uploadAndProgress(files: File[]){
+    console.log(files)
+    let f = files[0].name)
+    var formData = new FormData();
+    Array.from(files).forEach(f => formData.append('file',f))
+
+    let imgurl = 'http://127.0.0.1:8000/media/sweater_images/'
+    this.http.put(`${imgurl+f}`, formData, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.percentDone = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.uploadSuccess = true;
+        }
     });
   }
 

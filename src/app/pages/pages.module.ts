@@ -19,6 +19,8 @@ import { FactoryTableComponent } from './factory/factory-table/factory-table.com
 import { FactoryAddComponent } from './factory/factory-add/factory-add.component';
 import { FactoryUpdateComponent } from './factory/factory-update/factory-update.component';
 import { FactoryContactComponent } from './factory/factory-contact/factory-contact.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { FactoryContactComponent } from './factory/factory-contact/factory-conta
     ReactiveFormsModule,
     CommonModule,
     SharedModule,
+    BrowserAnimationsModule,
   ],
   declarations: [
     CustomerAddFormComponent,

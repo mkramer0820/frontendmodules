@@ -2,10 +2,9 @@
   factory-contact works!
 </p>
 <div class="mat-elevation-z8">
-  <!--<form [formGroup]="form">-->
-  <table>
 
-    <mat-table #table [dataSource]="contacts">
+
+    <mat-table #table [dataSource]="contacts" fromGroupName='contactForm'>
 
       <!--- Note that these columns can be defined in any order.
       <mat-table #table [dataSource]="dataSource" formArrayName="contact">
@@ -63,10 +62,8 @@
           </mat-select>
         </mat-cell>
       </ng-container> -->
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
     </mat-table>
-<!--  </form>-->
-</table>
+
 </div>

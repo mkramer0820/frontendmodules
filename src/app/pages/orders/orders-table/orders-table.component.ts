@@ -1,6 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {Order} from '../../../modules/models/orders.model';
+import { Component, OnInit, Directive, ViewChild, Input} from '@angular/core';
+import {Order, Orders} from '../../../modules/models/orders.model';
 import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
 // import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
@@ -10,6 +9,11 @@ import {Subscription} from 'rxjs';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
+import {MatDialog, MatTableDataSource, MatPaginator, MatSortModule, MatSort } from '@angular/material';
+import {DataSource} from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-orders-table',
@@ -33,6 +37,15 @@ export class OrdersTableComponent implements OnInit {
   f = [];
   test: any;
 
+ //myorders= [];
+
+ //dataSource = new MatTableDataSource(this.myorders);
+
+  //@ViewChild(MatSort) sort: MatSort;
+  //@ViewChild(MatSort) sort: MatSort;
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
+
+
   constructor(
     private apiService: ApiService,
     private shared: OrdersSharedService,
@@ -42,6 +55,7 @@ export class OrdersTableComponent implements OnInit {
 
   ngOnInit() {
     this.getOrders();
+
   }
 
   sendMessage(message): void {
@@ -56,6 +70,7 @@ export class OrdersTableComponent implements OnInit {
   getOrders() {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
       this.orders = orders;
+      console.log(orders)
     });
   }
 
@@ -81,4 +96,14 @@ export class OrdersTableComponent implements OnInit {
       });
     });
   }
+}
+
+export class OrdersDataSource extends DataSource<any> {
+  constructor(private apiService: ApiService) {
+    super();
+  }
+  connect(): Observable<Orders[]> {
+    return this.apiService.getMyOrders();
+  }
+  disconnect() {}
 }

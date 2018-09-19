@@ -1,20 +1,27 @@
 $width: 100%;
-$tabledata: 3%;
+$tabledata: 4%;
 $height: auto;
 $imgW: 50px;
 $imgH: auto;
 $overflow: auto;
 $maxheight: 500px;
+$flexDisplay: flex;
+$flexDisplay: flex-end;
+$center: center;
 
-table {
+mat-table {
     width: $width;
     overflow: $overflow;
     max-height: $maxheight;
+    text-align: $center;
 }
 
-td {
+
+td, ng-container{
   width: $tabledata;
+  text-align: $center;
 }
+
 img {
    width:$imgW;
     height:$imgH;

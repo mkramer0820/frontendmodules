@@ -6,6 +6,7 @@ import {ApiService} from '../../../config/api.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, FormArray} from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 
 
@@ -19,7 +20,13 @@ export class FactoryContactComponent implements AfterViewInit {
                       'contact_phone_number', 'contact_email'];
   contacts: Contact[];
   dataSource = this.contacts;
-  form: FormGroup;
+  //form: FormGroup;
+  contactForm = this.fb.group({
+    first_name: [''],
+    contact_last_name: [''],
+    contact_phone_number: [''],
+    contact_email: [''],
+  });
 
   constructor(
     private apiService: ApiService,
@@ -29,7 +36,13 @@ export class FactoryContactComponent implements AfterViewInit {
       //this.form = this.fb.group({
         //contact: this.createFormArray()
       //});
-   }
+      this.contactForm = this.fb.group({
+        'first_name': new FormControl('',),
+        'contact_last_name': new FormControl('',),
+        'contact_phone_number': new FormControl('',),
+        'contact_email': new FormControl('',)
+      });
+    }
 
   ngAfterViewInit() {
 
