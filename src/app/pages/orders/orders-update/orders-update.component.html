@@ -83,8 +83,13 @@
      </mat-form-field>
 
      <br />
+     <input (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
+     <input (change)="onSubmit()" type="submit" value="Send file">
 
-     <button type="submit" [disabled]="!orderForm.valid" (click)="updateMyOrder()">Update</button>
+
+     <br />
+
+     <button type="submit" [disabled]="!orderForm.valid" (click)="onSubmit()" type="submit" value="Send file">Update</button>
      <button type="close" [mat-dialog-close]="true">Exit</button>
 
    </form>

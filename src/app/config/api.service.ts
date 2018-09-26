@@ -81,8 +81,8 @@ export class ApiService {
   createOrder(order) {
     return this.httpClient.post(`${this.API_URL}/orders/`, order)
   }
-  uploadSweaterImg(uploadData, id) {
-    return this.httpClient.put(`${this.API_URL}/orders/imgupload/${id}`, uploadData, {
+  uploadSweaterImg(id, uploadData) {
+    return this.httpClient.post(`${this.API_URL}/orders/imgupload/${id}/`, uploadData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {
