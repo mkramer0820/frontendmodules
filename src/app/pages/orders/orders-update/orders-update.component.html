@@ -84,31 +84,13 @@
 
      <br />
 
-      <label for="uploadPicture" class="upload-file">
-      <mat-icon>add_a_photo</mat-icon>
-      <input id="uploadPicture" class="hidden-input" type="file" accept="image/*" (change)="changeListener($event)" formControlName="swater_image">
-
-      </label>
-
-
-
-
-     <br />
-
-
      <button type="submit" [disabled]="!orderForm.valid" (click)="updateMyOrder()">Update</button>
      <button type="close" [mat-dialog-close]="true">Exit</button>
 
    </form>
 
      <p>Form Value: {{ orderForm.value| json }}</p>
-
-     <input type="file" (change)="upload($event.target.files)" (upload)="upload($event.target.files)" />
-     Upload Percent: {{percentDone}}% <br />
-
-     <ng-container *ngIf="uploadSuccess">
-       Upload Successful
-     </ng-container>
+</mat-dialog-content>
      <!--
      <mat-select placeholder="brand" formControlName='brand'>
       <mat-option *ngFor="let brand of brands" [value]="brand" >

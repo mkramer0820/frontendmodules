@@ -97,7 +97,7 @@ export class OrdersUpdateComponent implements OnInit {
                 'fiber_content': new FormControl(''),
                 'jp_care_instructions': new FormControl(''),
                 'color': new FormControl(''),
-                //'sweater_image':new FormControl(),
+                //'sweater_image':new FormData(),
               });
 
              }
@@ -112,15 +112,31 @@ export class OrdersUpdateComponent implements OnInit {
   clearMessage(): void {
     this.sharedService.clearMessage();
   }
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0]
+  }
+  /*
+  onUpload() {
 
+    this.subscription = this.sharedService.getMessage().subscribe(message => {
+    // upload code goes here
+      let myorder = message;
+      let id = myorder['id']
+      const uploadData = new FormData();
+      uploadData.append('myFile', this.selectedFile);
+      this.apiService.uploadSweaterImg(uploadData, id)
+    })
+  }*/
 
   updateMyOrder() {
     let order = this.orderForm.value;
     let id = this.orderForm.get('id').value;
     console.log(order, id)
-    this.apiService.updateOrder(id, order);
-
-    this.orderForm.reset();
+    this.apiService.updateOrder(id, order).subscribe((response) => {
+      console.log(response);
+      this.orderForm.reset();
+    //this.orderForm.reset();
+    });
   }
   getFactoryCustomer(){
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
@@ -152,13 +168,17 @@ export class OrdersUpdateComponent implements OnInit {
       this.orderForm.get('color').setValue(myOrder['color']);
     });
   }
+
+  // image uploadData
+  /*
   upload(files: File[]){
     //pick from one of the 4 styles of file uploads below
     this.uploadAndProgress(files);
-  }
+  }*/
+  /*
   uploadAndProgress(files: File[]){
     console.log(files)
-    let f = files[0].name)
+    let f = files[0].name
     var formData = new FormData();
     Array.from(files).forEach(f => formData.append('file',f))
 
@@ -171,7 +191,7 @@ export class OrdersUpdateComponent implements OnInit {
           this.uploadSuccess = true;
         }
     });
-  }
+  }*/
 
   /*
   orderMessage(){
