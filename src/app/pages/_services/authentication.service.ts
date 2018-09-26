@@ -1,10 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
+
+  private httpOptions: any;
+  public token: string;
+  public token_expires: Date;
+  public username: string;
+  public errors: any = [];
+
+
+
+
+
+
+    constructor(private http: HttpClient) {
+      this.httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
+   }
 
     login(username: string, password: string) {
         return this.http.post<any>(`http://127.0.0.1:8000/api-token-auth/`, { username, password })
@@ -24,4 +40,14 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
+    updateData(token) {
+      this.token = localStorage.getItem('currentUser');
+      this.errors = [];
+
+      const token_parts = this.token.split(/\./);
+      const token_decoded = JSON.parse(window.atob(token_parts[1]));
+      console.log(token_decoded);
+      this.token_expires = new Date(token_decoded.exp * 1000);
+      this.username = token_decoded.username;
+  }
 }

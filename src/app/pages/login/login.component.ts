@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer-table';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/order-table';
   }
 
   get f() { return this.loginForm.controls; }

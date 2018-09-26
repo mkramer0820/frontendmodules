@@ -12,6 +12,8 @@ import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
 import {MatDialog, MatTableDataSource, MatPaginator, MatSortModule, MatSort } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../_services';
+
 
 
 
@@ -36,7 +38,7 @@ export class OrdersTableComponent implements OnInit {
   factory: Factory[];
   f = [];
   test: any;
-
+  token = localStorage.getItem('currentUser')
  //myorders= [];
 
  //dataSource = new MatTableDataSource(this.myorders);
@@ -50,6 +52,7 @@ export class OrdersTableComponent implements OnInit {
     private apiService: ApiService,
     private shared: OrdersSharedService,
     private dialog: MatDialog,
+    private auth: AuthenticationService
     //private service: SharedService,
   ) { }
 
@@ -64,6 +67,9 @@ export class OrdersTableComponent implements OnInit {
     }
   clearMessage(): void {
     this.shared.clearMessage();
+  }
+  decodeJwt(){
+    this.auth.updateData(this.token);
   }
 
 
