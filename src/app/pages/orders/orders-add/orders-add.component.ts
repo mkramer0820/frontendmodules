@@ -60,6 +60,7 @@ export class OrdersAddComponent implements OnInit {
     fiber_content: [''],
     jp_care_instructions: [''],
     color: [''],
+    sweater_image: [null],
   });
   //turn semicolon to commma to add nested json
   //tasks: this.fb.array([
@@ -86,6 +87,7 @@ export class OrdersAddComponent implements OnInit {
       'fiber_content': new FormControl(''),
       'jp_care_instructions': new FormControl(''),
       'color': new FormControl(''),
+      'sweter_image': [null],
     });
   }
 
@@ -93,15 +95,28 @@ export class OrdersAddComponent implements OnInit {
     this.getFactoryCustomer();
     }
 
+    onFileChanged(event) {
+      let reader = new FileReader();
+      if(event.target.files && event.target.files.length) {
+        const [file] = event.target.files;
+        reader.readAsDataURL(file);
 
-
-  createCustomer() {
-    const order = this.orderForm.value;
-    this.apiService.createOrder(order).subscribe((response) => {
-      console.log(response);
-      this.orderForm.reset();
-    });
-  }
+        reader.onload = () => {
+        this.orderForm.patchValue({
+          sweater_image: reader.result
+          });
+        }
+      }
+    }
+    uploadImage(event: any) {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.orderForm.get('sweater_image').setValue(event.target.files[0]);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
   getFactoryCustomer(){
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
 
@@ -113,12 +128,33 @@ export class OrdersAddComponent implements OnInit {
       this.factories = factories
       console.log(this.factories);
     });
-  }
+  }/*
   createOrder() {
     this.orderForm.controls['factory_ship_date'].setValue(this.orderForm.controls['factory_ship_date'].value.format('YYYY-MM-DD'));
     const order = this.orderForm.value;
     console.log(order)
     this.apiService.createOrder(order).subscribe((response) => {
+      console.log(response);
+      this.orderForm.reset();
+    });
+  }*/
+  createOrder() {
+    this.orderForm.controls['factory_ship_date'].setValue(this.orderForm.controls['factory_ship_date'].value.format('YYYY-MM-DD'));
+    const uploadData = new FormData();
+    uploadData.append('buyer', this.orderForm.get('buyer').value);
+    uploadData.append('factory', this.orderForm.get('factory').value);
+    uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
+    uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
+    uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
+    uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
+    uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
+    uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+    uploadData.append('order_type', this.orderForm.get('order_type').value);
+    uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
+    uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
+    uploadData.append('color', this.orderForm.get('color').value);
+    uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
+    this.apiService.createOrder(uploadData).subscribe((response) => {
       console.log(response);
       this.orderForm.reset();
     });

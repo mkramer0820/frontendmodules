@@ -100,6 +100,9 @@ export class ApiService {
 
   //tasks
   getTasks() {
-    return this.httpClient.get(`${this.API_URL}/task/`);
+    return this.httpClient.get(`${this.API_URL}/taskset/`);
+  }
+  createTask(task) {
+    return this.httpClient.post(`${this.API_URL}/taskset/`, task)
   }
 }

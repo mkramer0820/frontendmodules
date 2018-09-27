@@ -2,7 +2,7 @@
   factory-add works!
 </p>
 <mat-dialog-content>
-<form [formGroup]="customerForm">
+<form [formGroup]="factoryForm">
   <label>
     Factory Name:
     <input type="text"  formControlName="name" >
@@ -67,9 +67,9 @@
 </form>
 
 
-<p>Form Value: {{ customerForm.value | json }}</p>
-  <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
-<p>Form Status: {{ customerForm.status }}</p>
+<p>Form Value: {{ factoryForm.value | json }}</p>
+  <p>Form Value Non Json: {{FactoryForm.value['name'] }}</p>
+<p>Form Status: {{ factoryForm.status }}</p>
 
 </mat-dialog-content>
 

@@ -20,6 +20,8 @@ import { FactoryAddComponent } from './factory/factory-add/factory-add.component
 import { FactoryUpdateComponent } from './factory/factory-update/factory-update.component';
 import { FactoryContactComponent } from './factory/factory-contact/factory-contact.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TaskComponent } from './task/task.component';
+import { TasksetComponent } from './task/taskset/taskset.component';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FactoryAddComponent,
     FactoryUpdateComponent,
     FactoryContactComponent,
+    TaskComponent,
+    TasksetComponent,
     //OrdersImageUploadComponent,
   ],
   entryComponents: [

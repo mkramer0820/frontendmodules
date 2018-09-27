@@ -78,6 +78,9 @@
      </mat-form-field>
 
      <br />
+     <input (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
+
+     <br />
      <button type="submit" [disabled]="!orderForm.valid" (click)="createOrder()">Create</button>
      <button type="close" [mat-dialog-close]="true">Exit</button>
 

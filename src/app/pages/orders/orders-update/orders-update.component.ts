@@ -43,20 +43,13 @@ export class OrdersUpdateComponent implements OnInit {
   //pull from backend to fill form
   customers: Customer[];
   factory: Factory[];
-
-  //image
-  percentDone: number;
-  uploadSuccess: boolean;
-
   subscription: Subscription;
   order: Order[];
   selectedOrder: Order[];
   version = VERSION
-  customer: Customer[];
   brands= ['888', 'JP', 'AVE', 'OTHER'];
   //types = ["Delivary Duty Paid", "Freight On Board"];
   types = ['DDP', 'FOB', 'NA'];
-  selectedFile: File;
   orderForm = this.fb.group({
     buyer: [''],
     factory: [''],
@@ -78,7 +71,6 @@ export class OrdersUpdateComponent implements OnInit {
   constructor(
               private sharedService: OrdersSharedService,
               private apiService: ApiService,
-              private http: HttpClient,
               private fb: FormBuilder,
             ) {
               this.orderForm = this.fb.group({
@@ -125,19 +117,6 @@ export class OrdersUpdateComponent implements OnInit {
       }
     }
   }
-
-  /*
-  onUpload() {
-
-    this.subscription = this.sharedService.getMessage().subscribe(message => {
-    // upload code goes here
-      let myorder = message;
-      let id = myorder['id']
-      const uploadData = new FormData();
-      uploadData.append('myFile', this.selectedFile);
-      this.apiService.uploadSweaterImg(uploadData, id)
-    })
-  }*/
   uploadImage(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -147,7 +126,6 @@ export class OrdersUpdateComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
   onSubmit(): void {
     const uploadData = new FormData();
     let id = this.orderForm.get('id').value;
@@ -171,20 +149,6 @@ export class OrdersUpdateComponent implements OnInit {
       this.orderForm.reset();
     });
   }
-
-  /*updateMyOrder() {
-
-    let order = this.orderForm.value;
-    let id = this.orderForm.get('id').value;
-    console.log(order, id)
-    this.apiService.updateOrder(id, order).subscribe((response) => {
-      console.log(response);
-      this.orderForm.reset();
-    //this.orderForm.reset();
-    //this.apiService.uploadSweaterImg(id, order)
-    //this.orderForm.reset();
-    });
-  }*/
   getFactoryCustomer(){
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
       this.customers = customers
@@ -215,37 +179,4 @@ export class OrdersUpdateComponent implements OnInit {
       this.orderForm.get('color').setValue(myOrder['color']);
     });
   }
-
-  // image uploadData
-  /*
-  upload(files: File[]){
-    //pick from one of the 4 styles of file uploads below
-    this.uploadAndProgress(files);
-  }*/
-  /*
-  uploadAndProgress(files: File[]){
-    console.log(files)
-    let f = files[0].name
-    var formData = new FormData();
-    Array.from(files).forEach(f => formData.append('file',f))
-
-    let imgurl = 'http://127.0.0.1:8000/media/sweater_images/'
-    this.http.put(`${imgurl+f}`, formData, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.percentDone = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          this.uploadSuccess = true;
-        }
-    });
-  }*/
-
-  /*
-  orderMessage(){
-    this.subscription = this.sharedService.getMessage().subscribe(message => {
-      console.log(message);
-      return this.order = message;
-      });
-    }*/
-
 }

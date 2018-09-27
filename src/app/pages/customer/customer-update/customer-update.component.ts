@@ -38,6 +38,8 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
   name: string;
   phone: string;
 
+  dynamo: any;
+  newdynamo: any;
 
 
   constructor(
@@ -82,6 +84,24 @@ export class CustomerUpdateComponent implements OnInit, OnDestroy {
     this.apiService.updateCustomer(customer, id).subscribe((response) => {
       console.log(response);
       this.customerForm.reset();
+    });
+  }
+  dynamicJson(){
+    //let fields = this.customerForm.value;
+    let newjson = {}
+    const name = this.customerForm.get('name').value;
+    this.dynamo = this.customerForm.value;
+    for (var key in this.dynamo) {
+      let value = this.dynamo[key]
+      newjson[value] = key;
+   }
+   this.newdynamo = {}
+   this.newdynamo['set_items'] = newjson;
+   this.newdynamo['set_name'] = name;
+   let task = this.newdynamo;
+
+   this.apiService.createTask(task).subscribe((response) => {
+      console.log(response);
     });
   }
 }

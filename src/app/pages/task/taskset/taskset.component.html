@@ -1,0 +1,26 @@
+<p>
+  taskset works!
+</p>
+<h1>Create TaskSet</h1>
+
+<form [formGroup]="taskSetForm">
+
+  <label>
+    Title: <input formControlName="set_name" />
+  </label>
+  <h2>Task Items</h2>
+
+  <div formArrayName='set_items'>
+    <div *ngFor="let item of setItems.controls; let itemIndex=index" [formGroupName]="setIndex">
+    <label>
+      Set Items: <input formControlName="set_items" />
+    </label>
+    <button type="button" (click)="deleteSetItem(pointIndex)">Delete Set Item</button>
+   </div>
+   <button type="button" (click)="addSetItem()">Add Set Item</button>
+  </div>
+
+</form>
+
+
+{{ this.taskSetForm.value | json }}

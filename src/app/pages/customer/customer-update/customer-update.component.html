@@ -57,9 +57,16 @@
 </form>
 
 
+<button type="update" [disabled]="!customerForm.valid" (click)="dynamicJson()">Json</button>
+<div *ngIf="dynamo">
+  {{dynamo | json}}
+  <br />
+  {{newdynamo | json}}
+</div>
+<!--
 <p>Form Value: {{ customerForm.value | json }}</p>
   <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
-<p>Form Status: {{ customerForm.status }}</p>
+<p>Form Status: {{ customerForm.status }}</p>-->
 
 </mat-dialog-content>
 

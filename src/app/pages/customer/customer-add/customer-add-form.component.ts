@@ -65,6 +65,7 @@ export class CustomerAddFormComponent implements OnInit {
       this.customerForm.reset();
     });
   }
+
 }
 
 

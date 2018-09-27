@@ -13,6 +13,7 @@ import {CustomersComponent} from './modules/customers/customers/customers.compon
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
 import { FactoryContactComponent } from './pages/factory/factory-contact/factory-contact.component';
+import {TasksetComponent} from './pages/task/taskset/taskset.component';
 
 // import {HomePage} from './core/pages/home/home.page';
 // import {Error404Page} from './core/pages/error404/error404.page';
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'order-table', component: OrdersTableComponent, canActivate: [AuthGuard]},
   {path: 'order-add', component: OrdersAddComponent, canActivate: [AuthGuard]},
   {path: 'order-update', component: OrdersUpdateComponent, canActivate: [AuthGuard]},
+  {path: 'task-set', component:TasksetComponent, canActivate:[AuthGuard]},
   //{path: 'order-image-upload', component: OrdersImageUploadComponent},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},

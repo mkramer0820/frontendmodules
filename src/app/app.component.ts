@@ -85,6 +85,16 @@ export class AppComponent implements AfterViewInit {
           route: 'order-add',
         },
       ]},
+      {
+        displayName: 'Tasks',
+        iconName: '',
+        children: [
+          {
+            displayName: 'Add Task Set',
+            iconName: 'add',
+            route: 'task-set',
+          },
+        ]},
   ];
 
   constructor(//private title: Title,
