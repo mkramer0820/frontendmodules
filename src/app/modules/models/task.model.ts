@@ -1,8 +1,11 @@
-export class TaskSet {
-    set_name: string
-    set_items: any;
+
+export class TaskGroup {
+    todos_group: number;
+    todos: Todos[]
 }
 
-export class SetItem {
-    set_item: any
+export class Todos {
+    todo: string
+    duedate: string
+    comment: string
 }

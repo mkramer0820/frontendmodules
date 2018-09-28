@@ -8,15 +8,14 @@ import {FactoryTableComponent} from './pages/factory/factory-table/factory-table
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
 import {OrdersAddComponent} from './pages/orders/orders-add/orders-add.component';
 import {OrdersUpdateComponent} from './pages/orders/orders-update/orders-update.component';
-//import {OrdersImageUploadComponent} from './pages/orders/orders-image-upload/orders-image-upload.component';
 import {CustomersComponent} from './modules/customers/customers/customers.component';
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
 import { FactoryContactComponent } from './pages/factory/factory-contact/factory-contact.component';
 import {TasksetComponent} from './pages/task/taskset/taskset.component';
-
-// import {HomePage} from './core/pages/home/home.page';
-// import {Error404Page} from './core/pages/error404/error404.page';
+import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
+//import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
+//import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -28,13 +27,14 @@ const routes: Routes = [
   {path: 'order-add', component: OrdersAddComponent, canActivate: [AuthGuard]},
   {path: 'order-update', component: OrdersUpdateComponent, canActivate: [AuthGuard]},
   {path: 'task-set', component:TasksetComponent, canActivate:[AuthGuard]},
-  //{path: 'order-image-upload', component: OrdersImageUploadComponent},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},
-  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'task-form', component: DynamicComponent },
+  //{ path: 'task-form', component: DynamicFormComponent },
+  //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},
-
+  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
   // {path: AppConfig.routes.error404, component: Error404Page},
 
 ];

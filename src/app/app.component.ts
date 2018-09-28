@@ -94,6 +94,11 @@ export class AppComponent implements AfterViewInit {
             iconName: 'add',
             route: 'task-set',
           },
+          {
+            displayName: 'Update Task',
+            iconName: 'update',
+            route: 'task-form',
+          },
         ]},
   ];
 

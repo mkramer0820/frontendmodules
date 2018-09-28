@@ -100,9 +100,20 @@ export class ApiService {
 
   //tasks
   getTasks() {
-    return this.httpClient.get(`${this.API_URL}/taskset/`);
+    return this.httpClient.get(`${this.API_URL}/task/`);
+  }
+  getTaskDetail(id) {
+    return this.httpClient.get(`${this.API_URL}/task/${id}`, id);
+  }
+  updateTask(id, task) {
+    return this.httpClient.post(`${this.API_URL}/task/${id}`, id, task);
   }
   createTask(task) {
-    return this.httpClient.post(`${this.API_URL}/taskset/`, task)
+    return this.httpClient.post(`${this.API_URL}/task/`, task)
+  }
+  taskOptions() {
+    return this.httpClient.options(`${this.API_URL}/task/`).subscribe(response => {
+      console.log(response)
+    })
   }
 }

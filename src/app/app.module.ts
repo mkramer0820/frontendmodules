@@ -18,6 +18,7 @@ import {CustomersModule} from './modules/customers/customers.module';
 
 //jwt
 import { JwtInterceptor, ErrorInterceptor } from './pages/_helpers';
+import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
 
 
 
@@ -34,12 +35,12 @@ import { JwtInterceptor, ErrorInterceptor } from './pages/_helpers';
     SharedModule,
     CustomersModule,
     ReactiveFormsModule,
+    DynamicformModule,
 
 
   ],
   declarations: [
     AppComponent,
-
     ],
   providers: [
     {provide: APP_CONFIG, useValue: AppConfig},
