@@ -116,4 +116,7 @@ export class ApiService {
       console.log(response)
     })
   }
+  getTaskGroups() {
+    return this.httpClient.get(`${this.API_URL}/task/group/`)
+  }
 }

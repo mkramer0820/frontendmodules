@@ -22,6 +22,11 @@ import { FactoryContactComponent } from './factory/factory-contact/factory-conta
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TaskComponent } from './task/task.component';
 import { TasksetComponent } from './task/taskset/taskset.component';
+import { GenerateOrderTaskComponent } from './task/generate-order-task/generate-order-task.component';
+//import { CreateOrderTaskComponent } from './task/create-order-task/create-order-task.component';
+import { TodosComponent } from './task/todos/todos.component';
+import {TaskFormService} from './task/task-form-service.service';
+import { TaskUpdateComponent } from './task/task-update/task-update.component';
 
 
 @NgModule({
@@ -48,6 +53,10 @@ import { TasksetComponent } from './task/taskset/taskset.component';
     FactoryContactComponent,
     TaskComponent,
     TasksetComponent,
+    GenerateOrderTaskComponent,
+    //CreateOrderTaskComponent,
+    TodosComponent,
+    TaskUpdateComponent,
     //OrdersImageUploadComponent,
   ],
   entryComponents: [
@@ -66,10 +75,13 @@ import { TasksetComponent } from './task/taskset/taskset.component';
     FactoryTableComponent,
     FactoryAddComponent,
     FactoryUpdateComponent,
+    GenerateOrderTaskComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    TaskFormService,
+
 
   ],
 })

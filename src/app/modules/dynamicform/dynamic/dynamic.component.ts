@@ -13,7 +13,7 @@ import {Subscription} from 'rxjs';
   providers:  [TaskService]
 })
 export class DynamicComponent implements OnInit  {
-  tasks: any[];
+  tasks: any;
   todos: any;
   subscription: Subscription;
 
@@ -21,9 +21,8 @@ export class DynamicComponent implements OnInit  {
   constructor(
     private service: TaskService,
   ) {
-    this.tasks = this.service.getTasks();
-    this.service.getTaskDetail();
-    this.todos = this.service.getTodos();
+    //this.tasks = this.service.getTasks();
+    // this.tasks = this.service.getTaskDetail();
   }
   ngOnInit() {}
 }
