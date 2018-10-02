@@ -12,6 +12,7 @@ import { ApiService } from '../../config/api.service';
   <p>
     task works!
   </p>
+  <button  type="submit" mat-button-raised color="accent" (click)="clearTodosForm()">Clear Form</button>
   <form [formGroup]="taskForm" >
     Task Group Name: {{taskForm.controls.todos_group.value}}
 
@@ -80,7 +81,10 @@ export class TaskComponent implements OnInit {
       this.taskFormService.consoleTaskGroups()
     }
     getBlanketTask() {
-      this.taskFormService.getBlanketTask();
+      this.taskFormService.getBlanketTask('14');
+    }
+    clearTodosForm() {
+      this.taskFormService.clearForm();
     }
 
   }

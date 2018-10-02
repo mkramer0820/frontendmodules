@@ -56,23 +56,31 @@ export class TaskFormService {
     this.taskForm.getValue().get('todos_group').setValue(this.taskGroups[0].id)
     console.log(this.taskGroups[0].id, currentGroupName)
   }
-  getBlanketTask() {
-    this.apiService.getTaskDetail('14').subscribe(res => {
+  getBlanketTask(id) {
+    this.apiService.getTaskDetail(id).subscribe(res => {
+      console.log(res)
+      const todos_group = res['group_name']
       let todos = res['todos'];
       console.log(todos)
       for (let todo in todos) {
-        console.log(todos[todo])
+        const todoslist =  todos[todo];
         const currentTask = this.taskForm.getValue();
         const currentTodos = currentTask.get('todos') as FormArray;
 
             currentTodos.push(
               this.fb.group(
-                new TodosForm(new Todo(todos[todo]['todo'], ))
+                new TodosForm(new Todo(todoslist['todo'], ))
               )
             )
             this.taskForm.next(currentTask)
           }
     });
   }
-
+  clearForm() {
+    const currentTask = this.taskForm.getValue();
+    const currentTodos = currentTask.get('todos') as FormArray;
+    while (currentTodos.length !== 0) {
+        currentTodos.removeAt(0)
+      }
+  }
 }
