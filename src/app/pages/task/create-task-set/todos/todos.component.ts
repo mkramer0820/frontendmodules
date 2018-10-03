@@ -38,16 +38,16 @@ import { FormGroup } from '@angular/forms';
 })
 export class TodosComponent implements OnInit {
 
-  @Input() todosForm: FormGroup
-  @Input() index: number
-  @Output() deleteTodos: EventEmitter<number> = new EventEmitter()
+  @Input() todosForm: FormGroup;
+  @Input() index: number;
+  @Output() deleteTodos: EventEmitter<number> = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() {}
 
     delete() {
-      this.deleteTodos.emit(this.index)
+      this.deleteTodos.emit(this.index);
     }
 
   }

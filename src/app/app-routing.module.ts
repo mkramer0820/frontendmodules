@@ -13,11 +13,11 @@ import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
 import { FactoryContactComponent } from './pages/factory/factory-contact/factory-contact.component';
 import {TasksetComponent} from './pages/task/taskset/taskset.component';
-import {TaskComponent} from './pages/task/task.component';
-import {TaskUpdateComponent} from './pages/task/task-update/task-update.component';
+import {TaskSetComponent} from './pages/task/create-task-set/task-set.component';
+import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task-update.component';
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
-//import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
-//import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
+// import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
+// import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -28,12 +28,11 @@ const routes: Routes = [
   {path: 'order-table', component: OrdersTableComponent, canActivate: [AuthGuard]},
   {path: 'order-add', component: OrdersAddComponent, canActivate: [AuthGuard]},
   {path: 'order-update', component: OrdersUpdateComponent, canActivate: [AuthGuard]},
-  {path: 'task-set', component:TasksetComponent, canActivate:[AuthGuard]},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'task-form', component: DynamicComponent },
-  { path: 'task', component: TaskComponent },
+  { path: 'task', component: TaskSetComponent },
   { path: 'task-update', component: TaskUpdateComponent },
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },

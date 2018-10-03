@@ -25,6 +25,7 @@ export class TaskFormService {
     private apiService: ApiService,
   ) {
     this.getTaskGroups();
+    console.log(this.taskGroups)
    }
 
   addTodos() {
@@ -35,52 +36,56 @@ export class TaskFormService {
       this.fb.group(
         new TodosForm(new Todo())
       )
-    )
+    );
 
-    this.taskForm.next(currentTask)
+    this.taskForm.next(currentTask);
   }
 
   deleteTodos(i: number) {
-    const currentTask = this.taskForm.getValue()
-    const currentTodos = currentTask.get('todos') as FormArray
-    currentTodos.removeAt(i)
-    this.taskForm.next(currentTask)
+    const currentTask = this.taskForm.getValue();
+    const currentTodos = currentTask.get('todos') as FormArray;
+    currentTodos.removeAt(i);
+    this.taskForm.next(currentTask);
   }
   getTaskGroups() {
     return this.apiService.getTaskGroups().subscribe(taskGroup => this.taskGroups = taskGroup);
-
   }
   consoleTaskGroups() {
     const currentTask = this.taskForm.getValue();
     const currentGroupName = currentTask.get('todos_group').value;
-    this.taskForm.getValue().get('todos_group').setValue(this.taskGroups[0].id)
-    console.log(this.taskGroups[0].id, currentGroupName)
+    this.taskForm.getValue().get('todos_group').setValue(this.taskGroups[0].id);
+    console.log(this.taskGroups[0].id, currentGroupName);
   }
   getBlanketTask(id) {
     this.apiService.getTaskDetail(id).subscribe(res => {
-      console.log(res)
-      const todos_group = res['group_name']
-      let todos = res['todos'];
-      console.log(todos)
-      for (let todo in todos) {
+      console.log(res);
+      const todos_group = res['todos_group'];
+      this.taskForm.getValue().get('todos_group').setValue(todos_group);
+      const todos = res['todos'];
+      console.log(todos);
+      for (const todo in todos) {
+        if (todos.hasOwnProperty('field')) {
+           console.log('field');
+        } else {
         const todoslist =  todos[todo];
         const currentTask = this.taskForm.getValue();
         const currentTodos = currentTask.get('todos') as FormArray;
-
-            currentTodos.push(
-              this.fb.group(
-                new TodosForm(new Todo(todoslist['todo'], ))
-              )
-            )
-            this.taskForm.next(currentTask)
-          }
+        currentTodos.push(
+          this.fb.group(
+            new TodosForm(new Todo(todoslist['todo'], ))
+          )
+        );
+        this.taskForm.next(currentTask);
+        console.log('field');
+      }
+    }
     });
   }
   clearForm() {
     const currentTask = this.taskForm.getValue();
     const currentTodos = currentTask.get('todos') as FormArray;
     while (currentTodos.length !== 0) {
-        currentTodos.removeAt(0)
+        currentTodos.removeAt(0);
       }
   }
 }

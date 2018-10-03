@@ -1,13 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { TaskFormService } from './task-form-service.service';
-import { ApiService } from '../../config/api.service';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-task',
-  template:
+  template: 
   `
   <p>
     task works!
@@ -31,60 +26,15 @@ import { ApiService } from '../../config/api.service';
   <div>
   <button  type="submit" mat-button-raised color="accent" (click)="getBlanketTask()">Blanket Task</button>
   </div>
-
-
-  `,
+  `
+  ,
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
 
-  taskForm: FormGroup;
-  taskFormSub: Subscription;
-  todos: FormArray;
-  formInvalid: boolean = false;
-  //taskGroups: any;
-
-  constructor(
-    private taskFormService: TaskFormService,
-    private apiService: ApiService,
-  ) { }
-
+  constructor() { }
 
   ngOnInit() {
-    this.taskFormSub = this.taskFormService.taskForm$
-    .subscribe(task => {
-        this.taskForm = task;
-        console.log(task);
-        this.todos = this.taskForm.get('todos') as FormArray;
-      })
-    this.taskFormService.getTaskGroups();
-    }
-    ngOnDestroy() {
-      this.taskFormSub.unsubscribe()
-    }
-    addTodos() {
-    this.taskFormService.addTodos()
-    }
-
-    deleteTodos(index: number) {
-    this.taskFormService.deleteTodos(index)
-    }
-
-    saveTodos() {
-      console.log('team saved!')
-      console.log(this.taskForm.value)
-      this.apiService.createTask(this.taskForm.value).subscribe(response => {
-        console.log(response)
-        })
-    }
-    consoleTaskGroups() {
-      this.taskFormService.consoleTaskGroups()
-    }
-    getBlanketTask() {
-      this.taskFormService.getBlanketTask('14');
-    }
-    clearTodosForm() {
-      this.taskFormService.clearForm();
-    }
-
   }
+
+}

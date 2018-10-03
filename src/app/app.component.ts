@@ -90,24 +90,9 @@ export class AppComponent implements AfterViewInit {
         iconName: '',
         children: [
           {
-            displayName: 'Add Task Set',
-            iconName: 'add',
-            route: 'task-set',
-          },
-          {
             displayName: 'Add Todos New',
             iconName: 'add',
             route: 'task',
-          },
-          {
-            displayName: 'Update Task',
-            iconName: 'update',
-            route: 'task-update',
-          },
-          {
-            displayName: 'Generate Order Task',
-            iconName: 'add',
-            route: 'generate-order-task',
           },
         ]},
   ];
