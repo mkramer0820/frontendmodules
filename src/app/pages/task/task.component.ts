@@ -18,12 +18,13 @@ import { TaskGroupService } from './_service/task-group.service';
 
 
       <mat-form-field class="form-element">
-      <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group'>
-        <mat-option *ngFor="let group of groups" value={{group.id}}>
-        {{group.group_name}}
+      <mat-select matInput  placeholder="Choose Group Set" #groupValue formControlName='todos_group'  (change)="changeGroup($event.value)">
+        <mat-option *ngFor="let group of groups; let i=index" value={{group.id} (click)="sendOption(group)">
+          <span class="mat-option-text">{{group.group_name}}</span>
         </mat-option>
       </mat-select>
       </mat-form-field>
+      <br />
 
       <br />
 

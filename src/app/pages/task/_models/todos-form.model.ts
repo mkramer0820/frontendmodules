@@ -5,6 +5,7 @@ export class TodosForm {
   todo = new FormControl()
   duedate = new FormControl()
   comment = new FormControl()
+  status = new FormControl()
   constructor(
     todo: Todo
   ) {
@@ -13,5 +14,7 @@ export class TodosForm {
 
     this.comment.setValue(todo.comment)
     this.duedate.setValue(todo.duedate)
+    this.duedate.setValue(todo.duedate)
+    this.status.setValue(todo.duedate)
   }
 }

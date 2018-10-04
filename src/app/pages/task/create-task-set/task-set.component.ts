@@ -15,36 +15,40 @@ import { AddTaskGroupComponent } from '../add-task-group/add-task-group.componen
 `
     <h1>Update Group Blanket Task</h1>
 
-  Task Group id: {{taskForm.controls.todos_group.value}}
+<!--  Task Group id: {{taskForm.controls.todos_group.value}} -->
   <br />
   <form [formGroup]="taskForm" >
     <!--<option [ngValue]="group" *ngFor="let group of mygroups">{{group.group_name}}</option>-->
-    <mat-form-field class="form-element"> {{message}}
+    <mat-form-field class="form-element">
     <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group'>
-      <mat-option *ngFor="let group of groups" value={{group.id}} message=group.id>
-      {{group.group_name}}
+      <mat-option *ngFor="let group of groups; let i=index" value={{group.id}}  (click)="changeGroup(group)">
+        <span class="mat-option-text">{{group.group_name}}</span>
       </mat-option>
     </mat-select>
     </mat-form-field>
     <button  type="open" mat-button-raised color="accent" (click)="openAddDialog()">Add New Task Groups</button>
 
+    <ng-template [ngIf]="isLoggedIn" [ngIfElse]="loggedOut">
+      <div *ngFor="let sets of setNames">
+        <mat-form-field class="form-element">
+          <mat-select matInput  placeholder="Choose Boiler Plate Task" formControlName='set_name'>
+            <mat-option *ngFor="let set of sets" value={{set.set_name}}  (click)="getBlanketTask(set.id)">
+              <span class="mat-option-text">{{set.set_name}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+       </div>
+    </ng-template>
+    <ng-template #loggedOut>
+      <div>
+        <h2>Set Name:</h2>
+        <mat-form-field>
+          <input matInput formControlName="set_name" placeholder="Add new set ">
+        </mat-form-field>
+      </div>
+    </ng-template>
 
     <br />
-
-    <mat-form-field>
-      <input matInput formControlName="set_name" placeholder="Set Name">
-    </mat-form-field>
-
-    <div *ngFor="let group of groups">
-      {{group.group_names | json}}
-      Set names: {{group.set_names | json}}
-      <div *ngFor="let key of group.set_names">
-        <div *ngIf="key.id in "
-        id: {{key.id}} -- foundit
-
-      </div>
-    </div>
-
 
     <h3>Add Tasks To Set</h3>
     <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
@@ -76,9 +80,11 @@ export class TaskSetComponent implements OnInit, OnDestroy {
   groupSub: Subscription;
   myControl = new FormControl();
   options: string[] = [];
-  groups: Array<any>;
-  mygroups: Array<any> = [];
-  message: string;
+  groups: Array<any> = [];
+  selected: any;
+  isLoggedIn = false;
+  setNames: any;
+
 
   constructor(
     private taskFormService: TaskFormService,
@@ -120,8 +126,8 @@ export class TaskSetComponent implements OnInit, OnDestroy {
     consoleTaskGroups() {
       this.taskFormService.consoleTaskGroups();
     }
-    getBlanketTask() {
-      this.taskFormService.getBlanketTask('14');
+    getBlanketTask(id) {
+      this.taskFormService.getBlanketTask(id);
     }
     clearTodosForm() {
       this.taskFormService.clearForm();
@@ -129,10 +135,6 @@ export class TaskSetComponent implements OnInit, OnDestroy {
     getTaskGroup() {
       this.tgs.getMessage().subscribe(rsp => {
         this.groups = rsp;
-        for (let obj in rsp) {
-          this.mygroups.push(rsp[obj])
-        }
-        return this.mygroups
       });
     }
     openAddDialog() {
@@ -145,4 +147,35 @@ export class TaskSetComponent implements OnInit, OnDestroy {
         rsp = this.tgs.getMessage();
       });
     }
+    removeTag(event: any) {
+      console.log(event.target.parentNode.value);
+      console.log(event.target.value);
+   }
+   changeGroup(event){
+     this.selected = event;
+     this.isLoggedIn = true;
+     let masterGrp = this.taskForm.controls.todos_group.value;
+     let sectionObj = this.selected;
+     console.log(sectionObj);
+     if (JSON.stringify(sectionObj['id']) === masterGrp ) {
+       console.log(sectionObj['set_names'])
+       for (const set in sectionObj['set_names']) {
+         let sets = []
+         sets.push(sectionObj['set_names']);
+         console.log("new set ",sets)
+         // console.log(sectionObj['set_names'][set])
+         console.log('you made it to step 2')
+         this.setNames = sets
+       }
+      // console.log('getteing there')
+     } else {
+       //console.log('try again mike')
+       //console.log(masterGrp)
+     }
+     return this.selected, this.setNames;
+   }
+   test(val) {
+     console.log(val)
+     return this.getBlanketTask(val)
+   }
   }

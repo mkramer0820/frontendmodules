@@ -19,9 +19,27 @@ import { FormGroup } from '@angular/forms';
             </mat-form-field>
           </td>
           <td>
+          <!--
             <mat-form-field>
               <input matInput formControlName="duedate" placeholder="Due Date">
             </mat-form-field>
+          -->
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>
+          <mat-form-field class="form-element">
+          <mat-select matInput  placeholder="Status" formControlName='status'>
+            <mat-option *ngFor="let status of status; let i=index" value={{status}}>
+              <span class="mat-option-text">{{status}}</span>
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
           </td>
           <td>
             <!-- emit delete event up w/ index of todos -->
@@ -37,6 +55,8 @@ import { FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodosComponent implements OnInit {
+
+  status = ['na', 'started', 'complete']
 
   @Input() todosForm: FormGroup;
   @Input() index: number;
