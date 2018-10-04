@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { TaskForm } from './_models/task-form';
-import { Task } from './_models/task.model';
-import { TodosForm } from './_models/todos-form.model';
-import { Todo } from './_models/todos.model';
-import { ApiService } from '../../config/api.service';
+import { TaskForm } from '../_models/task-form';
+import { Task } from '../_models/task.model';
+import { TodosForm } from '../_models/todos-form.model';
+import { Todo } from '../_models/todos.model';
+import { ApiService } from '../../../config/api.service';
 import { map, take } from 'rxjs/operators';
 
 

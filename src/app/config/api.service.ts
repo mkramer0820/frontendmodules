@@ -119,4 +119,7 @@ export class ApiService {
   getTaskGroups() {
     return this.httpClient.get(`${this.API_URL}/task/group/`);
   }
+  addTaskGroups(group) {
+    return this.httpClient.post(`${this.API_URL}/task/group/`, group);
+  }
 }

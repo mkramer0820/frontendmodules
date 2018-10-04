@@ -95,6 +95,12 @@ export class AppComponent implements AfterViewInit {
             route: 'task',
           },
         ]},
+      {
+      displayName: 'Add Task Group',
+      iconName: 'add',
+      route: 'add-task-group',
+      },
+
   ];
 
   constructor(//private title: Title,

@@ -21,9 +21,12 @@ import { FactoryContactComponent } from './factory/factory-contact/factory-conta
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TaskSetComponent } from './task/create-task-set/task-set.component';
 import { TodosComponent } from './task/create-task-set/todos/todos.component';
-import {TaskFormService} from './task/task-form-service.service';
+import {TaskFormService} from './task/_service/task-form-service.service';
 import { TaskUpdateComponent } from './task/create-task-set/task-update/task-update.component';
-import { TaskGroupService } from './task/task-group.service';
+import { TaskGroupService } from './task/_service/task-group.service';
+import { DynamicFormTaskComponent } from './task/dynamic/dynamic-form-task/dynamic-form-task.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
 
 
 @NgModule({
@@ -52,6 +55,9 @@ import { TaskGroupService } from './task/task-group.service';
     //CreateOrderTaskComponent,
     TodosComponent,
     TaskUpdateComponent,
+    DynamicFormTaskComponent,
+    TaskComponent,
+    AddTaskGroupComponent,
     //OrdersImageUploadComponent,
   ],
   entryComponents: [

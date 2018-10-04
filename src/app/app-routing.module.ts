@@ -12,7 +12,8 @@ import {CustomersComponent} from './modules/customers/customers/customers.compon
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
 import { FactoryContactComponent } from './pages/factory/factory-contact/factory-contact.component';
-import {TasksetComponent} from './pages/task/taskset/taskset.component';
+import {AddTaskGroupComponent} from './pages/task/add-task-group/add-task-group.component';
+import {TaskComponent} from './pages/task/task.component';
 import {TaskSetComponent} from './pages/task/create-task-set/task-set.component';
 import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task-update.component';
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
@@ -30,10 +31,13 @@ const routes: Routes = [
   {path: 'order-update', component: OrdersUpdateComponent, canActivate: [AuthGuard]},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},
+
   { path: 'login', component: LoginComponent },
+  { path: 'add-task-group', component: AddTaskGroupComponent },
   { path: 'task-form', component: DynamicComponent },
   { path: 'task', component: TaskSetComponent },
   { path: 'task-update', component: TaskUpdateComponent },
+  { path: 'task-test', component: TaskComponent },
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},
