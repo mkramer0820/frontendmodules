@@ -49,6 +49,10 @@ import { AddTaskGroupComponent } from '../add-task-group/add-task-group.componen
     </ng-template>
 
     <br />
+    <mat-form-field>
+      <input matInput formControlName="set_name" placeholder="Add new set ">
+    </mat-form-field>
+
 
     <h3>Add Tasks To Set</h3>
     <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
@@ -61,13 +65,11 @@ import { AddTaskGroupComponent } from '../add-task-group/add-task-group.componen
     <button  type="submit" mat-button-raised color="accent" (click)="saveTodos()" [disabled]="taskForm.invalid">Submit</button>
     &nbsp;
     <button  type="submit" mat-button-raised color="accent" (click)="clearTodosForm()" style="indent:50px">Clear Form</button>
+    &nbsp;
+    <button  type="submit" mat-button-raised color="accent" (click)="addToOrder()" [disabled]="taskForm.invalid">Add To Order Test</button>
+    &nbsp;
     <pre>Parent Form Status: <span class="status">{{taskForm.status}} <br />{{taskForm.value | json}}</span></pre>
   </form>
-  <button  type="submit" mat-button-raised color="accent" (click)="consoleTaskGroups()">Task Groups</button>
-  <div>
-  <button  type="submit" mat-button-raised color="accent" (click)="getBlanketTask()">Blanket Task</button>
-  </div>
-
   `,
   styleUrls: ['./task-set.component.scss']
 })
@@ -84,6 +86,7 @@ export class TaskSetComponent implements OnInit, OnDestroy {
   selected: any;
   isLoggedIn = false;
   setNames: any;
+  orderTask = {};
 
 
   constructor(
@@ -123,6 +126,20 @@ export class TaskSetComponent implements OnInit, OnDestroy {
         console.log(response);
         });
     }
+    addToOrder() {
+      console.log('Todo saved!');
+      let tasks = this.orderTask;
+      let items = this.taskForm.value;
+      tasks['order'] = '3';
+      tasks['todos'] = items['todos'];
+      tasks['set_name'] = items['set_name'];
+      console.log(JSON.stringify(tasks));
+      //console.log(this.taskForm.value);
+      this.apiService.addTaskToOrder(tasks).subscribe(response => {
+        console.log(response);
+        });
+    }
+
     consoleTaskGroups() {
       this.taskFormService.consoleTaskGroups();
     }
