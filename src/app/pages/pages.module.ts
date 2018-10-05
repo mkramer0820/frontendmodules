@@ -27,7 +27,7 @@ import { TaskGroupService } from './task/_service/task-group.service';
 import { DynamicFormTaskComponent } from './task/dynamic/dynamic-form-task/dynamic-form-task.component';
 import { TaskComponent } from './task/task.component';
 import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
-
+// import { TaskFormComponent } from './task/order-task/_models/dynamic-form/task-form/task-form.component';
 
 @NgModule({
   imports: [
@@ -58,6 +58,7 @@ import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.comp
     DynamicFormTaskComponent,
     TaskComponent,
     AddTaskGroupComponent,
+    
     //OrdersImageUploadComponent,
   ],
   entryComponents: [

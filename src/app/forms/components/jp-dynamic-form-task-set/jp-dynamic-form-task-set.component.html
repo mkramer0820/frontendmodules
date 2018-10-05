@@ -1,0 +1,19 @@
+<p>
+  jp-dynamic-form-task-set works!
+</p>
+<div [formGroup]="form">
+  <label [attr.for]="form.key">{{form.label}}</label>
+ 
+  <div [ngSwitch]="form.controlType">
+ 
+    <input *ngSwitchCase="'textbox'" [formControlName]="form.key"
+            [id]="form.key" [type]="form.type">
+ 
+    <select [id]="form.key" *ngSwitchCase="'dropdown'" [formControlName]="form.key">
+      <option *ngFor="let opt of form.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+ 
+  </div> 
+ 
+  <div class="errorMessage" *ngIf="!isValid">{{form.label}} is required</div>
+</div>

@@ -19,6 +19,7 @@ import {CustomersModule} from './modules/customers/customers.module';
 //jwt
 import { JwtInterceptor, ErrorInterceptor } from './pages/_helpers';
 import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
+import {JpFormsModule} from './forms/jp-forms.module';
 
 
 
@@ -36,6 +37,7 @@ import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
     CustomersModule,
     ReactiveFormsModule,
     DynamicformModule,
+    JpFormsModule,
 
 
   ],

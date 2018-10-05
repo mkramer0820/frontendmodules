@@ -100,9 +100,14 @@ export class AppComponent implements AfterViewInit {
       iconName: 'add',
       route: 'add-task-group',
       },
+      {
+        displayName: 'Work Space',
+        iconName: 'add',
+        route: 'jp-task-forms-component',
+      }
 
   ];
-
+  'jp-task-forms-component'
   constructor(//private title: Title,
               //private meta: Meta,
               //private snackBar: MatSnackBar,

@@ -19,6 +19,7 @@ import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
 // import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
 // import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
+import {JpFormsComponent} from './forms/components/jp-forms.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'task', component: TaskSetComponent },
   { path: 'task-update', component: TaskUpdateComponent },
   { path: 'task-test', component: TaskComponent },
+  { path: 'jp-task-forms-component', component: JpFormsComponent },
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},
