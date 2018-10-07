@@ -1,3 +1,5 @@
+import { JpDynamicFormComponent } from './forms/components/jp-dynamic-form/jp-dynamic-form.component';
+import { JpFormsComponent } from './forms/components/jp-forms.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //import {AppConfig} from './config/app.config';
@@ -19,7 +21,6 @@ import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
 // import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
 // import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
-import {JpFormsComponent} from './forms/components/jp-forms.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},

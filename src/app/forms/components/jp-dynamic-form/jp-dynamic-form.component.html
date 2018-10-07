@@ -4,8 +4,8 @@
 <div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
  
-    <div *ngFor="let form of forms" class="form-row">
-      <app-jp-dynamic-form-task-set [form]="form" [forms]="form"></app-jp-dynamic-form-task-set>
+    <div *ngFor="let task of tasks" class="form-row">
+      <app-jp-dynamic-form-task-set [task]="task" [form]="form"></app-jp-dynamic-form-task-set>
     </div>
  
     <div class="form-row">

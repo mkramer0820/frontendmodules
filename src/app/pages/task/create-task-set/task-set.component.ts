@@ -38,20 +38,16 @@ import { AddTaskGroupComponent } from '../add-task-group/add-task-group.componen
           </mat-select>
         </mat-form-field>
        </div>
+       <button (click)="createOrUpdate()"> Change Set name </button>
     </ng-template>
-    <ng-template #loggedOut>
-      <div>
-        <h2>Set Name:</h2>
-        <mat-form-field>
-          <input matInput formControlName="set_name" placeholder="Add new set ">
-        </mat-form-field>
-      </div>
-    </ng-template>
-
     <br />
-    <mat-form-field>
-      <input matInput formControlName="set_name" placeholder="Add new set ">
-    </mat-form-field>
+
+    <ng-template [ngIf]="updateName">
+      <mat-form-field>
+        <input matInput formControlName="set_name" placeholder="Add new set ">
+      </mat-form-field>
+      <button (click)="undocreateOrUpdate()"> Undo </button>
+    </ng-template>
 
 
     <h3>Add Tasks To Set</h3>
@@ -87,6 +83,7 @@ export class TaskSetComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   setNames: any;
   orderTask = {};
+  updateName = false;
 
 
   constructor(
@@ -107,7 +104,6 @@ export class TaskSetComponent implements OnInit, OnDestroy {
       });
     this.getTaskGroup();
     }
-
     ngOnDestroy() {
       this.taskFormSub.unsubscribe();
     }
@@ -140,8 +136,13 @@ export class TaskSetComponent implements OnInit, OnDestroy {
         });
     }
 
-    consoleTaskGroups() {
-      this.taskFormService.consoleTaskGroups();
+    createOrUpdate() {
+      this.updateName = true;
+      return this.updateName;
+    }
+    undocreateOrUpdate() {
+      this.updateName = false;
+      return this.updateName;
     }
     getBlanketTask(id) {
       this.taskFormService.getBlanketTask(id);
@@ -164,10 +165,6 @@ export class TaskSetComponent implements OnInit, OnDestroy {
         rsp = this.tgs.getMessage();
       });
     }
-    removeTag(event: any) {
-      console.log(event.target.parentNode.value);
-      console.log(event.target.value);
-   }
    changeGroup(event){
      this.selected = event;
      this.isLoggedIn = true;

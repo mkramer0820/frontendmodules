@@ -11,12 +11,12 @@ export class FormControlService {
 
   constructor() { }
 
-  toFormGroup(forms: FormBase<any>[] ) {
+  toFormGroup(tasks: FormBase<any>[] ) {
     let group: any = {};
 
-    forms.forEach(form => {
-      group[form.key] = form.required ? new FormControl(form.value || '', Validators.required)
-                                              : new FormControl(form.value || '');
+    tasks.forEach(task => {
+      group[task.key] = task.required ? new FormControl(task.value || '', Validators.required)
+                                              : new FormControl(task.value || '');
     });
     return new FormGroup(group);
   }

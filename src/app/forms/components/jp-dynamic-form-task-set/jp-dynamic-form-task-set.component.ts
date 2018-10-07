@@ -10,8 +10,8 @@ import { FormBase }     from '../../_models/form-base';
 })
 export class JpDynamicFormTaskSetComponent {
 
-  @Input() forms: FormBase<any>;
+  @Input() task: FormBase<any>;
   @Input() form: FormGroup;
-  get isValid() { return this.form.controls[this.forms.key].valid; }
+  get isValid() { return this.form.controls[this.task.key].valid; }
 }
 

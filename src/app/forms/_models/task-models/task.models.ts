@@ -1,3 +1,18 @@
+export class TaskSet {
+  id: number;
+  group_name: string;
+  set_name: string;
+  todos: Todo[];
+}
+
+export class Todo {
+  todo: string;
+  status: string;
+  comment: string;
+  duedate: string;
+}
+
+
 /*
 export class OrderTaskFormService {
     private taskGroups: any;
@@ -46,9 +61,4 @@ export class OrderTaskFormService {
     set_name: string;
     todos: Todo[];
     todos_group: number;
-  }
-  
-  export class Todo {
-    todo: string;
-    comment?: string;
   }

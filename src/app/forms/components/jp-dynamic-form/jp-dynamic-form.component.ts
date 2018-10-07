@@ -13,14 +13,14 @@ import { FormControlService }    from '../../_service/form-control.service';
 })
 export class JpDynamicFormComponent implements OnInit {
 
-  @Input() forms: FormBase<any>[] = [];
+  @Input() tasks: FormBase<any>[] = [];
   form: FormGroup;
   payLoad = '';
  
   constructor(private fcs: FormControlService) {  }
  
   ngOnInit() {
-    this.form = this.fcs.toFormGroup(this.forms);
+    this.form = this.fcs.toFormGroup(this.tasks);
   }
  
   onSubmit() {

@@ -24,10 +24,9 @@ import { TodosComponent } from './task/create-task-set/todos/todos.component';
 import {TaskFormService} from './task/_service/task-form-service.service';
 import { TaskUpdateComponent } from './task/create-task-set/task-update/task-update.component';
 import { TaskGroupService } from './task/_service/task-group.service';
-import { DynamicFormTaskComponent } from './task/dynamic/dynamic-form-task/dynamic-form-task.component';
 import { TaskComponent } from './task/task.component';
 import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
-// import { TaskFormComponent } from './task/order-task/_models/dynamic-form/task-form/task-form.component';
+import { UpdateTaskSetComponent } from './task/update-task-set/update-task-set.component';
 
 @NgModule({
   imports: [
@@ -55,11 +54,9 @@ import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.comp
     //CreateOrderTaskComponent,
     TodosComponent,
     TaskUpdateComponent,
-    DynamicFormTaskComponent,
     TaskComponent,
     AddTaskGroupComponent,
-    
-    //OrdersImageUploadComponent,
+    UpdateTaskSetComponent, // required
   ],
   entryComponents: [
     CustomerAddFormComponent,
