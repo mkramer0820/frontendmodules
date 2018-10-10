@@ -13,6 +13,7 @@ import {MatDialog, MatTableDataSource, MatPaginator, MatSortModule, MatSort } fr
 import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../_services';
+import {TaskComponent} from '../../task/task.component';
 
 
 
@@ -29,7 +30,7 @@ export class OrdersTableComponent implements OnInit {
    'ID', 'BUYER','FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
-    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE'
+    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'
   ]
   message: string;
   factoryMessage: Factory[];
@@ -86,6 +87,24 @@ export class OrdersTableComponent implements OnInit {
     });
     this.apiService.getOrdersDetails(id).subscribe(message =>{
       this.sendMessage(message);
+    });
+    dialogRef.afterOpen().subscribe(result => {
+      console.log(`Dailog result: ${result}`)
+      this.shared.getMessage().subscribe((response: any) => {
+        this.message = response;
+      });
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        return dialogRef.close()
+        //console.log(customers);
+      });
+    });
+  }
+  openOrderTaskDialog(id): void {
+    const dialogRef = this.dialog.open(TaskComponent, {
     });
     dialogRef.afterOpen().subscribe(result => {
       console.log(`Dailog result: ${result}`)

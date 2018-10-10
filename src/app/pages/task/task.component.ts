@@ -26,7 +26,7 @@ import {Todo, TodosForm, TaskForm} from '../_models';
       <div *ngSwitchDefault>Choose an Option</div>
     </div>
 
-  `
+  `,
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
@@ -85,5 +85,5 @@ export class TaskComponent implements OnInit {
     return this.createTitle = 'Create New Task Set';
     console.log('Update Selected');
   }
-  
-  }
+
+}

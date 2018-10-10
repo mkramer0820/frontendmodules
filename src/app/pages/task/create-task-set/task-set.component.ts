@@ -88,6 +88,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
   @Input() title: string;
   @Input() sentGroups: any;
   @Input() case: string;
+  @Input() order: string;
   // end of message propery
   
   taskForm: FormGroup;
