@@ -58,27 +58,23 @@ export class TaskFormService {
   }
   getBlanketTask(id) {
     this.apiService.getTaskDetail(id).subscribe(res => {
-      console.log(res);
-      const todos_group = res['todos_group'];
-      this.taskForm.getValue().get('todos_group').setValue(todos_group);
+      console.log(this.taskForm.getValue());
       const todos = res['todos'];
-      console.log(todos);
       for (const todo in todos) {
-        if (todos.hasOwnProperty('field')) {
-           console.log('field');
-        } else {
-        const todoslist =  todos[todo];
-        const currentTask = this.taskForm.getValue();
-        const currentTodos = currentTask.get('todos') as FormArray;
-        currentTodos.push(
+        if (todos.hasOwnProperty(todo)) {
+          const todoslist =  todos[todo];
+          const currentTask = this.taskForm.getValue();
+          const currentTodos = currentTask.get('todos') as FormArray;
+          currentTodos.push(
           this.fb.group(
             new TodosForm(new Todo(todoslist['todo'], ))
           )
         );
         this.taskForm.next(currentTask);
+        } else {
         console.log('field');
+        }
       }
-    }
     });
   }
   clearForm() {
@@ -86,6 +82,16 @@ export class TaskFormService {
     const currentTodos = currentTask.get('todos') as FormArray;
     while (currentTodos.length !== 0) {
         currentTodos.removeAt(0);
+        console.log('current task is: ' , currentTask);
       }
   }
+  clearTodos() {
+    const currentTask = this.taskForm.getValue();
+    const currentTodos = currentTask.get('todos') as FormArray;
+    while (currentTodos.length !== 0) {
+      console.log(currentTodos.value);
+      currentTodos.removeAt(0);
+      console.log('length is ', currentTodos.length);
+   }
+ }
 }

@@ -27,6 +27,7 @@ import { TaskGroupService } from './task/_service/task-group.service';
 import { TaskComponent } from './task/task.component';
 import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
 import { UpdateTaskSetComponent } from './task/update-task-set/update-task-set.component';
+import { TaskSetDropdownComponent } from './task/create-task-set/task-set-dropdown/task-set-dropdown.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { UpdateTaskSetComponent } from './task/update-task-set/update-task-set.c
     TaskUpdateComponent,
     TaskComponent,
     AddTaskGroupComponent,
-    UpdateTaskSetComponent, // required
+    UpdateTaskSetComponent,
+    TaskSetDropdownComponent, // required
   ],
   entryComponents: [
     CustomerAddFormComponent,

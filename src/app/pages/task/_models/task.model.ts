@@ -1,4 +1,5 @@
 import { Todo } from './todos.model';
+import {SetName} from './set-name.model';
 
 export class Task {
     todos_group: string;
@@ -7,7 +8,7 @@ export class Task {
     todos: Todo[];
 
     constructor(todos_group: string, todos?: Todo[]) {
-        this.todos_group = todos_group
-        this.todos = todos
+        this.todos_group = todos_group;
+        this.todos = todos;
     }
 }

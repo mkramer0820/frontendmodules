@@ -1,5 +1,6 @@
 import { FormControl, Validators } from '@angular/forms'
 import { Todo } from './todos.model';
+import { SetName } from './set-name.model';
 
 export class TodosForm {
   todo = new FormControl()
@@ -7,7 +8,7 @@ export class TodosForm {
   comment = new FormControl()
   status = new FormControl()
   constructor(
-    todo: Todo
+    todo: Todo,
   ) {
     this.todo.setValue(todo.todo)
     this.todo.setValidators([Validators.required])
