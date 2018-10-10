@@ -41,6 +41,7 @@ const routes: Routes = [
   { path: 'task-update', component: TaskUpdateComponent },
   { path: 'task-test', component: TaskComponent },
   { path: 'jp-task-forms-component', component: JpFormsComponent },
+  { path: 'task-component', component: TaskComponent}
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},

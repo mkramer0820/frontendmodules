@@ -106,7 +106,7 @@ export class ApiService {
     return this.httpClient.get(`${this.API_URL}/task/${id}`, id);
   }
   updateTask(id, task) {
-    return this.httpClient.post(`${this.API_URL}/task/${id}`, id, task);
+    return this.httpClient.put(`${this.API_URL}/task/${id}/`, task);
   }
   createTask(task) {
     return this.httpClient.post(`${this.API_URL}/task/`, task)

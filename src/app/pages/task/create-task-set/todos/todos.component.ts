@@ -20,7 +20,7 @@ import {TodosForm} from '../../_models';
           </td>
           <td>
             <mat-form-field>
-              <input matInput formControlName="comment" placeholder="Comment">
+              <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
             </mat-form-field>
           </td>
           <td>

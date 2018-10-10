@@ -1,82 +1,53 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray,  FormControl, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TaskFormService } from './_service/task-form-service.service';
 import { ApiService } from '../../config/api.service';
 import { TaskGroupService } from './_service/task-group.service';
+import {Observable} from 'rxjs'
+import {Todo, TodosForm, TaskForm} from '../_models';
+
+
+
+
 
 @Component({
   selector: 'app-task',
   template:
   `
-      <h1>Create Task Group Blanket</h1>
+  <button mat-icon-button (click)="selectedUpdate()"> Update </button>
+  <br />
+  <button mat-icon-button (click)="selectedCreate()"> Create </button>
 
-    <!--Task Group Name: {{taskForm.controls.todos_group.value}}-->
-    <br />
-    <form [formGroup]="taskForm" >
-      <!--<option [ngValue]="group" *ngFor="let group of groups">{{group.group_name}}</option>-->
-
-
-      <mat-form-field class="form-element">
-      <mat-select matInput  placeholder="Choose Group Set" #groupValue formControlName='todos_group'  (change)="changeGroup($event.value)">
-        <mat-option *ngFor="let group of groups; let i=index" value={{group.id} (click)="sendOption(group)">
-          <span class="mat-option-text">{{group.group_name}}</span>
-        </mat-option>
-      </mat-select>
-      </mat-form-field>
-      <br />
-
-      <br />
-
-      <mat-form-field class="form-element">
-        <input type="text"  placeholder="Choose Group Set "
-                            aria-label="Number"
-                            matInput [formControl]="todos_group"
-                            [matAutocomplete]="auto"
-                            formControlName='todos_group'
-                            >
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of options" [value]="option.id" formControlName='todos_group'>
-            {{option.set_names['id']}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-
-      <div *ngFor="let group of groups">
-        {{group.set_names}}
-      </div>
-
-
-      <h3>Add Tasks To Set</h3>
-      <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
-      <ul>
-        <li *ngFor="let todo of todos?.controls; let i = index">
-          <app-todos [index]="i" [todosForm]="todo" (deletePlayer)="deleteTodos($event)"></app-todos>
-        </li>
-      </ul>
-
-      <button  type="submit" mat-button-raised color="accent" (click)="saveTodos()" [disabled]="taskForm.invalid">Submit</button>
-      &nbsp;
-      <button  type="submit" mat-button-raised color="accent" (click)="clearTodosForm()" style="indent:50px">Clear Form</button>
-      <pre>Parent Form Status: <span class="status">{{taskForm.status}} <br />{{taskForm.value | json}}</span></pre>
-    </form>
-    <button  type="submit" mat-button-raised color="accent" (click)="consoleTaskGroups()">Task Groups</button>
-    <div>
-    <button  type="submit" mat-button-raised color="accent" (click)="getBlanketTask()">Blanket Task</button>
+    <div [ngSwitch]="num">
+      <div *ngSwitchCase="'1'"><app-task-set [title]="title" [sentGroups]="groups" [case]="num"></app-task-set></div>
+      <div *ngSwitchCase="'2'"><app-task-set [title]="createTitle" [sentGroups]="groups" [case]="num"></app-task-set></div>
+      <div *ngSwitchCase="'3'">Three</div>
+      <div *ngSwitchDefault>Choose an Option</div>
     </div>
-    {{sets}}
-    `
-  ,
+
+  `
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit, OnDestroy {
+export class TaskComponent implements OnInit {
+
+  title: any;
+  createTitle: any;
+  num: string;
 
   taskForm: FormGroup;
   taskFormSub: Subscription;
+
+  // set_name: FormGroup;
+  set_name: any;
   todos: FormArray;
-  formInvalid: boolean = false;
+  message: string;
   groupSub: Subscription;
-  groups: any;
+  groups: Array<any> = [];
+  orderTask = {};
+  updateName = false;
+  masterGroupMessage: any;
+  selectedId: any;
 
   constructor(
     private taskFormService: TaskFormService,
@@ -84,50 +55,35 @@ export class TaskComponent implements OnInit, OnDestroy {
     private tgs: TaskGroupService,
   ) { }
 
-
   ngOnInit() {
+    this.default();
     this.taskFormSub = this.taskFormService.taskForm$
     .subscribe(task => {
         this.taskForm = task;
-        console.log(task);
         this.todos = this.taskForm.get('todos') as FormArray;
+        this.set_name = this.taskForm.get('set_name');
       });
     this.getTaskGroup();
-    }
-
-    ngOnDestroy() {
-      this.taskFormSub.unsubscribe();
-    }
-    addTodos() {
-    this.taskFormService.addTodos();
-    }
-
-    deleteTodos(index: number) {
-    this.taskFormService.deleteTodos(index);
-    }
-
-    saveTodos() {
-      console.log('Todo saved!');
-      console.log(this.taskForm.value);
-      this.apiService.createTask(this.taskForm.value).subscribe(response => {
-        console.log(response);
-        });
-    }
-    consoleTaskGroups() {
-      this.taskFormService.consoleTaskGroups();
-    }
-    getBlanketTask() {
-      this.taskFormService.getBlanketTask('1');
-    }
-    clearTodosForm() {
-      this.taskFormService.clearForm();
     }
     getTaskGroup() {
       this.tgs.getMessage().subscribe(rsp => {
         this.groups = rsp;
-        for (let obj in rsp) {
-        console.log('names'+ obj[0])
-        }
       });
     }
+  
+  default() {
+    this.num= '0';
+  }
+  
+  selectedUpdate() {
+    this.num = '1';
+    return this.title = 'Update Existing Task Set';
+    console.log('Update Selected')
+  }
+  selectedCreate() {
+    this.num = '2';
+    return this.createTitle = 'Create New Task Set';
+    console.log('Update Selected');
+  }
+  
   }
