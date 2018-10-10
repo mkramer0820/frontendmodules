@@ -88,44 +88,4 @@ export class TodosComponent implements OnInit {
     }
 }
 
-      /*
 
-showTodos() {
-      let todos = this.todos;
-      
-      console.log(todos.length); // first fit shows lenght of 5. 
-      for (let key in todos) {
-        if (todos.hasOwnProperty(key)) {
-          const currentTodo = this.todosForm.get('todos') as FormArray;
-          currentTodo.push(
-            this.fb.group(
-              new TodosForm(new Todo(todos[key], ))
-            )
-          );
-        }
-      }
-
-
-      const todos_group = res['todos_group'];
-      this.taskForm.getValue().get('todos_group').setValue(todos_group);
-      const todos = res['todos'];
-      console.log(todos);
-      for (const todo in todos) {
-        if (todos.hasOwnProperty('field')) {
-           console.log('field');
-        } else {
-        const todoslist =  todos[todo];
-        const currentTask = this.taskForm.getValue();
-        const currentTodos = currentTask.get('todos') as FormArray;
-        currentTodos.push(
-          this.fb.group(
-            new TodosForm(new Todo(todoslist['todo'], ))
-          )
-        );
-        this.taskForm.next(currentTask);
-        console.log('field');
-      }
-    }
-    });
-  }*/
-  }

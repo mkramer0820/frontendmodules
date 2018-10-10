@@ -1,4 +1,4 @@
-import { Component, OnInit, Directive, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, Directive, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {Order, Orders} from '../../../modules/models/orders.model';
 import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
@@ -9,12 +9,13 @@ import {Subscription} from 'rxjs';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
-import {MatDialog, MatTableDataSource, MatPaginator, MatSortModule, MatSort } from '@angular/material';
+import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortModule, MatSort } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../_services';
 import {TaskComponent} from '../../task/task.component';
-
+import { TaskSetComponent } from '../../task/create-task-set/task-set.component';
+import {ModalService} from '../../_services/modal.service';
 
 
 
@@ -32,6 +33,10 @@ export class OrdersTableComponent implements OnInit {
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
     'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'
   ]
+
+  @Output() orderid: EventEmitter<null> = new EventEmitter();
+
+
   message: string;
   factoryMessage: Factory[];
   buyerMessage: Customer[];
@@ -53,7 +58,8 @@ export class OrdersTableComponent implements OnInit {
     private apiService: ApiService,
     private shared: OrdersSharedService,
     private dialog: MatDialog,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    private modalService: ModalService,
     //private service: SharedService,
   ) { }
 
@@ -121,7 +127,26 @@ export class OrdersTableComponent implements OnInit {
       });
     });
   }
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+  
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.position.top = '0';
+    dialogConfig.position.left = '0';
+  
+    this.dialog.open(TaskSetComponent, dialogConfig);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
 }
+
 
 export class OrdersDataSource extends DataSource<any> {
   constructor(private apiService: ApiService) {

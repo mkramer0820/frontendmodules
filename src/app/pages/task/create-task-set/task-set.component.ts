@@ -124,7 +124,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
         this.set_name = this.taskForm.get('set_name');
       });
     this.getTaskGroup();
-  }  /*
+  }  
   ngOnInit() {
     this.taskFormSub = this.taskFormService.taskForm$
     .subscribe(task => {
@@ -145,7 +145,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
     }
     ngOnDestroy() {
       // this.taskFormSub.unsubscribe();
-    } */
+    } 
    
     addTodos() {
      this.taskFormService.addTodos();

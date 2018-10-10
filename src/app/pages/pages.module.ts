@@ -28,6 +28,8 @@ import { TaskComponent } from './task/task.component';
 import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
 import { UpdateTaskSetComponent } from './task/update-task-set/update-task-set.component';
 import { TaskSetDropdownComponent } from './task/create-task-set/task-set-dropdown/task-set-dropdown.component';
+import {ModalService} from './_services/modal.service';
+import { ModalComponent } from './_directives/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -58,7 +60,8 @@ import { TaskSetDropdownComponent } from './task/create-task-set/task-set-dropdo
     TaskComponent,
     AddTaskGroupComponent,
     UpdateTaskSetComponent,
-    TaskSetDropdownComponent, // required
+    TaskSetDropdownComponent,
+    ModalComponent, // required
   ],
   entryComponents: [
     CustomerAddFormComponent,
@@ -82,6 +85,7 @@ import { TaskSetDropdownComponent } from './task/create-task-set/task-set-dropdo
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     TaskFormService,
     TaskGroupService,
+    ModalService
 
 
   ],

@@ -5,7 +5,6 @@ import { TaskFormService } from './_service/task-form-service.service';
 import { ApiService } from '../../config/api.service';
 import { TaskGroupService } from './_service/task-group.service';
 import {Observable} from 'rxjs'
-import {Todo, TodosForm, TaskForm} from '../_models';
 
 
 
