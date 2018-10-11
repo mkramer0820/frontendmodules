@@ -56,7 +56,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
     <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
     <ul>
       <li *ngFor="let todo of todos?.controls; let i = index">
-        <app-todos [index]="i" [todosForm]="todo" [selectedId]="selectedId" (deletePlayer)="deleteTodos($event)"></app-todos>
+        <app-todos [index]="i" [todosForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-todos>
       </li>
     </ul>
 

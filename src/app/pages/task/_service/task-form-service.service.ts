@@ -44,7 +44,9 @@ export class TaskFormService {
   deleteTodos(i: number) {
     const currentTask = this.taskForm.getValue();
     const currentTodos = currentTask.get('todos') as FormArray;
+
     currentTodos.removeAt(i);
+    
     this.taskForm.next(currentTask);
   }
   getTaskGroups() {
