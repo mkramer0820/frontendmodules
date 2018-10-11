@@ -16,6 +16,7 @@ import { AuthenticationService } from '../../_services';
 import {TaskComponent} from '../../task/task.component';
 import { TaskSetComponent } from '../../task/create-task-set/task-set.component';
 import {ModalService} from '../../_services/modal.service';
+import {TaskGroupService} from '../../task/_service/task-group.service';
 
 
 
@@ -39,6 +40,7 @@ export class OrdersTableComponent implements OnInit {
   /////
   databaseId: string;
   orderTask: boolean = false;
+  sentGroups: any;
 
 
   ////
@@ -66,11 +68,13 @@ export class OrdersTableComponent implements OnInit {
     private dialog: MatDialog,
     private auth: AuthenticationService,
     private modalService: ModalService,
+    private tgs: TaskGroupService,
     //private service: SharedService,
   ) { }
 
   ngOnInit() {
     this.getOrders();
+    this.tgs.getTaskGroups();
 
   }
 
@@ -83,6 +87,11 @@ export class OrdersTableComponent implements OnInit {
   }
   decodeJwt(){
     this.auth.updateData(this.token);
+  }
+  getTaskGroup() {
+    this.tgs.getMessage().subscribe(rsp => {
+      this.sentGroups = rsp;
+    });
   }
 
 
@@ -116,6 +125,7 @@ export class OrdersTableComponent implements OnInit {
     });
   }
   openOrderTaskDialog(id): void {
+    this.getTaskGroup();
     this.databaseId = id;
     const dialogRef = this.dialog.open(TaskComponent, {
     });
@@ -152,6 +162,7 @@ export class OrdersTableComponent implements OnInit {
   }
 
   closeModal(id: string) {
+    
     this.modalService.close(id);
   }
 }

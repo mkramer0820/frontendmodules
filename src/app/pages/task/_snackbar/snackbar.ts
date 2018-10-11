@@ -20,7 +20,7 @@ export class SuccessSnackBar {
         config.verticalPosition = this.verticalPosition;
         config.horizontalPosition = this.horizontalPosition;
         config.duration = this.setAutoHide ? this.autoHide : 0;
-        this.snackBar.open(message, this.action ?,  config);
+       //  this.snackBar.open(message, this.action?,  config);
     }
     
     

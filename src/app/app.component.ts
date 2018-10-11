@@ -82,7 +82,12 @@ export class AppComponent implements AfterViewInit {
         {
           displayName: 'Add New Order',
           iconName: 'add',
-          route: 'order-add',
+          route: 'order-add', 
+        },
+        {
+          displayName: 'Order Task',
+          iconName: 'add',
+          route: 'order-task',
         },
       ]},
       {

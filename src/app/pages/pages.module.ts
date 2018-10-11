@@ -26,10 +26,12 @@ import { TaskUpdateComponent } from './task/create-task-set/task-update/task-upd
 import { TaskGroupService } from './task/_service/task-group.service';
 import { TaskComponent } from './task/task.component';
 import { AddTaskGroupComponent } from './task/add-task-group/add-task-group.component';
-import { UpdateTaskSetComponent } from './task/update-task-set/update-task-set.component';
 import { TaskSetDropdownComponent } from './task/create-task-set/task-set-dropdown/task-set-dropdown.component';
 import {ModalService} from './_services/modal.service';
 import { ModalComponent } from './_directives/modal/modal.component';
+import { OrderTaskComponent } from './orders/order-task/order-task.component';
+import {OrderTaskFormService} from './orders/order-task/_service/order-task-form.service';
+import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos.component';
 
 @NgModule({
   imports: [
@@ -54,14 +56,14 @@ import { ModalComponent } from './_directives/modal/modal.component';
     FactoryUpdateComponent,
     FactoryContactComponent,
     TaskSetComponent,
-    //CreateOrderTaskComponent,
     TodosComponent,
     TaskUpdateComponent,
     TaskComponent,
     AddTaskGroupComponent,
-    UpdateTaskSetComponent,
     TaskSetDropdownComponent,
-    ModalComponent, // required
+    ModalComponent,
+    OrderTaskComponent,
+    OrderTodosComponent, // required
   ],
   entryComponents: [
     CustomerAddFormComponent,
@@ -85,7 +87,8 @@ import { ModalComponent } from './_directives/modal/modal.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     TaskFormService,
     TaskGroupService,
-    ModalService
+    ModalService,
+    OrderTaskFormService
 
 
   ],

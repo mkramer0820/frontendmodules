@@ -30,7 +30,7 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
     </div>
 
     <div *ngIf="ordertask == false">
-       <button mat-raised-button (click)="selectedUpdate()"> Add Tasks To Order </button>
+       <button mat-raised-button (click)="selectedUpdateOrder()"> Add Tasks To Order </button>
     </div>
 
   </div>
@@ -38,15 +38,16 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
 
     <div [ngSwitch]="num">
       <div *ngSwitchCase="'1'">
-        <app-task-set [title]="title" [sentGroups]="groups" [case]="num" [order]="databaseId"></app-task-set>
+        <app-task-set [title]="title" [(sentGroups)]="groups" [case]="num" [order]="databaseId"></app-task-set>
       </div>
       
       <div *ngSwitchCase="'2'">
-        <app-task-set [title]="createTitle" [sentGroups]="groups" [case]="num"  [order]="databaseId"></app-task-set>
+        <app-task-set [title]="createTitle" [(sentGroups)]="groups" [case]="num"  [order]="databaseId"></app-task-set>
       </div>
       
       <div *ngSwitchCase="'3'">
-        Three
+        <app-task-set [title]="createTitle" [(OrderTask)]="ordertask"  [(sentGroups)]="groups"
+         [case]="num"  [order]="databaseId"></app-task-set>
       </div>
       <div *ngSwitchDefault></div>
     </div>
@@ -62,6 +63,7 @@ export class TaskComponent implements OnInit {
 
   title: any;
   createTitle: any;
+  orderTitle: any;
   num: string;
 
   taskForm: FormGroup;
@@ -70,13 +72,14 @@ export class TaskComponent implements OnInit {
   // order compoent message
   @Input() databaseId: null;
   @Input() ordertask: boolean = true;
+  
   defaultOrdertask = false;
   // set_name: FormGroup;
   set_name: any;
   todos: FormArray;
   message: string;
   groupSub: Subscription;
-  groups: Array<any> = [];
+  groups: any;
   orderTask = {};
   updateName = false;
   masterGroupMessage: any;
@@ -97,24 +100,34 @@ export class TaskComponent implements OnInit {
         this.todos = this.taskForm.get('todos') as FormArray;
         this.set_name = this.taskForm.get('set_name');
       });
-    this.getTaskGroup();
+    this.getTaskGroups();
     }
-    getTaskGroup() {
-      this.tgs.getMessage().subscribe(rsp => {
-        this.groups = rsp;
-      });
-    }
-  
+
+  getTaskGroup() {
+    this.tgs.getMessage().subscribe(rsp => {
+      this.groups = rsp;
+    });
+  }
+    
   default() {
     this.num= '0';
   }
 
   selectedUpdate() {
     this.num = '1';
+    this.getTaskGroup();
     return this.title = 'Update Existing Task Set';
     console.log('Update Selected')
   }
+  selectedUpdateOrder() {
+    
+    this.getTaskGroups();
+    this.num = '3';
+    return this.orderTitle = 'Add Task Set To Group';
+    console.log('Update Selected')
+  }
   selectedCreate() {
+    this.getTaskGroup();
     this.num = '2';
     return this.createTitle = 'Create New Task Set';
     console.log('Update Selected');
@@ -129,5 +142,10 @@ export class TaskComponent implements OnInit {
       rsp = this.tgs.getMessage();
     });
   }
-
+  getTaskGroups() {
+    this.apiService.getTaskGroups().subscribe(resp => {
+      return this.groups = resp;
+      console.log(this.groups);
+    });
+  }
 }

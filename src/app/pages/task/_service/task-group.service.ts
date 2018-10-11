@@ -37,11 +37,7 @@ export class TaskGroupService {
   }
   getTaskGroups() {
     this.apiService.getTaskGroups().subscribe(resp => {
-      // console.log(resp);
-      console.log(resp['sent_names'])
-      console.log(resp)
-      return this.sendMessage(resp);
-      // this.group = resp;
+      this.sendMessage(resp);
     });
     // console.log(this.group);
   }

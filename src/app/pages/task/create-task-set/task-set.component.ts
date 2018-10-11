@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, Input, OnChanges, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Input} from '@angular/core';
 import { FormGroup, FormArray, FormControl, FormBuilder,  } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TaskFormService } from '../_service/task-form-service.service';
@@ -6,10 +6,8 @@ import { ApiService } from '../../../config/api.service';
 import { TaskGroupService } from '../_service/task-group.service';
 import {MatDialog } from '@angular/material';
 import { AddTaskGroupComponent } from '../add-task-group/add-task-group.component';
-import {TaskSetDropdownComponent} from './task-set-dropdown/task-set-dropdown.component';
-import {Observable} from 'rxjs'
 import {Todo, TodosForm, TaskForm} from '../_models';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -17,7 +15,6 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
   template:
 `
     <h1>{{title}} order id {{order}}</h1>
-
 <!--  Task Group id: {{taskForm.controls.todos_group.value}} -->
   <br />
   <form [formGroup]="taskForm" >
@@ -32,18 +29,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
     </mat-form-field>
     <button  type="open" mat-button-raised color="accent" (click)="openAddDialog()">Add New Task Groups</button>
   
-    <div *ngIf="title == 'Update Existing Task Set'">
-      <div *ngIf='masterGroupMessage'>
-        <mat-form-field class="form-element">
-          <mat-select matInput  placeholder="Choose Boiler Plate Task" formControlName='set_name' >
-            <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}}  (click)="setSelectedId(set.id)"
-            (click)="getBlanketTask(selectedId)">
-            <span class="mat-option-text">{{set.set_name}}</span>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
+  
 
     <div *ngIf="title == 'Create New Task Set'">
       <mat-form-field>
@@ -82,13 +68,14 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
   `,
   styleUrls: ['./task-set.component.scss']
 })
-export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Message from task.component
   @Input() title: string;
   @Input() sentGroups: any;
   @Input() case: string;
   @Input() order: string;
+  @Input() OrderTask: boolean = true;
   // end of message propery
   
   taskForm: FormGroup;
@@ -98,8 +85,6 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
   set_name: any;
   todos: FormArray;
   message: string;
-  groupSub: Subscription;
-  // groups: Array<any> = []; //replaced by sent groups
   orderTask = {};
   updateName = false;
   masterGroupMessage: any;
@@ -116,15 +101,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
 
   ) { this.getTaskGroup()}
 
-  ngAfterContentChecked() {
-    this.taskFormSub = this.taskFormService.taskForm$
-    .subscribe(task => {
-        this.taskForm = task;
-        this.todos = this.taskForm.get('todos') as FormArray;
-        this.set_name = this.taskForm.get('set_name');
-      });
-    this.getTaskGroup();
-  }  
+
   ngOnInit() {
     this.taskFormSub = this.taskFormService.taskForm$
     .subscribe(task => {
@@ -134,7 +111,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
       });
     this.getTaskGroup();
     }
-  ngOnChanges() {
+  ngAfterViewInit() {
     this.taskFormSub = this.taskFormService.taskForm$
     .subscribe(task => {
         this.taskForm = task;
@@ -145,6 +122,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
     }
     ngOnDestroy() {
       // this.taskFormSub.unsubscribe();
+      this.getTaskGroup();
     } 
    
     addTodos() {
@@ -158,11 +136,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
       this.masterGroupMessage = set_names;
       //console.log(message);
     }
-    setSelectedId(event) {
-      this.selectedId = event;
-      console.log(this.selectedId)
-      //console.log(message);
-    }
+    
       /**
    * After a form is initialized, we link it to our main form
    */
@@ -196,14 +170,6 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterContentChecked 
         });
     }
 
-    createOrUpdate() {
-      this.updateName = true;
-      return this.updateName;
-    }
-    undocreateOrUpdate() {
-      this.updateName = false;
-      return this.updateName;
-    }
     clearTodosForm() {
       // this.taskFormService.clearForm();
       this.taskFormService.clearTodos();
