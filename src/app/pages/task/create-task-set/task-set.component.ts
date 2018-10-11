@@ -16,7 +16,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
   selector: 'app-task-set',
   template:
 `
-    <h1>{{title}}</h1>
+    <h1>{{title}} order id {{order}}</h1>
 
 <!--  Task Group id: {{taskForm.controls.todos_group.value}} -->
   <br />

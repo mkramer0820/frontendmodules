@@ -34,8 +34,14 @@ export class OrdersTableComponent implements OnInit {
     'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'
   ]
 
-  @Output() orderid: EventEmitter<null> = new EventEmitter();
+  ///////
+  // shared message for order
+  /////
+  databaseId: string;
+  orderTask: boolean = false;
 
+
+  ////
 
   message: string;
   factoryMessage: Factory[];
@@ -44,7 +50,7 @@ export class OrdersTableComponent implements OnInit {
   factory: Factory[];
   f = [];
   test: any;
-  token = localStorage.getItem('currentUser')
+  token = localStorage.getItem('currentUser');
  //myorders= [];
 
  //dataSource = new MatTableDataSource(this.myorders);
@@ -110,6 +116,7 @@ export class OrdersTableComponent implements OnInit {
     });
   }
   openOrderTaskDialog(id): void {
+    this.databaseId = id;
     const dialogRef = this.dialog.open(TaskComponent, {
     });
     dialogRef.afterOpen().subscribe(result => {
@@ -138,7 +145,9 @@ export class OrdersTableComponent implements OnInit {
   
     this.dialog.open(TaskSetComponent, dialogConfig);
   }
-  openModal(id: string) {
+  openModal(id: string, databaseId) {
+    this.orderTask = false;
+    this.databaseId = databaseId;
     this.modalService.open(id);
   }
 

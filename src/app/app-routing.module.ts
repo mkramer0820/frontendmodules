@@ -37,11 +37,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'add-task-group', component: AddTaskGroupComponent },
   { path: 'task-form', component: DynamicComponent },
-  { path: 'task', component: TaskSetComponent },
+  { path: 'task', component: TaskComponent },
   { path: 'task-update', component: TaskUpdateComponent },
   { path: 'task-test', component: TaskComponent },
   { path: 'jp-task-forms-component', component: JpFormsComponent },
-  { path: 'task-component', component: TaskComponent}
+  { path: 'task-component', component: TaskSetComponent}
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},

@@ -32,6 +32,7 @@ export class AddTaskGroupComponent implements OnInit {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   error = '';
+  success = '';
   taskGroupForm = this.fb.group({
     group_name: [''],
   });
@@ -40,7 +41,7 @@ export class AddTaskGroupComponent implements OnInit {
   /////////////
   // snabar  //
   ////////////
-  message: string = 'Snack Bar opened.';
+  // message: string = 'Snack Bar opened.';
   actionButtonLabel: string = 'Retry';
   action: boolean = true;
   setAutoHide: boolean = true;
@@ -72,35 +73,36 @@ export class AddTaskGroupComponent implements OnInit {
     this.snackBar.open(message, this.action ? this.actionButtonLabel : undefined, config);
   }
   addTaskGroup(){
-    const task = this.formGroup.value
-    console.log(task)
+    const task = this.formGroup.value;
+    console.log(task);
     this.api.addTaskGroups(task)
       .pipe(first())
       .subscribe(
         (error:string) => {
-          this.error=error;
-          console.log('yoyo',this.error);
+          this.error = error;
+          console.log('Error ! : ', this.error);
         },
         rsp => {
           // console.log(rsp);
+          
           this.error = 'Group with this name already exists';
           console.log('yoyo',this.error);
-          this.openSnackBar(this.error)
+          this.openSnackBar(rsp);
           this.formGroup.reset();
-    });
+        });
+        this.openSnackBar('Group Created');
   }
   createForm() {
   this.formGroup = this.fb.group({
     'group_name': [null, [Validators.required, Validators.minLength(1)]],
-
-  });
-}
-setChangeValidate() {
+    });
+  }
+  setChangeValidate() {
     this.formGroup.get('group_name').setValidators([Validators.required, Validators.minLength(1)]);
     this.titleAlert = "You need to specify at least 1 characters";
   }
   get name() {
-    return this.formGroup.get('group_name') as FormControl
+    return this.formGroup.get('group_name') as FormControl;
   }
 
 }

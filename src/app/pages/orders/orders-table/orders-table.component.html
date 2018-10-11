@@ -18,7 +18,7 @@
       <td mat-cell *matCellDef="let order"> {{order.buyer_name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="FACTORY">
+    <ng-container matColumnDef="FACTORY" class="overflow">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> FACTORY </th>
       <td mat-cell *matCellDef="let order"> {{order.factory_name}} </td>
     </ng-container>
@@ -68,7 +68,7 @@
       <td mat-cell *matCellDef="let order"><img src='{{order.sweater_image}}' /> </td>
     </ng-container>
 
-    <ng-container matColumnDef="SWEATER DESCRIPTION">
+    <ng-container matColumnDef="SWEATER DESCRIPTION" class="overflow">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </th>
       <td mat-cell *matCellDef="let order"> {{order.sweater_description}} </td>
     </ng-container>
@@ -78,7 +78,7 @@
       <td mat-cell *matCellDef="let order"> {{order.brand}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="FIBER CONTENT">
+    <ng-container matColumnDef="FIBER CONTENT" class="overflow">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiber Content </th>
       <td mat-cell *matCellDef="let order"> {{order.fiber_content}} </td>
     </ng-container>
@@ -95,7 +95,7 @@
 
     <ng-container matColumnDef="TASKS">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Tasks </th>
-      <td mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal')">Add Task</button></td>
+      <td mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal', order.id)">Add Task</button></td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
@@ -110,16 +110,13 @@
 
 
 <modal id="task-modal">
-    <div class="modal">
-        <div class="modal-body">
-            <h1>A Custom Modal!</h1>
-            <p>
-                <app-task></app-task>
-            </p>
-            <button (click)="closeModal('custom-modal-1');">Close</button>
-        </div>
+  <div class="modal">
+    <div class="modal-body">
+      <app-task [databaseId]="databaseId" [ordertask]="orderTask"></app-task>
+      <button (click)="closeModal('custom-modal-1');">Close</button>
     </div>
-    <div class="modal-background"></div>
+  </div>
+<div class="modal-background"></div>
 </modal>
 
 <modal id="custom-modal-1">
