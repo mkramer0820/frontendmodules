@@ -18,7 +18,7 @@ export class OrderTaskComponent implements OnInit {
   orderTodos: FormArray;
   setName: any;
   masterGroupMessage: any;y
-  
+
 
   constructor(
     private orderTFS: OrderTaskFormService,

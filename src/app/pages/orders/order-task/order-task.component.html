@@ -2,7 +2,7 @@
   order-task works!
 </p>
 
-  <form [formGroup]="orderTaskForm" >
+  <form [formGroup]="ordertaskForm" >
   <div *ngIf='masterGroupMessage'>
     <mat-form-field class="form-element">
       <mat-select matInput  placeholder="Choose Boiler Plate Task" formControlName='set_name' >
@@ -26,7 +26,7 @@
     <h3>Add Tasks To Set</h3>
     <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
     <ul>
-      <li *ngFor="let todo of todos?.controls; let i = index">
+      <li *ngFor="let todo of orderTodos?.controls; let i = index">
         <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
       </li>
     </ul>
