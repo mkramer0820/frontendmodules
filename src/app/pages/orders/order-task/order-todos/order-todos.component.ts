@@ -11,7 +11,7 @@ import {OrderTaskTodosForm} from '../_models';
 })
 export class OrderTodosComponent implements OnInit {
 
-  status = ['na', 'started', 'complete']
+  status = ['na', 'started', 'complete'];
 
   @Input() orderTaskTodoForm: FormGroup;
   @Input() index: number;

@@ -24,7 +24,7 @@
     </mat-form-field>
 
     <h3>Add Tasks To Set</h3>
-    <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
+    <button mat-button-raised color="primary" (click)="addOrderTodos()">Add Todos</button>
     <ul>
       <li *ngFor="let todo of orderTodos?.controls; let i = index">
         <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
