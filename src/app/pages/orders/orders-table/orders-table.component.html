@@ -1,111 +1,104 @@
-<div *ngIf="message">
-  {{message | json}}
 
-</div>
 <br />
 <button (click)='decodeJwt()'>Decoder</button>
 <br />
-<div>
-  <mat-table [dataSource]="orders" matSort class="mat-elevation-z8" >
+
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
 
     <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let order"> {{order.id}} </td>
+      <mat-header-cell *matHeaderCellDef > ID </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="BUYER">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER </th>
-      <td mat-cell *matCellDef="let order"> {{order.buyer_name}} </td>
+      <mat-header-cell *matHeaderCellDef > BUYER </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.buyer_name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="FACTORY" class="overflow">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> FACTORY </th>
-      <td mat-cell *matCellDef="let order"> {{order.factory_name}} </td>
+      <mat-header-cell *matHeaderCellDef > FACTORY </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.factory_name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ORDER NUMBER">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> CUSTOMER ORDER ID </th>
-      <td mat-cell *matCellDef="let order"> {{order.customer_order_number}} </td>
+      <mat-header-cell *matHeaderCellDef > CUSTOMER ORDER ID </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.customer_order_number}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="BUYER STYLE #">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> BUYER STYLE # </th>
-      <td mat-cell *matCellDef="let order"> {{order.buyer_style_number}} </td>
+      <mat-header-cell *matHeaderCellDef > BUYER STYLE # </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.buyer_style_number}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="JP STYLE #">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> JP STYLE # </th>
-      <td mat-cell *matCellDef="let order"> {{order.jp_style_number}} </td>
+      <mat-header-cell *matHeaderCellDef > JP STYLE # </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.jp_style_number}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="FACTORY SHIP DT">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Factory Ship Date </th>
-      <td mat-cell *matCellDef="let order"> {{order.factory_ship_date}} </td>
+      <mat-header-cell *matHeaderCellDef > Factory Ship Date </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.factory_ship_date}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="COST FROM FACTORY">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost From Factory </th>
-      <td mat-cell *matCellDef="let order"> {{order.cost_from_factory}} </td>
+      <mat-header-cell *matHeaderCellDef > Cost From Factory </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.cost_from_factory}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="BUYER PRICE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price Buyer Paid </th>
-      <td mat-cell *matCellDef="let order"> {{order.buyers_price}} </td>
+      <mat-header-cell *matHeaderCellDef > Price Buyer Paid </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.buyers_price}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="ORDER TYPE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Type </th>
-      <td mat-cell *matCellDef="let order"> {{order.order_type}} </td>
+      <mat-header-cell *matHeaderCellDef > Order Type </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.order_type}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="QTY">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-      <td mat-cell *matCellDef="let order"> {{order.qty}} </td>
+      <mat-header-cell *matHeaderCellDef > Quantity </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.qty}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="SWEATER IMG">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
-      <td mat-cell *matCellDef="let order"><img src='{{order.sweater_image}}' /> </td>
+      <mat-header-cell *matHeaderCellDef > Image </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"><img src='{{order.sweater_image}}' /> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="SWEATER DESCRIPTION" class="overflow">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </th>
-      <td mat-cell *matCellDef="let order"> {{order.sweater_description}} </td>
+      <mat-header-cell *matHeaderCellDef > DESCRIPTION </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.sweater_description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="BRAND">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
-      <td mat-cell *matCellDef="let order"> {{order.brand}} </td>
+      <mat-header-cell *matHeaderCellDef > Brand </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.brand}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="FIBER CONTENT" class="overflow">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fiber Content </th>
-      <td mat-cell *matCellDef="let order"> {{order.fiber_content}} </td>
+      <mat-header-cell *matHeaderCellDef > Fiber Content </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.fiber_content}} </mat-cell>
     </ng-container>
 
-      <ng-container matColumnDef="COLOR">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
-      <td mat-cell *matCellDef="let order"> {{order.color}} </td>
+    <ng-container matColumnDef="COLOR">
+      <mat-header-cell *matHeaderCellDef > Color </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let order"> {{order.color}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="UPDATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
-      <td mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openUpdateDialog(order.id)">Update</button></td>
+      <mat-header-cell *matHeaderCellDef > Update </mat-header-cell>
+      <mat-cell mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openUpdateDialog(order.id)">Update</button></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="TASKS">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tasks </th>
-      <td mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal', order.id)">Add Task</button></td>
+      <mat-header-cell *matHeaderCellDef > Tasks </mat-header-cell>
+      <mat-cell mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal', order.id)">Add Task</button></mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+    <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayColumns;"></mat-row>
   </mat-table>
-</div>
-<div *ngFor='let item of dataSource'>
-  test
-  {{item}}
-</div>
+
 
 
 

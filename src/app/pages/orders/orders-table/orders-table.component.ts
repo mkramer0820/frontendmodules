@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
-import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortModule, MatSort } from '@angular/material';
+import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortModule, MatSort, MatTab } from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../_services';
@@ -28,6 +28,7 @@ import {TaskGroupService} from '../../task/_service/task-group.service';
 })
 export class OrdersTableComponent implements OnInit {
   orders: Order[];
+  dataSource = new MatTableDataSource();
   displayColumns: string [] = [
    'ID', 'BUYER','FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
@@ -57,9 +58,10 @@ export class OrdersTableComponent implements OnInit {
 
  //dataSource = new MatTableDataSource(this.myorders);
 
-  //@ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   //@ViewChild(MatSort) sort: MatSort;
   //@ViewChild(MatPaginator) paginator: MatPaginator;
+
 
 
   constructor(
@@ -98,6 +100,15 @@ export class OrdersTableComponent implements OnInit {
   getOrders() {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
       this.orders = orders;
+      console.log(Object.keys(orders));
+      
+      const source = [];
+      for (const index in orders) {
+        let obj = orders[index];
+        source.push(obj);
+      }
+      console.log(source);
+      this.dataSource = new MatTableDataSource(source);
       console.log(orders)
     });
   }
