@@ -63,7 +63,7 @@ import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos
     TaskSetDropdownComponent,
     ModalComponent,
     OrderTaskComponent,
-    OrderTodosComponent, // required
+    OrderTodosComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,

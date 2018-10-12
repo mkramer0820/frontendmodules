@@ -17,12 +17,16 @@ export class OrderTaskComponent implements OnInit {
   ordertaskFormSub: Subscription;
   orderTodos: FormArray;
   setName: any;
-  masterGroupMessage: any;y
+  masterGroupMessage: any;
+  ordertaskGroupsSub: Subscription;
+  ordertaskGroups: any;
+  setNames: any;
 
 
   constructor(
     private orderTFS: OrderTaskFormService,
     private apiService: ApiService,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -32,6 +36,8 @@ export class OrderTaskComponent implements OnInit {
       this.orderTodos = this.ordertaskForm.get('todos') as FormArray;
       this.setName = this.ordertaskForm.get('set_name');
     });
+  this.ordertaskGroups = this.orderTFS.ordertaskGroups;
+  console.log('you got these task groups form service: ', this.ordertaskGroups);
   }
 
   ///// ADD and Delete todos parent--> child/////
@@ -45,7 +51,31 @@ export class OrderTaskComponent implements OnInit {
   setmasterGroupMessage(event) {
     let set_names = event.set_names;
     this.masterGroupMessage = set_names;
-    //console.log(message);
+    console.log(this.masterGroupMessage);
+  }
+  getBlanketTask(id) {
+    this.apiService.getTaskDetail(id).subscribe(res => {
+      this.orderTFS.clearForm();
+      if (this.ordertaskForm.get('todos').value.length == 0) {
+        const todos = res['todos'];
+        for (const todo in todos) {
+          if (todos.hasOwnProperty(todo)) {
+            const todoslist =  todos[todo];
+            // const currentTask = this.taskForm.getValue();
+            const currentTodos = this.ordertaskForm.get('todos') as FormArray;
+            currentTodos.push(
+            this.fb.group(
+              new OrderTaskTodosForm(new OrderTaskTodo(todoslist['todo'], ))
+            )
+          );
+          } else {
+          console.log('field');
+          }
+        }
+      } else {
+        console.log('error');
+      }
+    });
   }
 
   //  TODO: ADD ORDER TASK CREATE TO API

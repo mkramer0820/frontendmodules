@@ -69,8 +69,8 @@ export class ApiService {
   }
 
   //orders
-  getOrders(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/`);
+  getOrders(ordering?: string): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/?ordering=${ordering}`);
   }
   getMyOrders(): Observable<Orders[]> {
     return this.httpClient.get<Orders[]>(`${this.API_URL}/orders/`);

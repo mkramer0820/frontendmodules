@@ -33,6 +33,7 @@ import {
   MatTabsModule,
   MatSortModule,
   MatTableDataSource,
+  MatPaginatorModule ,
 
 
 } from '@angular/material';
@@ -77,6 +78,7 @@ import {NgModule} from '@angular/core';
     MatSlideToggleModule ,
     MatTableModule,
     MatSortModule,
+    MatPaginatorModule,
     
 
 
@@ -124,6 +126,7 @@ import {NgModule} from '@angular/core';
     MatSidenavModule,
     MatTabsModule,
     MatSortModule,
+    MatPaginatorModule,
 
 
 

@@ -4,20 +4,21 @@ import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
 // import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
 import {OrdersSharedService} from '../orders-shared.service';
-import {Subscription} from 'rxjs';
-import {map, merge, filter} from 'rxjs/operators';
+import {Subscription, of, merge, pipe} from 'rxjs';
+import {map, filter, catchError, finalize, tap} from 'rxjs/operators';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
 import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortModule, MatSort, MatTab } from '@angular/material';
-import {DataSource} from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
+import {DataSource, CollectionViewer} from '@angular/cdk/collections';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../../_services';
 import {TaskComponent} from '../../task/task.component';
 import { TaskSetComponent } from '../../task/create-task-set/task-set.component';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import {OrderService} from './_service/order.service';
 
 
 
@@ -27,9 +28,9 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./orders-table.component.scss'],
   providers: []
 })
-export class OrdersTableComponent implements OnInit, AfterViewInit {
+export class OrdersTableComponent implements OnInit {
   orders: Order[];
-  dataSource = new MatTableDataSource();
+  //dataSource = new MatTableDataSource();
   displayColumns: string [] = [
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
@@ -43,9 +44,14 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   databaseId: string;
   orderTask: boolean = false;
   sentGroups: any;
-
-
   ////
+
+  /////// cdk
+  // dataSource: OrdersDataSource;
+
+
+  //////
+
 
   message: string;
   factoryMessage: Factory[];
@@ -55,9 +61,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   f = [];
   test: any;
   token = localStorage.getItem('currentUser');
- //myorders= [];
+  myorders= [];
 
- //dataSource = new MatTableDataSource(this.myorders);
+  dataSource = new MatTableDataSource(this.myorders);
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -72,29 +78,44 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private modalService: ModalService,
     private tgs: TaskGroupService,
     private route: ActivatedRoute,
+    private router: Router,
+    private ordersService: OrderService,
     //private service: SharedService,
   ) { }
 
   ngOnInit() {
-    this.getOrders();
+    this.getOrders('id');
     this.tgs.getTaskGroups();
+    // this.dataSource = new OrdersDataSource(this.ordersService);
+    // this.dataSource.loadOrders( 'id', 1, 1);
+
   }
-  
+  /*
   ngAfterViewInit() {
-   /*
+    this.paginator.page
+            .pipe(
+                tap(() => this.loadOrdersPage())
+            )
+            .subscribe();
+   
     // reset the paginator after sorting
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
-        .pipe(
-            tap(() => this.loadLessonsPage())
-        )
-        .subscribe();
-        */
-  }
+        merge(this.sort.sortChange, this.paginator.page)
+            .pipe(
+                tap(() => this.loadOrdersPage())
+            )
+            .subscribe();
+  }*/
   onRowClicked(row) {
     console.log('Row clicked: ', row);
   }
+  /*
+  loadOrdersPage() {
+    this.dataSource.loadOrders(
+        'id',
+        this.paginator.pageIndex,
+        this.paginator.pageSize);
+}*/
 
   sendMessage(message): void {
           // send message to subscribers via observable subject
@@ -111,10 +132,21 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       this.sentGroups = rsp;
     });
   }
-
-
-  getOrders() {
-    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+  
+  mapOrder (array, order, key) {
+    array.sort( function (a, b) {
+      const A = a[key], B = b[key];
+      if (order.indexOf(A) > order.indexOf(B)) {
+        return 1;
+      } else {
+        return -1;
+      } 
+    });
+    return array;
+  }
+//   good but testing orderservice
+  getOrders(id) {
+    this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {      
       this.orders = orders;
       // console.log(Object.keys(orders));
       
@@ -123,11 +155,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
         let obj = orders[index];
         source.push(obj);
       }
-      console.log(source);
+      console.log("source: ", orders)
       this.dataSource = new MatTableDataSource(source);
      // console.log(orders)
     });
-  }
+  } 
 
   openUpdateDialog(id): void {
     const dialogRef = this.dialog.open(OrdersUpdateComponent, {
@@ -195,12 +227,60 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 }
 
 
-export class OrdersDataSource extends DataSource<any> {
-  constructor(private apiService: ApiService) {
-    super();
+export class OrdersDataSource implements DataSource<Order> {
+
+  private ordersSubject = new BehaviorSubject<Order[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
+
+
+  constructor(private ordersService: OrderService) {}
+
+  connect(collectionViewer: CollectionViewer): Observable<Order[]> {
+    return this.ordersSubject.asObservable();
+
   }
-  connect(): Observable<Orders[]> {
-    return this.apiService.getMyOrders();
+
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.ordersSubject.complete();
+    this.loadingSubject.complete();
   }
-  disconnect() {}
+
+  loadOrders(ordering: string, page: number, page_size: number) {
+    this.loadingSubject.next(true);
+
+    this.ordersService.findOrders(ordering, page, page_size).pipe(
+        catchError(() => of([])),
+        finalize(() => this.loadingSubject.next(false))
+    )
+    .subscribe(orders => this.ordersSubject.next(orders));
+    console.log("orders subject", this.ordersSubject);
+  }
 }
+
+/*
+{
+  params: new HttpParams()
+      .set('ordering', ordering.toString())
+      .set('page', page.toString())
+      .set('page_size', page_size.toString())
+}).pipe(
+  map(res =>  res['results'])
+);
+}
+*/
+function mapOrder (array, order, key) {
+  
+  array.sort( function (a, b) {
+    var A = a[key], B = b[key];
+    
+    if (order.indexOf(A) > order.indexOf(B)) {
+      return 1;
+    } else {
+      return -1;
+    }
+    
+  });
+  
+  return array;
+};
