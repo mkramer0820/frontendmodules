@@ -30,7 +30,7 @@ import {TodosForm} from '../../_models';
             </mat-form-field>
           -->
             <mat-form-field class="example-full-width">
-              <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
+              <input matInput [matDatepicker]="picker" placeholder="Due Date" formControlName="duedate">
               <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
               </mat-datepicker-toggle>

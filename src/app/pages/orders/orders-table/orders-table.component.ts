@@ -1,11 +1,11 @@
-import { Component, OnInit, Directive, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Directive,AfterViewInit,  ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {Order, Orders} from '../../../modules/models/orders.model';
 import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
 // import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
 import {OrdersSharedService} from '../orders-shared.service';
 import {Subscription} from 'rxjs';
-//import {Observable} from 'rxjs';
+import {map, merge, filter} from 'rxjs/operators';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
@@ -17,6 +17,7 @@ import {TaskComponent} from '../../task/task.component';
 import { TaskSetComponent } from '../../task/create-task-set/task-set.component';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 
@@ -26,11 +27,11 @@ import {TaskGroupService} from '../../task/_service/task-group.service';
   styleUrls: ['./orders-table.component.scss'],
   providers: []
 })
-export class OrdersTableComponent implements OnInit {
+export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
   dataSource = new MatTableDataSource();
   displayColumns: string [] = [
-   'ID', 'BUYER','FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
+   'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
     'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'
@@ -59,8 +60,7 @@ export class OrdersTableComponent implements OnInit {
  //dataSource = new MatTableDataSource(this.myorders);
 
   @ViewChild(MatSort) sort: MatSort;
-  //@ViewChild(MatSort) sort: MatSort;
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
 
@@ -71,13 +71,29 @@ export class OrdersTableComponent implements OnInit {
     private auth: AuthenticationService,
     private modalService: ModalService,
     private tgs: TaskGroupService,
+    private route: ActivatedRoute,
     //private service: SharedService,
   ) { }
 
   ngOnInit() {
     this.getOrders();
     this.tgs.getTaskGroups();
+  }
+  
+  ngAfterViewInit() {
+   /*
+    // reset the paginator after sorting
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
+    merge(this.sort.sortChange, this.paginator.page)
+        .pipe(
+            tap(() => this.loadLessonsPage())
+        )
+        .subscribe();
+        */
+  }
+  onRowClicked(row) {
+    console.log('Row clicked: ', row);
   }
 
   sendMessage(message): void {
@@ -100,7 +116,7 @@ export class OrdersTableComponent implements OnInit {
   getOrders() {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
       this.orders = orders;
-      console.log(Object.keys(orders));
+      // console.log(Object.keys(orders));
       
       const source = [];
       for (const index in orders) {
@@ -109,7 +125,7 @@ export class OrdersTableComponent implements OnInit {
       }
       console.log(source);
       this.dataSource = new MatTableDataSource(source);
-      console.log(orders)
+     // console.log(orders)
     });
   }
 
