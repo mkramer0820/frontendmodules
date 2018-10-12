@@ -1,6 +1,8 @@
 import { OrderTaskTodo } from './order-task-todo';
 
 export class OrderTask {
+
+    order: number;
     todos_group: string;
     set_name: string;
     id: number;

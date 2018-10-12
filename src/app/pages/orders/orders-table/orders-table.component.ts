@@ -44,6 +44,7 @@ export class OrdersTableComponent implements OnInit {
   databaseId: string;
   orderTask: boolean = false;
   sentGroups: any;
+  order: any;
   ////
 
   /////// cdk
@@ -107,6 +108,7 @@ export class OrdersTableComponent implements OnInit {
             .subscribe();
   }*/
   onRowClicked(row) {
+    this.order = row;
     console.log('Row clicked: ', row);
   }
   /*
@@ -214,9 +216,10 @@ export class OrdersTableComponent implements OnInit {
   
     this.dialog.open(TaskSetComponent, dialogConfig);
   }
-  openModal(id: string, databaseId) {
-    this.orderTask = false;
-    this.databaseId = databaseId;
+  openModal(id: string, order) {
+    //this.orderTask = false;
+    //this.databaseId = databaseId;
+    this.order = order;
     this.modalService.open(id);
   }
 

@@ -3,11 +3,15 @@ import { OrderTask } from './order-task';
 
 export class OrderTaskForm {
 
+  order = new FormControl();
   todos_group = new FormControl();
   set_name = new FormControl();
   todos = new FormArray([]);
 
   constructor(task: OrderTask) {
+    if (task.order) {
+      this.order.setValue(task.order);
+    }
     if (task.todos_group) {
       this.todos_group.setValue(task.todos_group);
     }

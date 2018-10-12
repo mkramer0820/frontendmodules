@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormArray, FormControl, FormBuilder,  } from '@angular/forms';
 import { ApiService } from '../../../config/api.service';
 import { Subscription } from 'rxjs';
 import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
+import { Order } from 'src/app/modules/models/orders.model';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class OrderTaskComponent implements OnInit {
   ordertaskGroupsSub: Subscription;
   ordertaskGroups: any;
   setNames: any;
+  @Input() order: any;
 
 
   constructor(
@@ -49,6 +51,7 @@ export class OrderTaskComponent implements OnInit {
   }
   ///used in the dropdown
   setmasterGroupMessage(event) {
+    this.ordertaskForm.get('order').setValue(this.order.id);
     let set_names = event.set_names;
     this.masterGroupMessage = set_names;
     console.log(this.masterGroupMessage);
@@ -79,14 +82,14 @@ export class OrderTaskComponent implements OnInit {
   }
 
   //  TODO: ADD ORDER TASK CREATE TO API
-  /*
-  saveTodos() {
-    this.apiService.createOrderTask(this.taskForm.value).subscribe(response => {
+  
+  createOrderTask() {
+    this.apiService.addTaskToOrder(this.ordertaskForm.value).subscribe(response => {
       console.log(response);
       });
-    this.clearTodosForm();
-    this.getTaskGroup();
-  }*/
+    this.orderTFS.clearForm();
+  }
+  /*
   addOrdertASK(id) {
     const task = this.ordertaskForm.value;
     this.apiService.addTaskToOrder(task).subscribe(response => {

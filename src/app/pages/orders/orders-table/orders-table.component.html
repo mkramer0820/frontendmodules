@@ -101,7 +101,7 @@
 
     <ng-container matColumnDef="TASKS">
       <mat-header-cell *matHeaderCellDef > Tasks </mat-header-cell>
-      <mat-cell mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal', order.id)">Add Task</button></mat-cell>
+      <mat-cell mat-cell  *matCellDef="let order"> <button mat-raised-button (click)="openModal('task-modal', order)">Add Task</button></mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayColumns" ></mat-header-row>
@@ -115,7 +115,7 @@
 <modal id="task-modal">
   <div class="modal">
     <div class="modal-body">
-      <app-task [databaseId]="databaseId" [ordertask]="orderTask"></app-task>
+      <app-order-task [order]="order"></app-order-task>
       <button (click)="closeModal('custom-modal-1');">Close</button>
     </div>
   </div>
