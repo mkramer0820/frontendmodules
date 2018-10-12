@@ -27,15 +27,22 @@ import { Router} from '@angular/router';
       </mat-option>
     </mat-select>
     </mat-form-field>
-    <button  type="open" mat-button-raised color="accent" (click)="openAddDialog()">Add New Task Groups</button>
-  
-  
 
-    <div *ngIf="title == 'Create New Task Set'">
-      <mat-form-field>
-        <input matInput formControlName="set_name" placeholder="New Set Name">
+    <div *ngIf="masterGroupMessage">
+      <mat-form-field class="form-element">
+        <mat-select matInput  placeholder="Choose Boiler Plate Task" formControlName='set_name' >
+          <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
+          <span class="mat-option-text">{{set.set_name}}</span>
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
+
+  <div *ngIf="title == 'Create New Task Set'">
+    <mat-form-field>
+      <input matInput formControlName="set_name" placeholder="New Set Name">
+    </mat-form-field>
+  </div>
   
     
    <h3>Add Tasks To Set</h3>
