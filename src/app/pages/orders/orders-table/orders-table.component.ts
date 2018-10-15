@@ -36,6 +36,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
     'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'TOTAL TASK SETS'  ]
+  
+  tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
 
   ///////
   // shared message for order
