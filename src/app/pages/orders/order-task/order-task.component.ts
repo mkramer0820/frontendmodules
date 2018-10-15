@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
 import { Order } from 'src/app/modules/models/orders.model';
+import {ModalService} from '../../_services/modal.service';
 
 
 @Component({
@@ -108,7 +109,7 @@ export class OrderTaskComponent implements OnInit {
     this.ordertaskForm.get('todos_group').setValue(event.todos_group);
   }
   //  TODO: ADD ORDER TASK CREATE TO API
-  
+
   createOrderTask() {
     this.apiService.addTaskToOrder(this.ordertaskForm.value).subscribe(response => {
       console.log(response);
@@ -120,6 +121,7 @@ export class OrderTaskComponent implements OnInit {
       this.orderTFS.clearForm();
     });
   }
+
 }
   /*
   addOrdertASK(id) {
@@ -137,4 +139,4 @@ export class OrderTaskComponent implements OnInit {
     this.router.navigate(['task-component']);
   }*/
 
-}
+

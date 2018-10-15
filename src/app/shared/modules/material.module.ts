@@ -37,6 +37,7 @@ import {
 
 
 } from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {A11yModule} from '@angular/cdk/a11y';
 import {BidiModule} from '@angular/cdk/bidi';
@@ -79,6 +80,7 @@ import {NgModule} from '@angular/core';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    FlexLayoutModule
     
 
 
@@ -127,6 +129,7 @@ import {NgModule} from '@angular/core';
     MatTabsModule,
     MatSortModule,
     MatPaginatorModule,
+    FlexLayoutModule
 
 
 

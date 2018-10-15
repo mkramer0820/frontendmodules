@@ -107,7 +107,7 @@ export class OrdersUpdateComponent implements OnInit {
     this.sharedService.clearMessage();
   }
   onFileChanged(event) {
-    this.selectedFile = event.target.files[0]	    let reader = new FileReader();
+    let reader = new FileReader();
     if(event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);

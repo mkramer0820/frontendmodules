@@ -1,21 +1,15 @@
-<p>
-  order-todos works!
-</p>
-
 <form [formGroup]="orderTaskTodoForm">
-  <table>
-    <tr>
-      <td>
+  
         <mat-form-field>
           <input matInput formControlName="todo" placeholder="Task Name">
         </mat-form-field>
-      </td>
-      <td>
+      
+      
         <mat-form-field>
           <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
         </mat-form-field>
-      </td>
-      <td>
+      
+      
         <mat-form-field class="example-full-width">
           <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
           <mat-datepicker-toggle matSuffix [for]="picker">
@@ -23,8 +17,8 @@
           </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-      </td>
-      <td>
+      
+      
       <mat-form-field class="form-element">
       <mat-select matInput  placeholder="Status" formControlName='status'>
         <mat-option *ngFor="let status of status; let i=index" value={{status}}>
@@ -32,17 +26,15 @@
         </mat-option>
       </mat-select>
       </mat-form-field>
-      </td>
-      <td>
+      
+      
         <!-- emit delete event up w/ index of todos -->
-        <button (click)="delete()">Delete</button>
-      </td>
-    </tr>
-  </table>
-  <pre>Todos Form Status: <span class="status">{{orderTaskTodoForm.status}}</span></pre>
+        <button mat-mini-fab (click)="delete()" style="background-color:firebrick; color:white"><mat-icon>remove</mat-icon></button>
+      
+
+  <!--<span class="status">{{orderTaskTodoForm.status}}</span> -->
 </form>
 <div *ngIf='todos'>
 {{todos}}
 </div>
 {{todos | json}}
-<mat-divider></mat-divider>

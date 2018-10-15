@@ -28,15 +28,14 @@ import {OrderService} from './_service/order.service';
   styleUrls: ['./orders-table.component.scss'],
   providers: []
 })
-export class OrdersTableComponent implements OnInit {
+export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
   //dataSource = new MatTableDataSource();
   displayColumns: string [] = [
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
-    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS',
-  ]
+    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'TOTAL TASK SETS'  ]
 
   ///////
   // shared message for order
@@ -46,6 +45,9 @@ export class OrdersTableComponent implements OnInit {
   sentGroups: any;
   order: any;
   selectedTask: any;
+
+  orderSort: any;
+  sortVal: any;
 
 
   message: string;
@@ -82,6 +84,9 @@ export class OrdersTableComponent implements OnInit {
     this.getOrders('id');
     this.tgs.getTaskGroups();
   }
+  ngAfterViewInit() {
+    this.getOrders('id');
+  }
   onRowClicked(row) {
     this.order = row;
     this.selectedTask = row.tasks;
@@ -104,20 +109,33 @@ export class OrdersTableComponent implements OnInit {
   }
   
 //   good but testing orderservice
-  getOrders(id) {
-    this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {      
-      this.orders = orders;
-      // console.log(Object.keys(orders));
-      
-      const source = [];
-      for (const index in orders) {
-        let obj = orders[index];
-        source.push(obj);
-      }
-      console.log("source: ", orders)
-      this.dataSource = new MatTableDataSource(source);
-     // console.log(orders)
-    });
+ getOrders(id) {
+  this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
+    this.orders = orders;
+    this.dataSource = new MatTableDataSource(orders);
+    return this.orderSort = '-';
+  });
+ }
+
+  getSortOrders(val) {
+    this.sortVal = val;
+    if (this.orderSort === '-') {
+
+      this.apiService.getOrders(this.orderSort + val).subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        // console.log(Object.keys(orders));
+        this.dataSource = new MatTableDataSource(orders);
+        this.orderSort = '';
+      // console.log(orders)
+      });
+    } else {
+      this.apiService.getOrders(val).subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        console.log(orders);
+        this.dataSource = new MatTableDataSource(orders);
+        this.orderSort = '-';
+      });
+    }
   } 
 
   openUpdateDialog(id): void {

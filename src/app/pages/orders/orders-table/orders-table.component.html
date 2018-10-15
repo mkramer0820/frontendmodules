@@ -7,20 +7,20 @@
         <mat-spinner></mat-spinner>
     </div>
 
-  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <mat-table [dataSource]="orders" matSort class="mat-elevation-z8">
 
     <ng-container matColumnDef="ID">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('id')"> ID </mat-header-cell>
       <mat-cell mat-cell *matCellDef="let order"> {{order.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="DUE DATE">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('due_date')">Due Date</mat-header-cell>
       <mat-cell mat-cell *matCellDef="let order"> {{order.due_date | date:'MM/dd/yyyy'}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="BUYER">
-      <mat-header-cell *matHeaderCellDef > BUYER </mat-header-cell>
+    <ng-container matColumnDef="BUYER" >
+      <mat-header-cell *matHeaderCellDef  mat-sort-header (click)="getSortOrders('buyer__name')" > BUYER </mat-header-cell>
       <mat-cell mat-cell *matCellDef="let order"> {{order.buyer_name}} </mat-cell>
     </ng-container>
 
@@ -100,12 +100,23 @@
     </ng-container>
 
     <ng-container matColumnDef="TASKS">
-      <mat-header-cell *matHeaderCellDef >Tasks </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef >Add Update Tasks </mat-header-cell>
+      <div>
       <mat-cell mat-cell  *matCellDef="let order">
               <mat-icon (click)="openModal('task-modal', order)">add</mat-icon>
               <mat-icon (click)="openModal('update-task-modal',order)">update</mat-icon>
       </mat-cell>
+      </div>
     </ng-container>
+
+    <ng-container matColumnDef="TOTAL TASK SETS">
+        <mat-header-cell *matHeaderCellDef >Total Open Task Sets</mat-header-cell>
+        <div>
+        <mat-cell mat-cell  *matCellDef="let order">
+                <button mat-mini-fab>{{order.tasks.length}}</button>
+        </mat-cell>
+        </div>
+      </ng-container>
 
     
 
@@ -123,6 +134,19 @@
   </div>
 </div>
 
+<div *ngIf='order && order.tasks.length > 0'>
+  <div *ngFor="let task of order.tasks">
+    <h2>Group Name: {{task.todos_group}}</h2>
+    <h3>Set Name: {{task.set_name}}</h3>
+    <div *ngFor='let todo of task.todos'>
+      Task Name: {{todo.todo}} &nbsp; Comment: {{todo.comment}} &nbsp; Due Date {{todo.duedate}} &nbsp; Status: {{todo.status}}
+    </div>
+    <mat-divider></mat-divider>
+
+  </div>
+
+</div>
+
 
 
 
@@ -130,7 +154,7 @@
   <div class="modal">
     <div class="modal-body">
       <app-order-task [order]="order"></app-order-task>
-      <button (click)="closeModal('custom-modal-1');">Close</button>
+      <button (click)="closeModal('task-modal');">Close</button>
     </div>
   </div>
 <div class="modal-background"></div>
