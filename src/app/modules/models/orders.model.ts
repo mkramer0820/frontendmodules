@@ -20,11 +20,12 @@ export class Order {
   jp_care_instructions: string;
   color: string;
   due_date: string;
+  tasks: OrderTask[];
 }
 
 
 
-export interface Orders {
+export class Orders {
   id: number;
   buyer: string;
   factory: string;
@@ -45,4 +46,21 @@ export interface Orders {
   jp_care_instructions: string;
   color: string;
   due_date: string;
+  tasks: OrderTask[];
+
+}
+
+export class OrderTask {
+  id: number;
+  set_name: string;
+  todos_group: string;
+  todos: OrderTaskTodo[];
+  order: number;
+}
+
+export class OrderTaskTodo {
+  todo: string;
+  status: string;
+  comment: string;
+  duedate: string;
 }

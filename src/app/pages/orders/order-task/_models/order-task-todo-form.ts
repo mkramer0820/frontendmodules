@@ -14,7 +14,6 @@ export class OrderTaskTodosForm {
 
     this.comment.setValue(todo.comment);
     this.duedate.setValue(todo.duedate);
-    this.duedate.setValue(todo.duedate);
-    this.status.setValue(todo.duedate);
+    this.status.setValue(todo.status);
   }
 }

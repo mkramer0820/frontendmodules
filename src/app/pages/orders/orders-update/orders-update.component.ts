@@ -46,7 +46,7 @@ export class OrdersUpdateComponent implements OnInit {
   subscription: Subscription;
   order: Order[];
   selectedOrder: Order[];
-  version = VERSION
+  version = VERSION;
   brands= ['888', 'JP', 'AVE', 'OTHER'];
   //types = ["Delivary Duty Paid", "Freight On Board"];
   types = ['DDP', 'FOB', 'NA'];
@@ -66,6 +66,7 @@ export class OrdersUpdateComponent implements OnInit {
     jp_care_instructions: [''],
     color: [''],
     sweater_image: [null],
+    due_date: ['']
   });
 
   constructor(
@@ -90,6 +91,7 @@ export class OrdersUpdateComponent implements OnInit {
                 'jp_care_instructions': new FormControl(''),
                 'color': new FormControl(''),
                 'sweater_image': [null],
+                'due_date': new FormControl(moment())
               });
 
              }
@@ -105,12 +107,11 @@ export class OrdersUpdateComponent implements OnInit {
     this.sharedService.clearMessage();
   }
   onFileChanged(event) {
-    let reader = new FileReader();
+    this.selectedFile = event.target.files[0]	    let reader = new FileReader();
     if(event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-
-      reader.onload = () => {
+       reader.onload = () => {
       this.orderForm.patchValue({
         sweater_image: reader.result
         });
@@ -129,25 +130,42 @@ export class OrdersUpdateComponent implements OnInit {
   onSubmit(): void {
     const uploadData = new FormData();
     let id = this.orderForm.get('id').value;
-    uploadData.append('id', this.orderForm.get('id').value);
-    uploadData.append('buyer', this.orderForm.get('buyer').value);
-    uploadData.append('factory', this.orderForm.get('factory').value);
-    uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
-    uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
-    uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
-    uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
-    uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
-    uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
-    uploadData.append('order_type', this.orderForm.get('order_type').value);
-    uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
-    uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
-    uploadData.append('color', this.orderForm.get('color').value);
-    uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
-    this.apiService.updateOrder(id, uploadData).subscribe((response) => {
-      console.log(uploadData);
-      //console.log(response);
-      this.orderForm.reset();
-    });
+    if (this.orderForm.get('sweater_image').value != null) {
+      uploadData.append('id', this.orderForm.get('id').value);
+      uploadData.append('buyer', this.orderForm.get('buyer').value);
+      uploadData.append('factory', this.orderForm.get('factory').value);
+      uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
+      uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
+      uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
+      uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
+      uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
+      uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
+      uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
+      uploadData.append('color', this.orderForm.get('color').value);
+      uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
+      this.apiService.updateOrder(id, uploadData).subscribe((response) => {
+        this.orderForm.reset();
+      });
+    } else {
+      uploadData.append('id', this.orderForm.get('id').value);
+      uploadData.append('buyer', this.orderForm.get('buyer').value);
+      uploadData.append('factory', this.orderForm.get('factory').value);
+      uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
+      uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
+      uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
+      uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
+      uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
+      uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
+      uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
+      uploadData.append('color', this.orderForm.get('color').value);
+      this.apiService.updateOrder(id, uploadData).subscribe((response) => {
+        this.orderForm.reset();
+      });
+    }
   }
   getFactoryCustomer(){
     this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
@@ -177,6 +195,8 @@ export class OrdersUpdateComponent implements OnInit {
       this.orderForm.get('fiber_content').setValue(myOrder['fiber_content']);
       this.orderForm.get('jp_care_instructions').setValue(myOrder['jp_care_instructions']);
       this.orderForm.get('color').setValue(myOrder['color']);
+      this.orderForm.get('due_date').setValue(myOrder['due_date']);
+
     });
   }
 }

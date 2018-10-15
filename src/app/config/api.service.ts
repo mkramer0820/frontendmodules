@@ -95,7 +95,7 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.API_URL}/orders/${id}/`);
   }
   updateOrder(id, order) {
-    return this.httpClient.put(`${this.API_URL}/orders/${id}`, order)
+    return this.httpClient.put(`${this.API_URL}/orders/${id}`, order);
   }
 
   //tasks
@@ -124,5 +124,8 @@ export class ApiService {
   }
   addTaskToOrder(task) {
     return this.httpClient.post(`${this.API_URL}/orders/tasks/`, task);
+  }
+  updateOrderTask(task, id) {
+    return this.httpClient.put(`${this.API_URL}/orders/tasks/${id}`, task);
   }
 }

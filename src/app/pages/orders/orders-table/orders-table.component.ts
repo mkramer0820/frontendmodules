@@ -1,5 +1,5 @@
 import { Component, OnInit, Directive,AfterViewInit,  ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {Order, Orders} from '../../../modules/models/orders.model';
+import {Order, Orders, OrderTask} from '../../../modules/models/orders.model';
 import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
 // import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
@@ -35,7 +35,7 @@ export class OrdersTableComponent implements OnInit {
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
-    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'
+    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS',
   ]
 
   ///////
@@ -45,13 +45,7 @@ export class OrdersTableComponent implements OnInit {
   orderTask: boolean = false;
   sentGroups: any;
   order: any;
-  ////
-
-  /////// cdk
-  // dataSource: OrdersDataSource;
-
-
-  //////
+  selectedTask: any;
 
 
   message: string;
@@ -87,38 +81,12 @@ export class OrdersTableComponent implements OnInit {
   ngOnInit() {
     this.getOrders('id');
     this.tgs.getTaskGroups();
-    // this.dataSource = new OrdersDataSource(this.ordersService);
-    // this.dataSource.loadOrders( 'id', 1, 1);
-
   }
-  /*
-  ngAfterViewInit() {
-    this.paginator.page
-            .pipe(
-                tap(() => this.loadOrdersPage())
-            )
-            .subscribe();
-   
-    // reset the paginator after sorting
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        merge(this.sort.sortChange, this.paginator.page)
-            .pipe(
-                tap(() => this.loadOrdersPage())
-            )
-            .subscribe();
-  }*/
   onRowClicked(row) {
     this.order = row;
+    this.selectedTask = row.tasks;
     console.log('Row clicked: ', row);
   }
-  /*
-  loadOrdersPage() {
-    this.dataSource.loadOrders(
-        'id',
-        this.paginator.pageIndex,
-        this.paginator.pageSize);
-}*/
-
   sendMessage(message): void {
           // send message to subscribers via observable subject
           this.shared.sendMessage(message);
@@ -135,17 +103,6 @@ export class OrdersTableComponent implements OnInit {
     });
   }
   
-  mapOrder (array, order, key) {
-    array.sort( function (a, b) {
-      const A = a[key], B = b[key];
-      if (order.indexOf(A) > order.indexOf(B)) {
-        return 1;
-      } else {
-        return -1;
-      } 
-    });
-    return array;
-  }
 //   good but testing orderservice
   getOrders(id) {
     this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {      
@@ -185,26 +142,6 @@ export class OrdersTableComponent implements OnInit {
       });
     });
   }
-  openOrderTaskDialog(id): void {
-    this.getTaskGroup();
-    this.databaseId = id;
-    const dialogRef = this.dialog.open(TaskComponent, {
-    });
-    dialogRef.afterOpen().subscribe(result => {
-      console.log(`Dailog result: ${result}`)
-      this.shared.getMessage().subscribe((response: any) => {
-        this.message = response;
-      });
-    })
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
-        this.orders = orders;
-        return dialogRef.close()
-        //console.log(customers);
-      });
-    });
-  }
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();
@@ -216,7 +153,7 @@ export class OrdersTableComponent implements OnInit {
   
     this.dialog.open(TaskSetComponent, dialogConfig);
   }
-  openModal(id: string, order) {
+  openModal(id: string, order?, tasks?) {
     //this.orderTask = false;
     //this.databaseId = databaseId;
     this.order = order;

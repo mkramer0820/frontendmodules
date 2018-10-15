@@ -23,6 +23,8 @@ export class OrderTaskComponent implements OnInit {
   ordertaskGroups: any;
   setNames: any;
   @Input() order: any;
+  @Input() update: boolean = false;
+  updateId: any;
 
 
   constructor(
@@ -80,7 +82,31 @@ export class OrderTaskComponent implements OnInit {
       }
     });
   }
-
+  updateBlanketTask(selectedtodos) {
+    const todos =  selectedtodos;
+    this.updateId = selectedtodos['id'];
+    this.orderTFS.clearForm();
+    if (this.ordertaskForm.get('todos').value.length == 0) {
+      for (const todo in todos) {
+        if (todos.hasOwnProperty(todo)) {
+          const todoslist =  todos[todo];
+          // const currentTask = this.taskForm.getValue();
+          const currentTodos = this.ordertaskForm.get('todos') as FormArray;
+          currentTodos.push(
+          this.fb.group(
+            new OrderTaskTodosForm(
+              new OrderTaskTodo(todoslist['todo'],todoslist['comment'], todoslist['duedate'], todoslist['status']  ))
+          )
+        );
+        } else {console.log('field'); }
+      }
+    }
+  }
+  setOrderAndGroup(event) {
+    this.updateId = event.id;
+    this.ordertaskForm.get('order').setValue(event.order);
+    this.ordertaskForm.get('todos_group').setValue(event.todos_group);
+  }
   //  TODO: ADD ORDER TASK CREATE TO API
   
   createOrderTask() {
@@ -89,6 +115,12 @@ export class OrderTaskComponent implements OnInit {
       });
     this.orderTFS.clearForm();
   }
+  updateOrderTask() {
+    this.apiService.updateOrderTask(this.ordertaskForm.value, this.updateId ).subscribe(response => {
+      this.orderTFS.clearForm();
+    });
+  }
+}
   /*
   addOrdertASK(id) {
     const task = this.ordertaskForm.value;

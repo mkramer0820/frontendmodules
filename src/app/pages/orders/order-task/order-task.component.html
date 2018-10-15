@@ -2,8 +2,9 @@
   order-task works!
 </p>
 <h1 *ngIf='order'>Create Task For {{order.buyer_style_number}}</h1>
+<h4 *ngIf='update'>Update Tasks For {{order.buyer_style_number}}</h4>
 
-  <form [formGroup]="ordertaskForm" >
+  <form *ngIf="update==false" [formGroup]="ordertaskForm" >
   <div *ngIf='ordertaskGroups'>
     <mat-form-field class="form-element">
       <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group' >
@@ -35,8 +36,27 @@
 
 
     <button mat-raised-button (click)=createOrderTask()>Add Task To Order</button>
+    </form>
     createOrderTask
     <pre>Parent Form Status: <span class="status">{{ordertaskForm.status}} <br />{{ordertaskForm.value | json}}</span></pre>
-
-
-
+    {{updateId}}
+    <form *ngIf="update">
+      <form  [formGroup]="ordertaskForm">
+        <mat-form-field class="form-element">
+        <mat-select matInput  placeholder="Choose Task Set" formControlName='set_name'>
+          <mat-option *ngFor="let task of order.tasks" value={{task.set_name}} (click)="updateBlanketTask(task.todos)" (click)="setOrderAndGroup(task)">
+          <span class="mat-option-text">{{task.set_name}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      
+          <h3>Add Tasks To Set</h3>
+          <button mat-button-raised color="primary" (click)="addOrderTodos()">Add Todos</button>
+          <ul>
+            <li *ngFor="let todo of orderTodos?.controls; let i = index">
+              <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
+            </li>
+          </ul>
+          <button mat-raised-button (click)=updateOrderTask()>Add Task To Order</button>
+      
