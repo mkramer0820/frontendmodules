@@ -32,6 +32,8 @@ import { ModalComponent } from './_directives/modal/modal.component';
 import { OrderTaskComponent } from './orders/order-task/order-task.component';
 import {OrderTaskFormService} from './orders/order-task/_service/order-task-form.service';
 import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos.component';
+import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picker.component';
+
 
 @NgModule({
   imports: [
@@ -40,6 +42,7 @@ import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
+    
   ],
   declarations: [
     CustomerAddFormComponent,
@@ -64,6 +67,7 @@ import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos
     ModalComponent,
     OrderTaskComponent,
     OrderTodosComponent,
+    DatePickerComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,

@@ -23,9 +23,11 @@ export class OrderTaskComponent implements OnInit {
   ordertaskGroupsSub: Subscription;
   ordertaskGroups: any;
   setNames: any;
+  statusOption= ['NA', 'Started', 'Complete'];
   @Input() order: any;
   @Input() update: boolean = false;
   updateId: any;
+  selectedOrderTask: any;
 
 
   constructor(
@@ -85,9 +87,10 @@ export class OrderTaskComponent implements OnInit {
   }
   updateBlanketTask(selectedtodos) {
     const todos =  selectedtodos;
+    this.selectedOrderTask = selectedtodos;
     this.updateId = selectedtodos['id'];
     this.orderTFS.clearForm();
-    if (this.ordertaskForm.get('todos').value.length == 0) {
+    if (this.ordertaskForm.get('todos').value.length === 0) {
       for (const todo in todos) {
         if (todos.hasOwnProperty(todo)) {
           const todoslist =  todos[todo];
@@ -107,6 +110,8 @@ export class OrderTaskComponent implements OnInit {
     this.updateId = event.id;
     this.ordertaskForm.get('order').setValue(event.order);
     this.ordertaskForm.get('todos_group').setValue(event.todos_group);
+    this.ordertaskForm.get('set_status').setValue(event.set_status);
+    this.ordertaskForm.get('active').setValue(event.active);
   }
   //  TODO: ADD ORDER TASK CREATE TO API
 

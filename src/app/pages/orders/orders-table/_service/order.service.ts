@@ -13,15 +13,14 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  findOrders(ordering: string, page: number, page_size: number ):  Observable<Orders[]> {
+  findOrders(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string ){
 
-      return this.http.get('http://127.0.0.1:8000/orders/filters/?', {
+      return this.http.get('http://127.0.0.1:8000/orders/?', {
           params: new HttpParams()
+              .set('buyer', buyer.toString())
+              .set('due_date_after', dueDateBefore.toString())
+              .set('due_date_before', dueDateAfter.toString())
               .set('ordering', ordering.toString())
-              .set('page', page.toString())
-              .set('page_size', page_size.toString())
-      }).pipe(
-          map(res =>  res['results'])
-      );
+      });
   }
 }

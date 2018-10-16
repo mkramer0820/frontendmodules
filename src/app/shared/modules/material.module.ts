@@ -33,7 +33,8 @@ import {
   MatTabsModule,
   MatSortModule,
   MatTableDataSource,
-  MatPaginatorModule ,
+  MatPaginatorModule, 
+  MatBadgeModule,
 
 
 } from '@angular/material';
@@ -80,7 +81,8 @@ import {NgModule} from '@angular/core';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatBadgeModule
     
 
 
@@ -129,7 +131,8 @@ import {NgModule} from '@angular/core';
     MatTabsModule,
     MatSortModule,
     MatPaginatorModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatBadgeModule
 
 
 

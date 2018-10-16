@@ -19,14 +19,37 @@ import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {OrderService} from './_service/order.service';
+import {FormControl} from '@angular/forms';
+// import { DatePipe } from '@angular/common';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+import * as _moment from 'moment';
+import {default as _rollupMoment} from 'moment';
 
+const moment = _rollupMoment || _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const DD_MM_YYYY_Format = {
+    parse: {
+        dateInput: 'LL',
+    },
+    display: {
+        dateInput: 'YYYY-MM-DD',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @Component({
   selector: 'app-orders-table',
   templateUrl: './orders-table.component.html',
   styleUrls: ['./orders-table.component.scss'],
-  providers: []
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},]
 })
 export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
@@ -50,8 +73,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   orderSort: any;
   sortVal: any;
+  serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
+  serializedDate2 = new FormControl((new Date()).toISOString());
 
 
+  uniqueCustomerFilter: Array<any>;
   message: string;
   factoryMessage: Factory[];
   buyerMessage: Customer[];
@@ -68,6 +94,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
+  public firstDate = moment();
+  public secondDate = moment();
 
   constructor(
     private apiService: ApiService,
@@ -85,6 +113,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.getOrders('id');
     this.tgs.getTaskGroups();
+
   }
   ngAfterViewInit() {
     this.getOrders('id');
@@ -115,7 +144,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
     this.orders = orders;
     this.dataSource = new MatTableDataSource(orders);
-    return this.orderSort = '-';
+    this.uniqueCustomerFilter = orders;
+    this.getUniqueCustomers(orders);
+    return this.orderSort = '-', this.orders;
   });
  }
 
@@ -139,7 +170,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       });
     }
   } 
-
+////////////////////////////////////////////////////////////////
+///         MODAL                                           ///
+//////////////////////////////////////////////////////////////
   openUpdateDialog(id): void {
     const dialogRef = this.dialog.open(OrdersUpdateComponent, {
       width: '700px',
@@ -162,17 +195,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       });
     });
   }
-  openDialog() {
-
-    const dialogConfig = new MatDialogConfig();
-  
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.position.top = '0';
-    dialogConfig.position.left = '0';
-  
-    this.dialog.open(TaskSetComponent, dialogConfig);
-  }
   openModal(id: string, order?, tasks?) {
     //this.orderTask = false;
     //this.databaseId = databaseId;
@@ -184,7 +206,37 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     
     this.modalService.close(id);
   }
+
+/////////////////////////////////////////////////////////////////
+//            FILTERS                                         //
+///////////////////////////////////////////////////////////////
+
+  getUniqueCustomers(orders) {
+    let order = orders;
+
+    let customers = [];
+
+    for (let order in orders) {
+      if (orders[order].hasOwnProperty('buyer_name')) {
+        customers.push(orders[order]['buyer_name'])
+      } else { console.log('ooops')}
+    }
+    let uniqueCustomers = Array.from(new Set(customers));
+    return this.uniqueCustomerFilter = uniqueCustomers;
+  }
+  testOrderService(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string) {
+   
+    this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering).pipe(
+      catchError(() => of([])),
+    )
+    .subscribe((orders: Orders[]) => {
+
+      console.log(orders)
+      this.orders = orders;
+    });
+  }
 }
+
 
 
 export class OrdersDataSource implements DataSource<Order> {
@@ -206,16 +258,16 @@ export class OrdersDataSource implements DataSource<Order> {
     this.loadingSubject.complete();
   }
 
-  loadOrders(ordering: string, page: number, page_size: number) {
+  loadOrders(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string) {
     this.loadingSubject.next(true);
-
-    this.ordersService.findOrders(ordering, page, page_size).pipe(
-        catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
+    this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering).pipe(
+              catchError(() => of([])),
+              finalize(() => this.loadingSubject.next(false))
     )
-    .subscribe(orders => this.ordersSubject.next(orders));
-    console.log("orders subject", this.ordersSubject);
+    // .subscribe(orders => this.ordersSubject.next(orders));
+    // console.log("orders subject", this.ordersSubject);
   }
+  
 }
 
 /*

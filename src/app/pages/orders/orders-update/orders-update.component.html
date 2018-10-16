@@ -1,7 +1,13 @@
 <p>
   orders-update works!
 </p>
-
+<div class="mdc-layout-grid">
+  <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__cell"></div>
+    <div class="mdc-layout-grid__cell"></div>
+    <div class="mdc-layout-grid__cell"></div>
+  </div>
+</div>
 <div class="container" *ngIf="!post; else forminfo" novalidate>
   <mat-dialog-content>
    <form [formGroup]="orderForm" class="form">

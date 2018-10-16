@@ -22,7 +22,6 @@ import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
 import {JpFormsModule} from './forms/jp-forms.module';
 
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -38,17 +37,17 @@ import {JpFormsModule} from './forms/jp-forms.module';
     ReactiveFormsModule,
     DynamicformModule,
     JpFormsModule,
-
-
   ],
   declarations: [
     AppComponent,
     ],
+  exports: [
+  ],
   providers: [
     {provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    NavService
+    NavService,
   ],
   bootstrap: [AppComponent]
 })
