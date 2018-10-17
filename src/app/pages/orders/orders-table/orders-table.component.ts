@@ -57,8 +57,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   displayColumns: string [] = [
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
-    'ORDER TYPE', 'QTY', 'SWEATER IMG', 'SWEATER DESCRIPTION',
-    'BRAND', 'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'TOTAL TASK SETS'  ]
+    'ORDER TYPE', 'QTY', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
+    'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'];
   
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
 
@@ -75,7 +75,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   serializedDate2 = new FormControl((new Date()).toISOString());
-
+  totalCost: any = {};
 
   uniqueCustomerFilter: Array<any>;
   message: string;
@@ -143,7 +143,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
  getOrders(id) {
   this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
     this.orders = orders;
-    this.dataSource = new MatTableDataSource(orders);
+    this.getTotalCost(orders);
+    // this.dataSource = new MatTableDataSource(orders);
     this.uniqueCustomerFilter = orders;
     this.getUniqueCustomers(orders);
     return this.orderSort = '-', this.orders;
@@ -169,7 +170,14 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
         this.orderSort = '-';
       });
     }
-  } 
+  }
+  getTotalCost(order) {
+    this.totalCost['jpCost'] = order.map(t => t.qty * t.cost_from_factory).reduce((acc, value) => acc + value, 0);
+    this.totalCost['buyerCost'] = order.map(t => t.qty * t.buyers_price).reduce((acc, value) => acc + value, 0);
+    this.totalCost['simpleProfit'] = this.totalCost.buyerCost  - this.totalCost.jpCost;
+    console.log(this.totalCost);
+    return this.totalCost;
+  }
 ////////////////////////////////////////////////////////////////
 ///         MODAL                                           ///
 //////////////////////////////////////////////////////////////
@@ -233,6 +241,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
       console.log(orders)
       this.orders = orders;
+      this.getTotalCost(orders);
     });
   }
 }

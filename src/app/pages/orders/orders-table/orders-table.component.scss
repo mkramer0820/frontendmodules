@@ -10,23 +10,13 @@ $flexDisplay: flex-end;
 $center: center;
 $tablepad: 100px;
 $left: left;
+$smallFont: small;
 
 
 
-ng-container{
-    // width: $tabledata;
-    // text-align: $center;
-    img {
-        // width:$imgW;
-        height:$imgH;
-    }
-    th {
-        text-align: $left;
-        padding: $tablepad;
-        font-size: 100px;
-    }
+mat-cell {
+    font-style: $smallFont;
 }
-
 img {
     // width:$imgW;
     height:$imgH;

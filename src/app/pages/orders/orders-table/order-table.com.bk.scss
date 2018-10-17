@@ -15,22 +15,28 @@ $left: left;
 #overflow {
     width: 5%;
 }
+.inner {
+    position: absolute;
+  }
 
 
-td {
-    //text-align: $left;
-    padding: $tablepad;
-}
 ng-container{
     width: $tabledata;
     // text-align: $center;
     th {
         text-align: $left;
         padding: $tablepad;
-        font-size: 100px;
+        font-size: small;
     }
+
+}
+.example-card {
+  max-width: 400px;
 }
 
+.example-header-image {
+  background-size: cover;
+}
 img {
    width:$imgW;
     height:$imgH;

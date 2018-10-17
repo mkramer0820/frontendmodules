@@ -9,10 +9,10 @@ export class Order {
   buyer_style_number: string;
   jp_style_number: string;
   factory_ship_date: string;
-  cost_from_factory: string;
-  buyers_price: string;
+  cost_from_factory: number;
+  buyers_price: number;
   order_type: string;
-  qty: string;
+  qty: number;
   sweater_image: string;
   sweater_description: string;
   brand: string;
@@ -35,10 +35,10 @@ export class Orders {
   buyer_style_number: string;
   jp_style_number: string;
   factory_ship_date: string;
-  cost_from_factory: string;
-  buyers_price: string;
+  cost_from_factory: number;
+  buyers_price: number;
   order_type: string;
-  qty: string;
+  qty: number;
   sweater_image: string;
   sweater_description: string;
   brand: string;
