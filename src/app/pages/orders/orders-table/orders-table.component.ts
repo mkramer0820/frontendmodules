@@ -232,9 +232,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     let uniqueCustomers = Array.from(new Set(customers));
     return this.uniqueCustomerFilter = uniqueCustomers;
   }
-  testOrderService(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string) {
+  testOrderService(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string, buyerStyle?: string, jpStyle?: string) {
    
-    this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering).pipe(
+    this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering, buyerStyle, jpStyle).pipe(
       catchError(() => of([])),
     )
     .subscribe((orders: Orders[]) => {

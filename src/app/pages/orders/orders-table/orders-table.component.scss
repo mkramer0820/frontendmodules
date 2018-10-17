@@ -14,14 +14,27 @@ $smallFont: small;
 
 
 
-mat-cell {
-    font-style: $smallFont;
+.mat-column{
+    flex: 0 0 500px;
 }
+
 img {
     // width:$imgW;
     height:$imgH;
 }
+.Complete {
+    color:rgb(14, 151, 14);
+}
 
+.Not-Complete {
+    color: rgb(173, 16, 16);
+}
+.NA {
+    
+}
+.aligne-right {
+
+}
 
 modal {
   /* modals are hidden by default */

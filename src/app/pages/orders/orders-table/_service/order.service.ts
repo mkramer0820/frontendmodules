@@ -13,7 +13,8 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  findOrders(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string ){
+  findOrders(
+    buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string, buyerStyle?: string , jpStyle?:string){
 
       return this.http.get('http://127.0.0.1:8000/orders/?', {
           params: new HttpParams()
@@ -21,6 +22,8 @@ export class OrderService {
               .set('due_date_after', dueDateBefore.toString())
               .set('due_date_before', dueDateAfter.toString())
               .set('ordering', ordering.toString())
+              .set('buyer_style_number', buyerStyle.toString())
+              .set('jp_style_number', jpStyle.toString())
       });
   }
 }

@@ -5,7 +5,43 @@
 <div>
     <div class="spinner-container" *ngIf="dataSource.loading$ | async">
         <mat-spinner></mat-spinner>
-    </div>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filters
+      </mat-panel-title>
+      <mat-panel-description>
+        Filter Pannel {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <table>
+      <tr>
+        <td><input matInput #buyerStyle maxlength="35" placeholder="Enter some input"></td>
+          
+        <td><input matInput #jpStyle maxlength="35" placeholder="Enter some input"></td>
+        <td><mat-form-field >
+          <mat-select [(value)]="selected" placeholder="Select A Customer">
+            <mat-option value=''>None</mat-option>
+            <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
+          </mat-select>
+          </mat-form-field></td>
+        <td><app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker></td>
+        <td><app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>  </td>      
+  </tr>
+</table>
+  <div>
+    <p>You selected: {{selected}} with a date range: {{firstDate}} - {{secondDate}} -- searching for {{buyerStyle.value}} and/or {{jpStyle.value}}</p>
+  </div>      
+      <button (click)="testOrderService(selected, firstDate, secondDate, '-id', buyerStyle.value ,jpStyle.value)">Test Order Service</button>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
 
   <mat-table [dataSource]="orders" matSort class="mat-elevation-z8">
 
@@ -50,7 +86,7 @@
         <ng-container matColumnDef="JP STYLE #">
           <mat-header-cell *matHeaderCellDef > JP STYLE # </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order"> {{order.jp_style_number}} </mat-cell>
-          <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          <mat-footer-cell *matFooterCellDef [ngClass]="{'aligne-right': true}">JP Cost:</mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="FACTORY SHIP DT">
@@ -62,7 +98,7 @@
         <ng-container matColumnDef="COST FROM FACTORY">
           <mat-header-cell *matHeaderCellDef > Cost From Factory </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order"> {{order.cost_from_factory}} </mat-cell>
-          <mat-footer-cell *matFooterCellDef style="font-size:smaller "></mat-footer-cell>
+          <mat-footer-cell *matFooterCellDef style="font-size:smaller ">Customers Paid: </mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="BUYER PRICE">
@@ -74,7 +110,7 @@
         <ng-container matColumnDef="ORDER TYPE">
           <mat-header-cell *matHeaderCellDef > Order Type </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order"> {{order.order_type}} </mat-cell>
-          <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+          <mat-footer-cell *matFooterCellDef>P&L</mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="QTY">
@@ -140,61 +176,17 @@
 
   </mat-table>
 
-  <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Filters
-          </mat-panel-title>
-          <mat-panel-description>
-            Click for table filters
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-form-field>
-            <mat-select [(value)]="selected">
-              <mat-option value=''>None</mat-option>
-              <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
-            </mat-select>
-        </mat-form-field>
 
-        <app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker>
-        <app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>        
-          <p>You selected: {{selected}} with a date range: {{firstDate}} - {{secondDate}}</p>
-          
-          <p *ngIf="dateValue">{{dateValue.value}}</p>     
-          <button (click)="testOrderService(selected, firstDate, secondDate, '-id')">Test Order Service</button>
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Self aware panel
-          </mat-panel-title>
-          <mat-panel-description>
-            Currently I am {{panelOpenState ? 'open' : 'closed'}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-    
-
-</div>
-<button (click)="getUniqueCustomers(uniqueCustomerFilter)">Filters</button>
-  {{uniqueCustomerFilter}}
-<div *ngIf="selectedTask">
-  {{selectedTask.length}}
-  <div *ngFor="let task of selectedTask">
-    
-  </div>
-</div>
 
   <div *ngIf='order && order.tasks.length > 0'>
     <div class='outer' fxLayout="row" fxLayoutGap="20px" >
       <mat-card class="example-card" fxFlex="25%" *ngFor="let task of order.tasks" fxLayoutGap="20px">
           <mat-card-header>
-              <mat-card-title>{{task.todos_group}}</mat-card-title>
+              <mat-card-title>{{task.todos_group}} </mat-card-title>
               <mat-card-subtitle>{{task.set_name}}</mat-card-subtitle>
+              <mat-card-subtitle
+               [ngClass]="{'Complete' : task.set_status === 'Complete',
+                'Not-Complete' : task.set_status === 'Started', 'NA': task.status === 'NA'}">Status: {{task.set_status}}</mat-card-subtitle>
             <div mat-card-avatar class="example-header-image"><img src='{{order.sweater_image}}'></div>
           </mat-card-header>
           <mat-card-content *ngFor="let todo of task.todos">
