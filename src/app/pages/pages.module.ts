@@ -33,6 +33,7 @@ import { OrderTaskComponent } from './orders/order-task/order-task.component';
 import {OrderTaskFormService} from './orders/order-task/_service/order-task-form.service';
 import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos.component';
 import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picker.component';
+import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picke
     OrderTaskComponent,
     OrderTodosComponent,
     DatePickerComponent,
+    OrderDetailComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
