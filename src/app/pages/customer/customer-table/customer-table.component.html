@@ -73,3 +73,29 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-card>
+    Main Theme:
+    <button mat-raised-button color="primary">
+      Primary
+    </button>
+    <button mat-raised-button color="accent">
+      Accent
+    </button>
+    <button mat-raised-button color="warn">
+      Warning
+    </button>
+  </mat-card>
+  
+  <mat-card class="alternate-theme">
+    Alternate Theme:
+    <button mat-raised-button color="primary">
+      Primary
+    </button>
+    <button mat-raised-button color="accent">
+      Accent
+    </button>
+    <button mat-raised-button color="warn">
+      Warning
+    </button>
+  </mat-card>

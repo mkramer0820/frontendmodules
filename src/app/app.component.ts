@@ -25,9 +25,16 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('appDrawer') appDrawer: ElementRef;
   version = VERSION;
   navItems: NavItem[] = [
-  {
+    {
+      displayName: 'Home',
+      iconName: 'home',
+      class: 'primary-accent',
+      route: 'home'
+    },
+    {
     displayName: 'Customers',
     iconName: 'my_customer',
+    class: 'primary-accent',
     children: [
       {
         displayName: 'Add Customer',

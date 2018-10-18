@@ -22,6 +22,7 @@ import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component'
 // import {DynamicFormComponent} from './modules/dynamicform/dynamic-form/dynamic-form.component';
 // import {DynamicFormTaskComponent} from './modules/dynamicform/dynamic-form-task/dynamic-form-task.component';
 import { OrderTaskComponent } from './pages/orders/order-task/order-task.component';
+import { DashboardComponent } from './core/dashboard/dashboard.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -43,7 +44,9 @@ const routes: Routes = [
   { path: 'task-test', component: TaskComponent },
   { path: 'jp-task-forms-component', component: JpFormsComponent },
   { path: 'task-component', component: TaskSetComponent},
-  { path: 'order-task', component: OrderTaskComponent}
+  { path: 'order-task', component: OrderTaskComponent},
+  { path: 'home', component: DashboardComponent}
+
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
   // {path: '', component: HomePage},

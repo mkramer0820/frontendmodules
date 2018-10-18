@@ -1,32 +1,33 @@
 @import "./styles/mixins.scss";
 @import "./styles/colors.scss";
 @import "./styles/functions.scss";
+@import "./core/nav/top-nav/top-nav.component.scss";
+@import "./core/nav/menu-list-item/menu-list-item.component.scss";
 
 @import './styles/breakpoints';
-@import './styles/theme.scss';
-
+// @import './styles/theme.scss';
+@import '../styles.scss';
 .mat-sidenav {
   width: 360px;
+  background-color:#212121!important;
+
 }
+//sets actual backgrond coolor
 .mat-sidenav-container {
-  background-color: white !important;
+  background-color: #ECEFF1!important;
   height: 100vh;
 }
-.sidenav-toolbar {
-  height: 64px;
-  background-color: mat-color($app-primary);
-  display: flex;
-  flex-direction: row;
 
-  @media (max-width: 600px) {
-    height: 56px;
-  }
-}
 .mat-nav-list {
-  padding-top: 0;
+  padding-top: 500;
+  background-color: "black" !important;
+  color: "black";
+
 }
 @include breakpoint-max(600px) {
   .fixed-topnav {
+    color: #ECEFF1;
+
     position: fixed;
     top: 0;
     left: 0;
@@ -36,5 +37,27 @@
 
   .mat-drawer-container {
     margin-top: 56px;
+    color: black;
+
+
   }
 }
+
+/*
+
+$my-app-primary: mat-palette($mat-gray, 800);
+$my-app-accent: mat-palette($mat-orange, A200, A100, A400);
+$my-app-warn: mat-palette($mat-red);
+
+$my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+
+@include angular-material-theme($my-app-theme);
+
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-yellow, 50);
+  $alternate-accent:  mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
+}
+*/

@@ -11,6 +11,9 @@ import { Error404Component } from './pages/error404/error404.component';
 import {ApiService} from '../config/api.service';
 import { MenuListItemComponent } from './nav/menu-list-item/menu-list-item.component';
 import { TopNavComponent } from './nav/top-nav/top-nav.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -18,6 +21,12 @@ import { TopNavComponent } from './nav/top-nav/top-nav.component';
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule,
   ],
   declarations: [
     // HomePage,
@@ -26,12 +35,11 @@ import { TopNavComponent } from './nav/top-nav/top-nav.component';
     Error404Component,
     MenuListItemComponent,
     TopNavComponent,
+    DashboardComponent,
   ],
   exports: [
-    
     TopNavComponent,
     MenuListItemComponent,
-
   ],
   providers: [
     CustomersService,

@@ -54,6 +54,14 @@ export class FactoryContactComponent implements AfterViewInit {
       console.log(this.contacts)
     });
   }
+  addContact(form) {
+    const newform = form.value;
+    return this.apiService.createFactoryContact(newform).subscribe(rsp => {
+      console.log(rsp)
+      this.getfactories();
+
+    });
+  }
 
 /*
   createFormArray(): FormArray {

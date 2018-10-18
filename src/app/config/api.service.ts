@@ -67,6 +67,9 @@ export class ApiService {
   updateFactoryContacts(id, contact) {
     return this.httpClient.put(`${this.API_URL}/factory/contacts/${id}`, contact);
   }
+  createFactoryContact(contact) {
+    return this.httpClient.post(`${this.API_URL}/factory/contacts/`, contact);
+  }
 
   //orders
   getOrders(ordering?: string): Observable<Order[]> {

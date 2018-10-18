@@ -9,21 +9,20 @@
 
 <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">>
+                       (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Filters
       </mat-panel-title>
       <mat-panel-description>
-        Filter Pannel {{panelOpenState ? 'open' : 'closed'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
     
     <table>
       <tr>
-        <td><input matInput #buyerStyle maxlength="35" placeholder="Enter some input"></td>
+        <td><input matInput #buyerStyle maxlength="35" placeholder="Enter some input" style="border-bottom: .1px solid rgb(70, 66, 66)"></td>
           
-        <td><input matInput #jpStyle maxlength="35" placeholder="Enter some input"></td>
+        <td><input matInput #jpStyle maxlength="35" placeholder="Enter some input" style="border-bottom: .1px solid rgb(70, 66, 66)"></td>
         <td><mat-form-field >
           <mat-select [(value)]="selected" placeholder="Select A Customer">
             <mat-option value=''>None</mat-option>
@@ -31,14 +30,12 @@
           </mat-select>
           </mat-form-field></td>
         <td><app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker></td>
-        <td><app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>  </td>      
+        <td><app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>  </td> 
+        <td><button  mat-icon-button (click)="testOrderService(selected, firstDate, secondDate, '-id', buyerStyle.value ,jpStyle.value)">
+          <mat-icon>refresh</mat-icon></button>
+        </td>     
   </tr>
-</table>
-  <div>
-    <p>You selected: {{selected}} with a date range: {{firstDate}} - {{secondDate}} -- searching for {{buyerStyle.value}} and/or {{jpStyle.value}}</p>
-  </div>      
-      <button (click)="testOrderService(selected, firstDate, secondDate, '-id', buyerStyle.value ,jpStyle.value)">Test Order Service</button>
-
+</table>  
   </mat-expansion-panel>
 </mat-accordion>
 

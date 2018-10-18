@@ -1,6 +1,44 @@
 <p>
   factory-contact works!
 </p>
+
+
+
+<mat-card class="alternate-theme">
+    <mat-card-header>
+        <mat-card-title>Add Contact</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <form [formGroup]="contactForm" class="alternate-theme">      
+          &nbsp;
+           <mat-form-field class="form-element">
+           <input matInput placeholder="First Name" formControlName='first_name'>
+           </mat-form-field>
+          &nbsp;
+           <mat-form-field class="form-element">
+           <input matInput placeholder="Last Name" formControlName="contact_last_name">
+           </mat-form-field>
+          &nbsp;
+           <mat-form-field class="form-element">
+           <input matInput placeholder="Phone #" formControlName="contact_phone_number">
+           </mat-form-field>
+
+          &nbsp;
+          <mat-form-field class="form-element">
+          <input matInput placeholder="Email" formControlName="contact_email">
+          </mat-form-field>
+
+          &nbsp;
+          <button mat-raised-button  color="primary" class='mat-elevation-z8' (click)="addContact(contactForm)">Submit</button>
+
+       </form>
+    </mat-card-content>
+</mat-card>
+
+
+<div *ngIf="!post; else forminfo" novalidate>
 <div class="mat-elevation-z8">
 
 
@@ -39,29 +77,6 @@
         <mat-cell *matCellDef="let contacts"> {{contacts.contact_email}} </mat-cell>
       </ng-container>
 
-      <!-- Complex Column
-      <ng-container matColumnDef="">
-        <mat-header-cell *matHeaderCellDef> contact_email </mat-header-cell>
-        <mat-cell *matCellDef="let contact; let i = index;" [formGroupName]="i">
-          <mat-select formControlName="active">
-            <mat-option [value]="active" *ngFor="let active of activeList">
-              {{ active }}
-            </mat-option>
-          </mat-select>
-        </mat-cell>
-      </ng-container> -->
-
-      <!-- Complex Column
-      <ng-container matColumnDef="anotherDropdown">
-        <mat-header-cell *matHeaderCellDef> AnotherDropdown </mat-header-cell>
-        <mat-cell *matCellDef="let contact; let i = index;" [formGroupName]="i">
-          <mat-select formControlName="anotherDropdown">
-            <mat-option [value]="active" *ngFor="let active of activeList">
-              {{ active }}
-            </mat-option>
-          </mat-select>
-        </mat-cell>
-      </ng-container> -->
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
     </mat-table>

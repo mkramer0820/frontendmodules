@@ -14,65 +14,65 @@
   Add New Factory<i class="material-icons" style="font-size:40px; color: forestgreen">add_box</i>
 </button>
 </div>
-  <table mat-table [dataSource]="factories" matSort class="mat-elevation-z8" >
+  <mat-table class="alternate-theme" [dataSource]="factories" matSort class="mat-elevation-z8" >
 
   <!-- Name Column -->
     <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.id}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.id}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="NAME">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.name}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.name}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="ADDRESS1">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 1 </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.address1}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 1 </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.address1}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ADDRESS2">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 2 </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.address2}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 2 </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.address2}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ADDRESS3">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 3 </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.address3}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 3 </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.address3}} </mat-cell>
     </ng-container>
   <ng-container matColumnDef="COUNTRY">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.country}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.country}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="STATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.state}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.state}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ZIP">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zip </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.zip}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Zip </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.zip}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="EMAIL">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.email}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.email}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="PHONE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone # </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.phone}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone # </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.phone}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="WEBSITE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Website </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.website}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Website </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.website}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="DESCRIPTION">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-      <td mat-cell *matCellDef="let factories"> {{factories.description}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+      <mat-cell *matCellDef="let factories"> {{factories.description}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="UPDATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
-      <td mat-cell  *matCellDef="let factories"> <button mat-raised-button (click)="openUpdateDialog(factories.id)">Update</button></td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
+      <mat-cell  *matCellDef="let factories"> <button color="primary" mat-raised-button (click)="openUpdateDialog(factories.id)">Update</button></mat-cell>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row color="warm" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>

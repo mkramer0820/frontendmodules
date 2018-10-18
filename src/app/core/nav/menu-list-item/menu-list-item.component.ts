@@ -23,6 +23,8 @@ export class MenuListItemComponent {
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: NavItem;
   @Input() depth: number;
+  color: string;
+  colorChoice = {'white' : '#F5F5F5' , 'teal': '#A7FFEB'};
 
   constructor(public navService: NavService,
               public router: Router) {
@@ -39,5 +41,9 @@ export class MenuListItemComponent {
     if (item.children && item.children.length) {
       this.expanded = !this.expanded;
     }
+  }
+  close(color: string) {
+    this.color= color;
+    this.navService.closeNav();
   }
 }
