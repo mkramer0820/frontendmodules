@@ -34,6 +34,7 @@ import {OrderTaskFormService} from './orders/order-task/_service/order-task-form
 import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos.component';
 import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picker.component';
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
+import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { OrderDetailComponent } from './orders/order-detail/order-detail.compone
     OrderTodosComponent,
     DatePickerComponent,
     OrderDetailComponent,
+    TimeDifferenceComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
@@ -87,6 +89,7 @@ import { OrderDetailComponent } from './orders/order-detail/order-detail.compone
     FactoryTableComponent,
     FactoryAddComponent,
     FactoryUpdateComponent,
+    TimeDifferenceComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

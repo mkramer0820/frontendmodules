@@ -52,7 +52,10 @@
 
         <ng-container matColumnDef="DUE DATE">
           <mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('due_date')">Due Date</mat-header-cell>
-          <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order" style="font-size:smaller "> {{order.due_date | date:'MM/dd/yyyy'}} </mat-cell>
+          <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order" style="font-size:smaller ">
+          <!-- {{order.due_date | date:'MM/dd/yyyy'}} -->
+           <app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference>
+            </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>
 
@@ -190,7 +193,7 @@
             <div class="inner">
               <ol>
             <li >Task Type {{todo.todo}} -- Status: {{todo.status}}</li >
-            <li >Due Date: {{todo.duedate}}</li >
+            <li #time ><app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{todo.duedate}}></app-time-difference><li>
             <li >Comment: {{todo.comment}}</li >
               </ol>
            </div>

@@ -131,4 +131,8 @@ export class ApiService {
   updateOrderTask(task, id) {
     return this.httpClient.put(`${this.API_URL}/orders/tasks/${id}`, task);
   }
+
+  getDashBoardTask() {
+    this.httpClient.get(`${this.API_URL}/dashboard/}`);
+  }
 }

@@ -22,6 +22,7 @@ import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
 import {JpFormsModule} from './forms/jp-forms.module';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { DatetimePipe } from './_pipes/datetime.pipe';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { LayoutModule } from '@angular/cdk/layout';
   ],
   declarations: [
     AppComponent,
+    DatetimePipe,
     ],
   exports: [
   ],

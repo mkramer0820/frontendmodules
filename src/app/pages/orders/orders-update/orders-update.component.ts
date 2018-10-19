@@ -146,7 +146,7 @@ export class OrdersUpdateComponent implements OnInit {
       uploadData.append('color', this.orderForm.get('color').value);
       uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
       this.apiService.updateOrder(id, uploadData).subscribe((response) => {
-        this.orderForm.reset();
+        console.log(response);
       });
     } else {
       uploadData.append('id', this.orderForm.get('id').value);
@@ -163,7 +163,7 @@ export class OrdersUpdateComponent implements OnInit {
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
       this.apiService.updateOrder(id, uploadData).subscribe((response) => {
-        this.orderForm.reset();
+        console.log(response);
       });
     }
   }
