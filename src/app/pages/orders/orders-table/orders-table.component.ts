@@ -13,14 +13,13 @@ import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortMod
 import {DataSource, CollectionViewer} from '@angular/cdk/collections';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../../_services';
-import {TaskComponent} from '../../task/task.component';
-import { TaskSetComponent } from '../../task/create-task-set/task-set.component';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
 import {OrderService} from './_service/order.service';
 import {FormControl} from '@angular/forms';
 // import { DatePipe } from '@angular/common';
+import {DatetimeFormat, DateFormat} from '../../../_pipes/datetime.pipe';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 

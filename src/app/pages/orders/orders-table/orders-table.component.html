@@ -53,8 +53,8 @@
         <ng-container matColumnDef="DUE DATE">
           <mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('due_date')">Due Date</mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order" style="font-size:smaller ">
-          <!-- {{order.due_date | date:'MM/dd/yyyy'}} -->
-           <app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference>
+            {{order.due_date | date:'MM/dd/yyyy'}}
+       <!-- <app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference> -->
             </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>
@@ -91,7 +91,7 @@
 
         <ng-container matColumnDef="FACTORY SHIP DT">
           <mat-header-cell *matHeaderCellDef > Factory Ship Date </mat-header-cell>
-          <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order"> {{order.factory_ship_date}} </mat-cell>
+          <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order"> {{order.factory_ship_date | date:'MM/dd/yyyy' }} </mat-cell>
           <mat-footer-cell *matFooterCellDef style="font-size:xx-small "> {{totalCost.jpCost | currency}}</mat-footer-cell>
         </ng-container>
 

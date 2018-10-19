@@ -18,17 +18,16 @@ const moment = _rollupMoment || _moment;
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
 export const DD_MM_YYYY_Format = {
-    parse: {
-        dateInput: 'LL',
-    },
-    display: {
-        dateInput: 'MM/DD/YYYY',
-        monthYearLabel: 'MMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-    },
+  parse: {
+      dateInput: 'LL',
+  },
+  display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',
+  },
 };
-
 @Component({
   selector: 'app-orders-update',
   templateUrl: './orders-update.component.html',
@@ -81,7 +80,7 @@ export class OrdersUpdateComponent implements OnInit {
                 'customer_order_number': new FormControl(''),
                 'buyer_style_number': new FormControl(''),
                 'jp_style_number': new FormControl(''),
-                'factory_ship_date': new FormControl(moment()),
+                'factory_ship_date': new FormControl(moment().format('YYYY-MM-DD')),
                 'cost_from_factory': new FormControl(''),
                 'buyers_price': new FormControl(''),
                 'qty': new FormControl(''),
@@ -91,7 +90,7 @@ export class OrdersUpdateComponent implements OnInit {
                 'jp_care_instructions': new FormControl(''),
                 'color': new FormControl(''),
                 'sweater_image': [null],
-                'due_date': new FormControl(moment())
+                'due_date': new FormControl(moment().format('YYYY-MM-DD'))
               });
 
              }
@@ -131,13 +130,21 @@ export class OrdersUpdateComponent implements OnInit {
     const uploadData = new FormData();
     let id = this.orderForm.get('id').value;
     if (this.orderForm.get('sweater_image').value != null) {
+      let formateDate = this.orderForm.get('due_date').value;
+      formateDate = moment(formateDate).format('YYYY-MM-DD hh:mm');
+
+      let factoryShipDate = this.orderForm.get('factory_ship_date').value;
+      factoryShipDate = moment(factoryShipDate).format('YYYY-MM-DD hh:mm');
+
+      console.log('date was formatted too : ', this.orderForm.value );
       uploadData.append('id', this.orderForm.get('id').value);
       uploadData.append('buyer', this.orderForm.get('buyer').value);
       uploadData.append('factory', this.orderForm.get('factory').value);
       uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
       uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
       uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
-      uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
+      uploadData.append('due_date', formateDate);
+      uploadData.append('factory_ship_date', factoryShipDate);
       uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
       uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
       uploadData.append('order_type', this.orderForm.get('order_type').value);
@@ -145,24 +152,32 @@ export class OrdersUpdateComponent implements OnInit {
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
       uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
-      this.apiService.updateOrder(id, uploadData).subscribe((response) => {
+      this.apiService.updateOrder(id, uploadData).subscribe(response => {
         console.log(response);
       });
     } else {
+      let formateDate = this.orderForm.get('due_date').value;
+      formateDate = moment(formateDate).format('YYYY-MM-DD hh:mm');
+
+      let factoryShipDate = this.orderForm.get('factory_ship_date').value;
+      factoryShipDate = moment(factoryShipDate).format('YYYY-MM-DD hh:mm');
+
+      console.log('date was formatted too : ', formateDate );
       uploadData.append('id', this.orderForm.get('id').value);
       uploadData.append('buyer', this.orderForm.get('buyer').value);
       uploadData.append('factory', this.orderForm.get('factory').value);
       uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
       uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
       uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
-      uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
+      uploadData.append('due_date', formateDate);
+      uploadData.append('factory_ship_date', factoryShipDate);
       uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
       uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
       uploadData.append('order_type', this.orderForm.get('order_type').value);
       uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
-      this.apiService.updateOrder(id, uploadData).subscribe((response) => {
+      this.apiService.updateOrder(id, uploadData).subscribe(response => {
         console.log(response);
       });
     }
