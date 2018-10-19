@@ -2,10 +2,11 @@ import { Component, OnInit} from '@angular/core';
 import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Factory} from '../../../modules/models/factory.model';
 import {ApiService} from '../../../config/api.service';
-import {FactoryAddComponent} from '../factory-add/factory-add.component';
+import {FactoryBaseComponent} from '../../../forms/factory/factory-base/factory-base.component';
 import {FactoryUpdateComponent} from '../factory-update/factory-update.component';
 import {FactorySharedService} from '../factory-shared.service';
 import {Subscription} from 'rxjs';
+import {ModalService} from '../../_services/modal.service';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class FactoryTableComponent implements OnInit {
     private apiService: ApiService,
     private dialog: MatDialog,
     private service: FactorySharedService,
+    private modalService: ModalService,
   ) {
   }
 
@@ -74,7 +76,7 @@ export class FactoryTableComponent implements OnInit {
     });
   }
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(FactoryAddComponent, {
+    const dialogRef = this.dialog.open(FactoryBaseComponent, {
       width: '700px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -85,5 +87,11 @@ export class FactoryTableComponent implements OnInit {
 
       });
     });
+  }
+  openModal(id: string, factory?) {
+    this.modalService.open(id);
+  }
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

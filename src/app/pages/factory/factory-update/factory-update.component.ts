@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 export class FactoryUpdateComponent implements OnInit {
 
   factories: Factory[];
-  customerForm = this.fb.group({
+  factoryForm = this.fb.group({
     name: ['', Validators.required],
     address1: [''],
     address2: [''],
@@ -48,7 +48,7 @@ export class FactoryUpdateComponent implements OnInit {
     private service: FactorySharedService,
   ) {
     //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
-    this.customerForm = this.fb.group({
+    this.factoryForm = this.fb.group({
       'name': new FormControl(''),
       'address1': new FormControl(''),
       'address2': new FormControl(''),
@@ -78,12 +78,12 @@ export class FactoryUpdateComponent implements OnInit {
     }
 
   updateFactory() {
-    const factory = this.customerForm.value;
+    const factory = this.factoryForm.value;
     const id = this.factory['id'];
     console.log(id)
-    this.apiService.updateFactory(factory, id).subscribe((response) => {
+    this.apiService.updateFactory(factory, id).subscribe(response => {
       console.log(response);
-      this.customerForm.reset();
+      this.factoryForm.reset();
     });
   }
 }

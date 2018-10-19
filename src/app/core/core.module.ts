@@ -14,7 +14,6 @@ import { TopNavComponent } from './nav/top-nav/top-nav.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +34,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     Error404Component,
     MenuListItemComponent,
     TopNavComponent,
-    DashboardComponent,
   ],
   exports: [
     TopNavComponent,

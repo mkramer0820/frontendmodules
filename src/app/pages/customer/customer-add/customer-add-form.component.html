@@ -1,73 +1,66 @@
 <mat-dialog-content>
+<mat-card>
 <form [formGroup]="customerForm">
-  <label>
-    Company Name:
-    <input type="text"  formControlName="name" >
-  </label>
 
-  <label>
-    Phone Number:
-    <input type="text"  formControlName="phone" >
-  </label>
-  <label>
-    Email Address:
-    <input type="text"   formControlName="email" >
-  </label>
+  <mat-form-field>
+    <input matInput type="text"  formControlName="name" placeholder="Company Name">
+  </mat-form-field>
+
+  <div fxLayout='columns' >
+
+  <br />
+  <mat-form-field>
+    <input matInput type='tel' formControlName="phone" placeholder="Phone Number">
+  </mat-form-field>
+  &nbsp;
+
+  <mat-form-field>
+    <input matInput type="text"   formControlName="email" placeholder="Email">
+  </mat-form-field>
+  </div>
+
     <h3>Address Info:</h3>
 
-    <label>
-      Address 1:
-      <input type="text" formControlName="address1" >
-    </label>
+    <mat-form-field>
+      <input matInput type="text" formControlName="address1" placeholder="Address 1">
+    </mat-form-field>
+    <br />
 
-    <label>
-      Address 2:
-      <input type="text" formControlName="address2" >
-    </label>
+    <mat-form-field>
+      <input matInput type="text" formControlName="address2" placeholder="Address 2">
+    </mat-form-field>
+    <br />
 
-    <label>
-      Address 3:
-      <input type="text" formControlName="address3">
-    </label>
-
-    <label>
-      Zip Code:
-      <input type="text" formControlName="zip" >
-    </label>
-    <label>
-      State or Providence:
-      <input type="text"  formControlName="state" >
-    </label>
-    <label>
-      Country:
-      <input type="text" formControlName="country" >
-    </label>
-    <label>
-      Description:
-      <input type="text" formControlName="description">
-    </label>
-<!--
-  <div formArrayName="tasks">
-    <h3>Aliases</h3> <button (click)="addAlias()">Add Alias</button>
-
-    <div *ngFor="let address of aliases.controls; let i=index">
-      -->
-      <!-- The repeated alias template
-      <label>
-        Alias:
-        <input type="text" [formControlName]="i">
-      </label>
-    </div>
-    -->
-  <button type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()">Create</button>
-  <button type="close" [mat-dialog-close]="true">Exit</button>
+    <mat-form-field>
+      <input matInput type="text" formControlName="address3" placeholder="Address 3">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="text"  formControlName="state" placeholder="State-Prov">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput type="text" formControlName="zip" placeholder="Zip Code">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput type="text" formControlName="country" placeholder="Country">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea matInput type="text" formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
+  <br />
+  <button mat-fab  color="primary" type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()"><mat-icon >add</mat-icon></button> &nbsp;
+  <button  mat-fab	color="warn" [mat-dialog-close]="true"><mat-icon>exit_to_app</mat-icon></button>
 </form>
 
+<!--
 
 <p>Form Value: {{ customerForm.value | json }}</p>
   <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
-<p>Form Status: {{ customerForm.status }}</p>
-
+<p>Form Status: {{ customerForm.status }}</p>-->
+</mat-card>
 </mat-dialog-content>
 
 <!--

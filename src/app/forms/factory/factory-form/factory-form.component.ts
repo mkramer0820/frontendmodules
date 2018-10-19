@@ -4,15 +4,14 @@ import { FormGroup }                 from '@angular/forms';
 import { FormBase }              from '../../_models/form-base';
 import { FormControlService }    from '../../_service/form-control.service';
 import {ApiService} from '../../../config/api.service';
- 
 
 @Component({
-  selector: 'app-jp-dynamic-form',
-  templateUrl: './jp-dynamic-form.component.html',
-  styleUrls: ['./jp-dynamic-form.component.scss'],
-  providers: [ FormControlService ]
+  selector: 'app-factory-form',
+  templateUrl: './factory-form.component.html',
+  styleUrls: ['./factory-form.component.scss'],
+  providers: [FormControlService],
 })
-export class JpDynamicFormComponent implements OnInit {
+export class FactoryFormComponent implements OnInit {
 
   @Input() models: FormBase<any>[] = [];
   form: FormGroup;

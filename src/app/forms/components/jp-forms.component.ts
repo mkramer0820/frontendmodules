@@ -1,35 +1,36 @@
 import { ApiService } from './../../config/api.service';
 import { Component, OnInit } from '@angular/core';
-import { TaskFormService } from '../_service/task-form.service';
+import { TaskFormService, FactoryFormService } from '../_service/';
 
 @Component({
   selector: 'app-jp-forms',
   template:
   `
     <div>
-      <h2>Job Application for Heroes</h2>
-      <app-jp-dynamic-form [tasks]="tasks"></app-jp-dynamic-form>
+      <h2>Task Form</h2>
+      <app-jp-dynamic-form [models]="models"></app-jp-dynamic-form>
     </div>
   `,
-  styleUrls: ['./jp-forms.component.scss'],
-  providers: [TaskFormService]
+  providers: [TaskFormService, FactoryFormService]
+
 })
 export class JpFormsComponent implements OnInit {
 
-  tasks: any[];
+  models: any[];
 
   constructor(
     service: TaskFormService,
-    private taskService: TaskFormService,
+    // private taskService: TaskFormService,
+    private factoryFormService: FactoryFormService,
     ) {
     // this.tasks = service.getTaskGroups();
-    this.tasks = service.getForms2();
+    this.models = factoryFormService.getForms();
   }
   ngOnInit() {
   }
 
   getTaskGroups() {
-    return this.taskService.getTaskGroups();
+    return this.factoryFormService.getForms();
   }
 
 }

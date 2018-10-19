@@ -5,7 +5,7 @@ export class Factory {
     public address3: string,
     public coutnry: string,
     public createdOn: string,
-    public description:  string,
+    public description: string,
     public email: string,
     public id: string,
     public isActive: string,

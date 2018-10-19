@@ -2,20 +2,17 @@
   factory-update works!
 </p>
 
-<div *ngFor='let factory'>
-  {{factory}}
-</div>
-
+<div *ngIf='factory'>
 <mat-dialog-content>
 <form [formGroup]="factoryForm">
   <label>
     Company Name:
-    <input type="text" [(ngModel)]="factory.name" formControlName="name" required value="{{factory.name}}" >
+    <input type="text" formControlName="name" required [value]='factory.name' >
   </label>
 
   <label>
     Phone Number:
-    <input type="text" [(ngModel)]="factory.phone"  formControlName="phone" value="{{factory.phone}}">
+    <input type="text" [(ngModel)]="factory.phone"  formControlName="phone" [value]="factory.phone">
   </label>
   <label>
     Email Address:
@@ -55,16 +52,13 @@
       <input type="text" [(ngModel)]="factory.description" formControlName="description" value="{{factory.description}}">
     </label>
 
-  <button type="update" [disabled]="!factoryForm.valid" (click)="dateFactory()">Update</button>
+  <button type="update" [disabled]="!factoryForm.valid" (click)="updateFactory()">Update</button>
   <button type="close" [mat-dialog-close]="true">Exit</button>
 </form>
-
-
-<p>Form Value: {{ factoryForm.value | json }}</p>
-  <p>Form Value Non Json: {{factoryForm.value['name'] }}</p>
-<p>Form Status: {{ factoryForm.status }}</p>
+{{factoryForm.value | json}}
 
 </mat-dialog-content>
+</div>
 
 <!--
 Copyright 2017-2018 Google Inc. All Rights Reserved.

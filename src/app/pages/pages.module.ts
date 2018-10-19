@@ -15,7 +15,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { FactoryComponent } from './factory/factory.component';
 import { FactoryTableComponent } from './factory/factory-table/factory-table.component';
-import { FactoryAddComponent } from './factory/factory-add/factory-add.component';
 import { FactoryUpdateComponent } from './factory/factory-update/factory-update.component';
 import { FactoryContactComponent } from './factory/factory-contact/factory-contact.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -35,7 +34,8 @@ import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos
 import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picker.component';
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
-
+import { JpFormsModule } from '../forms/jp-forms.module';
+import { DashboardComponent } from '../core/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -44,7 +44,7 @@ import { TimeDifferenceComponent } from './_directives/time-diff/time-difference
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
-    
+    JpFormsModule,
   ],
   declarations: [
     CustomerAddFormComponent,
@@ -57,7 +57,6 @@ import { TimeDifferenceComponent } from './_directives/time-diff/time-difference
     LoginComponent,
     FactoryComponent,
     FactoryTableComponent,
-    FactoryAddComponent,
     FactoryUpdateComponent,
     FactoryContactComponent,
     TaskSetComponent,
@@ -72,11 +71,11 @@ import { TimeDifferenceComponent } from './_directives/time-diff/time-difference
     DatePickerComponent,
     OrderDetailComponent,
     TimeDifferenceComponent,
+    DashboardComponent
   ],
   entryComponents: [
     CustomerAddFormComponent,
     CustomerUpdateComponent,
-    FactoryAddComponent,
     FactoryUpdateComponent,
   ],
   exports: [
@@ -87,9 +86,8 @@ import { TimeDifferenceComponent } from './_directives/time-diff/time-difference
     OrdersAddComponent,
     OrdersUpdateComponent,
     FactoryTableComponent,
-    FactoryAddComponent,
     FactoryUpdateComponent,
-    TimeDifferenceComponent
+    TimeDifferenceComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

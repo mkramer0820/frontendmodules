@@ -54,7 +54,7 @@ export class AppComponent implements AfterViewInit {
       {
         displayName: 'Add Factory',
         iconName: 'add',
-        route: 'factory-add',
+        route: 'factory-create',
       },
       {
         displayName: 'View Factories',

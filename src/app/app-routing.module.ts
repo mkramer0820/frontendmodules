@@ -1,11 +1,12 @@
 import { JpDynamicFormComponent } from './forms/components/jp-dynamic-form/jp-dynamic-form.component';
 import { JpFormsComponent } from './forms/components/jp-forms.component';
+import {FactoryBaseComponent} from './forms/factory/factory-base/factory-base.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //import {AppConfig} from './config/app.config';
 import {CustomerAddFormComponent} from './pages/customer/customer-add/customer-add-form.component';
 import {CustomerTableComponent} from './pages/customer/customer-table/customer-table.component';
-import {FactoryAddComponent} from './pages/factory/factory-add/factory-add.component';
 import {FactoryTableComponent} from './pages/factory/factory-table/factory-table.component';
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
 import {OrdersAddComponent} from './pages/orders/orders-add/orders-add.component';
@@ -28,7 +29,6 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-add', component: CustomerAddFormComponent, canActivate: [AuthGuard]},
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
-  {path: 'factory-add', component: FactoryAddComponent, canActivate: [AuthGuard]},
   {path: 'factory-table', component: FactoryTableComponent, canActivate: [AuthGuard]},
   {path: 'order-table', component: OrdersTableComponent, canActivate: [AuthGuard]},
   {path: 'order-add', component: OrdersAddComponent, canActivate: [AuthGuard]},
@@ -45,7 +45,8 @@ const routes: Routes = [
   { path: 'jp-task-forms-component', component: JpFormsComponent },
   { path: 'task-component', component: TaskSetComponent},
   { path: 'order-task', component: OrderTaskComponent},
-  { path: 'home', component: DashboardComponent}
+  { path: 'home', component: DashboardComponent},
+  { path: 'factory-create', component: FactoryBaseComponent}
 
   //{ path: 'task-form', component: DynamicFormComponent },
   //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },

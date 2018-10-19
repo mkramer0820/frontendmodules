@@ -4,7 +4,9 @@
   flex-direction: column;
   padding-top: 24px;
 }
-
+mat-form-field {
+  width: 100%;
+}
 label {
   display: block;
   width: 6em;
