@@ -9,3 +9,13 @@ export class FormTextbox extends FormBase<string> {
     this.type = options['type'] || '';
   }
 }
+
+export class FormCheckBox extends FormBase<boolean> {
+  controlType = 'checkbox'
+  type: boolean;
+
+  constructor(options: {} = {} ) {
+    super(options);
+    this.type = options['type'] || '';
+  }
+}

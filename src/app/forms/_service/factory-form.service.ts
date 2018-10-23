@@ -88,7 +88,32 @@ export class FactoryFormService {
         type: 'textbox',
         order: 11
       }),
+      new FormTextbox({
+        key: 'description',
+        label: 'Description - notes',
+        type: 'textbox',
+        order: 12
+      }),
+      new FormTextbox({
+        key: 'description',
+        label: 'Description - notes',
+        type: 'textbox',
+        order: 13
+      }),
+      new FormTextbox({
+        key: 'description',
+        label: 'Description - notes',
+        type: 'textbox',
+        order: 14
+      }),
+      new FormTextbox({
+        key: 'description',
+        label: 'Description - notes',
+        type: 'textbox',
+        order: 15
+      }),
     ];
+    console.log(factory);
     return factory.sort((a, b) => a.order - b.order);
   }
 }

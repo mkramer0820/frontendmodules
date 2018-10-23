@@ -1,4 +1,4 @@
-import { Component, Input, OnInit }  from '@angular/core';
+import { Component, Input, OnInit, AfterContentChecked, AfterViewChecked, OnDestroy }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
  
 import { FormBase }              from '../../_models/form-base';
@@ -11,23 +11,29 @@ import {ApiService} from '../../../config/api.service';
   styleUrls: ['./factory-form.component.scss'],
   providers: [FormControlService],
 })
-export class FactoryFormComponent implements OnInit {
+export class FactoryFormComponent implements  AfterContentChecked {
 
-  @Input() models: FormBase<any>[] = [];
-  form: FormGroup;
+  // @Input() models: FormBase<any>[] = [];
+  @Input() models: any;
+  @Input() form: FormGroup;
+  // form: FormGroup;
   payLoad = '';
  
   constructor(private fcs: FormControlService, private submitService: ApiService ) {  }
- 
-  ngOnInit() {
-    this.form = this.fcs.toFormGroup(this.models);
+
+  ngAfterContentChecked() {
+
   }
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-    this.submitService.createFactory(this.form.value).subscribe(response => {
-      response = this.form.value;
-      console.log(response);
-    });
+    console.log(this.payLoad)
+    //this.submitService.createFactory(this.form.value).subscribe(response => {
+    //  response = this.form.value;
+    //  console.log(response);
+   // });
+  }
+  toFormGroup(models) {
+    return this.form = this.fcs.toFormGroup(models)
   }
 }

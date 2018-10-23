@@ -1,60 +1,62 @@
 import { ApiService } from './../../../config/api.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
 import { TaskFormService, FactoryFormService, OptionsService } from '../../_service/';
 import { FormBase }     from '../../_models/form-base';
 import { FormTextbox }  from '../../_models/form-textbox';
+import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
+import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
+import {Subscription} from 'rxjs';
+
 
 @Component({
   selector: 'app-factory-base-form',
   template:
   `
 <div>
-  <app-jp-dynamic-form [models]="models"></app-jp-dynamic-form>
+  <app-factory-form [models]="models" [form]="form"></app-factory-form>
+  <button (click)=toFormBase()>Button</button>
+
 </div>
 `,
   styleUrls: ['./factory-base.component.scss'],
-  providers: [FactoryFormService]
+  providers: [OptionsService, FormControlService]
 })
-export class FactoryBaseComponent implements OnInit {
+export class FactoryBaseComponent implements OnInit, AfterContentChecked {
 
-
-  models1: any[];
-  models: any;
+  modelItems: {} = {};
+  models: any[];
+  form: FormGroup;
 
   constructor(
     // private factoryFormService: FactoryFormService,
-    private factoryFormService: OptionsService,
-    ) {
-    // this.tasks = service.getTaskGroups();
-    this.models = this.getForm();
-  }
+    private optionService: OptionsService,
+    private fb: FormBuilder,
+    private ffs: FactoryFormService,
+    private fcs: FormControlService,
+    ) { this.toFormBase(); }
   ngOnInit() {
+    //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
+    if (this.models.length < 1 ) {
+      return this.toFormBase();
+    } else { return console.log('checked'); }
   }
-
-  getForm() {
-
-    this.factoryFormService.optionsRequest().subscribe(response => {
-      let factory: FormBase<any>[] = [];
-      let options = response['actions']['POST'];
-     // console.log(this.options);
-
-      for (const item in options) {
-        if (options[item].hasOwnProperty('type')) {
-          console.log(options[item]);
-          let optionJson = options[item];
-          let textbox = new FormTextbox({
-            key: item,
-            label: optionJson['label'],
-            type: 'text'
-          });
-          factory.push(textbox);
-        } else { console.log(item, "oops") }
-
-      }
-      return factory;
-    });
+  ngAfterContentChecked() {
+    if (this.models.length < 1 ) {
+      return this.toFormBase();
+    } else { return }
   }
-
   
+
+  toFormBase() {
+    const items = []
+    for (let item in this.optionService.newForm) {
+      console.log('component', item);
+      items.push(this.optionService.newForm[item]) 
+    }
+    this.models = items;
+    this.form = this.fcs.toFormGroup(this.models);
+
+    // return this.models = this.optionService.newForm;
+  }
 
 }

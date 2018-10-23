@@ -6,18 +6,18 @@
 
 
     <mat-form-field>
-        <input matInput  *ngSwitchCase="'textbox'"  type="text" [formControlName]="item.key" [placeholder]="item.label">
+        <input matInput  *ngSwitchCase="'textbox'"  [type]="item.type" [formControlName]="item.key" [placeholder]="item.label" >
     </mat-form-field>
 
 <!--
     <input *ngSwitchCase="'textbox'" [formControlName]="item.key"
             [id]="item.key" [type]="item.type">-->
  
-    <select [id]="item.key" *ngSwitchCase="'dropdown'" [formControlName]="item.key">
+ <select [id]="item.key" *ngSwitchCase="'dropdown'" [formControlName]="item.key">
       <option *ngFor="let opt of item.options" [value]="opt.key">{{opt.value}}</option>
-    </select>
+ </select> 
  
   </span> 
  
-  <div class="errorMessage" *ngIf="!isValid">{{item.label}} is required</div>
+  <!--<div class="errorMessage" *ngIf="!isValid">{{item.label}} is required</div>-->
 </div>

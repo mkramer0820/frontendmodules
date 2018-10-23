@@ -16,6 +16,6 @@ import { FactoryBaseComponent } from './factory/factory-base/factory-base.compon
     SharedModule,
   ],
   declarations: [JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent, FactoryBaseComponent],
-  exports: [FactoryBaseComponent]
+  exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent]
 })
 export class JpFormsModule { }

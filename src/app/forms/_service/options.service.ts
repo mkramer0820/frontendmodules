@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Observable, of,/* throwError as observableThrowError*/} from 'rxjs';
+import {Observable, of, BehaviorSubject, Subject /* throwError as observableThrowError*/} from 'rxjs';
 import {HttpClient, /*HttpHeaders*/} from '@angular/common/http';
 import { AppConfig } from '../../config/app.config';
 import { LoggerService } from '../../core/services/logger.service';
 import {catchError, tap} from 'rxjs/operators';
-
+import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
  
 import { FormDropdown } from '../_models/form-dropdown';
 import { FormBase }     from '../_models/form-base';
-import { FormTextbox }  from '../_models/form-textbox';
+import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
 import { NewFactory } from '../_models/factory-models/factory-model';
 import { Factory } from 'src/app/modules/models/factory.model';
 
@@ -20,11 +20,13 @@ export class OptionsService {
   customerEndPoint: string;
   BASE_URL: string;
   apiUrl: string;
-  message = 'Customer Created';
-  options: any;
+  test: any[] = [];
+
+  newForm: FormBase<any>[] = [];
 
 
-  constructor(private http: HttpClient) {  this.apiUrl = AppConfig.endpoints['url'], this.optionsRequest() }
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+    this.apiUrl = AppConfig.endpoints['url'], this.optionsRequest(), console.log(this.newForm); }
 
   private static handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -43,49 +45,34 @@ export class OptionsService {
   }
 
   optionsRequest() {
-    // let factory: FormBase<any>[] = []
-
-
     this.BASE_URL = AppConfig.urlOptions['factory'];
     return this.http.options(this.apiUrl + this.BASE_URL)
       .pipe(
         tap(() => LoggerService.log(`fetched options`)),
         catchError(OptionsService.handleError('getOptions', [])))
-        /*
-      .subscribe(response => {
-        this.options = response['actions']['POST'];
-       // console.log(this.options);
-
-        for (const item in this.options) {
-          if (this.options[item].hasOwnProperty('type')) {
-            console.log(this.options[item]);
-            let optionJson = this.options[item];
-            let textbox = new FormTextbox({
-              key: item,
-              label: optionJson['label'],
-              type: 'text'
-            });
-            factory.push(textbox);
-          } else { console.log(item, "oops") }
-
-        }
-        return factory;
-      });*/
+        .subscribe(response => {
+          response = response['actions']['POST'];
+          for (const item in response) {
+            if (response[item]['read_only'] === false && response[item]['type'] !== 'boolean' ) {
+              let optionJson = response[item];
+              response[item] = response[item];
+                let form = new FormTextbox({
+                key: item,
+                label: optionJson['label'],
+                controlType: 'textbox',
+                required: false,
+                text: 'text',
+              });
+              this.newForm.push(form);
+            }
+          }
+        return this.newForm;
+      });
     }
-
-  
-    /*
-  getOptions(): Observable<PostOptions> {
-    this.BASE_URL = AppConfig.urlOptions['factory'];
-    return this.http.get<PostOptions>(this.apiUrl + this.BASE_URL)
-      .pipe(
-        tap(() => LoggerService.log(`fetched customers`)),
-        catchError(CustomersService.handleError('getCustomers', []))
-      );
-    }*/
-
+  returnOptions() {
+    return this.optionsRequest();
+  }
 }
-
 
 export class RootOptions {
   actions: Actions;
