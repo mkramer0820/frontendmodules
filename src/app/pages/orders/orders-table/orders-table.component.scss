@@ -12,11 +12,13 @@ $tablepad: 100px;
 $left: left;
 $smallFont: small;
 
-
-
-.mat-column{
-    flex: 0 0 500px;
+.mat-table {
+    overflow: auto;
+    max-height: 350px;
 }
+      
+
+
 
 img {
     // width:$imgW;

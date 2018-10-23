@@ -18,21 +18,12 @@ $left: left;
 .inner {
     position: absolute;
   }
-
-.mat-row, .mat-header-row {
-    min-width: 1123px; 
-    width:100%;
-  }
-ng-container{
-    width: $tabledata;
-    // text-align: $center;
-    th {
-        text-align: $left;
-        padding: $tablepad;
-        font-size: small;
-    }
-
+.mat-table {
+overflow: auto;
+max-height: 250px;
 }
+  
+
 .example-card {
   max-width: 400px;
 }

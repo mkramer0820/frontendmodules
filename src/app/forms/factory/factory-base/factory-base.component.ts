@@ -36,9 +36,7 @@ export class FactoryBaseComponent implements OnInit, AfterContentChecked {
     ) { this.toFormBase(); }
   ngOnInit() {
     //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
-    if (this.models.length < 1 ) {
-      return this.toFormBase();
-    } else { return console.log('checked'); }
+
   }
   ngAfterContentChecked() {
     if (this.models.length < 1 ) {
@@ -49,6 +47,7 @@ export class FactoryBaseComponent implements OnInit, AfterContentChecked {
 
   toFormBase() {
     const items = []
+    
     for (let item in this.optionService.newForm) {
       console.log('component', item);
       items.push(this.optionService.newForm[item]) 

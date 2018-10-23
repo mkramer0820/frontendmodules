@@ -14,6 +14,8 @@ export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
   private options: any;
 
+  cards = false;
+
   constructor(private breakpointObserver: BreakpointObserver, private optService: OptionsService) {
      this.options = this.optService.optionsRequest()}
 }

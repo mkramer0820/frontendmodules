@@ -61,6 +61,7 @@ export class OrdersAddComponent implements OnInit {
     jp_care_instructions: [''],
     color: [''],
     sweater_image: [null],
+    due_date: ['']
   });
   //turn semicolon to commma to add nested json
   //tasks: this.fb.array([
@@ -78,7 +79,7 @@ export class OrdersAddComponent implements OnInit {
       'customer_order_number': new FormControl(''),
       'buyer_style_number': new FormControl(''),
       'jp_style_number': new FormControl(''),
-      'factory_ship_date': new FormControl(moment()),
+      'factory_ship_date': new FormControl(moment().format('YYYY-MM-DD')),
       'cost_from_factory': new FormControl(''),
       'buyers_price': new FormControl(''),
       'qty': new FormControl(''),
@@ -87,7 +88,8 @@ export class OrdersAddComponent implements OnInit {
       'fiber_content': new FormControl(''),
       'jp_care_instructions': new FormControl(''),
       'color': new FormControl(''),
-      'sweter_image': [null],
+      'sweater_image': [null],
+      'due_date': new FormControl(moment().format('YYYY-MM-DD'))
     });
   }
 
@@ -95,17 +97,16 @@ export class OrdersAddComponent implements OnInit {
     this.getFactoryCustomer();
     }
 
-    onFileChanged(event) {
-      let reader = new FileReader();
-      if(event.target.files && event.target.files.length) {
-        const [file] = event.target.files;
-        reader.readAsDataURL(file);
-
+  onFileChanged(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
         reader.onload = () => {
-        this.orderForm.patchValue({
-          sweater_image: reader.result
+          this.orderForm.patchValue({
+            sweater_image: reader.result
           });
-        }
+        };
       }
     }
     uploadImage(event: any) {
@@ -138,25 +139,59 @@ export class OrdersAddComponent implements OnInit {
       this.orderForm.reset();
     });
   }*/
-  createOrder() {
-    this.orderForm.controls['factory_ship_date'].setValue(this.orderForm.controls['factory_ship_date'].value.format('YYYY-MM-DD'));
+  onSubmit(): void {
     const uploadData = new FormData();
-    uploadData.append('buyer', this.orderForm.get('buyer').value);
-    uploadData.append('factory', this.orderForm.get('factory').value);
-    uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
-    uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
-    uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
-    uploadData.append('factory_ship_date', this.orderForm.get('factory_ship_date').value);
-    uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
-    uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
-    uploadData.append('order_type', this.orderForm.get('order_type').value);
-    uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
-    uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
-    uploadData.append('color', this.orderForm.get('color').value);
-    uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
-    this.apiService.createOrder(uploadData).subscribe((response) => {
-      console.log(response);
-      this.orderForm.reset();
-    });
+    if (this.orderForm.get('sweater_image').value != null) {
+      let due_date = this.orderForm.get('due_date').value;
+      due_date = moment(due_date).format('YYYY-MM-DD hh:mm');
+
+      let factoryShipDate = this.orderForm.get('factory_ship_date').value;
+      factoryShipDate = moment(factoryShipDate).format('YYYY-MM-DD hh:mm');
+
+      console.log('date was formatted too : ', this.orderForm.value );
+      uploadData.append('buyer', this.orderForm.get('buyer').value);
+      uploadData.append('factory', this.orderForm.get('factory').value);
+      uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
+      uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
+      uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
+      uploadData.append('due_date', due_date);
+      uploadData.append('factory_ship_date', factoryShipDate);
+      uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
+      uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
+      uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
+      uploadData.append('color', this.orderForm.get('color').value);
+      uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
+      this.apiService.createOrder(uploadData).subscribe(response => {
+        console.log(response);
+        this.orderForm.reset();
+      });
+    } else {
+      let due_date = this.orderForm.get('due_date').value;
+      due_date = moment(due_date).format('YYYY-MM-DD hh:mm');
+
+      let factoryShipDate = this.orderForm.get('factory_ship_date').value;
+      factoryShipDate = moment(factoryShipDate).format('YYYY-MM-DD hh:mm');
+
+      uploadData.append('buyer', this.orderForm.get('buyer').value);
+      uploadData.append('factory', this.orderForm.get('factory').value);
+      uploadData.append('customer_order_number', this.orderForm.get('customer_order_number').value);
+      uploadData.append('buyer_style_number', this.orderForm.get('buyer_style_number').value);
+      uploadData.append('jp_style_number', this.orderForm.get('jp_style_number').value);
+      uploadData.append('due_date', due_date);
+      uploadData.append('factory_ship_date', factoryShipDate);
+      uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
+      uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
+      uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
+      uploadData.append('color', this.orderForm.get('color').value);
+      this.apiService.createOrder(uploadData).subscribe(response => {
+        console.log(response);
+        this.orderForm.reset();
+
+      });
+    }
   }
 }

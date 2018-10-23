@@ -26,9 +26,9 @@ export class JpDynamicFormComponent implements OnInit {
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-    this.submitService.createFactory(this.form.value).subscribe(response => {
+    /*this.submitService.createFactory(this.form.value).subscribe(response => {
       response = this.form.value;
       console.log(response);
-    });
+    });*/
   }
 }

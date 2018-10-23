@@ -11,6 +11,7 @@ import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
 import { NewFactory } from '../_models/factory-models/factory-model';
 import { Factory } from 'src/app/modules/models/factory.model';
+import { DropdownQuestion } from 'src/app/pages/task/_models/forms/form-dropdown';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,8 @@ export class OptionsService {
   BASE_URL: string;
   apiUrl: string;
   test: any[] = [];
+  dropdownOption: any;
+
 
   newForm: FormBase<any>[] = [];
 
@@ -45,15 +48,39 @@ export class OptionsService {
   }
 
   optionsRequest() {
+    const options = [];
     this.BASE_URL = AppConfig.urlOptions['factory'];
     return this.http.options(this.apiUrl + this.BASE_URL)
       .pipe(
         tap(() => LoggerService.log(`fetched options`)),
         catchError(OptionsService.handleError('getOptions', [])))
-        .subscribe(response => {
+        .subscribe(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
-            if (response[item]['read_only'] === false && response[item]['type'] !== 'boolean' ) {
+            if (response[item]['read_only'] === false && response[item]['type'] === 'option'  ) {
+              let optionJson = response[item]['choices'];
+              response[item] = response[item];
+              let form = new FormDropdown({
+                key: item,
+                label: response[item]['label'],
+                controlType: 'dropdown',
+                required: response[item]['required'],
+                text: 'text',
+                options: optionJson,
+              });
+              this.newForm.push(form);
+            } else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
+              let optionJson = response[item];
+              let form = new FormCheckBox({
+                value: true,
+                key: item,
+                controlType: 'checkbox',
+                required: optionJson['required'],
+                label: optionJson['label'],
+              });
+              console.log('checkbox item', item, optionJson)
+              this.newForm.push(form);
+            } else if (response[item]['read_only'] === false && response[item]['type'] !== 'option') {
               let optionJson = response[item];
               response[item] = response[item];
                 let form = new FormTextbox({
@@ -73,6 +100,44 @@ export class OptionsService {
     return this.optionsRequest();
   }
 }
+/*
+ options: [
+          {key: 'solid',  value: 'Solid'},
+          {key: 'great',  value: 'Great'},
+          {key: 'good',   value: 'Good'},
+          {key: 'unproven', value: 'Unproven'}
+        ],
+
+getTaskGroups() {
+  const options = [];
+  this.api.getTasks().subscribe((taskSet: TaskSet) => {
+    const keys = Object.keys(taskSet[0]);
+    const value = Object.values(taskSet);
+    for (const set in taskSet) {
+      let optiond = {}
+      optiond['key'] = taskSet[set].id;
+      optiond['value'] = taskSet[set].set_name;
+      options.push(optiond);
+    }
+  });
+  this.dropdownOption = options;
+  return this.dropdownOption;
+}
+getForms2() {
+  let tasks: FormBase<any>[] = [
+
+    new FormDropdown({
+      key: 'set_name',
+      label: 'Task Set name',
+      options: this.dropdownOption,
+      order: 4
+    })
+  ];
+
+  return tasks;
+}*/
+
+
 
 export class RootOptions {
   actions: Actions;

@@ -27,11 +27,12 @@ export class FactoryFormComponent implements  AfterContentChecked {
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-    console.log(this.payLoad)
-    //this.submitService.createFactory(this.form.value).subscribe(response => {
-    //  response = this.form.value;
-    //  console.log(response);
-   // });
+    console.log(this.payLoad);
+    this.submitService.createFactory(this.form.value).subscribe(response => {
+      response = this.form.value;
+      console.log(response);
+      this.form.reset();
+    });
   }
   toFormGroup(models) {
     return this.form = this.fcs.toFormGroup(models)

@@ -14,6 +14,20 @@ export class NewFactory {
   createdOn: string;
   isActive: boolean;
   slug: string;
-  contact_name: number;
+  contact_name: Contactname;
 
 }
+
+export class Contactname {
+  type: string;
+  required: boolean;
+  read_only: boolean;
+  label: string;
+  choices: Choice[];
+}
+
+export class Choice {
+  value: number;
+  display_name: string;
+}
+

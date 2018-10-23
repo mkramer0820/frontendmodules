@@ -91,6 +91,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Input() cards: boolean = true;
 
 
   public firstDate = moment();
