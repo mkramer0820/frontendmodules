@@ -12,13 +12,19 @@ import {Subscription} from 'rxjs';
   selector: 'app-factory-base-form',
   template:
   `
-    <div *ngIf="loading; else loaded">
-        <mat-spinner color='accent'></mat-spinner>
-    </div>
-    <ng-template #loaded>
-    <app-factory-form [models]="models" [form]="form"></app-factory-form>
-    <button (click)=toFormBase()>Button</button>
-    </ng-template>
+  <mat-dialog-content>
+    <mat-card>
+      <div *ngIf="loading; else loaded">
+          <mat-spinner color='accent' style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+      </div>
+
+      <ng-template #loaded>
+      <app-factory-form [models]="models" [form]="form"></app-factory-form>
+      <button (click)=toFormBase()>Button</button>
+      </ng-template>
+
+    </mat-card>
+  </mat-dialog-content>
 `,
   styleUrls: ['./factory-base.component.scss'],
   providers: [OptionsService, FormControlService]
@@ -61,7 +67,7 @@ export class FactoryBaseComponent implements OnInit, DoCheck {
     }
     this.models = items;
     this.form = this.fcs.toFormGroup(this.models);
-    this.loading = false;
+    this.loading = true;
 
     // return this.models = this.optionService.newForm;
   }
