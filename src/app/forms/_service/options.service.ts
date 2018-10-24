@@ -29,7 +29,7 @@ export class OptionsService {
 
 
   constructor(private http: HttpClient, private fb: FormBuilder) {
-    this.apiUrl = AppConfig.endpoints['url'], this.optionsRequest(), console.log(this.newForm); }
+    this.apiUrl = AppConfig.endpoints['url'] ; this.optionsRequest(), console.log(this.newForm); }
 
   private static handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -47,9 +47,11 @@ export class OptionsService {
     };
   }
 
-  optionsRequest() {
+  optionsRequest(url?: string) {
     const options = [];
-    this.BASE_URL = AppConfig.urlOptions['factory'];
+    this.BASE_URL = this.BASE_URL = AppConfig.urlOptions['factory'];
+    // if (url) { this.BASE_URL = AppConfig.urlOptions[url];}
+
     return this.http.options(this.apiUrl + this.BASE_URL)
       .pipe(
         tap(() => LoggerService.log(`fetched options`)),

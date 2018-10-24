@@ -1,5 +1,5 @@
 import { ApiService } from './../../../config/api.service';
-import { Component, OnInit, AfterContentChecked, AfterViewChecked, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { TaskFormService, FactoryFormService, OptionsService } from '../../_service/';
 import { FormBase }     from '../../_models/form-base';
 import { FormTextbox }  from '../../_models/form-textbox';
@@ -12,20 +12,23 @@ import {Subscription} from 'rxjs';
   selector: 'app-factory-base-form',
   template:
   `
-<div>
-  <app-factory-form [models]="models" [form]="form"></app-factory-form>
-  <button (click)=toFormBase()>Button</button>
-
-</div>
+    <div *ngIf="loading; else loaded">
+        <mat-spinner color='accent'></mat-spinner>
+    </div>
+    <ng-template #loaded>
+    <app-factory-form [models]="models" [form]="form"></app-factory-form>
+    <button (click)=toFormBase()>Button</button>
+    </ng-template>
 `,
   styleUrls: ['./factory-base.component.scss'],
   providers: [OptionsService, FormControlService]
 })
-export class FactoryBaseComponent implements OnInit, AfterContentChecked {
+export class FactoryBaseComponent implements OnInit, DoCheck {
 
   modelItems: {} = {};
   models: any[];
   form: FormGroup;
+  loading: boolean = true;
 
   constructor(
     // private factoryFormService: FactoryFormService,
@@ -38,7 +41,9 @@ export class FactoryBaseComponent implements OnInit, AfterContentChecked {
     //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
 
   }
-  ngAfterContentChecked() {
+  ngDoCheck(): void {
+    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+    //Add 'implements DoCheck' to the class.
     if (this.models.length < 1 ) {
       return this.toFormBase();
     } else { return }
@@ -46,7 +51,9 @@ export class FactoryBaseComponent implements OnInit, AfterContentChecked {
   
 
   toFormBase() {
-    const items = []
+    this.loading = true;
+    const items = [];
+    this.optionService.optionsRequest();
     
     for (let item in this.optionService.newForm) {
       console.log('component', item);
@@ -54,6 +61,7 @@ export class FactoryBaseComponent implements OnInit, AfterContentChecked {
     }
     this.models = items;
     this.form = this.fcs.toFormGroup(this.models);
+    this.loading = false;
 
     // return this.models = this.optionService.newForm;
   }

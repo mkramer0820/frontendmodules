@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FactoryFormComponent } from './factory/factory-form/factory-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { FactoryBaseComponent } from './factory/factory-base/factory-base.component';
+import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,13 @@ import { FactoryBaseComponent } from './factory/factory-base/factory-base.compon
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent, FactoryBaseComponent],
+  declarations: [
+    JpFormsComponent,
+    JpDynamicFormComponent,
+    DynamicFormsComponent,
+    JpDynamicFormTaskSetComponent,
+    FactoryFormComponent,
+    FactoryBaseComponent],
   exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent]
 })
 export class JpFormsModule { }
