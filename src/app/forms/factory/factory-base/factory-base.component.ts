@@ -54,22 +54,18 @@ export class FactoryBaseComponent implements OnInit, DoCheck {
       return this.toFormBase();
     } else { return }
   }
-  
+
 
   toFormBase() {
     this.loading = true;
     const items = [];
     this.optionService.optionsRequest();
-    
     for (let item in this.optionService.newForm) {
-      console.log('component', item);
       items.push(this.optionService.newForm[item]) 
     }
     this.models = items;
     this.form = this.fcs.toFormGroup(this.models);
-    this.loading = true;
-
+    this.loading = false;
     // return this.models = this.optionService.newForm;
   }
-
 }
