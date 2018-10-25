@@ -18,7 +18,8 @@ export const AppConfig: IAppConfig = {
   },
   urlOptions: {
     customer: 'customer/',
-    factory: 'factory/'
+    factory: 'factory/',
+    orders: 'orders/',
   },
 };
 

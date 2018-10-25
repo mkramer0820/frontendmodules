@@ -1,5 +1,8 @@
 
-
+<div>
+  <button (click)="decodeJwt()">JWT</button>
+  <div *ngIf="cred">{{cred}}</div>
+</div>
 <mat-accordion>
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
@@ -169,6 +172,9 @@
 
   </mat-table>
 
+<mat-card *ngIf="cred">
+  {{cred | json}}
+</mat-card>
 
 <ng-container *ngIf='cards'>
   <div *ngIf='order && order.tasks.length > 0'>

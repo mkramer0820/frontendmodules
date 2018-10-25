@@ -86,6 +86,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   test: any;
   token = localStorage.getItem('currentUser');
   myorders= [];
+  cred: any;
 
   dataSource = new MatTableDataSource(this.myorders);
 
@@ -131,7 +132,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     this.shared.clearMessage();
   }
   decodeJwt(){
-    this.auth.updateData(this.token);
+    this.cred = this.auth.updateData(this.token);
   }
   getTaskGroup() {
     this.tgs.getMessage().subscribe(rsp => {
