@@ -4,10 +4,12 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
+import {HttpClientService} from '../../../_services/http-client.service'
 import {Factory} from '../../../modules/models/factory.model';
 //import {FactoryService} from '../../customer.service';
 import {FactorySharedService} from '../factory-shared.service';
 import { Subscription } from 'rxjs';
+import {AppConfig} from '../../../config/app.config';
 
 @Component({
   selector: 'app-factory-update',
@@ -31,7 +33,7 @@ export class FactoryUpdateComponent implements OnInit {
     description: [''],
   }); //turn semicolon to commma to add nested json
   //tasks: this.fb.array([
-  //  this.fb.control('')
+  //  this.fb.control('')aa
   //])
   //});
 
@@ -44,7 +46,7 @@ export class FactoryUpdateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private  apiService: ApiService,
+    private  apiService: HttpClientService,
     private service: FactorySharedService,
   ) {
     //this.subscription = this.service.getMessage().subscribe(message => { this.message = message; });
@@ -80,8 +82,8 @@ export class FactoryUpdateComponent implements OnInit {
   updateFactory() {
     const factory = this.factoryForm.value;
     const id = this.factory['id'];
-    console.log(id)
-    this.apiService.updateFactory(factory, id).subscribe(response => {
+    console.log(id);
+    this.apiService.put( `${AppConfig.urlOptions.factory}${id}/`, factory).subscribe(response => {
       console.log(response);
       this.factoryForm.reset();
     });

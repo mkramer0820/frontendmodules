@@ -20,7 +20,6 @@ export class FactoryContactComponent implements AfterViewInit {
                       'contact_phone_number', 'contact_email'];
   contacts: Contact[];
   dataSource = this.contacts;
-  //form: FormGroup;
   contactForm = this.fb.group({
     first_name: [''],
     contact_last_name: [''],
@@ -33,9 +32,6 @@ export class FactoryContactComponent implements AfterViewInit {
     private fb: FormBuilder,
   ) {
       this.getfactories();
-      //this.form = this.fb.group({
-        //contact: this.createFormArray()
-      //});
       this.contactForm = this.fb.group({
         'first_name': new FormControl('',),
         'contact_last_name': new FormControl('',),
@@ -51,7 +47,6 @@ export class FactoryContactComponent implements AfterViewInit {
   getfactories() {
     this.apiService.getFactoryContacts().subscribe((contact: Array<Contact>) => {
       this.contacts = contact;
-      console.log(this.contacts)
     });
   }
   addContact(form) {
@@ -61,39 +56,5 @@ export class FactoryContactComponent implements AfterViewInit {
       this.getfactories();
 
     });
-  }
-
-/*
-  createFormArray(): FormArray {
-    return new FormArray(this.dataSource).map(item => new FormGroup({
-      active: new FormControl(this.contacts[]),
-      active: new FormControl(this.contacts[]),
-      active: new FormControl(this.contacts[]),
-      active: new FormControl(this.contacts[]),
-      active: new FormControl(this.contacts[]),
-      active: new FormControl(item.active),
-      anotherDropdown: new FormControl(item.anotherDropdown)})
-    ));
-  }*/
-}
-
-/*
-export interface Contact {
-  public id: number,
-  public first_name: string,
-  public last_name: string,
-  public phone: string,
-  public email: string,
-  public slug: string
-
-}*/
-
-
-export class ContactDataBase {
-
-  constructor(private http: ApiService) {}
-
-  getContactInfo() {
-    return this.http.getFactoryContacts();
   }
 }

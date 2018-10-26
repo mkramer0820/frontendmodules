@@ -7,15 +7,16 @@ import {Observable, /*of, throwError as observableThrowError*/ } from 'rxjs';
 //import {map} from 'rxjs/operators';
 //import {catchError, tap} from 'rxjs/operators';
 import {Customer} from '../modules/models/customer.model';
+import {AuthenticationService} from '../pages/_services/authentication.service';
 
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Accept' : 'application/json',
     'Content-Type':  'application/json',
-    'Authorization' : 'Bearer' + localStorage.getItem('currentUser')
+    'Authorization' : 'JWT' + localStorage.getItem('currentUser')
   })
 };
+
 
 
 @Injectable({
@@ -23,18 +24,26 @@ const httpOptions = {
 })
 export class ApiService {
 
-
+  cred: any;
   API_URL = 'http://127.0.0.1:8000';
+  private token = localStorage.getItem('currentUser');
+  private headers: any;
 
-  constructor(private httpClient: HttpClient) {}
-  token = localStorage.getItem('currentUser')
-  headers = new HttpHeaders().set("token", this.token)
+  constructor(private httpClient: HttpClient, private authService: AuthenticationService) {
+    this.cred = this.authService.updateData(this.token); }
 
-
+  setHeaders() {
+    let headers: HttpHeaders = new HttpHeaders();
+    // headers = headers.append('content-type', 'application/json');
+    let token = JSON.parse(this.token);
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    //console.log(userDetails);
+    console.log(headers);
+    return headers;
+  }
   getCustomers(): Observable<Customer[]> {
-    console.log(this.headers)
-    let headers = httpOptions
-    return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`, httpOptions)
+
+    return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`, )
     }
 
   createCustomer(customer) {
@@ -70,14 +79,33 @@ export class ApiService {
   createFactoryContact(contact) {
     return this.httpClient.post(`${this.API_URL}/factory/contacts/`, contact);
   }
-
+  decodeJwt(){
+    this.cred = this.authService.updateData(this.token);
+  }
   //orders
   getOrders(ordering?: string): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/?ordering=${ordering}`);
+    let headers = this.setHeaders();
+    this.setHeaders();
+    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/?ordering=${ordering}`, {headers});
   }
   getMyOrders(): Observable<Orders[]> {
-    return this.httpClient.get<Orders[]>(`${this.API_URL}/orders/`);
+    let headers: HttpHeaders = new HttpHeaders();
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //headers = headers.append('content-type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${currentUser.token}`);
+    console.log(headers);
+    return this.httpClient.get<Orders[]>(`${this.API_URL}/orders/`, {headers: headers});
   }
+/*
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if (currentUser && currentUser.token) {
+      request = request.clone({
+          setHeaders: {
+              Authorization: `Bearer ${currentUser.token}`
+          }
+      });
+  }*/
+
   getOrdersDetails(id) {
     return this.httpClient.get(`${this.API_URL}/orders/${id}`);
   }

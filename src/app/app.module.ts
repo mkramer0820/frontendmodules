@@ -21,6 +21,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { MessageService } from './_services/message.service';
+import { PostService } from './_services/post.service';
+import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
 
 
 @NgModule({
@@ -49,15 +51,23 @@ import { MessageService } from './_services/message.service';
     AppComponent,
     DatetimeFormat,
     DateFormat,
-    InvoiceComponent
+    InvoiceComponent,
     ],
   exports: [
   ],
   providers: [
-    {provide: APP_CONFIG, useValue: AppConfig},
+    { provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // {
+    //      provide: HTTP_INTERCEPTORS,
+    //      useClass: HttpClientInterceptorService,
+    //      multi: true
+    //  },
     NavService,
+    MessageService,
+    PostService,
+
   ],
   bootstrap: [AppComponent]
 })

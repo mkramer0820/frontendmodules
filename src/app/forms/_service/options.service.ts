@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Observable, of, BehaviorSubject, Subject /* throwError as observableThrowError*/} from 'rxjs';
-import {HttpClient, /*HttpHeaders*/} from '@angular/common/http';
 import { AppConfig } from '../../config/app.config';
 import { LoggerService } from '../../core/services/logger.service';
 import {catchError, tap} from 'rxjs/operators';
@@ -9,13 +8,10 @@ import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 import { FormDropdown } from '../_models/form-dropdown';
 import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
-import { NewFactory } from '../_models/factory-models/factory-model';
-import { Factory } from 'src/app/modules/models/factory.model';
-import { DropdownQuestion } from 'src/app/pages/task/_models/forms/form-dropdown';
+import { ApiService } from '../../config/api.service';
+import {HttpClientService} from '../../_services/http-client.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class OptionsService {
 
   customerEndPoint: string;
@@ -28,8 +24,9 @@ export class OptionsService {
   newForm: FormBase<any>[] = [];
 
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
-    this.apiUrl = AppConfig.endpoints['url'] ; this.optionsRequest(), console.log(this.newForm); }
+  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService ) {
+    this.apiUrl = AppConfig.endpoints['url'];
+    this.BASE_URL = AppConfig.urlOptions.factory; this.optionsRequest(), console.log(this.newForm); }
 
   private static handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -46,13 +43,14 @@ export class OptionsService {
       return of(result as T);
     };
   }
-
-  optionsRequest(url?: string) {
-    const options = [];
-    this.BASE_URL = this.BASE_URL = AppConfig.urlOptions['factory'];
+  setUrl(url: string) {
+    return this.apiUrl = url;
+  }
+  optionsRequest() {
     // if (url) { this.BASE_URL = AppConfig.urlOptions[url];}
-
-    return this.http.options(this.apiUrl + this.BASE_URL)
+    let headers = this.api.setHeaders();
+    console.log(this.BASE_URL);
+    return this.http.options(this.BASE_URL, {headers})
       .pipe(
         tap(() => LoggerService.log(`fetched options`)),
         catchError(OptionsService.handleError('getOptions', [])))

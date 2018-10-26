@@ -36,6 +36,7 @@ import { OrderDetailComponent } from './orders/order-detail/order-detail.compone
 import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
 import { JpFormsModule } from '../forms/jp-forms.module';
 import { DashboardComponent } from '../core/dashboard/dashboard.component';
+import {PostService} from '../_services/post.service';
 
 @NgModule({
   imports: [
@@ -95,7 +96,8 @@ import { DashboardComponent } from '../core/dashboard/dashboard.component';
     TaskFormService,
     TaskGroupService,
     ModalService,
-    OrderTaskFormService
+    OrderTaskFormService,
+    PostService,
 
 
   ],

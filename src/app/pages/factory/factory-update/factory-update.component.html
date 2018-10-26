@@ -7,7 +7,7 @@
 <form [formGroup]="factoryForm">
   <label>
     Company Name:
-    <input type="text" formControlName="name" required [value]='factory.name' >
+    <input type="text" [(ngModel)]="factory.name" formControlName="name" required [value]='factory.name' >
   </label>
 
   <label>

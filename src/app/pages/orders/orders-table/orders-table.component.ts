@@ -143,6 +143,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 //   good but testing orderservice
  getOrders(id) {
   this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
+    console.log(this.apiService.getOrders)
     this.orders = orders;
     this.getTotalCost(orders);
     // this.dataSource = new MatTableDataSource(orders);

@@ -1,8 +1,14 @@
 import {InjectionToken} from '@angular/core';
-import {IAppConfig} from './iapp.config';
+import {IAppConfig, IAppUrlBody} from './iapp.config';
 
 export let APP_CONFIG = new InjectionToken('app.config');
 
+
+export const UrlBody: IAppUrlBody = {
+  params: {
+    id: 'id'
+  }
+};
 
 export const AppConfig: IAppConfig = {
   routes: {
@@ -20,8 +26,12 @@ export const AppConfig: IAppConfig = {
     customer: 'customer/',
     factory: 'factory/',
     orders: 'orders/',
+    ordersSort: `/orders/?ordering=${UrlBody.params.id}`,
+    task: `task/`,
+    taskGroup: `task/group/`
   },
 };
+
 
 
 

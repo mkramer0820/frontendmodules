@@ -4,21 +4,20 @@ import {Headers} from '@angular/http';
 import {AppConfig} from '../config/app.config';
 import {Observable}  from 'rxjs';
 import { AuthenticationService } from '.././pages/_services';
+import { headersToString } from 'selenium-webdriver/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PostService {
 
   private baseurl = 'http://127.0.0.1:8000/';
-  private endpoint: string;
+  private endpoint: any;
   private credential: any;
   private token = localStorage.getItem('currentUser');
 
 
-  constructor( private httpClient: HttpClient, private endPoint: string, private auth: AuthenticationService ) {
+  constructor( private httpClient: HttpClient, private auth: AuthenticationService ) {
     this.credential = this.auth.updateData(this.token);
-     }
+    }
 
  /*   getConfigResponse(): Observable<HttpResponse<Config>> {
     return this.http.get<Config>(
@@ -27,12 +26,11 @@ export class PostService {
 
 
   post(urlendpoint, data) {
-    let headers = new HttpHeaders();
-    headers.append('content-type', 'application/json');
-    headers.append('content-type', 'application/json');
-    headers.append('user_id', this.credential['user_id']);
-    headers.append('Authorization', this.credential.values);
-
-    this.httpClient.post(`${this.baseurl}/${urlendpoint}/`, data).subscribe(response => console.log(response));
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('content-type', 'application/json');
+    let token = JSON.parse(this.token)
+    headers = headers.append('Authorization',  `Bearer ${token}`);
+    console.log(headers);
+   // this.httpClient.post(`${this.baseurl}/${urlendpoint}/`, data).subscribe(response => console.log(response));
    }
 }

@@ -1,5 +1,6 @@
 import { ApiService } from './../../../config/api.service';
 import { Component, OnInit, DoCheck } from '@angular/core';
+import {AppConfig} from '../../../config/app.config';
 import { TaskFormService, FactoryFormService, OptionsService } from '../../_service/';
 import { FormBase }     from '../../_models/form-base';
 import { FormTextbox }  from '../../_models/form-textbox';
@@ -62,12 +63,11 @@ export class FactoryBaseComponent implements OnInit, DoCheck {
     this.optionService.optionsRequest();
     
     for (let item in this.optionService.newForm) {
-      console.log('component', item);
       items.push(this.optionService.newForm[item]) 
     }
     this.models = items;
     this.form = this.fcs.toFormGroup(this.models);
-    this.loading = true;
+    this.loading = false;
 
     // return this.models = this.optionService.newForm;
   }

@@ -61,17 +61,13 @@ export class FactoryTableComponent implements OnInit {
       this.sendMessage(this.message)
       this.subscription = this.service.getMessage().subscribe(message =>
          this.recieve = message);
-      console.log(this.recieve)
     });
     dialogRef.afterOpen().subscribe(result => {
-      console.log(`Dailog result: ${result}`)
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.apiService.factories().subscribe((factories: Array<Factory>) => {
         this.factories = factories;
-        return dialogRef.close()
-        //console.log(factories);
+        return dialogRef.close();
       });
     });
   }

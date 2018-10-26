@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {Order} from '../../../modules/models/orders.model';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ApiService} from '../../../config/api.service';
+import {HttpClientService} from '../../../_services/http-client.service';
 import {Customer} from '../../../modules/models/customer.model';
 import {Factory} from '../../../modules/models/factory.model';
 import { Observable } from 'rxjs';
 import {VERSION} from '@angular/material';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-
+import {AppConfig} from '../../../config/app.config';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 
@@ -72,6 +73,7 @@ export class OrdersAddComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private  apiService: ApiService,
+    private http: HttpClientService,
   ) {
     this.orderForm = this.fb.group({
       'buyer': new FormControl(''),
@@ -163,7 +165,10 @@ export class OrdersAddComponent implements OnInit {
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
       uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
-      this.apiService.createOrder(uploadData).subscribe(response => {
+      /*this.apiService.createOrder(uploadData).subscribe(response => {
+        console.log(response);
+        this.orderForm.reset();*/
+      this.http.post(AppConfig.urlOptions.orders, uploadData).subscribe(response => {
         console.log(response);
         this.orderForm.reset();
       });

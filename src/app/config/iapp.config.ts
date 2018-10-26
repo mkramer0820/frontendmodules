@@ -3,3 +3,7 @@ export interface IAppConfig {
   endpoints: any;
   urlOptions: any;
 }
+export interface IAppUrlBody {
+
+  params: any;
+}

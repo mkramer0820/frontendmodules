@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, AfterContentChecked, AfterViewChecked, OnDestroy }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
- 
+import {AppConfig} from          '../../../config/app.config';
+import {HttpClientService} from   '../../../_services/http-client.service';
 import { FormBase }              from '../../_models/form-base';
 import { FormControlService }    from '../../_service/form-control.service';
 import {ApiService} from '../../../config/api.service';
@@ -19,7 +20,7 @@ export class FactoryFormComponent implements  AfterContentChecked {
   // form: FormGroup;
   payLoad = '';
  
-  constructor(private fcs: FormControlService, private submitService: ApiService ) {  }
+  constructor(private fcs: FormControlService, private submitService: HttpClientService ) {  }
 
   ngAfterContentChecked() {
 
@@ -28,7 +29,7 @@ export class FactoryFormComponent implements  AfterContentChecked {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
     console.log(this.payLoad);
-    this.submitService.createFactory(this.form.value).subscribe(response => {
+    this.submitService.post(AppConfig.endpoints.customer, this.form.value).subscribe(response => {
       response = this.form.value;
       console.log(response);
       this.form.reset();
