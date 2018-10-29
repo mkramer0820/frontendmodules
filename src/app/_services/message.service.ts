@@ -5,6 +5,8 @@ import { Observable, Subject } from 'rxjs';
 export class MessageService {
     public subject = new Subject<any>();
 
+    public url = new Subject<any>();
+
     sendMessage(message) {
         this.subject.next( message );
     }
@@ -17,4 +19,19 @@ export class MessageService {
         return this.subject.asObservable();
         //return this.customer.asObservable();
     }
+
+
+    sendUrl(message) {
+        this.url.next( message );
+    }
+
+    clearUrl() {
+        this.url.next();
+    }
+
+    getUrl() {
+        return this.url.asObservable();
+        //return this.customer.asObservable();
+    }
+
 }

@@ -22,6 +22,7 @@ export const AppConfig: IAppConfig = {
   endpoints: {
     url: 'http://127.0.0.1:8000/',
   },
+  base: 'http://127.0.0.1:8000/',
   urlOptions: {
     customer: 'customer/',
     factory: 'factory/',

@@ -22,7 +22,9 @@ import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
     DynamicFormsComponent,
     JpDynamicFormTaskSetComponent,
     FactoryFormComponent,
-    FactoryBaseComponent],
+    FactoryBaseComponent,
+    
+  ],
   exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent]
 })
 export class JpFormsModule { }

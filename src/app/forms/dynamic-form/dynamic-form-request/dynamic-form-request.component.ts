@@ -1,36 +1,21 @@
-import { ApiService } from './../../../config/api.service';
-import { Component, OnInit, DoCheck, Input } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, Input } from '@angular/core';
 import {AppConfig} from '../../../config/app.config';
-import { TaskFormService, FactoryFormService, OptionsService, OptionsFormService } from '../../_service/';
+import { TaskFormService, FactoryFormService, OptionsFormService } from '../../_service/';
 import { FormBase }     from '../../_models/form-base';
 import { FormTextbox }  from '../../_models/form-textbox';
 import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
 import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
 import {Subscription} from 'rxjs';
-
+import {ElementRef, ViewContainerRef} from '@angular/core';
+import {MessageService} from '../../../_services/message.service';
 
 @Component({
-  selector: 'app-factory-base-form',
-  template:
-  `
-  <mat-dialog-content>
-    <mat-card>
-      <div *ngIf="loading; else loaded">
-          <mat-spinner color='accent' style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-      </div>
-
-      <ng-template #loaded>
-      <app-factory-form [submitUrl]=seturl [models]="models" [form]="form"></app-factory-form>
-      </ng-template>
-
-    </mat-card>
-  </mat-dialog-content>
-`,
-  styleUrls: ['./factory-base.component.scss'],
-  providers: [FormControlService]
+  selector: 'dynamic-form-request',
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.scss'],
+  providers: [MessageService, FormControlService]
 })
-export class FactoryBaseComponent implements OnInit {
-
+export class DynamicFormRequestComponent implements OnInit {
 
   // modelItems: {} = {};
   models: any[];
@@ -44,22 +29,30 @@ export class FactoryBaseComponent implements OnInit {
 
   constructor(
     // private factoryFormService: FactoryFormService,
-    private formService: OptionsFormService,
+    private urlServ: MessageService,
+    private formService?: OptionsFormService,
     private ffs?: FactoryFormService,
     private fcs?: FormControlService,
-    ) { }
+    ) { this.subscription = this.urlServ.getUrl().subscribe(url => this.seturl = url);}
   ngOnInit() {
     //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
     this.getForm()
   }
   
+  ngOnDestroy() {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.urlServ.clearUrl();
+  }
+
   getForm() {
-    this.seturl = AppConfig.urlOptions.factory
-    this.formService.formRequest(AppConfig.urlOptions.factory).subscribe(response => {
+    this.seturl = AppConfig.urlOptions.customer
+    this.formService.formRequest(AppConfig.urlOptions.customer).subscribe(response => {
       this.models = response;
       this.form = this.fcs.toFormGroup(this.models);
     });
     // this.models.push(models);
     // this.form = this.fcs.toFormGroup(this.models)
   }
+  
 }

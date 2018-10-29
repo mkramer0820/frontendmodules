@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomerAddFormComponent} from './customer/customer-add/customer-add-form.component';
-import { CustomerComponent } from './customer/customer.component';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
 import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
 import { OrdersTableComponent } from './orders/orders-table/orders-table.component';
@@ -37,6 +36,9 @@ import { TimeDifferenceComponent } from './_directives/time-diff/time-difference
 import { JpFormsModule } from '../forms/jp-forms.module';
 import { DashboardComponent } from '../core/dashboard/dashboard.component';
 import {PostService} from '../_services/post.service';
+import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import {OptionsFormService} from '../forms/_service'
+
 
 @NgModule({
   imports: [
@@ -49,7 +51,6 @@ import {PostService} from '../_services/post.service';
   ],
   declarations: [
     CustomerAddFormComponent,
-    CustomerComponent,
     CustomerTableComponent,
     CustomerUpdateComponent,
     OrdersTableComponent,
@@ -72,12 +73,15 @@ import {PostService} from '../_services/post.service';
     DatePickerComponent,
     OrderDetailComponent,
     TimeDifferenceComponent,
-    DashboardComponent
+    DashboardComponent,
+    DynamicFormRequestComponent,
   ],
   entryComponents: [
     CustomerAddFormComponent,
     CustomerUpdateComponent,
     FactoryUpdateComponent,
+    DynamicFormRequestComponent,
+
   ],
   exports: [
     CustomerAddFormComponent,
@@ -98,6 +102,7 @@ import {PostService} from '../_services/post.service';
     ModalService,
     OrderTaskFormService,
     PostService,
+    OptionsFormService
 
 
   ],

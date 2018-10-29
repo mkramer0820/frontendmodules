@@ -17,6 +17,7 @@ export class FactoryFormComponent implements  AfterContentChecked {
   // @Input() models: FormBase<any>[] = [];
   @Input() models: any;
   @Input() form: FormGroup;
+  @Input() submitUrl: string;
   // form: FormGroup;
   payLoad = '';
  
@@ -29,7 +30,7 @@ export class FactoryFormComponent implements  AfterContentChecked {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
     console.log(this.payLoad);
-    this.submitService.post(AppConfig.endpoints.customer, this.form.value).subscribe(response => {
+    this.submitService.post(this.submitUrl, this.form.value).subscribe(response => {
       response = this.form.value;
       console.log(response);
       this.form.reset();

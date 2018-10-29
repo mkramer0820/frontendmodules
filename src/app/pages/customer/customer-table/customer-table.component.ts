@@ -6,6 +6,10 @@ import {CustomerAddFormComponent} from '../customer-add/customer-add-form.compon
 import {CustomerUpdateComponent} from '../customer-update/customer-update.component';
 import {SharedService} from '../shared.service';
 import {Subscription} from 'rxjs';
+import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import {MessageService} from '../../../_services/message.service';
+import { AppComponent } from 'src/app/app.component';
+import { AppConfig } from 'src/app/config/app.config';
 
 @Component({
   selector: 'app-customer-table',
@@ -22,16 +26,20 @@ export class CustomerTableComponent implements OnInit {
   message: any;
   subscription: Subscription;
   recieve: any;
+  customerUrl = 'customer/'
   constructor(
     private apiService: ApiService,
     private dialog: MatDialog,
     private service: SharedService,
-  ) {
+    private msgServ: MessageService
+  ) { this.msgServ.sendUrl(AppConfig.urlOptions.customer)
   }
 
   ngOnInit() {
     this.getCustomers();
     this.subscription = this.service.getMessage().subscribe(message => this.recieve = message);
+    this.sendUrl(this.customerUrl);
+    
   }
   sendMessage(message): void {
         // send message to subscribers via observable subject
@@ -40,7 +48,18 @@ export class CustomerTableComponent implements OnInit {
   clearMessage(): void {
           // clear message
           this.service.clearMessage();
-        }
+  }
+  
+  setUrl() {
+    const url = AppConfig.urlOptions.customer;
+    console.log(url);
+    return this.msgServ.sendUrl(url);
+  }
+  sendUrl(message): void {
+    // send message to subscribers via observable subject
+    this.msgServ.sendUrl(message);
+  }
+
 
 
   getCustomers() {
@@ -72,7 +91,7 @@ export class CustomerTableComponent implements OnInit {
     });
   }
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(CustomerAddFormComponent, {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
     });
     dialogRef.afterClosed().subscribe(result => {
