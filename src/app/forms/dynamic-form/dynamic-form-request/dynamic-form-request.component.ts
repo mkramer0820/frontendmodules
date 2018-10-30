@@ -9,7 +9,6 @@ import {Subscription} from 'rxjs';
 import {ElementRef, ViewContainerRef} from '@angular/core';
 import {MessageService} from '../../../_services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { type } from 'os';
 import { keyframes } from '@angular/animations';
 
 

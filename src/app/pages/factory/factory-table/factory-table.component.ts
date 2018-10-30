@@ -3,7 +3,6 @@ import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Factory} from '../../../modules/models/factory.model';
 import {ApiService} from '../../../config/api.service';
 import {FactoryBaseComponent} from '../../../forms/factory/factory-base/factory-base.component';
-import {FactoryUpdateComponent} from '../factory-update/factory-update.component';
 import {FactorySharedService} from '../factory-shared.service';
 import {Subscription} from 'rxjs';
 import {ModalService} from '../../_services/modal.service';
@@ -55,26 +54,6 @@ export class FactoryTableComponent implements OnInit {
       this.factories = factories;
     });
   }
-  /*
-  openUpdateDialog(id): void {
-    const dialogRef = this.dialog.open(FactoryUpdateComponent, {
-      width: '700px',
-    });
-    this.apiService.getFactoryDetails(id).subscribe((response: any) => {
-      this.message = response;
-      this.sendMessage(this.message)
-      this.subscription = this.service.getMessage().subscribe(message =>
-         this.recieve = message);
-    });
-    dialogRef.afterOpen().subscribe(result => {
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.apiService.factories().subscribe((factories: Array<Factory>) => {
-        this.factories = factories;
-        return dialogRef.close();
-      });
-    });
-  }*/
   onRowClicked(row) {
     this.selectedrow = row;
     console.log(this.selectedrow);
@@ -106,11 +85,5 @@ export class FactoryTableComponent implements OnInit {
 
       });
     });
-  }
-  openModal(id: string, factory?) {
-    this.modalService.open(id);
-  }
-  closeModal(id: string) {
-    this.modalService.close(id);
   }
 }

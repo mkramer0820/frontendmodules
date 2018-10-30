@@ -24,7 +24,7 @@ export class OptionsFormService {
   newForm: FormBase<any>[] = [];
 
 
-  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService, private fcs: FormControlService; ) {
+  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService, private fcs: FormControlService, ) {
     this.apiUrl = AppConfig.endpoints['url'] }
 
   private static handleError<T>(operation = 'operation', result?: T) {
@@ -44,7 +44,6 @@ export class OptionsFormService {
   }
 
   formRequest(url: string) {
-    // if (url) { this.BASE_URL = AppConfig.urlOptions[url];}
     const newForm = []
     let headers = this.api.setHeaders();
     return this.http.options(`${url}`, {headers})
@@ -72,7 +71,6 @@ export class OptionsFormService {
                 required: optionJson['required'],
                 label: optionJson['label'],
               });
-              console.log('checkbox item', item, optionJson)
               newForm.push(form);
             } else if (response[item]['read_only'] === false && response[item]['type'] !== 'option') {
               let optionJson = response[item];

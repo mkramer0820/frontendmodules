@@ -2,8 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Customer} from '../../../modules/models/customer.model';
 import {ApiService} from '../../../config/api.service';
-import {CustomerAddFormComponent} from '../customer-add/customer-add-form.component';
-import {CustomerUpdateComponent} from '../customer-update/customer-update.component';
 import {SharedService} from '../shared.service';
 import {Subscription} from 'rxjs';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';

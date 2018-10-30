@@ -65,15 +65,3 @@
     <mat-row  (click)="onRowClicked(row)" color="warm" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   
-
-<modal id="factory-add-modal">
-    <div class="modal">
-      <div class="modal-body">
-          <app-factory-base-form></app-factory-base-form>
-             <!-- <app-jp-forms></app-jp-forms>-->
-        <button (click)="closeModal('factory-add-modal');">Close</button>
-      </div>
-    </div>
-    <button (click)="closeModal('factory-add-modal');">Close</button>
-  <div class="modal-background"></div>
-</modal>
