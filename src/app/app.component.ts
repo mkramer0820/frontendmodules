@@ -37,11 +37,6 @@ export class AppComponent implements AfterViewInit {
     class: 'primary-accent',
     children: [
       {
-        displayName: 'Add Customer',
-        iconName: 'add',
-        route: 'customer-add',
-      },
-      {
         displayName: 'View Customers',
         iconName: 'view',
         route: 'customer-table',
@@ -51,11 +46,6 @@ export class AppComponent implements AfterViewInit {
     displayName: 'Factories',
     iconName: '',
     children: [
-      {
-        displayName: 'Add Factory',
-        iconName: 'add',
-        route: 'factory-create',
-      },
       {
         displayName: 'View Factories',
         iconName: 'view',
@@ -80,11 +70,6 @@ export class AppComponent implements AfterViewInit {
           displayName: 'View Orders',
           iconName: 'view',
           route: 'order-table',
-        },
-        {
-          displayName: 'Upload Image',
-          iconName: 'upload',
-          route: 'order-image-upload',
         },
         {
           displayName: 'Add New Order',
@@ -119,7 +104,6 @@ export class AppComponent implements AfterViewInit {
       }
 
   ];
-  'jp-task-forms-component'
   constructor(//private title: Title,
               //private meta: Meta,
               //private snackBar: MatSnackBar,
