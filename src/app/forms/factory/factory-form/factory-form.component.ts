@@ -18,6 +18,7 @@ export class FactoryFormComponent implements  AfterContentChecked {
   @Input() models: any;
   @Input() form: FormGroup;
   @Input() submitUrl: string;
+  @Input() update: boolean;
   // form: FormGroup;
   payLoad = '';
  
@@ -28,13 +29,22 @@ export class FactoryFormComponent implements  AfterContentChecked {
   }
 
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.value);
-    console.log(this.payLoad);
-    this.submitService.post(this.submitUrl, this.form.value).subscribe(response => {
-      response = this.form.value;
-      console.log(response);
-      this.form.reset();
-    });
+    if (this.update === false) {
+      console.log(this.payLoad);
+      let form = this.form.value;
+      this.payLoad = JSON.stringify(form);
+      this.submitService.post(this.submitUrl, form).subscribe(response => {
+        response = this.form.value;
+        console.log(response);
+        this.form.reset();
+      });
+    } else {
+      this.submitService.put(this.submitUrl, this.form.value).subscribe(response => {
+        response = this.form.value;
+        console.log(response);
+        this.form.reset();
+      });
+    }
   }
   toFormGroup(models) {
     return this.form = this.fcs.toFormGroup(models)

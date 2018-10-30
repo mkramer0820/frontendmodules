@@ -68,7 +68,7 @@
     </ng-container>
     <ng-container matColumnDef="UPDATE">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
-      <mat-cell  *matCellDef="let customers"> <button mat-raised-button (click)="openUpdateDialog(customers.id)">Update</button></mat-cell>
+      <mat-cell  *matCellDef="let customers"> <button mat-raised-button (click)="openUpdateDialog()">Update</button></mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>

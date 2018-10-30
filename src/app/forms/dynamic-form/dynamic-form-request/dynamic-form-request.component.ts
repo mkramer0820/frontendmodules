@@ -9,6 +9,8 @@ import {Subscription} from 'rxjs';
 import {ElementRef, ViewContainerRef} from '@angular/core';
 import {MessageService} from '../../../_services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { type } from 'os';
+import { keyframes } from '@angular/animations';
 
 
 export interface DialogData {
@@ -30,6 +32,8 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
   form: FormGroup;
   seturl: any;
   id: any;
+  update: boolean = this.data.update;
+  
   // loading: boolean = true;
 
   constructor(
@@ -40,38 +44,39 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
     private fcs: FormControlService,
     public dialogRef: MatDialogRef<DynamicFormRequestComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-
     ) { }
+ 
   ngOnInit() {
-    //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
     this.getForm();
-    console.log(this.data.formData.controls.values);
   }
-  ngDoCheck(): void {
-    if (this.data.update === true && this.id === null) {
-      this.getFormGroup();
-    } else {
-
-      return;
-    }
+  ngDoCheck() {
+    
   }
   ngAfterViewChecked() {
 
   }
   ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
 
   }
 
   getForm() {
-    this.seturl = this.data.url;
-    this.formService.formRequest(this.data.url).subscribe(response => {
-      this.models = response;
-      this.form = this.fcs.toFormGroup(this.models);
-    });
-    if (this.data.update === true) {
-      this.getFormGroup();
+    this.update = this.data.update;
+    if (this.data.update) {
+      this.seturl = `${this.data.url}${this.data.formData.id}/`;
+      console.log(this.seturl);
+      this.formService.formRequest(this.data.url).subscribe(response => {
+        let models = response;
+        this.models = this.updateModels(models);
+        this.form = this.fcs.toFormGroup(this.models);
+      });
+    } else {
+      this.seturl = `${this.data.url}`;
+      console.log(this.seturl);
+      this.formService.formRequest(this.data.url).subscribe(response => {
+        let models = response;
+        this.models = this.updateModels(models);
+        this.form = this.fcs.toFormGroup(this.models);
+      });
     }
   }
   getFormGroup() {
@@ -85,4 +90,18 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
     }
     this.id = this.data.formData.id;
   }
+  updateModels(_models) {
+    let formd: {} = {};
+    for (let formdata of _models) {
+      formd[formdata.key] = formdata;
+    }
+    for (let item in this.data.formData) {
+      if (formd.hasOwnProperty(item)) {
+        formd[item].value = this.data.formData[item]
+      }
+    }
+    const newmodel = Object.values(formd);
+    return newmodel;
+  }
 }
+

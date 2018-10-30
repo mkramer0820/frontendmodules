@@ -6,7 +6,7 @@
     
 
     <mat-form-field *ngSwitchCase="'textbox'" >
-        <input matInput   [type]="item.type" [formControlName]="item.key" [placeholder]="item.label" >
+        <input matInput   [type]="item.type" [formControlName]="item.key" [placeholder]="item.label" [value]="item.value" >
     </mat-form-field>
 
 

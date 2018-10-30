@@ -3,14 +3,16 @@
   <mat-card>
     {{data.url}}
     {{data.formData | json}}
-    <button (click)=getFormGroup()>form group</button>
+    <button (click)=updateModels()>form group</button>
     <div *ngIf="loading; else loaded">
         <mat-spinner color='accent' style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </div>
 
-    <ng-template #loaded>
-    <app-factory-form  [submitUrl]=seturl  [models]="models" [form]="form"></app-factory-form>
-    </ng-template>
+
+      <ng-template #loaded>
+        <app-factory-form  [submitUrl]="seturl" [update]="update"  [models]="models" [form]="form"></app-factory-form>
+    <!--<app-jp-dynamic-form [models]="models"></app-jp-dynamic-form>-->
+      </ng-template>
   </mat-card>
 </mat-dialog-content>
 

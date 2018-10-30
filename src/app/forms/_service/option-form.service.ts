@@ -11,6 +11,7 @@ import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
 import { ApiService } from '../../config/api.service';
 import {HttpClientService} from '../../_services/http-client.service';
+import { FormControlService } from './form-control.service';
 
 @Injectable()
 export class OptionsFormService {
@@ -23,7 +24,7 @@ export class OptionsFormService {
   newForm: FormBase<any>[] = [];
 
 
-  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService ) {
+  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService, private fcs: FormControlService; ) {
     this.apiUrl = AppConfig.endpoints['url'] }
 
   private static handleError<T>(operation = 'operation', result?: T) {
@@ -46,8 +47,7 @@ export class OptionsFormService {
     // if (url) { this.BASE_URL = AppConfig.urlOptions[url];}
     const newForm = []
     let headers = this.api.setHeaders();
-    console.log(this.BASE_URL);
-   return this.http.options(`${url}`, {headers})
+    return this.http.options(`${url}`, {headers})
       .pipe(map(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
@@ -87,7 +87,7 @@ export class OptionsFormService {
               newForm.push(form);
             }
           }
-          console.log(newForm);
+          this.newForm = newForm;
         return newForm;
       })
     )}

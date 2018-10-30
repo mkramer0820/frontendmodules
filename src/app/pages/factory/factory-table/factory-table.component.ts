@@ -27,6 +27,7 @@ export class FactoryTableComponent implements OnInit {
   message: any;
   subscription: Subscription;
   recieve: any;
+  selectedrow: any;
   constructor(
     private apiService: ApiService,
     private dialog: MatDialog,
@@ -54,6 +55,7 @@ export class FactoryTableComponent implements OnInit {
       this.factories = factories;
     });
   }
+  /*
   openUpdateDialog(id): void {
     const dialogRef = this.dialog.open(FactoryUpdateComponent, {
       width: '700px',
@@ -72,11 +74,29 @@ export class FactoryTableComponent implements OnInit {
         return dialogRef.close();
       });
     });
+  }*/
+  onRowClicked(row) {
+    this.selectedrow = row;
+    console.log(this.selectedrow);
+  }
+  openUpdateDialog(): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.factory, update: false, formData: this.selectedrow }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.factories().subscribe((factories: Array<Factory>) => {
+        this.factories = factories;
+        result = this.factories;
+        console.log(result)
+
+      });
+    });
   }
   openAddDialog(): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
-      data: {url: AppConfig.urlOptions.factory}
+      data: {url: AppConfig.urlOptions.factory, update: false}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.factories().subscribe((factories: Array<Factory>) => {

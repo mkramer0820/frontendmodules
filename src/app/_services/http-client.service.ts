@@ -19,7 +19,7 @@ export class HttpClientService {
     return this.http.post(`${this.BASE_URL}${url}`, body, options);
   }
 
-  put(url: string, body: any, options?: any): Observable<ArrayBuffer> {
+  put(url: string, body: any, options?: any) {
     return this.http.put(`${this.BASE_URL}${url}`, body, options);
   }
 
