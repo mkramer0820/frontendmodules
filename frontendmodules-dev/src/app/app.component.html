@@ -1,0 +1,66 @@
+
+<!--
+<div>
+    <app-header></app-header>
+    <app-top-nav class="fixed-topnav" fxHide.gt-xs></app-top-nav>
+    <router-outlet *ngIf="isOnline;else isOffline"></router-outlet>
+    <ng-template #isOffline>
+        <div>
+            <p class="offline-error">{{'offlineMessage'}}&nbsp;&nbsp;&nbsp;<span>:&nbsp;)</span></p>
+        </div>
+    </ng-template>
+</div>-->
+<!--The content below is only a placeholder and can be replaced.-->
+<app-top-nav class="fixed-topnav" fxHide.gt-xs></app-top-nav>
+<mat-sidenav-container>
+  <mat-sidenav #appDrawer mode="over" opened="false">
+    <mat-nav-list>
+      <app-menu-list-item *ngFor="let item of navItems" [item]="item"></app-menu-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <app-top-nav fxHide.xs></app-top-nav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>
+
+<app-time-difference units="Year |  Month | Days | Hours | Minutes | Seconds"  end="2018-12-31"></app-time-difference>
+
+<mat-card>
+  Main Theme:
+  <button mat-raised-button color="primary">
+    Primary
+  </button>
+  <button mat-raised-button color="accent">
+    Accent
+  </button>
+  <button mat-raised-button color="warn">
+    Warning
+  </button>
+</mat-card>
+
+<mat-card class="alternate-theme">
+  Alternate Theme:
+  <button mat-raised-button color="primary">
+    Primary
+  </button>
+  <button mat-raised-button color="accent">
+    Accent
+  </button>
+  <button mat-raised-button color="warn">
+    Warning
+  </button>
+</mat-card>
+
+<!--
+material snippet
+Prefix	Description
+ng-	Angular Snippets
+fx-	Angular Flex Layout Snippets
+ngrx-	Angular NgRx Snippets
+ngxs-	Angular Ngxs Snippets
+m-	Angular Material Design Snippets
+rx-	RxJS Snippets for both TypeScript and JavaScript
+sw-	Service Workers Snippets
+t-	Test Snippets
+e-	Test Expect Snippets
+pwa-	Progressive Web Applications Snippets
+-->

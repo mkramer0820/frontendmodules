@@ -1,6 +1,7 @@
 import { ApiService } from './../../../config/api.service';
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { TaskFormService, FactoryFormService, OptionsService } from '../../_service/';
+import { Component, OnInit, DoCheck, Input } from '@angular/core';
+import {AppConfig} from '../../../config/app.config';
+import { TaskFormService, FactoryFormService, OptionsService, OptionsFormService } from '../../_service/';
 import { FormBase }     from '../../_models/form-base';
 import { FormTextbox }  from '../../_models/form-textbox';
 import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
@@ -19,53 +20,45 @@ import {Subscription} from 'rxjs';
       </div>
 
       <ng-template #loaded>
-      <app-factory-form [models]="models" [form]="form"></app-factory-form>
-      <button (click)=toFormBase()>Button</button>
+      <app-factory-form [submitUrl]=seturl [models]="models" [form]="form"></app-factory-form>
       </ng-template>
 
     </mat-card>
   </mat-dialog-content>
 `,
   styleUrls: ['./factory-base.component.scss'],
-  providers: [OptionsService, FormControlService]
+  providers: [FormControlService]
 })
-export class FactoryBaseComponent implements OnInit, DoCheck {
+export class FactoryBaseComponent implements OnInit {
 
-  modelItems: {} = {};
+
+  // modelItems: {} = {};
   models: any[];
   form: FormGroup;
-  loading: boolean = true;
+  seturl: any;
+  subscription: Subscription;
+  @Input() formurl: string;
+  @Input() hidden: boolean = true;
+
+  // loading: boolean = true;
 
   constructor(
     // private factoryFormService: FactoryFormService,
-    private optionService: OptionsService,
-    private fb: FormBuilder,
-    private ffs: FactoryFormService,
-    private fcs: FormControlService,
-    ) { this.toFormBase(); }
+    private formService: OptionsFormService,
+    private ffs?: FactoryFormService,
+    private fcs?: FormControlService,
+    ) { }
   ngOnInit() {
     //this.subscription = this.optionService.getMessage().subscribe(models => this.models = models);
-
+    this.getForm()
   }
-  ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-    //Add 'implements DoCheck' to the class.
-    if (this.models.length < 1 ) {
-      return this.toFormBase();
-    } else { return }
-  }
-
-
-  toFormBase() {
-    this.loading = true;
-    const items = [];
-    this.optionService.optionsRequest();
-    for (let item in this.optionService.newForm) {
-      items.push(this.optionService.newForm[item]) 
-    }
-    this.models = items;
-    this.form = this.fcs.toFormGroup(this.models);
-    this.loading = false;
-    // return this.models = this.optionService.newForm;
+  getForm() {
+    this.seturl = AppConfig.urlOptions.factory;
+    this.formService.formRequest(AppConfig.urlOptions.factory).subscribe(response => {
+      this.models = response;
+      this.form = this.fcs.toFormGroup(this.models);
+    });
+    // this.models.push(models);
+    // this.form = this.fcs.toFormGroup(this.models)
   }
 }

@@ -1,0 +1,22 @@
+<p>
+  home works!
+</p>
+<div fxLayout="row">
+  <div fxFlex="10" fxFlex.gt-sm="20"></div>
+  <div fxFlex="90" fxFlex.gt-sm="80">
+    <h1 class="header__title">'home' </h1>
+    <div id="customers" *ngIf="customers">
+      <ng-container *ngFor="let customer of customers">
+        <mat-card class="customer-card">
+          <mat-card-header>
+            <div (click)="seeCustomerDetails(customer)"></div>
+            <mat-card-title (click)="seeCustomerDetails(hero)">{{customer.name}}</mat-card-title>
+            <mat-card-subtitle (click)="seeHeroDetails(hero)">{{customer.address1}}</mat-card-subtitle>
+            <div class="flex-spacer"></div>
+          </mat-card-header>
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
+  <div fxFlex="10" fxFlex.gt-sm="20"></div>
+</div>

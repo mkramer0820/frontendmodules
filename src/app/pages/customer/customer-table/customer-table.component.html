@@ -15,63 +15,63 @@
 
   <!-- Name Column -->
     <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.id}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.id}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="NAME">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.name}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.name}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="ADDRESS1">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 1 </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.address1}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 1 </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.address1}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ADDRESS2">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 2 </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.address2}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 2 </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.address2}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ADDRESS3">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address 3 </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.address3}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 3 </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.address3}} </mat-cell>
     </ng-container>
   <ng-container matColumnDef="COUNTRY">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.country}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.country}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="STATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.state}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.state}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="ZIP">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Zip </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.zip}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Zip </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.zip}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="EMAIL">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.email}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.email}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="PHONE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone # </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.phone}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone # </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.phone}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="WEBSITE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Website </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.website}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Website </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.website}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="DESCRIPTION">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-      <td mat-cell *matCellDef="let customers"> {{customers.description}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+      <mat-cell *matCellDef="let customers"> {{customers.description}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="UPDATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Update </th>
-      <td mat-cell  *matCellDef="let customers"> <button mat-raised-button (click)="openUpdateDialog(customers.id)">Update</button></td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
+      <mat-cell  *matCellDef="let customers"> <button mat-raised-button (click)="openUpdateDialog(customers.id)">Update</button></mat-cell>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
   </table>
 
   <mat-card>

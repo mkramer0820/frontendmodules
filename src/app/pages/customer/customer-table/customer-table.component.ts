@@ -6,6 +6,10 @@ import {CustomerAddFormComponent} from '../customer-add/customer-add-form.compon
 import {CustomerUpdateComponent} from '../customer-update/customer-update.component';
 import {SharedService} from '../shared.service';
 import {Subscription} from 'rxjs';
+import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import {MessageService} from '../../../_services/message.service';
+import { AppComponent } from 'src/app/app.component';
+import { AppConfig } from 'src/app/config/app.config';
 
 @Component({
   selector: 'app-customer-table',
@@ -22,16 +26,21 @@ export class CustomerTableComponent implements OnInit {
   message: any;
   subscription: Subscription;
   recieve: any;
+  customerUrl = 'customer/'
+  selectedrow: any;
   constructor(
     private apiService: ApiService,
     private dialog: MatDialog,
     private service: SharedService,
-  ) {
+    private msgServ: MessageService
+  ) { this.msgServ.sendUrl(AppConfig.urlOptions.customer)
   }
 
   ngOnInit() {
     this.getCustomers();
     this.subscription = this.service.getMessage().subscribe(message => this.recieve = message);
+    this.sendUrl(this.customerUrl);
+    
   }
   sendMessage(message): void {
         // send message to subscribers via observable subject
@@ -40,7 +49,18 @@ export class CustomerTableComponent implements OnInit {
   clearMessage(): void {
           // clear message
           this.service.clearMessage();
-        }
+  }
+  
+  setUrl() {
+    const url = AppConfig.urlOptions.customer;
+    console.log(url);
+    return this.msgServ.sendUrl(url);
+  }
+  sendUrl(message): void {
+    // send message to subscribers via observable subject
+    this.msgServ.sendUrl(message);
+  }
+
 
 
   getCustomers() {
@@ -48,38 +68,34 @@ export class CustomerTableComponent implements OnInit {
       this.customers = customers;
     });
   }
-  openUpdateDialog(id): void {
-    const dialogRef = this.dialog.open(CustomerUpdateComponent, {
-      width: '700px',
-    });
-    this.apiService.getCustomerDetail(id).subscribe((response: any) => {
-      this.message = response;
-      this.sendMessage(this.message)
-      this.subscription = this.service.getMessage().subscribe(message =>
-         this.recieve = message);
-      console.log(this.recieve)
-    });
-    dialogRef.afterOpen().subscribe(result => {
-      console.log(`Dailog result: ${result}`)
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
-        this.customers = customers;
-        return dialogRef.close()
-        //console.log(customers);
-      });
-    });
+  onRowClicked(row) {
+    this.selectedrow = row;
+    console.log(this.selectedrow);
   }
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(CustomerAddFormComponent, {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
+      data: {url: AppConfig.urlOptions.customer, update: false}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
         this.customers = customers;
         result = this.customers;
         console.log(result)
+
+      });
+    });
+  }
+  openUpdateDialog(): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.customer, formData: this.selectedrow, update: true}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+        this.customers = customers;
+        result = this.customers;
+        console.log(result);
 
       });
     });

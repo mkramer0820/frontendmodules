@@ -1,0 +1,82 @@
+@function mat-palette($base-palette, $default: 500, $lighter: 100, $darker: 700) {
+    $result: map_merge($base-palette, (
+      default: map-get($base-palette, $default),
+      lighter: map-get($base-palette, $lighter),
+      darker: map-get($base-palette, $darker),
+  
+      default-contrast: mat-contrast($base-palette, $default),
+      lighter-contrast: mat-contrast($base-palette, $lighter),
+      darker-contrast: mat-contrast($base-palette, $darker)
+    ));
+  
+    // For each hue in the palette, add a "-contrast" color to the map.
+    @each $hue, $color in $base-palette {
+      $result: map_merge($result, (
+        '#{$hue}-contrast': mat-contrast($base-palette, $hue)
+      ));
+    }
+  
+    @return $result;
+  }
+
+
+@function mat-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+    @return (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+      is-dark: false,
+      foreground: $mat-light-theme-foreground,
+      background: $mat-light-theme-background,
+  );
+}
+
+$mat-blue-gray (
+    50 : #ECEFF1,
+    100 : #CFD8DC,
+    200 : #B0BEC5,
+    300 : #90A4AE,
+    400 : #78909C,
+    500 : #607D8B,
+    600 : #546E7A,
+    700 : #455A64,
+    800 : #37474F,
+    900 : #263238,
+)
+$mat-gray (
+    50 : #FAFAFA,
+    100 :#F5F5F5,
+    200 :#EEEEEE,
+    300 :#E0E0E0,
+    400 :#BDBDBD,
+    500 :#9E9E9E,
+    600 :#757575,
+    700 :#616161,
+    800 :#424242,
+    900 :#212121,
+
+)
+
+$mat-orange (
+    50 : #FFF3E0,
+    100 : #FFE0B2,
+    200 : #FFCC80,
+    300 : #FFB74D,
+    400 : #FFA726,
+    500 : #FF9800,
+    600 : #FB8C00,
+    700 : #F57C00 ,
+    800 : #EF6C00 ,
+    900 : #E65100,
+    contrast: (
+    A100 : #FFD180,
+    A200 : #FFAB40,
+    A400 : #FF9100,
+    A700 : #FF6D00,
+    )
+)
+
+$mat-black-white (
+    black: #000000,
+    white: #FFFFFF,
+)

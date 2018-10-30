@@ -1,0 +1,70 @@
+<mat-dialog-content>
+<mat-card>
+<form [formGroup]="customerForm">
+
+  <mat-form-field>
+    <input matInput type="text"  formControlName="name" placeholder="Company Name">
+  </mat-form-field>
+
+  <div fxLayout='columns' >
+
+  <br />
+  <mat-form-field>
+    <input matInput type='tel' formControlName="phone" placeholder="Phone Number">
+  </mat-form-field>
+  &nbsp;
+
+  <mat-form-field>
+    <input matInput type="text"   formControlName="email" placeholder="Email">
+  </mat-form-field>
+  </div>
+
+    <h3>Address Info:</h3>
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="address1" placeholder="Address 1">
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="address2" placeholder="Address 2">
+    </mat-form-field>
+    <br />
+
+    <mat-form-field>
+      <input matInput type="text" formControlName="address3" placeholder="Address 3">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <input matInput type="text"  formControlName="state" placeholder="State-Prov">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput type="text" formControlName="zip" placeholder="Zip Code">
+    </mat-form-field>
+    &nbsp;
+    <mat-form-field>
+      <input matInput type="text" formControlName="country" placeholder="Country">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <textarea matInput type="text" formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
+  <br />
+  <button mat-fab  color="primary" type="submit" [disabled]="!customerForm.valid" (click)="createCustomer()"><mat-icon >add</mat-icon></button> &nbsp;
+  <button  mat-fab	color="warn" [mat-dialog-close]="true"><mat-icon>exit_to_app</mat-icon></button>
+</form>
+
+<!--
+
+<p>Form Value: {{ customerForm.value | json }}</p>
+  <p>Form Value Non Json: {{customerForm.value['name'] }}</p>
+<p>Form Status: {{ customerForm.status }}</p>-->
+</mat-card>
+</mat-dialog-content>
+
+<!--
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

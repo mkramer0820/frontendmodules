@@ -1,0 +1,77 @@
+<mat-dialog-content>
+    <mat-card>
+    <form [formGroup]="customerForm">
+
+ 
+
+
+      <mat-form-field>
+        Company Name:
+        <input matInput type="text" [(ngModel)]="customer.name" formControlName="name" required value="{{customer.name}}" >
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        Phone Number:
+        <input matInput type="text" [(ngModel)]="customer.phone"  formControlName="phone" value="{{customer.phone}}">
+      </mat-form-field>
+      &nbsp;
+
+      <mat-form-field>
+        Email Address:
+        <input matInput type="text" [(ngModel)]="customer.email"  formControlName="email" value="{{customer.email}}">
+      </mat-form-field>
+        <h3>Address Info:</h3>
+
+        <mat-form-field>
+          Address 1:
+          <input matInput type="text" [(ngModel)]="customer.address1" formControlName="address1" value="{{customer.address1}}">
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          Address 2:
+          <input matInput type="text" [(ngModel)]="customer.address2" formControlName="address2" value="{{customer.address2}}">
+        </mat-form-field>
+        <br />
+
+        <mat-form-field>
+          Address 3:
+          <input matInput type="text" [(ngModel)]="customer.address3" formControlName="address3" value="{{customer.address3}}">
+        </mat-form-field>
+        <br />
+
+        <mat-form-field>
+          Zip Code:
+          <input matInput type="text" [(ngModel)]="customer.zip" formControlName="zip" value="{{customer.zip}}">
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field>
+          State or Providence:
+          <input matInput type="text" [(ngModel)]="customer.state" formControlName="state" value="{{customer.state}}">
+        </mat-form-field>
+        &nbsp;
+
+        <mat-form-field>
+          Country:
+          <input matInput type="text" [(ngModel)]="customer.country" formControlName="country" value="{{customer.country}}">
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          Description:
+          <textarea matInput type="text" [(ngModel)]="customer.description" formControlName="description" value="{{customer.description}}"></textarea>
+        </mat-form-field>
+        <br />
+      <button type="update" [disabled]="!customerForm.valid" (click)="updateCustomer()">Update</button>
+      <button type="close" [mat-dialog-close]="true">Exit</button>
+    </form>
+
+
+    <button type="update" [disabled]="!customerForm.valid" (click)="dynamicJson()">Json</button>
+    </mat-card>
+</mat-dialog-content>
+
+
+<!--
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

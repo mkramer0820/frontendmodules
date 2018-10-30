@@ -7,6 +7,8 @@ import {FactoryUpdateComponent} from '../factory-update/factory-update.component
 import {FactorySharedService} from '../factory-shared.service';
 import {Subscription} from 'rxjs';
 import {ModalService} from '../../_services/modal.service';
+import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import { AppConfig } from 'frontendmodules-dev/src/app/config/app.config';
 
 
 @Component({
@@ -61,23 +63,20 @@ export class FactoryTableComponent implements OnInit {
       this.sendMessage(this.message)
       this.subscription = this.service.getMessage().subscribe(message =>
          this.recieve = message);
-      console.log(this.recieve)
     });
     dialogRef.afterOpen().subscribe(result => {
-      console.log(`Dailog result: ${result}`)
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.apiService.factories().subscribe((factories: Array<Factory>) => {
         this.factories = factories;
-        return dialogRef.close()
-        //console.log(factories);
+        return dialogRef.close();
       });
     });
   }
   openAddDialog(): void {
-    const dialogRef = this.dialog.open(FactoryBaseComponent, {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
+      data: {url: AppConfig.urlOptions.factory}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.factories().subscribe((factories: Array<Factory>) => {

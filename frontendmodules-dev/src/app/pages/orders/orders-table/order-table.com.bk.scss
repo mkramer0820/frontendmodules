@@ -1,0 +1,91 @@
+$width: 100%;
+$tabledata: 4%;
+$height: auto;
+$imgW: 50px;
+$imgH: auto;
+$overflow: auto;
+$maxheight: 500px;
+$flexDisplay: flex;
+$flexDisplay: flex-end;
+$center: center;
+$tablepad: 100px;
+$left: left;
+
+
+#overflow {
+    width: 5%;
+}
+.inner {
+    position: absolute;
+  }
+.mat-table {
+overflow: auto;
+max-height: 250px;
+}
+  
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+img {
+   width:$imgW;
+    height:$imgH;
+}
+mat-table {
+  overflow: $overflow;
+  max-height: $maxheight;
+}
+
+
+modal {
+  /* modals are hidden by default */
+  display: none;
+
+  .modal {
+      /* modal container fixed across whole screen */
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      /* z-index must be higher than .modal-background */
+      z-index: 1000;
+      
+      /* enables scrolling for tall modals */
+      overflow: auto;
+
+      .modal-body {
+          padding: 20px;
+          background: #fff;
+
+          /* margin exposes part of the modal background */
+          margin: 40px;
+      }
+  }
+
+  .modal-background {
+      /* modal background fixed across whole screen */
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      /* semi-transparent black  */
+      background-color: #000;
+      opacity: 0.75;
+      
+      /* z-index must be below .modal and above everything else  */
+      z-index: 900;
+  }
+}
+
+body.modal-open {
+  /* body overflow is hidden to hide main scrollbar when modal window is open */
+  overflow: hidden;
+}
