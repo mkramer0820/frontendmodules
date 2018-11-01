@@ -1,9 +1,12 @@
-<mat-toolbar  color="primary" class="mat-elevation-z1">
-  <button mat-icon-button id="menu" (click)="navService.openNav()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Jeanne Pierre Order Organizer</span>
-  <span  class="example-fill-remaining-space"></span>
-  <button mat-button  color="accent" (click)='logOut()' class="bold-font">Logout</button>
+ <div *ngIf="hidden === false">
+  <mat-toolbar  color="primary" class="mat-elevation-z1">
+      <button mat-icon-button id="menu" (click)="navService.openNav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Jeanne Pierre Order Organizer</span>
+      <span  class="example-fill-remaining-space"></span>
+      <span>{{username}}</span>
+      <button mat-button  color="accent" (click)='logOut()' class="bold-font">Logout</button>
 
-</mat-toolbar>
+    </mat-toolbar>
+</div>

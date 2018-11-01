@@ -40,9 +40,9 @@
   <mat-table class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
 
 
-          
         <ng-container matColumnDef="ID">
-          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('id')" fxFlex="45px"> ID </mat-header-cell>
+          <!--<mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('id')" fxFlex="45px"> ID </mat-header-cell>-->
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','-id','','')" fxFlex="45px"> ID </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order" fxFlex="45px"> {{order.id}} </mat-cell>
           <mat-footer-cell *matFooterCellDef fxFlex="45px"></mat-footer-cell>
         </ng-container>

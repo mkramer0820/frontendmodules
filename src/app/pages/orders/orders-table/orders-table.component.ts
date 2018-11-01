@@ -242,17 +242,33 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     let uniqueCustomers = Array.from(new Set(customers));
     return this.uniqueCustomerFilter = uniqueCustomers;
   }
-  testOrderService(buyer: string, dueDateBefore: string, dueDateAfter: string, ordering: string, buyerStyle?: string, jpStyle?: string) {
-   
-    this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering, buyerStyle, jpStyle).pipe(
-      catchError(() => of([])),
-    )
-    .subscribe((orders: Order[]) => {
+  testOrderService(buyer?: string, dueDateBefore?: string, dueDateAfter?: string, ordering?: string, buyerStyle?: string, jpStyle?: string) {
+    let order = ordering;
+    if (this.orderSort === '-') {
+      order = `${this.orderSort,order}`
+      this.orderSort=''
 
-      console.log(orders)
-      this.orders = orders;
-      this.getTotalCost(orders);
-    });
+      this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
+        catchError(() => of([])),
+      )
+      .subscribe((orders: Order[]) => {
+  
+        console.log(orders)
+        this.orders = orders;
+        this.getTotalCost(orders);
+      });
+    } else {
+      this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
+        catchError(() => of([])),
+      )
+      .subscribe((orders: Order[]) => {
+  
+        console.log(orders)
+        this.orders = orders;
+        this.getTotalCost(orders);
+        this.orderSort=''
+      });
+    }
   }
 }
 

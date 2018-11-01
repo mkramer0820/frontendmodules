@@ -10,6 +10,7 @@ export class AuthenticationService {
   public token_expires: Date;
   public username: string;
   public errors: any = [];
+  public loggedin: boolean;
 
 
 
@@ -49,5 +50,13 @@ export class AuthenticationService {
       console.log(token_decoded);
       this.token_expires = new Date(token_decoded.exp * 1000);
       this.username = token_decoded.username;
+  }
+  isLoggedIn() {
+    const loggedin: boolean = false;
+    if (this.username) {
+        loggedin = true;
+    } else {
+        this.loggedin = false;
+    }
   }
 }

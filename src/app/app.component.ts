@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit, OnInit} from '@angular/core';
 //import {Meta, Title} from '@angular/platform-browser';
 //import {NavigationEnd, Router} from '@angular/router';
 //import {AppConfig} from './config/app.config';
@@ -19,8 +19,11 @@ import {NavService} from './nav.service';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   isOnline: boolean;
+  token_expires: any;
+  username: string;
+  hidden: boolean;
 
   @ViewChild('appDrawer') appDrawer: ElementRef;
   version = VERSION;
@@ -102,6 +105,24 @@ export class AppComponent implements AfterViewInit {
             ) {
     this.isOnline = navigator.onLine;
   }
+  ngOnInit() {
+  }
+  ngAfterViewInit() {
+    this.navService.appDrawer = this.appDrawer;
+  }
+
+  updateData() {
+    let token = localStorage.getItem('currentUser');
+    let errors = [];
+
+    const token_parts = token.split(/\./);
+    const token_decoded = JSON.parse(window.atob(token_parts[1]));
+    this.token_expires = new Date(token_decoded.exp * 1000);
+    this.username = token_decoded.username;
+    if (this.username) {
+      this.hidden === false;
+    }
+  }
 /*
 ngOnInit() {
   this.title.setTitle('Front End On Init');
@@ -141,7 +162,5 @@ ngOnInit() {
 
     return supported;
   }*/
-  ngAfterViewInit() {
-   this.navService.appDrawer = this.appDrawer;
- }
+
 }
