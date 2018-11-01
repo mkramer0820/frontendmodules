@@ -7,12 +7,7 @@
         </div>
      
         <div class="form-row">
-          <button type="submit" [disabled]="!form.valid">Save</button>
-          {{form.values}}
-  
+          <button type="submit" [disabled]="!form.valid">Save</button> 
         </div>
-      </form>
-      <div *ngIf="payLoad" class="form-row">
-        <strong>Saved the following values</strong><br>{{payLoad | json}}
-      </div>
-    </div>
+     </form>
+</div>

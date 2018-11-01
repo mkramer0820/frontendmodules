@@ -1,29 +1,23 @@
-import { Component, OnInit, Directive,AfterViewInit,  ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {Order, OrderTask} from '../../../modules/models/orders.model';
+import { Component, OnInit, AfterViewInit,  ViewChild, Input} from '@angular/core';
+import {Order} from '../../../modules/models/orders.model';
 import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
-// import {OrdersAddComponent} from '../orders-add/orders-add.component';
-// import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
 import {OrdersSharedService} from '../orders-shared.service';
-import {Subscription, of, merge, pipe} from 'rxjs';
-import {map, filter, catchError, finalize, tap} from 'rxjs/operators';
+import {Subscription, of, } from 'rxjs';
+import { catchError, finalize, } from 'rxjs/operators';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
-import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
-import {MatDialog, MatDialogConfig, MatTableDataSource, MatPaginator, MatSortModule, MatSort, MatTab } from '@angular/material';
+import {MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import {DataSource, CollectionViewer} from '@angular/cdk/collections';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../../_services';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
-import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {OrderService} from './_service/order.service';
 import {FormControl} from '@angular/forms';
-// import { DatePipe } from '@angular/common';
-import {DatetimeFormat, DateFormat} from '../../../_pipes/datetime.pipe';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
@@ -193,28 +187,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 ////////////////////////////////////////////////////////////////
 ///         MODAL                                           ///
 //////////////////////////////////////////////////////////////
-  openUpdateDialogOrig(id): void {
-    const dialogRef = this.dialog.open(OrdersUpdateComponent, {
-      width: '700px',
-    });
-    this.apiService.getOrdersDetails(id).subscribe(message =>{
-      this.sendMessage(message);
-    });
-    dialogRef.afterOpen().subscribe(result => {
-      console.log(`Dailog result: ${result}`)
-      this.shared.getMessage().subscribe((response: any) => {
-        this.message = response;
-      });
-    })
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
-        this.orders = orders;
-        return dialogRef.close()
-        //console.log(customers);
-      });
-    });
-  }
   openAddDialog(): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
@@ -284,6 +256,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   }
 }
 
+/*
 
 
 export class OrdersDataSource implements DataSource<Order> {
@@ -317,7 +290,7 @@ export class OrdersDataSource implements DataSource<Order> {
   
 }
 
-/*
+
 {
   params: new HttpParams()
       .set('ordering', ordering.toString())
@@ -328,18 +301,3 @@ export class OrdersDataSource implements DataSource<Order> {
 );
 }
 */
-function mapOrder (array, order, key) {
-  
-  array.sort( function (a, b) {
-    var A = a[key], B = b[key];
-    
-    if (order.indexOf(A) > order.indexOf(B)) {
-      return 1;
-    } else {
-      return -1;
-    }
-    
-  });
-  
-  return array;
-};

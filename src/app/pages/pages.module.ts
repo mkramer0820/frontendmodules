@@ -5,8 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerTableComponent } from './customer/customer-table/customer-table.component';
 import { OrdersTableComponent } from './orders/orders-table/orders-table.component';
-import { OrdersAddComponent } from './orders/orders-add/orders-add.component';
-import { OrdersUpdateComponent } from './orders/orders-update/orders-update.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
@@ -49,8 +47,6 @@ import {CustomerComponent} from './customer/customer.component';
   declarations: [
     CustomerTableComponent,
     OrdersTableComponent,
-    OrdersAddComponent,
-    OrdersUpdateComponent,
     LoginComponent,
     FactoryComponent,
     FactoryTableComponent,
@@ -78,8 +74,6 @@ import {CustomerComponent} from './customer/customer.component';
   exports: [
     CustomerTableComponent,
     OrdersTableComponent,
-    OrdersAddComponent,
-    OrdersUpdateComponent,
     FactoryTableComponent,
     TimeDifferenceComponent,
   ],

@@ -150,8 +150,6 @@
           <mat-header-cell *matHeaderCellDef > Update </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"   *matCellDef="let order">
              <button mat-mini-fab (click)="openUpdateDialog(order)"><mat-icon color="primary">update</mat-icon></button>
-             <button mat-mini-fab (click)="openUpdateDialogOrig(order.id)">update</button>
-
             </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>

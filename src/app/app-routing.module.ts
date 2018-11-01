@@ -8,8 +8,6 @@ import { Routes, RouterModule } from '@angular/router';
 import {CustomerTableComponent} from './pages/customer/customer-table/customer-table.component';
 import {FactoryTableComponent} from './pages/factory/factory-table/factory-table.component';
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
-import {OrdersAddComponent} from './pages/orders/orders-add/orders-add.component';
-import {OrdersUpdateComponent} from './pages/orders/orders-update/orders-update.component';
 import {CustomersComponent} from './modules/customers/customers/customers.component';
 import {LoginComponent} from './pages/login/login.component';
 import { AuthGuard } from './pages/_guards';
@@ -27,30 +25,20 @@ const routes: Routes = [
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
   {path: 'factory-table', component: FactoryTableComponent, canActivate: [AuthGuard]},
   {path: 'order-table', component: OrdersTableComponent, canActivate: [AuthGuard]},
-  {path: 'order-add', component: OrdersAddComponent, canActivate: [AuthGuard]},
-  {path: 'order-update', component: OrdersUpdateComponent, canActivate: [AuthGuard]},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},
 
   { path: 'login', component: LoginComponent },
-  { path: 'add-task-group', component: AddTaskGroupComponent },
-  { path: 'task-form', component: DynamicComponent },
-  { path: 'task', component: TaskComponent },
+  { path: 'add-task-group', component: AddTaskGroupComponent, canActivate: [AuthGuard] },
+  { path: 'task-form', component: DynamicComponent, canActivate: [AuthGuard] },
+  { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
   { path: 'task-update', component: TaskUpdateComponent },
-  { path: 'task-test', component: TaskComponent },
-  { path: 'jp-task-forms-component', component: JpFormsComponent },
-  { path: 'task-component', component: TaskSetComponent},
-  { path: 'order-task', component: OrderTaskComponent},
-  { path: 'home', component: DashboardComponent},
-  { path: 'factory-create', component: FactoryBaseComponent},
-
-
-  //{ path: 'task-form', component: DynamicFormComponent },
-  //{ path: 'task-form-dynamic', component: DynamicFormTaskComponent },
-  // {path: '', component: HomePage},
-  //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  // {path: AppConfig.routes.error404, component: Error404Page},
-
+  { path: 'task-test', component: TaskComponent, canActivate: [AuthGuard] },
+  { path: 'jp-task-forms-component', component: JpFormsComponent, canActivate: [AuthGuard] },
+  { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
+  { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
+  { path: 'home', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'factory-create', component: FactoryBaseComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

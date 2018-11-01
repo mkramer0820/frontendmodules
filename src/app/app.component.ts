@@ -62,19 +62,9 @@ export class AppComponent implements AfterViewInit {
       iconName: 'my_customer',
       children: [
         {
-          displayName: 'Add Order',
-          iconName: 'add',
-          route: 'order-add',
-        },
-        {
           displayName: 'View Orders',
           iconName: 'view',
           route: 'order-table',
-        },
-        {
-          displayName: 'Add New Order',
-          iconName: 'add',
-          route: 'order-add', 
         },
         {
           displayName: 'Order Task',

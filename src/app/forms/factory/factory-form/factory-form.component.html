@@ -1,5 +1,5 @@
 
-  <div>
+<div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
    
       <div *ngFor="let item of models" class="form-row">
@@ -8,11 +8,10 @@
    
       <div class="form-row">
         <button type="submit" [disabled]="!form.valid">Save</button>
-        {{form.values}}
-
       </div>
     </form>
+    
     <div *ngIf="payLoad" class="form-row">
-      <strong>Saved the following values</strong><br>{{payLoad | json}}
+    
     </div>
-  </div>
+</div>
