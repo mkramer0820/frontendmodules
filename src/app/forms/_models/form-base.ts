@@ -6,6 +6,8 @@ export class FormBase<T> {
   required: boolean;
   order: number;
   controlType: string;
+  max_length: number;
+  lengthValidator: string;
  
   constructor(options: {
       value?: T,
@@ -13,7 +15,8 @@ export class FormBase<T> {
       label?: string,
       required?: boolean,
       order?: number,
-      controlType?: string
+      controlType?: string,
+      max_length?: number,
     } = {}) {
     this.value = options.value;
     this.key = options.key || '';
@@ -21,5 +24,11 @@ export class FormBase<T> {
     this.required = !!options.required;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
+    this.max_length = options.max_length;
+    this.lengthValidator = this.stringify();
+
+  }
+  stringify() {
+    return this.lengthValidator = String(this.max_length);
   }
 }

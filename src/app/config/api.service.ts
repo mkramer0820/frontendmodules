@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import {Headers} from '@angular/http';
 import { map, filter, catchError, mergeMap } from 'rxjs/operators';
 
-import {Order, Orders} from '../modules/models/orders.model';
+import {Order} from '../modules/models/orders.model';
 import {Observable, /*of, throwError as observableThrowError*/ } from 'rxjs';
 //import {map} from 'rxjs/operators';
 //import {catchError, tap} from 'rxjs/operators';
@@ -89,13 +89,13 @@ export class ApiService {
     this.setHeaders();
     return this.httpClient.get<Order[]>(`${this.API_URL}/orders/?ordering=${ordering}`, {headers});
   }
-  getMyOrders(): Observable<Orders[]> {
+  getMyOrders(): Observable<Order[]> {
     let headers: HttpHeaders = new HttpHeaders();
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //headers = headers.append('content-type', 'application/json');
     headers = headers.append('Authorization', `Bearer ${currentUser.token}`);
     console.log(headers);
-    return this.httpClient.get<Orders[]>(`${this.API_URL}/orders/`, {headers: headers});
+    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/`, {headers: headers});
   }
 /*
   let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -127,7 +127,7 @@ export class ApiService {
     return this.httpClient.get<any>(`${this.API_URL}/orders/${id}/`);
   }
   updateOrder(id, order) {
-    return this.httpClient.put(`${this.API_URL}/orders/${id}`, order);
+    return this.httpClient.put(`${this.API_URL}/orders/${id}/`, order);
   }
 
   //tasks

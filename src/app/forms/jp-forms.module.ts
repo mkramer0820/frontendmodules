@@ -8,7 +8,7 @@ import { FactoryFormComponent } from './factory/factory-form/factory-form.compon
 import { SharedModule } from '../shared/shared.module';
 import { FactoryBaseComponent } from './factory/factory-base/factory-base.component';
 import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
-
+import {FormComponent} from './dynamic-form/form/form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +23,9 @@ import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
     JpDynamicFormTaskSetComponent,
     FactoryFormComponent,
     FactoryBaseComponent,
+    FormComponent,
     
   ],
-  exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent]
+  exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent, FormComponent]
 })
 export class JpFormsModule { }

@@ -7,7 +7,7 @@ import {FactorySharedService} from '../factory-shared.service';
 import {Subscription} from 'rxjs';
 import {ModalService} from '../../_services/modal.service';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
-import { AppConfig } from 'frontendmodules-dev/src/app/config/app.config';
+import { AppConfig } from '../../../config/app.config';
 
 
 @Component({
@@ -58,10 +58,10 @@ export class FactoryTableComponent implements OnInit {
     this.selectedrow = row;
     console.log(this.selectedrow);
   }
-  openUpdateDialog(): void {
+  openUpdateDialog(updateData): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
-      data: {url: AppConfig.urlOptions.factory, update: false, formData: this.selectedrow }
+      data: {url: AppConfig.urlOptions.factory, update: false, formData: updateData }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.factories().subscribe((factories: Array<Factory>) => {

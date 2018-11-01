@@ -2,7 +2,7 @@
   orders-update works!
 </p>
 
-<div class="container" *ngIf="!post; else forminfo" novalidate>
+<div class="container" novalidate>
   <mat-dialog-content>
    <form [formGroup]="orderForm" class="form" submit=onSubmit()>
 

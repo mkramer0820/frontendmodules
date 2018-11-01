@@ -7,8 +7,10 @@ import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 import { map, filter} from 'rxjs/operators';
 
 import { FormDropdown } from '../_models/form-dropdown';
+import { FormImageField } from '../_models/form-image';
 import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
+import { FormDatePicker }  from '../_models/form-date-picker';
 import { ApiService } from '../../config/api.service';
 import {HttpClientService} from '../../_services/http-client.service';
 import { FormControlService } from './form-control.service';
@@ -50,8 +52,26 @@ export class OptionsFormService {
       .pipe(map(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
-            if (response[item]['read_only'] === false && response[item]['type'] === 'option'  ) {
-              let optionJson = response[item]['choices'];
+            if (response[item]['read_only'] === false && (response[item]['type'] === 'option' ||
+             response[item]['type'] === 'choice')) {
+             //let optionJson = response[item]['choices'];
+             let optionJson= [];
+              let choices = response[item]['choices']
+              for (let dict of  choices) {
+                if (dict.hasOwnProperty('display_name')) {
+                  console.log("dcik value", dict.value)
+                  let choice = {}
+                  choice['key'] = dict.value
+                  choice['value'] = dict.display_name
+                  optionJson.push(choice)
+                } else { 
+                  let choice = {}
+                  choice['key'] = dict.key
+                  choice['value'] = dict.value
+                  optionJson.push(choice)
+                }
+              }
+              console.log(optionJson);
               response[item] = response[item];
               let form = new FormDropdown({
                 key: item,
@@ -72,6 +92,27 @@ export class OptionsFormService {
                 label: optionJson['label'],
               });
               newForm.push(form);
+            } else if (response[item]['read_only'] === false && response[item]['type'] === 'datetime') {
+              let optionJson = response[item];
+              response[item] = response[item];
+                let form = new FormDatePicker({
+                key: item,
+                label: optionJson['label'],
+                controlType: 'datepicker',
+                required: false,
+              });
+              newForm.push(form);
+            } else if (response[item]['type'] === 'image upload') {
+              let optionJson = response[item];
+              response[item] = response[item];
+                let form = new FormBase ({
+                key: item,
+                value: null,
+                label: optionJson['label'],
+                controlType: 'image_upload',
+                required: false,
+              });
+              newForm.push(form);
             } else if (response[item]['read_only'] === false && response[item]['type'] !== 'option') {
               let optionJson = response[item];
               response[item] = response[item];
@@ -81,6 +122,7 @@ export class OptionsFormService {
                 controlType: 'textbox',
                 required: false,
                 text: 'text',
+                max_length: optionJson['max_length']
               });
               newForm.push(form);
             }

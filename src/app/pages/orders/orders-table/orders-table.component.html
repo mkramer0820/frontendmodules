@@ -11,6 +11,7 @@
         Filters
       </mat-panel-title>
       <mat-panel-description>
+        <button mat-button (click)="openAddDialog()">Add New Order</button> 
       </mat-panel-description>
     </mat-expansion-panel-header>
     
@@ -36,7 +37,7 @@
 </mat-accordion>
 
 
-  <mat-table [dataSource]="orders" matSort class="mat-elevation-z8">
+  <mat-table class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
 
 
           
@@ -147,7 +148,11 @@
 
         <ng-container matColumnDef="UPDATE">
           <mat-header-cell *matHeaderCellDef > Update </mat-header-cell>
-          <mat-cell mat-cell style="font-size: smaller"   *matCellDef="let order"> <button mat-raised-button (click)="openUpdateDialog(order.id)">Update</button></mat-cell>
+          <mat-cell mat-cell style="font-size: smaller"   *matCellDef="let order">
+             <button mat-mini-fab (click)="openUpdateDialog(order)"><mat-icon color="primary">update</mat-icon></button>
+             <button mat-mini-fab (click)="openUpdateDialogOrig(order.id)">update</button>
+
+            </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>
 

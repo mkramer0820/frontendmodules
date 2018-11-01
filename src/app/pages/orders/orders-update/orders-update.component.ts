@@ -151,8 +151,8 @@ export class OrdersUpdateComponent implements OnInit {
       uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
-      uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
-      this.apiService.updateOrder(id, uploadData).subscribe(response => {
+      // uploadData.append('sweater_image', this.orderForm.get('sweater_image').value);
+      this.apiService.updateOrder(id+"/", uploadData).subscribe(response => {
         console.log(response);
       });
     } else {

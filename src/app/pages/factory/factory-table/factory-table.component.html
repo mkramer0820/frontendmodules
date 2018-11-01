@@ -59,7 +59,7 @@
     </ng-container>
     <ng-container matColumnDef="UPDATE">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
-      <mat-cell  *matCellDef="let factories"> <button color="primary" mat-raised-button (click)="openUpdateDialog(factories.id)">Update</button></mat-cell>
+      <mat-cell  *matCellDef="let factories"> <button color="primary" mat-raised-button (click)="openUpdateDialog(factories)">Update</button></mat-cell>
     </ng-container>
     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row  (click)="onRowClicked(row)" color="warm" *matRowDef="let row; columns: displayedColumns;"></mat-row>

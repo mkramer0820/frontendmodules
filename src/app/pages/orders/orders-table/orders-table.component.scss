@@ -11,13 +11,28 @@ $center: center;
 $tablepad: 100px;
 $left: left;
 $smallFont: small;
+$fw: 10px;
+$fsze: 14px;
 
 .mat-table {
     overflow: auto;
     max-height: 350px;
+
+
 }
       
+mat-mini-fab {
+    width: $fw;
+    height: $fw;
+    line-height: $fsze;
+    font-size: $fsze;
 
+        .mat-icon {
+            font-size: $fsze;
+            padding-right: $fsze;
+            padding-top: $fsze;
+        }
+}
 
 
 img {

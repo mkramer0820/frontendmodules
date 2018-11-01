@@ -1,7 +1,7 @@
 <p>
   orders-add works!
 </p>
-<div class="container" *ngIf="!post; else forminfo" novalidate>
+<div class="container" novalidate>
    <form [formGroup]="orderForm" class="form" (ngSubmit)="onSubmit()">
 
      <mat-form-field class="form-element">

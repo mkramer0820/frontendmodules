@@ -9,8 +9,8 @@ import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnac
   selector: 'add-task-group',
   template:
 `
-<div class="container" *ngIf="!post; else forminfo" novalidate>
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+<div class="container" novalidate>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
 
   <mat-form-field class="form-element">
     <input matInput placeholder="Group Name" formControlName="group_name">
@@ -19,7 +19,7 @@ import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnac
     </mat-error>
   </mat-form-field>
   </form>
-  <button  type="submit" mat-button-raised color="accent"  (click)="addTaskGroup()">Create Task Group </button>
+  <button  type="submit" mat-button-raised color="accent"  (click)="onSubmit()">Create Task Group </button>
 
 </div>
 {{this.formGroup.value | json}}
@@ -72,7 +72,7 @@ export class AddTaskGroupComponent implements OnInit {
     config.duration = this.setAutoHide ? this.autoHide : 0;
     this.snackBar.open(message, this.action ? this.actionButtonLabel : undefined, config);
   }
-  addTaskGroup(){
+  onSubmit(){
     const task = this.formGroup.value;
     console.log(task);
     this.api.addTaskGroups(task)

@@ -1,15 +1,10 @@
 import { Component, OnInit, DoCheck, OnDestroy, Input, Inject, AfterViewChecked } from '@angular/core';
-import {AppConfig} from '../../../config/app.config';
-import { TaskFormService, FactoryFormService, OptionsFormService } from '../../_service/';
-import { FormBase }     from '../../_models/form-base';
-import { FormTextbox }  from '../../_models/form-textbox';
+import { FactoryFormService, OptionsFormService } from '../../_service/';
 import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
 import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {ElementRef, ViewContainerRef} from '@angular/core';
 import {MessageService} from '../../../_services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { keyframes } from '@angular/animations';
+
 
 
 export interface DialogData {
@@ -21,7 +16,7 @@ export interface DialogData {
 @Component({
   selector: 'dynamic-form-request',
   templateUrl: './dynamic-form-request.component.html',
-  styleUrls: ['./customer.component.scss'],
+  styleUrls: ['./dynamic-form-request.component.scss'],
   providers: [MessageService, FormControlService]
 })
 export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewChecked, OnDestroy {
@@ -32,6 +27,7 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
   seturl: any;
   id: any;
   update: boolean = this.data.update;
+  loading: boolean;
   
   // loading: boolean = true;
 
@@ -59,6 +55,7 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
   }
 
   getForm() {
+    this.loading = true;
     this.update = this.data.update;
     if (this.data.update) {
       this.seturl = `${this.data.url}${this.data.formData.id}/`;
@@ -67,6 +64,8 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
         let models = response;
         this.models = this.updateModels(models);
         this.form = this.fcs.toFormGroup(this.models);
+        this.loading = false;
+
       });
     } else {
       this.seturl = `${this.data.url}`;
@@ -75,6 +74,8 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
         let models = response;
         this.models = this.updateModels(models);
         this.form = this.fcs.toFormGroup(this.models);
+        this.loading = false;
+
       });
     }
   }
@@ -96,9 +97,15 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
     }
     for (let item in this.data.formData) {
       if (formd.hasOwnProperty(item)) {
-        formd[item].value = this.data.formData[item]
+        console.log(formd[item])
+        if (formd[item].controlType === 'image_upload') {
+          formd[item].value = null;
+        } else {
+          formd[item].value = this.data.formData[item]
+        }
       }
     }
+    console.log(formd)
     const newmodel = Object.values(formd);
     return newmodel;
   }

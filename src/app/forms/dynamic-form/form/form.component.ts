@@ -9,7 +9,6 @@ import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
-
 const moment = _rollupMoment || _moment;
 
 // See the Moment.js docs for the meaning of these formats:
@@ -25,19 +24,17 @@ export const DD_MM_YYYY_Format = {
         monthYearA11yLabel: 'MMMM YYYY',
     },
 };
-
 @Component({
-  selector: 'app-factory-form',
-  templateUrl: './factory-form.component.html',
-  styleUrls: ['./factory-form.component.scss'],
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss'],
   providers: [FormControlService,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
   ]
 })
-export class FactoryFormComponent implements  AfterContentChecked {
+export class FormComponent implements AfterContentChecked {
 
-  // @Input() models: FormBase<any>[] = [];
   @Input() models: any;
   @Input() form: FormGroup;
   @Input() submitUrl: string;
@@ -57,9 +54,9 @@ export class FactoryFormComponent implements  AfterContentChecked {
       let formdata = new FormData()
       for (let field in this.form.value) {
         if (field === 'due_date' || field ==='factory_ship_date' ) {
-          let date = this.form.get(field).value
-          date = moment(date).format('YYYY-MM-DD hh:mm')
-          // formdata.append(field, date)
+          let formatdate = this.form.get(field).value;
+          formatdate = moment(formatdate).format('YYYY-MM-DD hh:mm');
+          formdata.append(field, formatdate)
         } else {
           formdata.append(field, this.form.get(field).value)
         }
@@ -73,9 +70,9 @@ export class FactoryFormComponent implements  AfterContentChecked {
       let formdata = new FormData()
       for (let field in this.form.value) {
         if (field === 'due_date' || field ==='factory_ship_date' ) {
-          let date = this.form.get(field).value
-          date = moment(date).format('YYYY-MM-DD hh:mm')
-          // formdata.append(field, date)
+          let formatdate = this.form.get(field).value;
+          formatdate = moment(formatdate).format('YYYY-MM-DD hh:mm');
+          formdata.append(field, formatdate)
         } else {
           formdata.append(field, this.form.get(field).value)
         }
@@ -91,3 +88,4 @@ export class FactoryFormComponent implements  AfterContentChecked {
     return this.form = this.fcs.toFormGroup(models)
   }
 }
+

@@ -35,7 +35,7 @@ import { DashboardComponent } from '../core/dashboard/dashboard.component';
 import {PostService} from '../_services/post.service';
 import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from '../forms/_service'
-
+import {CustomerComponent} from './customer/customer.component';
 
 @NgModule({
   imports: [
@@ -69,6 +69,7 @@ import {OptionsFormService} from '../forms/_service'
     TimeDifferenceComponent,
     DashboardComponent,
     DynamicFormRequestComponent,
+    CustomerComponent,
   ],
   entryComponents: [
     DynamicFormRequestComponent,

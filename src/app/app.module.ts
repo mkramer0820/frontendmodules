@@ -19,7 +19,6 @@ import {JpFormsModule} from './forms/jp-forms.module';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
-import { InvoiceComponent } from './invoice/invoice.component';
 import { MessageService } from './_services/message.service';
 import { PostService } from './_services/post.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
@@ -51,7 +50,6 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
     AppComponent,
     DatetimeFormat,
     DateFormat,
-    InvoiceComponent,
     ],
   exports: [
   ],

@@ -84,10 +84,10 @@ export class CustomerTableComponent implements OnInit {
       });
     });
   }
-  openUpdateDialog(): void {
+  openUpdateDialog(customerdata): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
-      data: {url: AppConfig.urlOptions.customer, formData: this.selectedrow, update: true}
+      data: {url: AppConfig.urlOptions.customer, formData: customerdata, update: true}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {

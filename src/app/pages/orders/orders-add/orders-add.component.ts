@@ -160,7 +160,9 @@ export class OrdersAddComponent implements OnInit {
       uploadData.append('factory_ship_date', factoryShipDate);
       uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
       uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('qty', this.orderForm.get('qty').value);
       uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('brand', this.orderForm.get('brand').value);
       uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
@@ -188,14 +190,15 @@ export class OrdersAddComponent implements OnInit {
       uploadData.append('factory_ship_date', factoryShipDate);
       uploadData.append('cost_from_factory', this.orderForm.get('cost_from_factory').value);
       uploadData.append('buyers_price', this.orderForm.get('buyers_price').value);
+      uploadData.append('qty', this.orderForm.get('qty').value);
       uploadData.append('order_type', this.orderForm.get('order_type').value);
+      uploadData.append('brand', this.orderForm.get('brand').value);
       uploadData.append('fiber_content', this.orderForm.get('fiber_content').value);
       uploadData.append('jp_care_instructions', this.orderForm.get('jp_care_instructions').value);
       uploadData.append('color', this.orderForm.get('color').value);
       this.apiService.createOrder(uploadData).subscribe(response => {
         console.log(response);
         this.orderForm.reset();
-
       });
     }
   }

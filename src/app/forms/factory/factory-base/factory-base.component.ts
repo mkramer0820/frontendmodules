@@ -37,6 +37,7 @@ export class FactoryBaseComponent implements OnInit {
   form: FormGroup;
   seturl: any;
   subscription: Subscription;
+  loading: boolean;
   @Input() formurl: string;
   @Input() hidden: boolean = true;
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, Directive,AfterViewInit,  ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {Order, Orders, OrderTask} from '../../../modules/models/orders.model';
+import {Order, OrderTask} from '../../../modules/models/orders.model';
+import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
 // import {OrdersAddComponent} from '../orders-add/orders-add.component';
 // import {OrdersUpdateComponent} from '../orders-update/orders-update.component';
@@ -25,6 +26,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
+import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -70,10 +73,17 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   order: any;
   selectedTask: any;
 
+
+  ///////filter pannel
+  selected: string;
+  panelOpenState: boolean;
+  urlset = AppConfig.urlOptions.orders;
+
+
+  /////////////
   orderSort: any;
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
-  serializedDate2 = new FormControl((new Date()).toISOString());
   totalCost: any = {};
 
   uniqueCustomerFilter: Array<any>;
@@ -183,7 +193,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 ////////////////////////////////////////////////////////////////
 ///         MODAL                                           ///
 //////////////////////////////////////////////////////////////
-  openUpdateDialog(id): void {
+  openUpdateDialogOrig(id): void {
     const dialogRef = this.dialog.open(OrdersUpdateComponent, {
       width: '700px',
     });
@@ -198,6 +208,32 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        return dialogRef.close()
+        //console.log(customers);
+      });
+    });
+  }
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.orders, update: false}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        return dialogRef.close()
+        //console.log(customers);
+      });
+    });
+  }
+  openUpdateDialog(order): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.orders, formData: order, update: true}
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {
         this.orders = orders;
         return dialogRef.close()
@@ -239,7 +275,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, ordering, buyerStyle, jpStyle).pipe(
       catchError(() => of([])),
     )
-    .subscribe((orders: Orders[]) => {
+    .subscribe((orders: Order[]) => {
 
       console.log(orders)
       this.orders = orders;

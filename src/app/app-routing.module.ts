@@ -21,7 +21,6 @@ import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
 import { OrderTaskComponent } from './pages/orders/order-task/order-task.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
-import { InvoiceComponent } from './invoice/invoice.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -44,7 +43,6 @@ const routes: Routes = [
   { path: 'order-task', component: OrderTaskComponent},
   { path: 'home', component: DashboardComponent},
   { path: 'factory-create', component: FactoryBaseComponent},
-  { path: 'invoice', component: InvoiceComponent}
 
 
   //{ path: 'task-form', component: DynamicFormComponent },
