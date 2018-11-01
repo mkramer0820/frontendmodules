@@ -12,6 +12,8 @@
       </mat-panel-title>
       <mat-panel-description>
         <button mat-button (click)="openAddDialog()">Add New Order</button> 
+        <button (click)="export()">exportpdf</button>
+
       </mat-panel-description>
     </mat-expansion-panel-header>
     
@@ -36,8 +38,7 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-
-  <mat-table class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
+  <mat-table id="orderTable" class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
 
 
         <ng-container matColumnDef="ID">
@@ -174,7 +175,6 @@
 
 
   </mat-table>
-
 <mat-card *ngIf="cred">
   {{cred | json}}
 </mat-card>

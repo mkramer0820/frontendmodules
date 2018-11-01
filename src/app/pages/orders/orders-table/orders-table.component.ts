@@ -21,6 +21,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 
 
 const moment = _rollupMoment || _moment;
@@ -45,7 +46,7 @@ export const DD_MM_YYYY_Format = {
   styleUrls: ['./orders-table.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},]
+    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},ExportAsService]
 })
 export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
@@ -66,9 +67,18 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   sentGroups: any;
   order: any;
   selectedTask: any;
-
-
-  ///////filter pannel
+  exportAsConfig: ExportAsConfig = {
+    type: 'png', // the type you want to download
+      elementId: 'orderTable', // the id of html/table element,
+      options: { // html-docx-js document options
+        orientation: 'landscape',
+        margins: {
+          top: '20'
+        }
+      }
+    }
+  
+  //////filter pannel
   selected: string;
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
@@ -112,6 +122,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ordersService: OrderService,
+    private exportAsService: ExportAsService
     //private service: SharedService,
   ) { }
 
@@ -269,6 +280,24 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
         this.orderSort=''
       });
     }
+  }
+  export() {
+    const config: ExportAsConfig = {
+      type: 'docx', // the type you want to download
+      elementId: 'orderTable', // the id of html/table element,
+      options: { // html-docx-js document options
+        orientation: 'landscape',
+        margins: {
+          top: '20'
+        }
+      }
+    }
+    // download the file using old school javascript method
+    this.exportAsService.save(this.exportAsConfig, 'Orders');
+    // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+    //this.exportAsService.get(config).subscribe(content => {
+    //  console.log(content);
+    //});
   }
 }
 
