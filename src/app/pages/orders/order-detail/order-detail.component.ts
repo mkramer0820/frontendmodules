@@ -1,15 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {Order} from '../../../modules/models/orders.model';
+import { Url } from 'url';
+export interface DialogData {
+  data: any;
+}
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+  img?: string; 
+}
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {
+  orderDetail: any;
 
-  constructor() { }
+  tiles: Tile[] = [
+    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
+    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen', img: this.order['order']['sweater_image']},
+    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
+    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+  ];
 
-  ngOnInit() {
-  }
+  constructor( @Inject(MAT_DIALOG_DATA) public order: DialogData ) { this.orderDetail = order['order']; }
+
+  ngOnInit(
+  ) {  }
 
 }

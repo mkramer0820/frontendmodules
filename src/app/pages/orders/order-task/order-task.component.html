@@ -1,59 +1,77 @@
 
-  <h1 *ngIf='order'>Create Task For {{order.buyer_style_number}}</h1>
-  <h4 *ngIf='update != false && order'>Update Tasks For {{order.buyer_style_number}}</h4>
+<mat-dialog-content  *ngIf="update==false">
+  <mat-card class="add-task-card">
+      <mat-card-header>
+
+      <mat-card-title>Create Task For {{order.buyer_style_number}}</mat-card-title>
+        <h4 *ngIf='update != false && order'>Update Tasks For {{order.buyer_style_number}}</h4>
+        <mat-card-subtitle>Target Order Due Date {{order.due_date | date: "M/d/yy"}}</mat-card-subtitle>
+
+      </mat-card-header>
+    <mat-card-content>
+
+      <form [formGroup]="ordertaskForm" >
+      <div *ngIf='ordertaskGroups'>
+
+        <mat-grid-list cols="4" rows="4">
+
+          <mat-grid-tile colspan="1"  rowspan="1">
+
+            <mat-form-field class="form-element">
+              <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group' >
+                <mat-option *ngFor="let grp of ordertaskGroups" value={{grp.group_name}}  (click)="setmasterGroupMessage(grp)">
+                <span class="mat-option-text">{{grp.group_name}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+        
+          <mat-grid-tile colspan="1"  rowspan="1">
+            <mat-form-field  *ngIf='masterGroupMessage' class="form-element">
+              <mat-select matInput  placeholder="Select Task Set" formControlName='set_name'>
+                <mat-option *ngFor="let set of masterGroupMessage; let i=index" value={{set.set_name}} (click)="getBlanketTask(set.id)">
+                  <span class="mat-option-text">{{set.set_name}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1"  rowspan="1">
+          <mat-form-field *ngIf='masterGroupMessage' class="form-element">
+            <mat-select matInput  placeholder="Master Set Status" formControlName='set_status'>
+              <mat-option *ngFor="let option of statusOption ;let i=index" value={{option}}>
+                <span class="mat-option-text">{{option}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+      <mat-grid-tile colspan="1"  rowspan="1">
+      <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+      
+        <button mat-mini-fab (click)="addOrderTodos()" style="background-color:black;"><mat-icon style="color: whitesmoke">add</mat-icon></button>
+          Add Tasks To Set
+        <ul mat-list>
+          <li *ngFor="let todo of orderTodos?.controls; let i = index">
+            <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
+          </li>
+        </ul>
 
 
-  <form *ngIf="update==false" [formGroup]="ordertaskForm" >
-  <div *ngIf='ordertaskGroups'>
 
-      <mat-form-field class="form-element">
-        <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group' >
-          <mat-option *ngFor="let grp of ordertaskGroups" value={{grp.group_name}}  (click)="setmasterGroupMessage(grp)">
-          <span class="mat-option-text">{{grp.group_name}}</span>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    
-  &nbsp;
-      <mat-form-field  *ngIf='masterGroupMessage' class="form-element">
-        <mat-select matInput  placeholder="Select Task Set" formControlName='set_name'>
-          <mat-option *ngFor="let set of masterGroupMessage; let i=index" value={{set.set_name}} (click)="getBlanketTask(set.id)">
-            <span class="mat-option-text">{{set.set_name}}</span>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <button mat-raised-button (click)=createOrderTask()>Add Task To Order</button>
+        
+      </div>
 
-      <br />
-
-      <mat-form-field  class="form-element">
-        <mat-select matInput  placeholder="Master Set Status" formControlName='set_status'>
-          <mat-option *ngFor="let option of statusOption ;let i=index" value={{option}}>
-            <span class="mat-option-text">{{option}}</span>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      &nbsp;
-      <mat-checkbox formControlName="active">Active</mat-checkbox>
-  </div>
-
-    <h3><button mat-mini-fab (click)="addOrderTodos()" style="background-color:whitesmoke"><mat-icon>add</mat-icon></button>
-      Add Tasks To Set
-    </h3>
-    <ul>
-      <li *ngFor="let todo of orderTodos?.controls; let i = index">
-        <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
-      </li>
-    </ul>
-
-
-
-    <button mat-raised-button (click)=createOrderTask()>Add Task To Order</button>
     </form>
-    createOrderTask
-    <pre>Parent Form Status: <span class="status">{{ordertaskForm.status}} <br />{{ordertaskForm.value | json}}</span></pre>
-    {{updateId}}
-
-    <div *ngIf="update != false && order"> 
+        createOrderTask
+  </mat-card-content>
+  <!--  <pre>Parent Form Status: <span class="status">{{ordertaskForm.status}} <br />{{ordertaskForm.value | json}}</span></pre>-->
+  </mat-card>
+</mat-dialog-content>
+<mat-dialog-content  *ngIf="update!=false && order">
       <form  [formGroup]="ordertaskForm">
        
         <mat-form-field class="form-element">
@@ -85,4 +103,4 @@
         </ul>
           <button mat-raised-button (click)=updateOrderTask()>Add Task To Order</button>
       </form>
-    </div>      
+</mat-dialog-content>

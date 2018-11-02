@@ -1,40 +1,52 @@
-<form [formGroup]="orderTaskTodoForm">
-  
-        <mat-form-field>
-          <input matInput formControlName="todo" placeholder="Task Name">
-        </mat-form-field>
-      
-      
-        <mat-form-field>
-          <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
-        </mat-form-field>
-      
-      
-        <mat-form-field class="example-full-width">
-          <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
-          <mat-datepicker-toggle matSuffix [for]="picker">
-            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      
-      
-      <mat-form-field class="form-element">
-      <mat-select matInput  placeholder="Status" formControlName='status'>
-        <mat-option *ngFor="let status of status; let i=index" value={{status}}>
-          <span class="mat-option-text">{{status}}</span>
-        </mat-option>
-      </mat-select>
-      </mat-form-field>
-      
-      
-        <!-- emit delete event up w/ index of todos -->
-        <button mat-mini-fab (click)="delete()" style="background-color:firebrick; color:white"><mat-icon>remove</mat-icon></button>
-      
+    <form [formGroup]="orderTaskTodoForm">
+    <mat-grid-list cols="10" rows="1">
 
-  <!--<span class="status">{{orderTaskTodoForm.status}}</span> -->
-</form>
-<div *ngIf='todos'>
-{{todos}}
-</div>
-{{todos | json}}
+            <!-- emit delete event up w/ index of todos -->
+
+        <mat-grid-tile colspan="2"  rowspan="1"> 
+            <mat-form-field >
+              <input matInput formControlName="todo" placeholder="Task Name">
+            </mat-form-field>
+        </mat-grid-tile>
+        
+          <mat-grid-tile colspan="2"  rowspan="1">
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
+              <mat-datepicker-toggle matSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2"  rowspan="1">
+          <mat-form-field class="form-element">
+          <mat-select matInput  placeholder="Status" formControlName='status'>
+            <mat-option *ngFor="let status of status; let i=index" value={{status}}>
+              <span class="mat-option-text">{{status}}</span>
+            </mat-option>
+          </mat-select>
+          </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan="3"  rowspan="1">
+  
+              <mat-form-field>
+                <input matInput formControlName="comment" placeholder="Comment">
+              </mat-form-field>
+            </mat-grid-tile>
+          
+      <mat-grid-tile colspan="1"  rowspan="1">
+        <button mat-mini-fab (click)="delete()" class="my-fab" >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-grid-tile>
+
+    
+
+    </mat-grid-list>
+
+
+  <!--<span class="status">{{orderTaskTodoForm.status} style="background-color:firebrick; color:white}</span> -->
+    </form>
+

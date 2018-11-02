@@ -6,14 +6,14 @@ export class OrderTask {
     todos_group: string;
     set_name: string;
     id: number;
-    active: boolean;
+    isActive: boolean;
     set_status: string;
     todos: OrderTaskTodo[];
 
-    constructor(todos_group: string, todos?: OrderTaskTodo[], set_status?: string, active?: boolean) {
+    constructor(todos_group: string, todos?: OrderTaskTodo[], set_status?: string, isActive?: boolean) {
         this.todos_group = todos_group;
         this.set_status = set_status;
-        this.active = active || true;
+        this.isActive = isActive || true;
         this.todos = todos;
     }
 }

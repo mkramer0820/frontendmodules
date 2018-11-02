@@ -52,7 +52,7 @@ export class AuthenticationService {
       this.username = token_decoded.username;
   }
   isLoggedIn() {
-    const loggedin: boolean = false;
+    let loggedin: boolean = false;
     if (this.username) {
         loggedin = true;
     } else {

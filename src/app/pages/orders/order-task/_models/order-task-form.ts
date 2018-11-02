@@ -6,7 +6,7 @@ export class OrderTaskForm {
   order = new FormControl();
   todos_group = new FormControl();
   set_name = new FormControl();
-  active = new FormControl();
+  isActive = new FormControl();
   set_status = new FormControl();
   todos = new FormArray([]);
 
@@ -20,8 +20,8 @@ export class OrderTaskForm {
     if (task.set_name) {
       this.set_name.setValue(task.set_name);
     }
-    if (task.active) {
-      this.active.setValue(task.active);
+    if (task.isActive) {
+      this.isActive.setValue(task.isActive);
     }
     if (task.set_status) {
       this.set_status.setValue(task.set_status);

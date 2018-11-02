@@ -29,7 +29,8 @@ export const AppConfig: IAppConfig = {
     orders: 'orders/',
     ordersSort: `/orders/?ordering=${UrlBody.params.id}`,
     task: `task/`,
-    taskGroup: `task/group/`
+    taskGroup: `task/group/`,
+    orderTasks: `orders/tasks/`,
   },
 };
 

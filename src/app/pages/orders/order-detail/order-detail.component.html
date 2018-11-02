@@ -1,3 +1,34 @@
-<p>
-  order-detail works!
-</p>
+{{orderDetail|json}}
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar [ngStyle]="{'background-size': 'cover','background-image': 'url('+ orderDetail.sweater_image +')'}"></div>
+      <mat-card-title>{{orderDetail.buyer_name}}: {{orderDetail.buyer_style_number}}</mat-card-title>
+      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}: 
+      <app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes | Seconds"  end={{orderDetail.due_date}}></app-time-difference>
+     </mat-card-subtitle>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+
+  <mat-card-header>
+    <mat-card-title>Factory: {{orderDetail.factory_name}}</mat-card-title>
+    <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }}</mat-card-subtitle>
+    <mat-card-subtitle>Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-header>
+      <mat-card-title>Sweater Details</mat-card-title>
+  </mat-card-header>
+      <mat-grid-list cols="4" rowHeight="100px">
+          <mat-grid-tile
+              *ngFor="let tile of tiles"
+              [colspan]="tile.cols"
+              [rowspan]="tile.rows"
+              [style.background]="tile.color">
+            {{tile.text}}
+          </mat-grid-tile>
+        </mat-grid-list>
+
+
+</mat-card>

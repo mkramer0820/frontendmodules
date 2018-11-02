@@ -21,8 +21,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
-import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
-
+import {OrderTaskComponent} from '../order-task/order-task.component';
+import {OrderDetailComponent} from '../order-detail/order-detail.component';
 
 const moment = _rollupMoment || _moment;
 
@@ -46,7 +46,7 @@ export const DD_MM_YYYY_Format = {
   styleUrls: ['./orders-table.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},ExportAsService]
+    {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},]
 })
 export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
@@ -62,22 +62,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   ///////
   // shared message for order
   /////
-  databaseId: string;
   orderTask: boolean = false;
   sentGroups: any;
   order: any;
-  selectedTask: any;
-  exportAsConfig: ExportAsConfig = {
-    type: 'png', // the type you want to download
-      elementId: 'orderTable', // the id of html/table element,
-      options: { // html-docx-js document options
-        orientation: 'landscape',
-        margins: {
-          top: '20'
-        }
-      }
-    }
-  
+  selectedTask: any; // used for sending to modal
+
   //////filter pannel
   selected: string;
   panelOpenState: boolean;
@@ -89,6 +78,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   totalCost: any = {};
+  selectedRowIndex: number = -1;
 
   uniqueCustomerFilter: Array<any>;
   message: string;
@@ -122,7 +112,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private ordersService: OrderService,
-    private exportAsService: ExportAsService
     //private service: SharedService,
   ) { }
 
@@ -137,7 +126,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   onRowClicked(row) {
     this.order = row;
     this.selectedTask = row.tasks;
+
     console.log('Row clicked: ', row);
+  }
+  onRowHighlight(row){
+    this.selectedRowIndex = row.id;
   }
   sendMessage(message): void {
           // send message to subscribers via observable subject
@@ -146,15 +139,17 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   clearMessage(): void {
     this.shared.clearMessage();
   }
-  decodeJwt(){
-    this.cred = this.auth.updateData(this.token);
-  }
   getTaskGroup() {
     this.tgs.getMessage().subscribe(rsp => {
       this.sentGroups = rsp;
     });
   }
   
+
+/////////////////////////////////////////////////
+//          GET ORDERS                        //
+///////////////////////////////////////////////
+
 //   good but testing orderservice
  getOrders(id) {
   this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
@@ -196,12 +191,24 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     return this.totalCost;
   }
 ////////////////////////////////////////////////////////////////
-///         MODAL                                           ///
+///         MODAL                 Tasks                    ///
 //////////////////////////////////////////////////////////////
-  openAddDialog(): void {
-    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+  openAddTask(data): void {
+    const dialogRef = this.dialog.open(OrderTaskComponent, {
       width: '700px',
-      data: {url: AppConfig.urlOptions.orders, update: false}
+      data: {url: AppConfig.urlOptions.orderTasks, order: data, update: false}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        return dialogRef.close()
+      });
+    });
+  }
+  openUpdateTask(order): void {
+    const dialogRef = this.dialog.open(OrderTaskComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.orderTasks, order: order, formData: order.tasks, update: true}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {
@@ -210,31 +217,50 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
         //console.log(customers);
       });
     });
-  }
-  openUpdateDialog(order): void {
-    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
-      width: '700px',
-      data: {url: AppConfig.urlOptions.orders, formData: order, update: true}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
-        this.orders = orders;
-        return dialogRef.close()
-        //console.log(customers);
-      });
-    });
-  }
-  openModal(id: string, order?, tasks?) {
-    //this.orderTask = false;
-    //this.databaseId = databaseId;
-    this.order = order;
-    this.modalService.open(id);
   }
 
-  closeModal(id: string) {
-    
-    this.modalService.close(id);
-  }
+////////////////////////////////////////////////////////////////
+///         MODAL                 Orders                    ///
+//////////////////////////////////////////////////////////////
+openAddDialog(): void {
+  const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+    width: '700px',
+    data: {url: AppConfig.urlOptions.orders, order: this.order, update: false}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+      this.orders = orders;
+      return dialogRef.close()
+      //console.log(customers);
+    });
+  });
+}
+openUpdateDialog(order): void {
+  const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+    width: '700px',
+    data: {url: AppConfig.urlOptions.orders, formData: order, update: true}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+      this.orders = orders;
+      return dialogRef.close()
+      //console.log(customers);
+    });
+  });
+}
+openDetailDialog(order): void {
+  const dialogRef = this.dialog.open(OrderDetailComponent, {
+    data: {order: order}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+      this.orders = orders;
+      return dialogRef.close()
+      //console.log(customers);
+    });
+  });
+}
+
 
 /////////////////////////////////////////////////////////////////
 //            FILTERS                                         //
@@ -280,24 +306,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
         this.orderSort=''
       });
     }
-  }
-  export() {
-    const config: ExportAsConfig = {
-      type: 'docx', // the type you want to download
-      elementId: 'orderTable', // the id of html/table element,
-      options: { // html-docx-js document options
-        orientation: 'landscape',
-        margins: {
-          top: '20'
-        }
-      }
-    }
-    // download the file using old school javascript method
-    this.exportAsService.save(this.exportAsConfig, 'Orders');
-    // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
-    //this.exportAsService.get(config).subscribe(content => {
-    //  console.log(content);
-    //});
   }
 }
 

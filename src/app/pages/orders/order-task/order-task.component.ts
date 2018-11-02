@@ -1,13 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormGroup, FormArray, FormControl, FormBuilder,  } from '@angular/forms';
 import { ApiService } from '../../../config/api.service';
 import { Subscription } from 'rxjs';
 import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
 import { Order } from 'src/app/modules/models/orders.model';
-import {ModalService} from '../../_services/modal.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
+export interface DialogData {
+  url: string;
+  formData?: any;
+  update: boolean;
+  order: any;
+}
 @Component({
   selector: 'app-order-task',
   templateUrl: './order-task.component.html',
@@ -24,8 +30,9 @@ export class OrderTaskComponent implements OnInit {
   ordertaskGroups: any;
   setNames: any;
   statusOption= ['NA', 'Started', 'Complete'];
-  @Input() order: any;
-  @Input() update: boolean = false;
+  // @Input() order: any;
+  order = this.data.order;
+  update= this.data.update;
   updateId: any;
   selectedOrderTask: any;
 
@@ -34,7 +41,9 @@ export class OrderTaskComponent implements OnInit {
     private orderTFS: OrderTaskFormService,
     private apiService: ApiService,
     private fb: FormBuilder,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+
+  ) {}
 
   ngOnInit() {
   this.ordertaskFormSub = this.orderTFS.ordertaskForm$
@@ -56,7 +65,7 @@ export class OrderTaskComponent implements OnInit {
   }
   ///used in the dropdown
   setmasterGroupMessage(event) {
-    this.ordertaskForm.get('order').setValue(this.order.id);
+    this.ordertaskForm.get('order').setValue(this.data.order.id);
     let set_names = event.set_names;
     this.masterGroupMessage = set_names;
     console.log(this.masterGroupMessage);
@@ -111,7 +120,7 @@ export class OrderTaskComponent implements OnInit {
     this.ordertaskForm.get('order').setValue(event.order);
     this.ordertaskForm.get('todos_group').setValue(event.todos_group);
     this.ordertaskForm.get('set_status').setValue(event.set_status);
-    this.ordertaskForm.get('active').setValue(event.active);
+    this.ordertaskForm.get('isActive').setValue(event.isActive);
   }
   //  TODO: ADD ORDER TASK CREATE TO API
 
