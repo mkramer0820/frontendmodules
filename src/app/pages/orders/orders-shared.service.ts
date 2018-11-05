@@ -15,8 +15,8 @@ export class OrdersSharedService {
   public buyer = new Subject<any>();
 
 
-  API_URL = 'http://127.0.0.1:8000';
-
+  //API_URL = 'http://127.0.0.1:8000';
+  API_URL = 'http://104.248.10.237/'
   constructor(private httpClient: HttpClient) {}
 
   sendMessage(order) {
