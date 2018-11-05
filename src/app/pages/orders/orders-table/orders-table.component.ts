@@ -74,7 +74,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
 
   /////////////
-  orderSort: any;
+  orderSort: string;
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   totalCost: any = {};
@@ -225,6 +225,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 openAddDialog(): void {
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
+    height: '800px',
     data: {url: AppConfig.urlOptions.orders, order: this.order, update: false}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -238,6 +239,7 @@ openAddDialog(): void {
 openUpdateDialog(order): void {
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
+    height: '800px',
     data: {url: AppConfig.urlOptions.orders, formData: order, update: true}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -279,10 +281,9 @@ openDetailDialog(order): void {
     let uniqueCustomers = Array.from(new Set(customers));
     return this.uniqueCustomerFilter = uniqueCustomers;
   }
-  testOrderService(buyer?: string, dueDateBefore?: string, dueDateAfter?: string, ordering?: string, buyerStyle?: string, jpStyle?: string) {
-    let order = ordering;
+  testOrderService(buyer?: string, dueDateBefore?: Date, dueDateAfter?: Date, ordering?: string, buyerStyle?: string, jpStyle?: string) {
     if (this.orderSort === '-') {
-      order = `${this.orderSort,order}`
+      let order = this.orderSort + ordering;
       this.orderSort=''
 
       this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
@@ -294,7 +295,8 @@ openDetailDialog(order): void {
         this.orders = orders;
         this.getTotalCost(orders);
       });
-    } else {
+    } else if (this.orderSort === '') {
+      let order = ordering
       this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
         catchError(() => of([])),
       )
@@ -303,10 +305,11 @@ openDetailDialog(order): void {
         console.log(orders)
         this.orders = orders;
         this.getTotalCost(orders);
-        this.orderSort=''
+        this.orderSort='-'
       });
     }
   }
+  
 }
 
 /*

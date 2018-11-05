@@ -1,15 +1,18 @@
 export class Customer {
   constructor(
+    public isActive: boolean,
     public id: number,
     public name: string,
     public address1: string,
     public address2: string,
     public address3: string,
-    public country: string,
+    public city: string,
     public state: string,
-    public zip: string,
+    public zipcode: string,
+    public country: string,
     public email: string,
     public phone: string,
+    public extension: string,
     public website: string,
     public description: string) {
   }

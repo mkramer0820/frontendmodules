@@ -17,8 +17,8 @@ import { AppConfig } from 'src/app/config/app.config';
 export class CustomerTableComponent implements OnInit {
   customers: Customer[];
   displayedColumns: string[] = [
-    'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
-    'COUNTRY', 'STATE', 'ZIP', 'EMAIL', 'PHONE',
+    'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3', "CITY",
+    'STATE', 'ZIP', 'COUNTRY', 'EMAIL', 'PHONE', 'EXT',
     'WEBSITE', 'DESCRIPTION', 'UPDATE',
   ];
   message: any;

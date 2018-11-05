@@ -13,16 +13,19 @@ $left: left;
 $smallFont: small;
 $fw: 10px;
 $fsze: 14px;
+$mat-header-row-height: 65px;
 
 .mat-table {
-    overflow: auto;
-    max-height: 350px;
+   //overflow: auto;
+    max-height : 350px;
+    
 
 
 }
 
 mat-cell.mat-cell{
-    font-size: 10px;
+    font-size: 12px;
+    max-height: 2.5em;
 }
       
 mat-mini-fab.mat-mini-fab {
@@ -40,16 +43,23 @@ mat-mini-fab.mat-mini-fab {
 .highlight{
     background-color: #424242; /* green */
     color: white;
-    margin: 0;
     width: 100%;
     height: 100%;
-}
-mat-row {
-    font-size: .75em;
 
 }
+mat-header-cell:nth-child(1), mat-cell:nth-child(1) {
+    flex: 0 0 200px;
+}
 mat-header-row {
-    font-weight:bold;
+    min-height: $mat-header-row-height;
+    font-size: 2em;
+  }
+mat-row {
+    display: block;
+    font-size: 1em;
+    overflow : hidden;
+    text-overflow : auto;
+    min-height: $mat-header-row-height;
 }
 
 img {

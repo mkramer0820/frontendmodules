@@ -3,8 +3,7 @@
   <mat-card-header>
     <div mat-card-avatar [ngStyle]="{'background-size': 'cover','background-image': 'url('+ orderDetail.sweater_image +')'}"></div>
       <mat-card-title>{{orderDetail.buyer_name}}: {{orderDetail.buyer_style_number}}</mat-card-title>
-      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}: 
-      <app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes | Seconds"  end={{orderDetail.due_date}}></app-time-difference>
+      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}
      </mat-card-subtitle>
   </mat-card-header>
   <mat-divider></mat-divider>

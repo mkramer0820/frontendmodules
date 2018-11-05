@@ -100,6 +100,7 @@ export class OptionsFormService {
                 label: optionJson['label'],
                 controlType: 'datepicker',
                 required: false,
+                value: new Date(),
               });
               newForm.push(form);
             } else if (response[item]['type'] === 'image upload') {

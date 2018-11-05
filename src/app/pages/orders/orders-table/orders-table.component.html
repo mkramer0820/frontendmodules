@@ -1,5 +1,5 @@
 
-<mat-accordion>
+<mat-accordion class="primary">
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
@@ -7,9 +7,7 @@
         Filters
       </mat-panel-title>
       <mat-panel-description>
-        <button mat-button (click)="openAddDialog()">Add New Order</button> 
-        <button (click)="export()">exportpdf</button>
-
+        <button mat-button color="accent" style="background-color: black" (click)="openAddDialog()">Add New Order</button> 
       </mat-panel-description>
     </mat-expansion-panel-header>
     
@@ -24,11 +22,14 @@
             <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
           </mat-select>
           </mat-form-field></td>
-        <td><app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker></td>
+        <!--td><app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker></td>
         <td><app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>  </td> 
         <td><button  mat-icon-button (click)="testOrderService(selected, firstDate, secondDate, '-id', buyerStyle.value ,jpStyle.value)">
-          <mat-icon>refresh</mat-icon></button>
-        </td>     
+          <mat-icon>refresh</mat-icon></button> -->
+        <td><button  mat-icon-button (click)="testOrderService()"> {{orderSort}}
+            <mat-icon>clear</mat-icon></button>
+          </td>   
+ 
   </tr>
 </table>  
   </mat-expansion-panel>
@@ -39,7 +40,7 @@
 
         <ng-container matColumnDef="ID" fxFlex="60px" style="padding:0;">
           <!--<mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('id')" fxFlex="45px"> ID </mat-header-cell>-->
-          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','-id','','')" fxFlex="60px"> ID </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','id','','')" fxFlex="60px"> ID </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  
           [ngClass]="{'highlight': selectedRowIndex == order.id}" fxFlex="60px"> {{order.id}} <mat-icon (click)="openDetailDialog(order)">pageview</mat-icon></mat-cell>
           <mat-footer-cell *matFooterCellDef fxFlex="45px"></mat-footer-cell>
@@ -73,31 +74,31 @@
         </ng-container>
 
         <ng-container matColumnDef="BUYER STYLE #">
-          <mat-header-cell *matHeaderCellDef > BUYER STYLE # </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','buyer_style_number','','')" > BUYER STYLE # </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.buyer_style_number}} </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="JP STYLE #">
-          <mat-header-cell *matHeaderCellDef > JP STYLE # </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','jp_style_number','','')"> JP STYLE # </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.jp_style_number}} </mat-cell>
           <mat-footer-cell *matFooterCellDef [ngClass]="{'aligne-right': true}">JP Cost:</mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="FACTORY SHIP DT">
-          <mat-header-cell *matHeaderCellDef > Factory Ship Date </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','factory_ship_date','','')"> Factory Ship Date </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.factory_ship_date | date:'MM/dd/yyyy' }} </mat-cell>
           <mat-footer-cell *matFooterCellDef style="font-size:xx-small "> {{totalCost.jpCost | currency}}</mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="COST FROM FACTORY">
-          <mat-header-cell *matHeaderCellDef > Cost From Factory </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','cost_from_factory','','')" > Cost From Factory </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.cost_from_factory}} </mat-cell>
           <mat-footer-cell *matFooterCellDef style="font-size:smaller ">Customers Paid: </mat-footer-cell>
         </ng-container>
 
         <ng-container matColumnDef="BUYER PRICE">
-          <mat-header-cell *matHeaderCellDef > Price Buyer Paid </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','buyers_price','','')" > Price Buyer Paid </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.buyers_price}} </mat-cell>
           <mat-footer-cell *matFooterCellDef>  <span style="font-size:xx-small">{{totalCost.buyerCost | currency}}</span> </mat-footer-cell>
         </ng-container>
@@ -121,7 +122,7 @@
         </ng-container>
 
         <ng-container matColumnDef="BRAND">
-          <mat-header-cell *matHeaderCellDef > Brand </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','brand','','')"> Brand </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > {{order.brand}} </mat-cell>
           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
         </ng-container>
