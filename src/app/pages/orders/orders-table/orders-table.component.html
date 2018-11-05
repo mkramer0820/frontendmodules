@@ -10,29 +10,58 @@
         <button mat-button color="accent" style="background-color: black" (click)="openAddDialog()">Add New Order</button> 
       </mat-panel-description>
     </mat-expansion-panel-header>
-    
+  
+  <!--<div form [formGroup]="filterForm">
     <table>
       <tr>
-        <td><input matInput #buyerStyle maxlength="35" placeholder="Enter some input" style="border-bottom: .1px solid rgb(70, 66, 66)"></td>
+        <td>
+          <mat-form-field >
+          <input matInput #buyerStyle maxlength="35" placeholder="Enter some input"[formControlName]="buyerStyle" >
+         </mat-form-field>
+
+        </td>
           
-        <td><input matInput #jpStyle maxlength="35" placeholder="Enter some input" style="border-bottom: .1px solid rgb(70, 66, 66)"></td>
-        <td><mat-form-field >
-          <mat-select [(value)]="selected" placeholder="Select A Customer">
-            <mat-option value=''>None</mat-option>
-            <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
-          </mat-select>
-          </mat-form-field></td>
-        <!--td><app-date-picker placeholder="Select Start Date" [(ngModel)]="firstDate" format="YYYY-MM-DD"></app-date-picker></td>
-        <td><app-date-picker placeholder="Select End Date" [(ngModel)]="secondDate" format="YYYY-MM-DD"></app-date-picker>  </td> 
-        <td><button  mat-icon-button (click)="testOrderService(selected, firstDate, secondDate, '-id', buyerStyle.value ,jpStyle.value)">
-          <mat-icon>refresh</mat-icon></button> -->
+        <td>
+          <mat-form-field >
+          <input matInput #jpStyle maxlength="35" placeholder="Enter some input" [formControlName]="jpStyle" >
+          </mat-form-field>
+
+        </td>
+        <td>
+          <mat-form-field >
+            <mat-select placeholder="Select A Customer" [formControlName]="selected">
+              <mat-option value=''>None</mat-option>
+              <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </td>      
+        <td>
+            <mat-form-field>
+            <input  matInput [matDatepicker]="picker1" placeholder="End Date" [formControlName]="firstDate" >
+            <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field>
+            <input  matInput [matDatepicker]="picker2" placeholder="End Date" [formControlName]="secondDate" >
+            <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </td>
+          
+
+  
+      
+        
         <td><button  mat-icon-button (click)="testOrderService()"> {{orderSort}}
             <mat-icon>clear</mat-icon></button>
-          </td>   
- 
-  </tr>
-</table>  
-  </mat-expansion-panel>
+        </td>   
+      </tr>
+    </table>
+  </div >  
+  {{filterForm.values | json}}-->
+</mat-expansion-panel>
 </mat-accordion>
 
   <mat-table id="orderTable" class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">

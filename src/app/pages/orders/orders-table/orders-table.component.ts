@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit,  ViewChild, Input} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
 import {Order} from '../../../modules/models/orders.model';
 import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
@@ -15,7 +16,6 @@ import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrderService} from './_service/order.service';
-import {FormControl} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
@@ -71,6 +71,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   selected: string;
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
+  //filterForm: FormGroup;
 
 
   /////////////
@@ -113,7 +114,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private router: Router,
     private ordersService: OrderService,
     //private service: SharedService,
-  ) { }
+  ) { /*this.filterForm = new FormGroup({buyerStyle: new FormControl(), jpSytle: new FormControl(), selected: new FormControl(), firstDate: new FormControl(), secondDate: new FormControl()})*/ }
 
   ngOnInit() {
     this.getOrders('id');
