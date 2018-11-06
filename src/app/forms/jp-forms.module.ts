@@ -4,9 +4,7 @@ import { JpFormsComponent } from './components/jp-forms.component';
 import { JpDynamicFormComponent } from './components/jp-dynamic-form/jp-dynamic-form.component';
 import { JpDynamicFormTaskSetComponent } from './components/jp-dynamic-form-task-set/jp-dynamic-form-task-set.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FactoryFormComponent } from './factory/factory-form/factory-form.component';
 import { SharedModule } from '../shared/shared.module';
-import { FactoryBaseComponent } from './factory/factory-base/factory-base.component';
 import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
 import {FormComponent} from './dynamic-form/form/form.component';
 @NgModule({
@@ -21,11 +19,9 @@ import {FormComponent} from './dynamic-form/form/form.component';
     JpDynamicFormComponent,
     DynamicFormsComponent,
     JpDynamicFormTaskSetComponent,
-    FactoryFormComponent,
-    FactoryBaseComponent,
     FormComponent,
     
   ],
-  exports: [FactoryBaseComponent, JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FactoryFormComponent, FormComponent]
+  exports: [JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FormComponent]
 })
 export class JpFormsModule { }

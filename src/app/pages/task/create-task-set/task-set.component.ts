@@ -30,20 +30,14 @@ import { Router} from '@angular/router';
 
     <div *ngIf="masterGroupMessage">
       <mat-form-field class="form-element">
-        <mat-select matInput  placeholder="Choose Boiler Plate Task" formControlName='set_name' >
-          <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
-          <span class="mat-option-text">{{set.set_name}}</span>
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-  <div *ngIf="title == 'Create New Task Set'">
-    <mat-form-field>
-      <input matInput formControlName="set_name" placeholder="New Set Name">
+      <input type="text" placeholder="Choose Boiler Plate Task Or Add A New One" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
+        {{set.set_name}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
-  </div>
-  
+    </div>
     
    <h3>Add Tasks To Set</h3>
     <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>

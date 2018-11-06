@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Factory} from '../../../modules/models/factory.model';
 import {ApiService} from '../../../config/api.service';
-import {FactoryBaseComponent} from '../../../forms/factory/factory-base/factory-base.component';
 import {FactorySharedService} from '../factory-shared.service';
 import {Subscription} from 'rxjs';
 import {ModalService} from '../../_services/modal.service';
@@ -31,7 +30,6 @@ export class FactoryTableComponent implements OnInit {
     private apiService: ApiService,
     private dialog: MatDialog,
     private service: FactorySharedService,
-    private modalService: ModalService,
   ) {
   }
 

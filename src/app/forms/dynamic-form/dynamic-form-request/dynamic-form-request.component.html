@@ -1,15 +1,12 @@
-
 <mat-dialog-content>
-  <mat-card>
-    <div *ngIf="loading; else loaded">
-        <mat-spinner color='accent' style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-    </div>
-
-
-      <ng-template #loaded>
-        <app-form  [submitUrl]="seturl" [update]="update"  [models]="models" [form]="form"></app-form>
-    <!--<app-jp-dynamic-form [models]="models"></app-jp-dynamic-form>-->
-      </ng-template>
-  </mat-card>
-</mat-dialog-content>
-
+    <mat-card>
+      <div *ngIf="loading; else loaded">
+          <mat-spinner color='accent' style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+      </div>
+  
+        <ng-template #loaded>
+          <app-form  [submitUrl]="seturl" [update]="update"  [models]="models" [form]="form"></app-form>
+      <!--<app-jp-dynamic-form [models]="models"></app-jp-dynamic-form>-->
+        </ng-template>
+    </mat-card>
+  </mat-dialog-content>

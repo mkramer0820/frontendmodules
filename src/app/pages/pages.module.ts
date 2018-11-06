@@ -34,6 +34,7 @@ import {PostService} from '../_services/post.service';
 import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
+import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -66,10 +67,12 @@ import {CustomerComponent} from './customer/customer.component';
     DynamicFormRequestComponent,
     CustomerComponent,
     OrderDetailComponent,
+    FilterFormComponent
   ],
   entryComponents: [
     DynamicFormRequestComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    FilterFormComponent,
 
   ],
   exports: [

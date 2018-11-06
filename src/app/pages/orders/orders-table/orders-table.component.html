@@ -10,7 +10,7 @@
         <button mat-button color="accent" style="background-color: black" (click)="openAddDialog()">Add New Order</button> 
       </mat-panel-description>
     </mat-expansion-panel-header>
-  
+    <app-filter-form [options]='uniqueCustomerFilter'></app-filter-form>
   <!--<div form [formGroup]="filterForm">
     <table>
       <tr>
@@ -230,26 +230,6 @@
       </mat-card>
     </div>
   </div>
-</ng-container>>
+</ng-container>
 
-<!--
-<modal id="task-modal">
-  <div class="modal">
-    <div class="modal-body">
-      <app-order-task [order]="order"></app-order-task>
-      <button (click)="closeModal('task-modal');">Close</button>
-    </div>
-  </div>
-<div class="modal-background"></div>
-</modal>
 
-<modal id="update-task-modal">
-    <div class="modal">
-      <div class="modal-body">
-        <app-order-task [order]="order" [update]="true"></app-order-task>
-        <button (click)="closeModal('custom-modal-1');">Close</button>
-      </div>
-    </div>
-  <div class="modal-background"></div>
-  </modal>
--->

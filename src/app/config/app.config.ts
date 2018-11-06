@@ -20,11 +20,11 @@ export const AppConfig: IAppConfig = {
     error404: '404',
   },
   endpoints: {
-    //url: 'http://127.0.0.1:8000/',
-    url: 'http://104.248.10.237/',
+    url: 'http://127.0.0.1:8000/',
+    //url: 'http://104.248.10.237/',
   },
-  //base: 'http://127.0.0.1:8000/',
-  base: 'http://104.248.10.237/',
+  base: 'http://127.0.0.1:8000/',
+  //base: 'http://104.248.10.237/',
   urlOptions: {
     customer: 'customer/',
     factory: 'factory/',

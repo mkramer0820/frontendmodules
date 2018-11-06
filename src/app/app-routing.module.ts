@@ -1,6 +1,5 @@
 import { JpDynamicFormComponent } from './forms/components/jp-dynamic-form/jp-dynamic-form.component';
 import { JpFormsComponent } from './forms/components/jp-forms.component';
-import {FactoryBaseComponent} from './forms/factory/factory-base/factory-base.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -38,7 +37,6 @@ const routes: Routes = [
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
   { path: 'home', component: DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'factory-create', component: FactoryBaseComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

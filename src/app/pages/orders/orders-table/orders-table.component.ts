@@ -5,16 +5,14 @@ import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
 import {OrdersSharedService} from '../orders-shared.service';
 import {Subscription, of, } from 'rxjs';
-import { catchError, finalize, } from 'rxjs/operators';
+import { catchError} from 'rxjs/operators';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
 import {MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import {DataSource, CollectionViewer} from '@angular/cdk/collections';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '../../_services';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, ChildActivationEnd} from '@angular/router';
 import {OrderService} from './_service/order.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -23,6 +21,7 @@ import {default as _rollupMoment} from 'moment';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OrderTaskComponent} from '../order-task/order-task.component';
 import {OrderDetailComponent} from '../order-detail/order-detail.component';
+import {FilterFormComponent} from '../../../forms/dynamic-form/filter-form/filter-form.component';
 
 const moment = _rollupMoment || _moment;
 
@@ -71,8 +70,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   selected: string;
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
+  opt: any[];
   //filterForm: FormGroup;
-
+  
 
   /////////////
   orderSort: string;
@@ -94,7 +94,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   cred: any;
 
   dataSource = new MatTableDataSource(this.myorders);
-
+  @ViewChild(FilterFormComponent) filter;
+  tableFilter: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() cards: boolean = true;
@@ -123,12 +124,20 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.getOrders('id');
+    //this.tableFilter = this.filter.filters;
+    this.options(this.orders)
   }
   onRowClicked(row) {
     this.order = row;
     this.selectedTask = row.tasks;
 
     console.log('Row clicked: ', row);
+  }
+  options(orders: Order[]) {
+    for (let order of orders) {
+      this.opt.push(order.buyer_name)
+      console.log(order);
+    }
   }
   onRowHighlight(row){
     this.selectedRowIndex = row.id;

@@ -7,8 +7,8 @@ const BASE_URL = 'http://127.0.0.1:8000/';
 
 @Injectable({ providedIn:'root' })
 export class HttpClientService {
-  //BASE_URL = 'http://127.0.0.1:8000/';
-  BASE_URL = 'http://104.248.10.237/'
+  BASE_URL = 'http://127.0.0.1:8000/';
+  //BASE_URL = 'http://104.248.10.237/'
 
   constructor(private http: HttpClient) { }
 

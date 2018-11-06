@@ -1,10 +1,9 @@
 import { Component, OnInit, DoCheck, OnDestroy, Input, Inject, AfterViewChecked } from '@angular/core';
-import { FactoryFormService, OptionsFormService } from '../../_service/';
+import { OptionsFormService } from '../../_service/';
 import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
 import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
 import {MessageService} from '../../../_services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
 
 
 export interface DialogData {
@@ -35,7 +34,6 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
     // private factoryFormService: FactoryFormService,
     private urlServ: MessageService,
     private formService: OptionsFormService,
-    private ffs: FactoryFormService,
     private fcs: FormControlService,
     public dialogRef: MatDialogRef<DynamicFormRequestComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
@@ -59,24 +57,25 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
     this.update = this.data.update;
     if (this.data.update) {
       this.seturl = `${this.data.url}${this.data.formData.id}/`;
-      console.log(this.seturl);
-      this.formService.formRequest(this.data.url).subscribe(response => {
+      this.formService.formRequest(this.data.url)
+      .subscribe(response => {
         let models = response;
         this.models = this.updateModels(models);
         this.form = this.fcs.toFormGroup(this.models);
         this.loading = false;
-
       });
     } else {
       this.seturl = `${this.data.url}`;
-      console.log(this.seturl);
-      this.formService.formRequest(this.data.url).subscribe(response => {
+      this.formService.formRequest(this.data.url)
+      .subscribe(response => {
         let models = response;
         this.models = this.updateModels(models);
         this.form = this.fcs.toFormGroup(this.models);
-        this.loading = false;
+      },
+      e => console.log(e),
+      () => this.loading = false,
 
-      });
+      );
     }
   }
   getFormGroup() {

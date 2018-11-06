@@ -97,10 +97,10 @@ export class OptionsFormService {
               response[item] = response[item];
                 let form = new FormDatePicker({
                 key: item,
+                value: new Date(),
                 label: optionJson['label'],
                 controlType: 'datepicker',
                 required: false,
-                value: new Date(),
               });
               newForm.push(form);
             } else if (response[item]['type'] === 'image upload') {
@@ -119,11 +119,12 @@ export class OptionsFormService {
               response[item] = response[item];
                 let form = new FormTextbox({
                 key: item,
+                value: '',
                 label: optionJson['label'],
                 controlType: 'textbox',
                 required: false,
                 text: 'text',
-                max_length: optionJson['max_length']
+                max_length: optionJson['max_length'],
               });
               newForm.push(form);
             }
