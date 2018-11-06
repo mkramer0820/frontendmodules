@@ -1,11 +1,9 @@
 
 
-<!--
-  <form>
-     {{options}}
 
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-
+      {{models}}
+<div *ngFor="let item of models">
 
 
     <span [ngSwitch]="item.controlType">
@@ -36,11 +34,10 @@
       <input *ngSwitchCase="'image_upload'" (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
   
      
-  
+    </span>
    
-    </span> 
     
     <mat-hint class="errorMessage" style="font-size: .5em" *ngIf="!isValid">* {{item.label}} is required: </mat-hint>
     {{form.controls.values}}
-  
+  </div>
   </form>-->

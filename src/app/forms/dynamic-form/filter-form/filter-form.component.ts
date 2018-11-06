@@ -29,6 +29,6 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   }
 
   getForm() {
-    this.ffs.getForms(this.options)
+    return this.ffs.getForms(this.options)
   }    
 }
