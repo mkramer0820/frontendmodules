@@ -10,7 +10,10 @@
         <button mat-button color="accent" style="background-color: black" (click)="openAddDialog()">Add New Order</button> 
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-filter-form [options]='uniqueCustomerFilter'></app-filter-form>
+    {{filters | json}}
+    <form FormGroup="filterForm">
+      <app-filter-form #newFilters (filtersEvent)="recieveFilterForm($event)" [filterForm]="filterForm" [options]='uniqueCustomerFilter'></app-filter-form>
+    </form>
   <!--<div form [formGroup]="filterForm">
     <table>
       <tr>
@@ -69,7 +72,7 @@
 
         <ng-container matColumnDef="ID" fxFlex="60px" style="padding:0;">
           <!--<mat-header-cell *matHeaderCellDef mat-sort-header (click)="getSortOrders('id')" fxFlex="45px"> ID </mat-header-cell>-->
-          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('','','','id','','')" fxFlex="60px"> ID </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header (click)="testOrderService('id','','','','','')" fxFlex="60px"> ID </mat-header-cell>
           <mat-cell mat-cell style="font-size: smaller"  *matCellDef="let order; row"  
           [ngClass]="{'highlight': selectedRowIndex == order.id}" fxFlex="60px"> {{order.id}} <mat-icon (click)="openDetailDialog(order)">pageview</mat-icon></mat-cell>
           <mat-footer-cell *matFooterCellDef fxFlex="45px"></mat-footer-cell>

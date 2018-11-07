@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit,  ViewChild, Input} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup, FormControl, ReactiveFormsModule, } from '@angular/forms';
 import {Order} from '../../../modules/models/orders.model';
 import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
@@ -71,6 +71,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
   opt: any[];
+  filterForm: FormGroup;
+  filters:any;
   //filterForm: FormGroup;
   
 
@@ -94,11 +96,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   cred: any;
 
   dataSource = new MatTableDataSource(this.myorders);
-  @ViewChild(FilterFormComponent) filter;
-  tableFilter: any;
+  form: FormGroup;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() cards: boolean = true;
+  filtermessage:string;
 
 
   public firstDate = moment();
@@ -115,7 +117,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private router: Router,
     private ordersService: OrderService,
     //private service: SharedService,
-  ) { /*this.filterForm = new FormGroup({buyerStyle: new FormControl(), jpSytle: new FormControl(), selected: new FormControl(), firstDate: new FormControl(), secondDate: new FormControl()})*/ }
+  ) { this.orderSort = '';/*this.filterForm = new FormGroup({buyerStyle: new FormControl(), jpSytle: new FormControl(), selected: new FormControl(), firstDate: new FormControl(), secondDate: new FormControl()})*/ }
 
   ngOnInit() {
     this.getOrders('id');
@@ -123,8 +125,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit() {
-    this.getOrders('id');
-    //this.tableFilter = this.filter.filters;
     this.options(this.orders)
   }
   onRowClicked(row) {
@@ -278,6 +278,11 @@ openDetailDialog(order): void {
 //            FILTERS                                         //
 ///////////////////////////////////////////////////////////////
 
+
+
+  recieveFilterForm($event) {
+    this.filters = $event
+  }
   getUniqueCustomers(orders) {
     let order = orders;
 
@@ -291,7 +296,7 @@ openDetailDialog(order): void {
     let uniqueCustomers = Array.from(new Set(customers));
     return this.uniqueCustomerFilter = uniqueCustomers;
   }
-  testOrderService(buyer?: string, dueDateBefore?: Date, dueDateAfter?: Date, ordering?: string, buyerStyle?: string, jpStyle?: string) {
+  testOrderService(ordering?: string, buyer?: string, dueDateBefore?: Date, dueDateAfter?: Date, buyerStyle?: string, jpStyle?: string) {
     if (this.orderSort === '-') {
       let order = this.orderSort + ordering;
       this.orderSort=''
