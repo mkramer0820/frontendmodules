@@ -14,60 +14,11 @@
     <form FormGroup="filterForm">
       <app-filter-form #newFilters (filtersEvent)="recieveFilterForm($event)" [filterForm]="filterForm" [options]='uniqueCustomerFilter'></app-filter-form>
     </form>
-  <!--<div form [formGroup]="filterForm">
-    <table>
-      <tr>
-        <td>
-          <mat-form-field >
-          <input matInput #buyerStyle maxlength="35" placeholder="Enter some input"[formControlName]="buyerStyle" >
-         </mat-form-field>
 
-        </td>
-          
-        <td>
-          <mat-form-field >
-          <input matInput #jpStyle maxlength="35" placeholder="Enter some input" [formControlName]="jpStyle" >
-          </mat-form-field>
-
-        </td>
-        <td>
-          <mat-form-field >
-            <mat-select placeholder="Select A Customer" [formControlName]="selected">
-              <mat-option value=''>None</mat-option>
-              <mat-option *ngFor="let customer of uniqueCustomerFilter" value={{customer}}>{{customer}}</mat-option>
-            </mat-select>
-            </mat-form-field>
-        </td>      
-        <td>
-            <mat-form-field>
-            <input  matInput [matDatepicker]="picker1" placeholder="End Date" [formControlName]="firstDate" >
-            <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field>
-            <input  matInput [matDatepicker]="picker2" placeholder="End Date" [formControlName]="secondDate" >
-            <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-          </td>
-          
-
-  
-      
-        
-        <td><button  mat-icon-button (click)="testOrderService()"> {{orderSort}}
-            <mat-icon>clear</mat-icon></button>
-        </td>   
-      </tr>
-    </table>
-  </div >  
-  {{filterForm.values | json}}-->
 </mat-expansion-panel>
 </mat-accordion>
-
-  <mat-table id="orderTable" class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
+<div>
+  <mat-table id="orderTable" class="primary" [dataSource]="filters" matSort class="mat-elevation-z8">
 
 
         <ng-container matColumnDef="ID" fxFlex="60px" style="padding:0;">
@@ -205,6 +156,7 @@
 
 
   </mat-table>
+</div>
 <mat-card *ngIf="cred">
   {{cred | json}}
 </mat-card>

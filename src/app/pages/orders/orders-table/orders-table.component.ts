@@ -178,17 +178,12 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     if (this.orderSort === '-') {
 
       this.apiService.getOrders(this.orderSort + val).subscribe((orders: Array<Order>) => {
-        this.orders = orders;
-        // console.log(Object.keys(orders));
-        this.dataSource = new MatTableDataSource(orders);
+        this.filters = orders;
         this.orderSort = '';
-      // console.log(orders)
       });
     } else {
       this.apiService.getOrders(val).subscribe((orders: Array<Order>) => {
-        this.orders = orders;
-        console.log(orders);
-        this.dataSource = new MatTableDataSource(orders);
+        this.filters = orders;
         this.orderSort = '-';
       });
     }
@@ -296,6 +291,7 @@ openDetailDialog(order): void {
     let uniqueCustomers = Array.from(new Set(customers));
     return this.uniqueCustomerFilter = uniqueCustomers;
   }
+  /*
   testOrderService(ordering?: string, buyer?: string, dueDateBefore?: Date, dueDateAfter?: Date, buyerStyle?: string, jpStyle?: string) {
     if (this.orderSort === '-') {
       let order = this.orderSort + ordering;
@@ -323,7 +319,7 @@ openDetailDialog(order): void {
         this.orderSort='-'
       });
     }
-  }
+  }*/
   
 }
 

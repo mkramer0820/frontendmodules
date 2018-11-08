@@ -14,7 +14,7 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   findOrders(
-    buyer?: string, dueDateBefore?: Date, dueDateAfter?:  Date, ordering?: string, buyerStyle?: string , jpStyle?:string){
+    buyer?: string, dueDateBefore?: string, dueDateAfter?:  string , ordering?: string, buyerStyle?: string , jpStyle?:string){
 
       return this.http.get( /*'http://104.248.10.237/orders/?'*/'http://127.0.0.1:8000/orders/?', {
           params: new HttpParams()

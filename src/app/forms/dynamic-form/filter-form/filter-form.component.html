@@ -1,7 +1,7 @@
 
 
 
-<form (ngSubmit)="onSubmit()"  [formGroup]="filterForm" (sentFilters)="sentFilters()">
+<form (ngSubmit)="onSubmit()" [formGroup]="filterForm" (sentFilters)="sentFilters()">
       
     <div *ngFor="let item of models">
 
@@ -39,5 +39,5 @@
         
         <mat-hint class="errorMessage" style="font-size: .5em" *ngIf="!isValid">* {{item.label}} is required: </mat-hint>
     </div>
-    <button mat-button (click)="sentFilters()">Send Filter</button>
+    <button mat-button (click)="onSubmit('customer__name')">Send Filter</button>
 </form>
