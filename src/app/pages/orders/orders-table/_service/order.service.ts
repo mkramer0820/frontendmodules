@@ -13,7 +13,7 @@ export class OrderService {
 
   private orders = new BehaviorSubject<Order[]>([]);
   currentOrders = this.orders.asObservable();
-  sort: any = '';
+  sort: string;
   parameters: {}
 
   changeOrder(orders: Order[]) {
@@ -39,7 +39,12 @@ export class OrderService {
       //let params = this.currentParams.subscribe(message => params = message)
       console.log('params are', this.parameters)
       console.log(this.sort);
-      
+      let sort = this.sort;
+      let sortdir: string;
+      if (this.sort === '') {
+        sortdir = ''
+        return this.sort = '-'
+      }
 
       return this.http.get( `${AppConfig.endpoints.url + AppConfig.urlOptions.orders +'?'}`, {
           params: new HttpParams()
