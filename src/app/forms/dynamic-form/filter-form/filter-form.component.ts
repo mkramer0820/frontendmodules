@@ -44,6 +44,7 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   filtermessage = 'Hola Mundo!';
   orderSort: string = '';
   orders: Order[];
+  order: Order[];
 
   @Input() options: any;
   constructor( private ffs: FilterFormService, private fcs: FormControlService, private ordersService: OrderService) { this.models = this.getForm();
@@ -77,8 +78,6 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     if (this.filterForm.value['end_date'] != '') {
       dueDateAFter =  moment(this.filterForm.value['end_date']).format('YYYY-MM-DD');
     } else { dueDateAFter = ''};
-
-
     let buyer = this.filterForm['buyer'] || '';
     let buyerStyle = this.filterForm.value['buyer_style_number'] || '';
     let jpStyle = this.filterForm.value['jp_style_number'] || '';
@@ -86,8 +85,7 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     if (this.orderSort === '-') {
       let values = this.filterForm.value;
       let order = this.orderSort + 'id';
-      this.orderSort=''
-
+      this.orderSort='';
       this.ordersService.findOrders(buyer, dueDateBefore, dueDateAFter, ordering, buyerStyle, jpStyle).pipe(
         catchError(() => of([])),
       )
@@ -112,6 +110,33 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
         this.sentFilters(this.orders);
       });
     }
+  }
+  testy() {
+    let ordering = ''
+    let dueDateBefore: string;
+    if (this.filterForm.value['start_date'] != '') {
+      dueDateBefore =  moment(this.filterForm.value['start_date']).format('YYYY-MM-DD');
+    } else { dueDateBefore = ''};
+    let dueDateAFter: string;
+    if (this.filterForm.value['end_date'] != '') {
+      dueDateAFter =  moment(this.filterForm.value['end_date']).format('YYYY-MM-DD');
+    } else { dueDateAFter = ''};
+    let buyer = this.filterForm['buyer'] || '';
+    let buyerStyle = this.filterForm.value['buyer_style_number'] || '';
+    let jpStyle = this.filterForm.value['jp_style_number'] || '';
+    
+    this.ordersService.setParameters({
+      'buyer':this.filterForm.value['buyer'],
+      'buyerStyle':this.filterForm.value['buyer_style_number'],
+      'dueDateAfter': dueDateAFter,
+      'dueDateBefore':dueDateBefore,
+     'jpStyle':this.filterForm.value['jp_style_number'],
+      'ordering':''}); // use this to set the observer going forward on order service. 
+    this.ordersService.findOrders2();
+    this.ordersService.currentOrders.subscribe(message => this.order = message)
+
+
+
   }
   getTotalCost(order) {
     this.totalCost['jpCost'] = order.map(t => t.qty * t.cost_from_factory).reduce((acc, value) => acc + value, 0);
