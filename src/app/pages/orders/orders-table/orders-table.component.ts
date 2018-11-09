@@ -76,7 +76,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   /////////////
   orderSort: string = 'id';
-  orderSort2: {};
+  orderSortCase: number;
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   totalCost: any = {};
@@ -107,8 +107,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   ) {  }
 
   ngOnInit() {
-    this.sortTable();
-    console.log(this.orderSort2);
     this.ordersService.currentOrders.subscribe((message: Order[]) => {
       this.orders = message})
     this.getTotalCost(this.orders);
@@ -229,19 +227,29 @@ openUpdateDialog(order): void {
 ///////////////////////////////////////////////////////////////
 
   sortTable(ordering?) {
-  
-    if (ordering = this.orderSort){
-      switch(ordering) {
-        case (1):
-            console.log('switch1')
-            break;
-        default:
-            console.log('case default', this.orderSort)
-      }
+    
+    let orderingFilter: string;
+
+    switch(this.orderSortCase) {
+      case (1):
+        orderingFilter = ordering;
+        console.log(orderingFilter);
+        this.orderSortCase = 2;
+          break;
+      case(2):
+        orderingFilter = '-' + ordering;
+        console.log(orderingFilter);
+        this.orderSortCase = 1;
+        break;
+      default:
+        orderingFilter = ordering;
+        console.log(orderingFilter);
+        this.orderSortCase = 2;     
     }
 
 
-    //this.ordersService.setParameters(ordering)
+    this.ordersService.setParameters({ordering: orderingFilter})
+    this.ordersService.findOrders2();
   }
   
 }

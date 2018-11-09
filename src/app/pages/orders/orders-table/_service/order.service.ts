@@ -14,7 +14,13 @@ export class OrderService {
   private orders = new BehaviorSubject<Order[]>([]);
   currentOrders = this.orders.asObservable();
   sort: string;
-  parameters: {}
+  parameters: {};
+  buyer?: string;
+  dueDateBefore?: string;
+  dueDateAfter?: string;
+  ordering?: string;
+  buyerStyle?: string;
+  jpStyle?:string;
 
   changeOrder(orders: Order[]) {
       this.orders.next(orders)

@@ -59,7 +59,7 @@ export class FactoryTableComponent implements OnInit {
   openUpdateDialog(updateData): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
       width: '700px',
-      data: {url: AppConfig.urlOptions.factory, update: false, formData: updateData }
+      data: {url: AppConfig.urlOptions.factory, update: true, formData: updateData }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.factories().subscribe((factories: Array<Factory>) => {

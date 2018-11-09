@@ -1,18 +1,37 @@
-{{orderDetail|json}}
+<!--{{orderDetail|json}}-->
 <mat-card>
   <mat-card-header>
     <div mat-card-avatar [ngStyle]="{'background-size': 'cover','background-image': 'url('+ orderDetail.sweater_image +')'}"></div>
-      <mat-card-title>{{orderDetail.buyer_name}}: {{orderDetail.buyer_style_number}}</mat-card-title>
-      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}
-     </mat-card-subtitle>
+      <mat-card-title>{{orderDetail.buyer_name}} - Buyer Style Number: {{orderDetail.buyer_style_number}}</mat-card-title>
+      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}</mat-card-subtitle>
+      <mat-card-subtitle *ngFor="let customer of orderDetail.customer_set">
+        <li style="list-style-type:none">Address: {{customer.address1}}, {{customer.address2}}, {{customer.address3}}</li>
+        <li style="list-style-type:none">City: {{customer.city}} State: {{customer.state}}, Postal: {{customer.zip}}, Country: {{customer.country}}</li>
+        <li style="list-style-type:none">Phone: {{customer.phone}}</li>
+        <li style="list-style-type:none">Email: {{customer.email}}</li>
+
+
+      </mat-card-subtitle>
   </mat-card-header>
   <mat-divider></mat-divider>
 
-  <mat-card-header>
-    <mat-card-title>Factory: {{orderDetail.factory_name}}</mat-card-title>
+  <mat-card-header [ngStyle]="{'align':'left'}">
+    <mat-card-title>Factory: {{orderDetail.factory_name}} </mat-card-title>
+
     <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }}</mat-card-subtitle>
     <mat-card-subtitle>Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
+    <mat-card-subtitle *ngFor="let customer of orderDetail.factory_set">
+        <li style="list-style-type:none">Address: {{customer.address1}}, {{customer.address2}}, {{customer.address3}}</li>
+        <li style="list-style-type:none">City: {{customer.city}} State: {{customer.state}}, Postal: {{customer.zip}}, Country: {{customer.country}}</li>
+        <li style="list-style-type:none">Phone: {{customer.phone}}</li>
+        <li style="list-style-type:none">Email: {{customer.email}}</li>
+
+
+      </mat-card-subtitle>
   </mat-card-header>
+  <mat-card-content>
+    
+  </mat-card-content>
 
   <mat-divider></mat-divider>
 
