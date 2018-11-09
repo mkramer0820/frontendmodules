@@ -2,7 +2,7 @@
 
 
 <form (ngSubmit)="onSubmit()" [formGroup]="filterForm">
-      
+      {{order | json}}
     <div *ngFor="let item of models">
 
 
@@ -16,8 +16,8 @@
         
             <mat-form-field *ngSwitchCase="'dropdown'" class="form-element" >
                 <mat-select [placeholder]="item.label" [formControlName]="item.key">
-                <mat-option *ngFor="let opt of item.options" [value]="opt.key" >
-                    {{opt.value}}
+                <mat-option *ngFor="let opt of item.options" [value]="opt" >
+                    {{opt}}
                 </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -39,8 +39,8 @@
         
         <mat-hint class="errorMessage" style="font-size: .5em" *ngIf="!isValid">* {{item.label}} is required: </mat-hint>
     </div>
-    <button mat-button (click)="onSubmit('customer__name')">Send Filter</button>
-    <button mat-button (click)="testy()">Send Filter2</button>
-   
+    <button mat-button (click)="onSubmit()">Send Filter</button>
+  {{filterForm.value | json}}
 </form>
-{{order | json}}
+<button mat-button (click)="showOrders()">Send Filter</button>
+

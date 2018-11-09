@@ -62,12 +62,10 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   // shared message for order
   /////
   orderTask: boolean = false;
-  sentGroups: any;
-  order: any;
+  order: any; //used on row click
   selectedTask: any; // used for sending to modal
 
   //////filter pannel
-  selected: string;
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
   opt: any[];
@@ -77,18 +75,13 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   
 
   /////////////
-  orderSort: string;
+  orderSort: string = 'id';
+  orderSort2: {};
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   totalCost: any = {};
   selectedRowIndex: number = -1;
 
-  uniqueCustomerFilter: Array<any>;
-  message: string;
-  factoryMessage: Factory[];
-  buyerMessage: Customer[];
-  subscription: Subscription;
-  factory: Factory[];
   f = [];
   test: any;
   token = localStorage.getItem('currentUser');
@@ -108,21 +101,17 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   constructor(
     private apiService: ApiService,
-    private shared: OrdersSharedService,
     private dialog: MatDialog,
-    private auth: AuthenticationService,
-    private modalService: ModalService,
-    private tgs: TaskGroupService,
-    private route: ActivatedRoute,
-    private router: Router,
     private ordersService: OrderService,
     //private service: SharedService,
-  ) { this.orderSort = '';/*this.filterForm = new FormGroup({buyerStyle: new FormControl(), jpSytle: new FormControl(), selected: new FormControl(), firstDate: new FormControl(), secondDate: new FormControl()})*/ }
+  ) {  }
 
   ngOnInit() {
-    this.getOrders('id');
-    this.tgs.getTaskGroups();
-
+    this.sortTable();
+    console.log(this.orderSort2);
+    this.ordersService.currentOrders.subscribe((message: Order[]) => {
+      this.orders = message})
+    this.getTotalCost(this.orders);
   }
   ngAfterViewInit() {
     this.options(this.orders)
@@ -136,58 +125,19 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   options(orders: Order[]) {
     for (let order of orders) {
       this.opt.push(order.buyer_name)
-      console.log(order);
+      console.log('options', this.opt);
     }
   }
   onRowHighlight(row){
     this.selectedRowIndex = row.id;
   }
-  sendMessage(message): void {
-          // send message to subscribers via observable subject
-          this.shared.sendMessage(message);
-    }
-  clearMessage(): void {
-    this.shared.clearMessage();
-  }
-  getTaskGroup() {
-    this.tgs.getMessage().subscribe(rsp => {
-      this.sentGroups = rsp;
-    });
-  }
-  
+
 
 /////////////////////////////////////////////////
-//          GET ORDERS                        //
+//          GET ORDERS Total Cost             //
 ///////////////////////////////////////////////
 
-//   good but testing orderservice
- getOrders(id) {
-  this.apiService.getOrders(id).subscribe((orders: Array<Order>) => {
-    console.log(this.apiService.getOrders)
-    this.orders = orders;
-    this.getTotalCost(orders);
-    // this.dataSource = new MatTableDataSource(orders);
-    this.uniqueCustomerFilter = orders;
-    this.getUniqueCustomers(orders);
-    return this.orderSort = '-', this.orders;
-  });
- }
 
-  getSortOrders(val) {
-    this.sortVal = val;
-    if (this.orderSort === '-') {
-
-      this.apiService.getOrders(this.orderSort + val).subscribe((orders: Array<Order>) => {
-        this.filters = orders;
-        this.orderSort = '';
-      });
-    } else {
-      this.apiService.getOrders(val).subscribe((orders: Array<Order>) => {
-        this.filters = orders;
-        this.orderSort = '-';
-      });
-    }
-  }
   getTotalCost(order) {
     this.totalCost['jpCost'] = order.map(t => t.qty * t.cost_from_factory).reduce((acc, value) => acc + value, 0);
     this.totalCost['buyerCost'] = order.map(t => t.qty * t.buyers_price).reduce((acc, value) => acc + value, 0);
@@ -255,76 +205,49 @@ openUpdateDialog(order): void {
     });
   });
 }
-openDetailDialog(order): void {
-  const dialogRef = this.dialog.open(OrderDetailComponent, {
-    data: {order: order}
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
-      this.orders = orders;
-      return dialogRef.close()
-      //console.log(customers);
+
+///////////////////////////////////
+// modal detail                 //
+/////////////////////////////////
+
+  openDetailDialog(order): void {
+    const dialogRef = this.dialog.open(OrderDetailComponent, {
+      data: {order: order}
     });
-  });
-}
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+        this.orders = orders;
+        return dialogRef.close()
+        //console.log(customers);
+      });
+    });
+  }
 
 
 /////////////////////////////////////////////////////////////////
 //            FILTERS                                         //
 ///////////////////////////////////////////////////////////////
 
-
-
-  recieveFilterForm($event) {
-    this.filters = $event
-  }
-  getUniqueCustomers(orders) {
-    let order = orders;
-
-    let customers = [];
-
-    for (let order in orders) {
-      if (orders[order].hasOwnProperty('buyer_name')) {
-        customers.push(orders[order]['buyer_name'])
-      } else { console.log('ooops')}
-    }
-    let uniqueCustomers = Array.from(new Set(customers));
-    return this.uniqueCustomerFilter = uniqueCustomers;
-  }
-  /*
-  testOrderService(ordering?: string, buyer?: string, dueDateBefore?: Date, dueDateAfter?: Date, buyerStyle?: string, jpStyle?: string) {
-    if (this.orderSort === '-') {
-      let order = this.orderSort + ordering;
-      this.orderSort=''
-
-      this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
-        catchError(() => of([])),
-      )
-      .subscribe((orders: Order[]) => {
+  sortTable(ordering?) {
   
-        console.log(orders)
-        this.orders = orders;
-        this.getTotalCost(orders);
-      });
-    } else if (this.orderSort === '') {
-      let order = ordering
-      this.ordersService.findOrders(buyer, dueDateBefore, dueDateAfter, order, buyerStyle, jpStyle).pipe(
-        catchError(() => of([])),
-      )
-      .subscribe((orders: Order[]) => {
-  
-        console.log(orders)
-        this.orders = orders;
-        this.getTotalCost(orders);
-        this.orderSort='-'
-      });
+    if (ordering = this.orderSort){
+      switch(ordering) {
+        case (1):
+            console.log('switch1')
+            break;
+        default:
+            console.log('case default', this.orderSort)
+      }
     }
-  }*/
+
+
+    //this.ordersService.setParameters(ordering)
+  }
   
 }
 
-/*
 
+/*()
 
 export class OrdersDataSource implements DataSource<Order> {
 
@@ -356,15 +279,5 @@ export class OrdersDataSource implements DataSource<Order> {
   }
   
 }
-
-
-{
-  params: new HttpParams()
-      .set('ordering', ordering.toString())
-      .set('page', page.toString())
-      .set('page_size', page_size.toString())
-}).pipe(
-  map(res =>  res['results'])
-);
-}
 */
+

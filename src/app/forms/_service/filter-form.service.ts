@@ -12,18 +12,18 @@ export class FilterFormService {
   getForms(buyers) {
     let date = new Date()
     let buyerOpt: {} = {}
-    buyerOpt[buyers] = buyers;
+    
 
     let filter: FormBase<any>[] = [
-      /*new FormDropdown({
-        key: 'customer',
+      new FormDropdown({
+        key: 'buyers',
         label: 'Buyer',
         controlType: 'dropdown',
         required: false,
         text: 'text',
-        options: buyerOpt,
+        options: buyers,
         order: 1,
-      }),*/
+      }),
       new FormTextbox({
         key: 'buyer_style_number',
         label: 'Buyer Style Number',

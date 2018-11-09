@@ -35,6 +35,7 @@ export class OrderTaskComponent implements OnInit {
   update= this.data.update;
   updateId: any;
   selectedOrderTask: any;
+  isActive: boolean;
 
 
   constructor(
@@ -68,7 +69,7 @@ export class OrderTaskComponent implements OnInit {
     this.ordertaskForm.get('order').setValue(this.data.order.id);
     let set_names = event.set_names;
     this.masterGroupMessage = set_names;
-    console.log(this.masterGroupMessage);
+    console.log('message', this.masterGroupMessage);
   }
   getBlanketTask(id) {
     this.apiService.getTaskDetail(id).subscribe(res => {
@@ -117,6 +118,8 @@ export class OrderTaskComponent implements OnInit {
   }
   setOrderAndGroup(event) {
     this.updateId = event.id;
+    this.isActive = event.isActive;
+    console.log(event.isActive, 'YOYOYOYOYOYOYOYOYOYOYOYOOOOOOOOOOOOOOOOOOOOOOOO')
     this.ordertaskForm.get('order').setValue(event.order);
     this.ordertaskForm.get('todos_group').setValue(event.todos_group);
     this.ordertaskForm.get('set_status').setValue(event.set_status);

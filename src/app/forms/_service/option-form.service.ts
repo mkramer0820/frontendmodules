@@ -71,7 +71,7 @@ export class OptionsFormService {
                   optionJson.push(choice)
                 }
               }
-              console.log(optionJson);
+              console.log('opt json', optionJson);
               response[item] = response[item];
               let form = new FormDropdown({
                 key: item,
