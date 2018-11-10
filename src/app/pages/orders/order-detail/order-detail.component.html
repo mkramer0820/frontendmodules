@@ -1,12 +1,17 @@
 <!--{{orderDetail|json}}-->
-<mat-card>
+<mat-dialog-content>
+  <mat-card>
   <mat-card-header>
-    <div mat-card-avatar [ngStyle]="{'background-size': 'cover','background-image': 'url('+ orderDetail.sweater_image +')'}"></div>
+    <div mat-card-avatar ><mat-icon> local_grocery_store</mat-icon></div>
       <mat-card-title>{{orderDetail.buyer_name}} - Buyer Style Number: {{orderDetail.buyer_style_number}}</mat-card-title>
       <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}</mat-card-subtitle>
       <mat-card-subtitle *ngFor="let customer of orderDetail.customer_set">
         <li style="list-style-type:none">Address: {{customer.address1}}, {{customer.address2}}, {{customer.address3}}</li>
-        <li style="list-style-type:none">City: {{customer.city}} State: {{customer.state}}, Postal: {{customer.zip}}, Country: {{customer.country}}</li>
+        <li style="list-style-type:none">
+          <span style="padding-right: 5px;">City: {{customer.city}}</span>
+          <span style="padding-right: 5px;">{{customer.state}}</span>;
+          <span style="padding-right: 5px;">Postal: {{customer.zip}}</span>;
+          <span style="padding-right: 5px;">Country: {{customer.country}}</span></li>
         <li style="list-style-type:none">Phone: {{customer.phone}}</li>
         <li style="list-style-type:none">Email: {{customer.email}}</li>
 
@@ -16,6 +21,8 @@
   <mat-divider></mat-divider>
 
   <mat-card-header [ngStyle]="{'align':'left'}">
+    <div mat-card-avatar><mat-icon>domain</mat-icon></div>
+
     <mat-card-title>Factory: {{orderDetail.factory_name}} </mat-card-title>
 
     <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }}</mat-card-subtitle>
@@ -35,18 +42,24 @@
 
   <mat-divider></mat-divider>
 
-  <mat-card-header>
-      <mat-card-title>Sweater Details</mat-card-title>
-  </mat-card-header>
+  
       <mat-grid-list cols="4" rowHeight="100px">
           <mat-grid-tile
               *ngFor="let tile of tiles"
               [colspan]="tile.cols"
               [rowspan]="tile.rows"
-              [style.background]="tile.color">
-            {{tile.text}}
+              [ngStyle]="{'background-image':'url('+ tile.img +')',
+              'background-repeat': 'no-repeat', 'background-size':'cover', 
+              'background-position': 'center center'}">
+              <div *ngIf="tile.texts">
+                
+                  <div *ngFor="let text of tile.texts" style="font-size: 1em; padding-left : 30px"><p>{{text}}</p></div>
+              </div>
+            
           </mat-grid-tile>
+
         </mat-grid-list>
 
 
 </mat-card>
+</mat-dialog-content>

@@ -6,11 +6,12 @@ export interface DialogData {
   data: any;
 }
 export interface Tile {
-  color: string;
   cols: number;
   rows: number;
-  text: string;
-  img?: string; 
+  text?: string;
+  color?: string;
+  texts?: string[];
+  img?: Url;
 }
 @Component({
   selector: 'app-order-detail',
@@ -21,10 +22,12 @@ export class OrderDetailComponent implements OnInit {
   orderDetail: any;
 
   tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen', img: this.order['order']['sweater_image']},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
+    {text: 'Two', cols: 1, rows: 2, img: this.order['order']['sweater_image']},
+    {texts: ['Fiber Content: ' + this.order['order']['fiber_content'],
+            'Descrption: ' + this.order['order']['sweater_description'],
+            'Care Instructions: ' + this.order['order']['jp_care_instructions']
+            ],
+             cols: 3 , rows: 2},
   ];
 
   constructor( @Inject(MAT_DIALOG_DATA) public order: DialogData ) { this.orderDetail = order['order']; }

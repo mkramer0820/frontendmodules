@@ -55,24 +55,25 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
     'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'];
-  
+
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
 
   ///////
   // shared message for order
   /////
   orderTask: boolean = false;
-  order: any; //used on row click
+  order: any; // used on row click
   selectedTask: any; // used for sending to modal
 
-  //////filter pannel
+  // highlightrow
+  selectedRowIndex: number;
+
+  ////// filter pannel
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
   opt: any[];
   filterForm: FormGroup;
-  filters:any;
-  //filterForm: FormGroup;
-  
+  filters: any;
 
   /////////////
   orderSort: string = 'id';
@@ -80,7 +81,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   sortVal: any;
   serializedDate = new FormControl(moment().format('YYYY-MM-DD'));
   totalCost: any = {};
-  selectedRowIndex: number = -1;
 
   f = [];
   test: any;
@@ -93,7 +93,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() cards: boolean = true;
-  filtermessage:string;
+  filtermessage: string;
 
 
   public firstDate = moment();
@@ -103,16 +103,16 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private dialog: MatDialog,
     private ordersService: OrderService,
-    //private service: SharedService,
   ) {  }
 
   ngOnInit() {
     this.ordersService.currentOrders.subscribe((message: Order[]) => {
-      this.orders = message})
+      this.orders = message;
+    });
     this.getTotalCost(this.orders);
   }
   ngAfterViewInit() {
-    this.options(this.orders)
+    this.options(this.orders);
   }
   onRowClicked(row) {
     this.order = row;
@@ -122,7 +122,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   }
   options(orders: Order[]) {
     for (let order of orders) {
-      this.opt.push(order.buyer_name)
+      this.opt.push(order.buyer_name);
       console.log('options', this.opt);
     }
   }
@@ -154,7 +154,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {
         this.orders = orders;
-        return dialogRef.close()
+        return dialogRef.close();
       });
     });
   }
@@ -166,8 +166,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {
         this.orders = orders;
-        return dialogRef.close()
-        //console.log(customers);
+        return dialogRef.close();
       });
     });
   }
@@ -184,8 +183,7 @@ openAddDialog(): void {
   dialogRef.afterClosed().subscribe(result => {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
       this.orders = orders;
-      return dialogRef.close()
-      //console.log(customers);
+      return dialogRef.close();
     });
   });
 }
@@ -198,8 +196,7 @@ openUpdateDialog(order): void {
   dialogRef.afterClosed().subscribe(result => {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
       this.orders = orders;
-      return dialogRef.close()
-      //console.log(customers);
+      return dialogRef.close();
     });
   });
 }
@@ -215,8 +212,7 @@ openUpdateDialog(order): void {
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {
         this.orders = orders;
-        return dialogRef.close()
-        //console.log(customers);
+        return dialogRef.close();
       });
     });
   }
@@ -227,7 +223,6 @@ openUpdateDialog(order): void {
 ///////////////////////////////////////////////////////////////
 
   sortTable(ordering?) {
-    
     let orderingFilter: string;
 
     switch(this.orderSortCase) {
@@ -244,14 +239,14 @@ openUpdateDialog(order): void {
       default:
         orderingFilter = ordering;
         console.log(orderingFilter);
-        this.orderSortCase = 2;     
+        this.orderSortCase = 2;
     }
 
 
     this.ordersService.setParameters({ordering: orderingFilter})
     this.ordersService.findOrders2();
   }
-  
+
 }
 
 

@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     },
     {
     displayName: 'Customers',
-    iconName: 'my_customer',
+    iconName: 'people_outline',
     class: 'primary-accent',
     children: [
       {
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]},
     {
     displayName: 'Factories',
-    iconName: '',
+    iconName: 'business',
     children: [
       {
         displayName: 'View Factories',
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]},
     {
       displayName: 'Orders',
-      iconName: 'my_customer',
+      iconName: 'attach_money',
       children: [
         {
           displayName: 'View Orders',
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       ]},
       {
         displayName: 'Tasks',
-        iconName: '',
+        iconName: 'done',
         children: [
           {
             displayName: 'Add Todos New',
