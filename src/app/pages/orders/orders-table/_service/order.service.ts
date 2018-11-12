@@ -36,7 +36,8 @@ export class OrderService {
     dueDateAfter?: string;
     ordering?: string;
     buyerStyle?: string;
-    jpStyle?:string; })
+    jpStyle?:string;
+    isActive?: boolean; })
      {
       this.parameters = params;
       console.log(this.parameters)
@@ -44,7 +45,7 @@ export class OrderService {
 
 
   findOrders2() {
-    return this.http.get( `${AppConfig.endpoints.url + AppConfig.urlOptions.orders +'?'}`, 
+    return this.http.get( `${AppConfig.endpoints.url + AppConfig.urlOptions.orders +'?'}`,
         {
           params: new HttpParams()
               .set('buyer', this.parameters['buyer'].toString())
@@ -53,6 +54,7 @@ export class OrderService {
               .set('ordering', this.parameters['ordering'].toString())
               .set('buyer_style_number', this.parameters['buyerStyle'].toString())
               .set('jp_style_number', this.parameters['jpStyle'].toString())
+              .set('isActive', this.parameters['isActive'].toString())
         })
         .pipe(
           catchError(() => of([])),
@@ -64,7 +66,7 @@ export class OrderService {
         });
       }
   findOrders(
-    buyer?: string, dueDateBefore?: string, dueDateAfter?:  string , ordering?: string, buyerStyle?: string , jpStyle?:string){
+    buyer?: string, dueDateBefore?: string, dueDateAfter?:  string , ordering?: string, buyerStyle?: string , jpStyle?:string, isActive?:boolean){
       //let params = this.currentParams.subscribe(message => params = message)
       console.log('params are', this.parameters)
       console.log(this.sort);

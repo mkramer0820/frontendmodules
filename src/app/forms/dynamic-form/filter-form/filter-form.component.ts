@@ -39,14 +39,16 @@ export const DD_MM_YYYY_Format = {
 })
 export class FilterFormComponent implements OnInit, AfterViewInit {
 
-  @Input() filterForm: FormGroup;
+  filterForm: FormGroup;
   models: any;
+  formModel: any;
   @Output() filtersEvent = new EventEmitter<any>();
   filtermessage = 'Hola Mundo!';
   orderSort: string = '';
   orders: any;
   order: Order[];
   opt: any[] = [''];
+  totalCost: any = {};
 
 
   constructor( private ffs: FilterFormService, private fcs: FormControlService, private ordersService: OrderService) { this.models = this.getForm();
@@ -61,21 +63,19 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
       this.opt = this.opt.filter((v, i, a) => a.indexOf(v) === i); 
     });
     this.models = this.getForm(this.opt);
-    this.filterForm = this.fcs.toFormGroup(this.models)
+    console.log(this.models, 'check out models here brosephs');
+    console.log('filter form value', this.formModel);
+    this.filterForm = this.fcs.toFormGroup(this.models);
     this.onSubmit();
   }
   ngAfterViewInit() {
    // this.filters = this.filters.form.value
   }
-  totalCost: any = {};
-
-
   getForm(options?) {
-    return this.ffs.getForms(options)
-  }    
+    return this.ffs.getForms(options);
+  }
   sentFilters(event: any) {
-    this.filtersEvent.emit(event)
-  
+    this.filtersEvent.emit(event);
   }
   onSubmit() {
     let dueDateBefore: string;
@@ -89,12 +89,14 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     let buyer = this.filterForm.value['buyers'] || '';
     let buyerStyle = this.filterForm.value['buyer_style_number'] || '';
     let jpStyle = this.filterForm.value['jp_style_number'] || '';
+    let isActive = this.filterForm.value['isActive'] || true;
     this.ordersService.setParameters({
       buyer:this.filterForm.value['buyers'],
       buyerStyle: this.filterForm.value['buyer_style_number'],
       dueDateAfter: dueDateAFter,
       dueDateBefore: dueDateBefore,
       jpStyle:this.filterForm.value['jp_style_number'],
+      isActive: this.filterForm.value['isActive'],
       ordering:''}); // use this to set the observer going forward on order service. 
     this.ordersService.findOrders2();
     console.log(this.opt);
@@ -117,7 +119,7 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     return options;
   }
   showOrders() {
-    console.log(this.order)
-    console.log(this.opt)
+    console.log(this.order);
+    console.log(this.opt);
   }
 }

@@ -51,7 +51,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
   //dataSource = new MatTableDataSource();
   displayColumns: string [] = [
-   'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER NUMBER', 'BUYER STYLE #', 'JP STYLE #',
+   'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
     'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'];
@@ -107,11 +107,14 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.ordersService.currentOrders.subscribe((message: Order[]) => {
+      this.getTotalCost(message);
+      console.log(message);
       this.orders = message;
     });
     this.getTotalCost(this.orders);
   }
   ngAfterViewInit() {
+    this.getTotalCost(this.orders);
     this.options(this.orders);
   }
   onRowClicked(row) {
@@ -137,6 +140,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 
 
   getTotalCost(order) {
+    console.log(order['qty']);
     this.totalCost['jpCost'] = order.map(t => t.qty * t.cost_from_factory).reduce((acc, value) => acc + value, 0);
     this.totalCost['buyerCost'] = order.map(t => t.qty * t.buyers_price).reduce((acc, value) => acc + value, 0);
     this.totalCost['simpleProfit'] = this.totalCost.buyerCost  - this.totalCost.jpCost;
