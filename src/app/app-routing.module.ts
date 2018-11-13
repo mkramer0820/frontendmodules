@@ -18,6 +18,7 @@ import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
 import { OrderTaskComponent } from './pages/orders/order-task/order-task.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
+import { OrderExpenseComponent } from './pages/orders/order-expense/order-expense.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
   { path: 'home', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: 'order-expense', component: OrderExpenseComponent}
 ];
 
 @NgModule({

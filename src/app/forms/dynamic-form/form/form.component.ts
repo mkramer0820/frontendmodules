@@ -28,14 +28,7 @@ export const DD_MM_YYYY_Format = {
   selector: 'app-form',
   templateUrl: './form.component.html',
   // styleUrls: ['./form.component.scss'],
-  sytles: [`
-  :host {
-    display: block;
-    padding: 32px;
-    border: 1px solid black;
-    border-radius: 8px;
-  }
-  `],
+  styleUrls: ['form.component.scss'],
   providers: [FormControlService,
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},

@@ -52,82 +52,87 @@ export class OptionsFormService {
       .pipe(map(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
-            if (response[item]['read_only'] === false && (response[item]['type'] === 'option' ||
-             response[item]['type'] === 'choice')) {
-             //let optionJson = response[item]['choices'];
-             let optionJson= [];
-              let choices = response[item]['choices']
-              for (let dict of  choices) {
-                if (dict.hasOwnProperty('display_name')) {
-                  console.log("dcik value", dict.value)
-                  let choice = {}
-                  choice['key'] = dict.value
-                  choice['value'] = dict.display_name
-                  optionJson.push(choice)
-                } else { 
-                  let choice = {}
-                  choice['key'] = dict.key
-                  choice['value'] = dict.value
-                  optionJson.push(choice)
+            if (item != 'totalExpense' && item != 'expenseItems') {
+              console.log(item)
+
+              if (response[item]['read_only'] === false && (response[item]['type'] === 'option' ||
+              response[item]['type'] === 'choice')) {
+              //let optionJson = response[item]['choices'];
+              let optionJson= [];
+                let choices = response[item]['choices']
+                for (let dict of  choices) {
+                  if (dict.hasOwnProperty('display_name')) {
+                    console.log("dcik value", dict.value)
+                    let choice = {}
+                    choice['key'] = dict.value
+                    choice['value'] = dict.display_name
+                    optionJson.push(choice)
+                  } else { 
+                    let choice = {}
+                    choice['key'] = dict.key
+                    choice['value'] = dict.value
+                    optionJson.push(choice)
+                  }
                 }
+                console.log('opt json', optionJson);
+                response[item] = response[item];
+                let form = new FormDropdown({
+                  key: item,
+                  label: response[item]['label'],
+                  controlType: 'dropdown',
+                  required: response[item]['required'],
+                  text: 'text',
+                  options: optionJson,
+                });
+                newForm.push(form);
+              } else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
+                let optionJson = response[item];
+                let form = new FormCheckBox({
+                  value: true,
+                  key: item,
+                  controlType: 'checkbox',
+                  required: optionJson['required'],
+                  label: optionJson['label'],
+                });
+                newForm.push(form);
+              } else if (response[item]['read_only'] === false && response[item]['type'] === 'datetime') {
+                let optionJson = response[item];
+                response[item] = response[item];
+                  let form = new FormDatePicker({
+                  key: item,
+                  value: new Date(),
+                  label: optionJson['label'],
+                  controlType: 'datepicker',
+                  required: false,
+                });
+                newForm.push(form);
+              } else if (response[item]['type'] === 'image upload') {
+                let optionJson = response[item];
+                response[item] = response[item];
+                  let form = new FormBase ({
+                  key: item,
+                  value: null,
+                  label: optionJson['label'],
+                  controlType: 'image_upload',
+                  required: false,
+                });
+                newForm.push(form);
+              } else if (response[item]['read_only'] === false && response[item]['type'] !== 'option') {
+                let optionJson = response[item];
+                response[item] = response[item];
+                  let form = new FormTextbox({
+                  key: item,
+                  value: '',
+                  label: optionJson['label'],
+                  controlType: 'textbox',
+                  required: false,
+                  text: 'text',
+                  max_length: optionJson['max_length'],
+                });
+                newForm.push(form);
               }
-              console.log('opt json', optionJson);
-              response[item] = response[item];
-              let form = new FormDropdown({
-                key: item,
-                label: response[item]['label'],
-                controlType: 'dropdown',
-                required: response[item]['required'],
-                text: 'text',
-                options: optionJson,
-              });
-              newForm.push(form);
-            } else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
-              let optionJson = response[item];
-              let form = new FormCheckBox({
-                value: true,
-                key: item,
-                controlType: 'checkbox',
-                required: optionJson['required'],
-                label: optionJson['label'],
-              });
-              newForm.push(form);
-            } else if (response[item]['read_only'] === false && response[item]['type'] === 'datetime') {
-              let optionJson = response[item];
-              response[item] = response[item];
-                let form = new FormDatePicker({
-                key: item,
-                value: new Date(),
-                label: optionJson['label'],
-                controlType: 'datepicker',
-                required: false,
-              });
-              newForm.push(form);
-            } else if (response[item]['type'] === 'image upload') {
-              let optionJson = response[item];
-              response[item] = response[item];
-                let form = new FormBase ({
-                key: item,
-                value: null,
-                label: optionJson['label'],
-                controlType: 'image_upload',
-                required: false,
-              });
-              newForm.push(form);
-            } else if (response[item]['read_only'] === false && response[item]['type'] !== 'option') {
-              let optionJson = response[item];
-              response[item] = response[item];
-                let form = new FormTextbox({
-                key: item,
-                value: '',
-                label: optionJson['label'],
-                controlType: 'textbox',
-                required: false,
-                text: 'text',
-                max_length: optionJson['max_length'],
-              });
-              newForm.push(form);
             }
+
           }
           this.newForm = newForm;
         return newForm;

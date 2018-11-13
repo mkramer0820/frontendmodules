@@ -138,10 +138,30 @@
                         update
                       </mat-icon>
                     </button>
+                    <button mat-icon-button (click)="openExpenseDialog(order)">
+                        <mat-icon matBadgeSize="small"  matBadgeColor="warn" >
+                          account_balance
+                        </mat-icon>
+                      </button>
             </mat-cell>
             </div>
             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
+
+          <ng-container matColumnDef="EXPENSE">
+              <mat-header-cell *matHeaderCellDef > EXPENSES </mat-header-cell>
+              <mat-cell mat-cell style="font-size: smaller"   *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  >
+                      <button mat-icon-button (click)="openExpenseDialog(order)">
+                          <mat-icon matBadgeSize="small"  matBadgeColor="warn" >
+                            account_balance
+                          </mat-icon>
+                        </button>
+              </mat-cell>
+              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+
+
       <mat-header-row *matHeaderRowDef="displayColumns" ></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayColumns;" (click)="onRowClicked(row)" (click)="onRowHighlight(row)"  ></mat-row>
       <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>

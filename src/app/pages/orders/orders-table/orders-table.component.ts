@@ -22,6 +22,7 @@ import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-f
 import {OrderTaskComponent} from '../order-task/order-task.component';
 import {OrderDetailComponent} from '../order-detail/order-detail.component';
 import {FilterFormComponent} from '../../../forms/dynamic-form/filter-form/filter-form.component';
+import { OrderExpenseComponent } from '../order-expense/order-expense.component';
 
 const moment = _rollupMoment || _moment;
 
@@ -54,7 +55,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
     'ORDER TYPE', 'QTY', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
-    'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS'];
+    'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'EXPENSE'];
 
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
 
@@ -195,7 +196,7 @@ openUpdateDialog(order): void {
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
     height: '800px',
-    data: {url: AppConfig.urlOptions.orders, formData: order, update: true}
+    data: {qty: AppConfig.urlOptions.orders, url: AppConfig.base, update: false}
   });
   dialogRef.afterClosed().subscribe(result => {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
@@ -220,6 +221,23 @@ openUpdateDialog(order): void {
       });
     });
   }
+
+///////////////////////////////////
+// modal Expense                //
+/////////////////////////////////
+
+openExpenseDialog(order): void {
+  const dialogRef = this.dialog.open(OrderExpenseComponent, {
+    data: {order: order, url: AppConfig.urlOptions.orders, update: true}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.apiService.getOrders().subscribe((orders: Array<Order>) => {
+      this.orders = orders;
+      return dialogRef.close();
+    });
+  });
+}
+
 
 
 /////////////////////////////////////////////////////////////////

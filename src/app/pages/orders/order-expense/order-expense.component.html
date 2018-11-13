@@ -1,0 +1,26 @@
+<p>
+  order-expense works!
+</p>
+<h1>{{qty}}</h1>
+<!--  Task Group id: {{taskForm.controls.todos_group.value}} -->
+  <br />
+  <form [formGroup]="expenseForm" >
+
+      
+   <h3>Add Expense Items</h3>
+    <button mat-button-raised color="primary"(click)="addExpenseItems()">Add Expense Items</button>
+    <ul >
+      <li *ngFor="let item of expenseItems?.controls; let i = index" style="list-style-type:none">
+        <app-order-expense-item [index]="i" [quantity]="qty" [expenseItemForm]="item" 
+        (delExpenseItems)="deleteExpenseItems($event)" (keyUp)="calculatTotals(event$)"></app-order-expense-item>
+         <!-- delExpenseItems is the child output-->
+      </li>
+    </ul>
+    <button mat-button-raised (click)="calculatTotals()">Grand Total</button>
+
+    <button  type="submit" mat-button-raised color="accent" (click)="clearExpenseItemForm()">Clear Form</button>
+    &nbsp;
+    <button  type="submit" mat-button-raised color="accent" (click)="saveExpenseForm()" [disabled]="expenseForm.invalid">Add Expense To Order</button>
+    &nbsp;
+    <pre>Parent Form Status: <span class="status">{{expenseForm.status}} <br />{{expenseForm.value | json}}</span></pre>
+  </form>

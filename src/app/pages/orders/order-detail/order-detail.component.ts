@@ -6,13 +6,35 @@ export interface DialogData {
   data: any;
 }
 export interface Tile {
-  cols: number;
-  rows: number;
+  cols?: number;
+  rows?: number;
   text?: string;
   color?: string;
   texts?: string[];
   img?: Url;
+  address?: String[];
 }
+
+export interface OrderAddress{
+  customAddress?: Address[];
+  factoryAddress?: Address[];
+
+}
+
+export interface Address {
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  country?: string;
+  email?: string;
+  phone?: string;
+  extension?: string;
+  website?: string;
+}
+
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
@@ -30,9 +52,25 @@ export class OrderDetailComponent implements OnInit {
              cols: 3 , rows: 2},
   ];
 
+  orderAddress: OrderAddress[] = [
+  ]
+
+  jpCost?: number;
+  buyerCost?: number;
+  profit?: number;
+  
+
   constructor( @Inject(MAT_DIALOG_DATA) public order: DialogData ) { this.orderDetail = order['order']; }
 
   ngOnInit(
-  ) {  }
+  ) { this.calculateCosts(this.orderDetail) }
+
+  calculateCosts(order) {
+    console.log(order, 'usede for calc')
+    this.jpCost = order['qty'] * order['cost_from_factory'];
+    this.buyerCost = order['qty'] * order['buyers_price'];
+    this.profit = this.buyerCost - this.jpCost;
+    console.log('totals', this.jpCost)
+    }
 
 }

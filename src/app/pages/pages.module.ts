@@ -35,6 +35,9 @@ import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-
 import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
 import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form.component';
+import { OrderExpenseComponent } from './orders/order-expense/order-expense.component';
+import { OrderExpenseItemComponent } from './orders/order-expense/order-expense-item/order-expense-item.component';
+import {ExpenseFormService} from './orders/order-expense/_service/expense-form.service';
 @NgModule({
   imports: [
     FormsModule,
@@ -67,7 +70,9 @@ import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form
     DynamicFormRequestComponent,
     CustomerComponent,
     OrderDetailComponent,
-    FilterFormComponent
+    FilterFormComponent,
+    OrderExpenseComponent,
+    OrderExpenseItemComponent
   ],
   entryComponents: [
     DynamicFormRequestComponent,
@@ -89,7 +94,8 @@ import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form
     ModalService,
     OrderTaskFormService,
     PostService,
-    OptionsFormService
+    OptionsFormService,
+    ExpenseFormService,
 
 
   ],
