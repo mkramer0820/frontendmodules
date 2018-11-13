@@ -4,7 +4,9 @@ import { Subscription } from 'rxjs';
 import { ExpenseFormService } from './_service/expense-form.service';
 import { HttpClientService } from '../../../_services/http-client.service';
 import {MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import {Expense, ExpenseItem} from './_models/expense.model'
+import {Expense, ExpenseItem} from './_models/expense.model';
+import {ExpenseForm, ExpenseItemForm} from './_models/expense-form.model';
+
 import { Router} from '@angular/router';
 
 export interface DialogData {
@@ -18,7 +20,7 @@ export interface DialogData {
   templateUrl: './order-expense.component.html',
   styleUrls: ['./order-expense.component.scss']
 })
-export class OrderExpenseComponent implements OnInit {
+export class OrderExpenseComponent implements OnInit, OnDestroy {
     // Message from task.component
 
     // end of message propery
@@ -34,6 +36,10 @@ export class OrderExpenseComponent implements OnInit {
     selectedId: any;
     qty: number;
     expenseGrandTotal: number[];
+    orderId: string;
+    update: boolean;
+    currentExpenseItems: any;
+    totalExpense: number;
   
   
     constructor(
@@ -44,7 +50,10 @@ export class OrderExpenseComponent implements OnInit {
       private router: Router,
       @Inject(MAT_DIALOG_DATA) public data: DialogData,
   
-    ) { this.qty = data.order.qty }
+    ) { this.qty = data.order.qty; 
+      this.orderId = this.data.order.id;
+      this.update = this.data.update;
+     }
   
   
     ngOnInit() {
@@ -53,6 +62,8 @@ export class OrderExpenseComponent implements OnInit {
           this.expenseForm = expense;
           this.expenseItems = this.expenseForm.get('expenseItems') as FormArray;
         });
+      this.expenseForm.get('order').setValue(this.orderId)
+      this.updateExpenseItems();
       }
     ngAfterViewInit() {
       this.expenseFormSub = this.expenseFormService.expenseForm$
@@ -62,7 +73,8 @@ export class OrderExpenseComponent implements OnInit {
       });
     }
     ngOnDestroy() {
-      // this.taskFormSub.unsubscribe();
+      this.expenseFormSub.unsubscribe();
+      this.clearExpenseForm()
     } 
     
     calculatGrandTotal() {
@@ -93,31 +105,72 @@ export class OrderExpenseComponent implements OnInit {
      */
 
     saveExpenseForm() {
-      console.log('Todo saved!');
-      console.log(this.expenseForm.value);
       this.calculatTotals();
-      this.expenseForm.get('id').setValue(this.data.order.id);
-      console.log(this.expenseForm.value)
-      this.httpClient.put(`${this.data.url + this.data.order.id}/`, this.expenseForm.value)
-      .subscribe(response => {
-        console.log(response);
-      })
-    }
-    getExpenseItems(){
-      // get expenseItems for updatre
-    }
-    addToOrder() {
-      // add expense to orders
+      if (this.update === true) {
+        this.httpClient.put(`${this.data.url + this.orderId}/`, this.expenseForm.value)
+        .subscribe(response => {
+          console.log(response);
+          this.clearExpenseForm();
+        })
+      } else {
+        this.httpClient.post(`${this.data.url}`, this.expenseForm.value)
+        .subscribe(response => {
+          console.log(response);
+          this.clearExpenseForm();
+        })
+      }
+      this.clearExpenseForm();
     }
 
-    clearTodosForm() {
+
+    clearExpenseForm() {
       // this.taskFormService.clearForm();
       this.expenseFormService.clearForm();
     }
 
 
-    updateExpenseList() {
-      // update the expense list
-    }
+    updateExpenseListItems() {
 
-}
+    }
+    updateExpenseItems() {
+      if (this.update) {
+        this.currentExpenseItems = this.data.order.orderExpense[0];
+        console.log(this.currentExpenseItems);
+        let expenseItemList = this.currentExpenseItems.expenseItems;
+        let currentExpenseItem = this.expenseForm.get('expenseItems') as FormArray;
+
+        for (let item of expenseItemList) {
+          let expItem = new ExpenseItem(item.expenseItemName, item.expenseItemCost, this.qty);
+          currentExpenseItem.push(
+            this.fb.group(
+              new ExpenseItemForm(expItem)
+              )
+            );
+          } 
+        }
+      }
+  }
+
+/*
+
+updateBlanketTask(selectedtodos) {
+  const todos =  selectedtodos;
+  this.selectedOrderTask = selectedtodos;
+  this.updateId = selectedtodos['id'];
+  this.orderTFS.clearForm();
+  if (this.ordertaskForm.get('todos').value.length === 0) {
+    for (const todo in todos) {
+      if (todos.hasOwnProperty(todo)) {
+        const todoslist =  todos[todo];
+        // const currentTask = this.taskForm.getValue();
+        const currentTodos = this.ordertaskForm.get('todos') as FormArray;
+        currentTodos.push(
+        this.fb.group(
+          new OrderTaskTodosForm(
+            new OrderTaskTodo(todoslist['todo'],todoslist['comment'], todoslist['duedate'], todoslist['status']  ))
+        )
+      );
+      } else {console.log('field'); }
+    }
+  }
+}*/

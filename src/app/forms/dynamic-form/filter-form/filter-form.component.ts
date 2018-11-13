@@ -93,33 +93,27 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     this.ordersService.setParameters({
       buyer:this.filterForm.value['buyers'],
       buyerStyle: this.filterForm.value['buyer_style_number'],
-      dueDateAfter: dueDateAFter,
-      dueDateBefore: dueDateBefore,
+      dueDateAfter: dueDateBefore,
+      dueDateBefore: dueDateAFter,
       jpStyle:this.filterForm.value['jp_style_number'],
       isActive: this.filterForm.value['isActive'],
       ordering:''}); // use this to set the observer going forward on order service. 
     this.ordersService.findOrders2();
-    console.log(this.opt);
   }
   getTotalCost(order) {
     this.totalCost['jpCost'] = order.map(t => t.qty * t.cost_from_factory).reduce((acc, value) => acc + value, 0);
     this.totalCost['buyerCost'] = order.map(t => t.qty * t.buyers_price).reduce((acc, value) => acc + value, 0);
     this.totalCost['simpleProfit'] = this.totalCost.buyerCost  - this.totalCost.jpCost;
-    console.log(this.totalCost);
     return this.totalCost;
   }
   options(orders) {
     let options = []
     orders.forEach(function (buyer_name) {
-      console.log(buyer_name)
     })
     for (let order of orders) {
       options.push(order.buyer_name)
     }
     return options;
   }
-  showOrders() {
-    console.log(this.order);
-    console.log(this.opt);
-  }
 }
+

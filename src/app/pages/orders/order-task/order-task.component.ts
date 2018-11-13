@@ -8,6 +8,7 @@ import { Order } from 'src/app/modules/models/orders.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
+
 export interface DialogData {
   url: string;
   formData?: any;
@@ -56,6 +57,7 @@ export class OrderTaskComponent implements OnInit {
   this.ordertaskGroups = this.orderTFS.ordertaskGroups;
   console.log('you got these task groups form service: ', this.ordertaskGroups);
   }
+
 
   ///// ADD and Delete todos parent--> child/////
   addOrderTodos() {
@@ -119,7 +121,6 @@ export class OrderTaskComponent implements OnInit {
   setOrderAndGroup(event) {
     this.updateId = event.id;
     this.isActive = event.isActive;
-    console.log(event.isActive, 'YOYOYOYOYOYOYOYOYOYOYOYOOOOOOOOOOOOOOOOOOOOOOOO')
     this.ordertaskForm.get('order').setValue(event.order);
     this.ordertaskForm.get('todos_group').setValue(event.todos_group);
     this.ordertaskForm.get('set_status').setValue(event.set_status);

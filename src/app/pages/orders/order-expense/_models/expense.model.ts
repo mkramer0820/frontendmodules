@@ -1,10 +1,12 @@
 
 
 export class Expense {
+    order?: string;
     totalExpense?: number;
     expenseItems?: ExpenseItem[];
 
-    constructor(total?: number, expenseItems?: ExpenseItem[]) {
+    constructor(order?: string, total?: number, expenseItems?: ExpenseItem[]) {
+        this.order = order;
         this.totalExpense = total;
         this.expenseItems = expenseItems;
     }

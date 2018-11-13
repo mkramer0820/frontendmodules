@@ -45,7 +45,7 @@ export class FilterFormService {
       new FormDatePicker({
         key: 'start_date',
         value: '',
-        label: 'Start Date',
+        label: 'Date Range Start',
         controlType: 'datepicker',
         required: false,
         order: 4,
@@ -53,7 +53,7 @@ export class FilterFormService {
       new FormDatePicker({
         key: 'end_date',
         value: '',
-        label: 'End Date Date',
+        label: 'Date Range End',
         controlType: 'datepicker',
         required: false,
         order: 5,

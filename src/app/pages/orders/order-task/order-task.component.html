@@ -2,7 +2,6 @@
 <mat-dialog-content  *ngIf="update==false">
   <mat-card class="add-task-card">
       <mat-card-header>
-        {{order | json}}
 
       <mat-card-title>Create Task For {{order.buyer_style_number}}</mat-card-title>
         <h4 *ngIf='update != false && order'>Update Tasks For {{order.buyer_style_number}}</h4>

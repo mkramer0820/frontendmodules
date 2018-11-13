@@ -38,6 +38,8 @@ import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form
 import { OrderExpenseComponent } from './orders/order-expense/order-expense.component';
 import { OrderExpenseItemComponent } from './orders/order-expense/order-expense-item/order-expense-item.component';
 import {ExpenseFormService} from './orders/order-expense/_service/expense-form.service';
+import { OrderCardsComponent } from './orders/orders-table/order-cards/order-cards.component';
+import { OrdersComponent } from './orders/orders.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -72,7 +74,9 @@ import {ExpenseFormService} from './orders/order-expense/_service/expense-form.s
     OrderDetailComponent,
     FilterFormComponent,
     OrderExpenseComponent,
-    OrderExpenseItemComponent
+    OrderExpenseItemComponent,
+    OrderCardsComponent,
+    OrdersComponent
   ],
   entryComponents: [
     DynamicFormRequestComponent,
@@ -85,6 +89,7 @@ import {ExpenseFormService} from './orders/order-expense/_service/expense-form.s
     OrdersTableComponent,
     FactoryTableComponent,
     TimeDifferenceComponent,
+    OrderCardsComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -52,10 +52,7 @@ export class OptionsFormService {
       .pipe(map(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
-            if (item != 'totalExpense' && item != 'expenseItems') {
-              console.log(item)
-
-              if (response[item]['read_only'] === false && (response[item]['type'] === 'option' ||
+            if (response[item]['read_only'] === false && (response[item]['type'] === 'option' ||
               response[item]['type'] === 'choice')) {
               //let optionJson = response[item]['choices'];
               let optionJson= [];
@@ -133,8 +130,7 @@ export class OptionsFormService {
               }
             }
 
-          }
-          this.newForm = newForm;
+        this.newForm = newForm;
         return newForm;
       })
     )}

@@ -33,6 +33,7 @@ export const AppConfig: IAppConfig = {
     task: `task/`,
     taskGroup: `task/group/`,
     orderTasks: `orders/tasks/`,
+    orderExpense: `order-expense/`,
   },
 };
 

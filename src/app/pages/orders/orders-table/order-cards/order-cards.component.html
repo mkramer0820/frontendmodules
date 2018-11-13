@@ -1,0 +1,24 @@
+
+<mat-card class="example-card"> 
+    <mat-card-header>
+
+      <mat-card-title>{{tasks.todos_group}} </mat-card-title>
+      <mat-card-subtitle>{{tasks.set_name}}</mat-card-subtitle>
+      <mat-card-subtitle [ngClass]="{'Complete' : tasks.set_status === 'Complete',
+                      'Not-Complete' : tasks.set_status === 'Started', 'NA': tasks.sstatus === 'NA'}">
+                        Status: {{tasks.set_status}}
+      </mat-card-subtitle>
+      <div mat-card-avatar class="example-header-image"><img src='{{avatar}}'></div>
+    </mat-card-header>
+
+    <mat-card-content *ngFor="let todo of tasks.todos">
+        <div class="inner">
+          <ol>
+            <li >Task Type {{todo.todo}} -- Status: {{todo.status}}</li >
+            <li #time ><app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{todo.duedate}}></app-time-difference><li>
+            <li >Comment: {{todo.comment}}</li >
+          </ol>
+        </div>
+    </mat-card-content>
+
+</mat-card>

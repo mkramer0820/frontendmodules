@@ -23,6 +23,7 @@ import {OrderTaskComponent} from '../order-task/order-task.component';
 import {OrderDetailComponent} from '../order-detail/order-detail.component';
 import {FilterFormComponent} from '../../../forms/dynamic-form/filter-form/filter-form.component';
 import { OrderExpenseComponent } from '../order-expense/order-expense.component';
+import { unescapeIdentifier } from '@angular/compiler';
 
 const moment = _rollupMoment || _moment;
 
@@ -52,9 +53,9 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   orders: Order[];
   //dataSource = new MatTableDataSource();
   displayColumns: string [] = [
-   'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'BUYER STYLE #', 'JP STYLE #',
+   'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER TYPE', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
-    'ORDER TYPE', 'QTY', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
+    'QTY','TOT. EXPENSE', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
     'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'EXPENSE'];
 
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
@@ -93,8 +94,10 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(FilterFormComponent) child;
+
   @Input() cards: boolean = true;
-  filtermessage: string;
+  filtermessage: any;
 
 
   public firstDate = moment();
@@ -117,6 +120,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.getTotalCost(this.orders);
     this.options(this.orders);
+    this.filtermessage = this.child.filterForm.value;
+    console.log("FILTER MESSAGE", this.filtermessage)
   }
   onRowClicked(row) {
     this.order = row;
@@ -196,7 +201,7 @@ openUpdateDialog(order): void {
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
     height: '800px',
-    data: {qty: AppConfig.urlOptions.orders, url: AppConfig.base, update: false}
+    data: {formData: order, url: AppConfig.urlOptions.orders, update: true}
   });
   dialogRef.afterClosed().subscribe(result => {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
@@ -226,9 +231,14 @@ openUpdateDialog(order): void {
 // modal Expense                //
 /////////////////////////////////
 
-openExpenseDialog(order): void {
+openAddExpenseDialog(order): void {
+  let update: boolean;
+  if (order.orderExpense.length === 0 ) {
+    update = false;
+  } else { update = true};
+  console.log(update)
   const dialogRef = this.dialog.open(OrderExpenseComponent, {
-    data: {order: order, url: AppConfig.urlOptions.orders, update: true}
+    data: {order: order, url: AppConfig.urlOptions.orderExpense, update: update}
   });
   dialogRef.afterClosed().subscribe(result => {
     this.apiService.getOrders().subscribe((orders: Array<Order>) => {
@@ -239,34 +249,47 @@ openExpenseDialog(order): void {
 }
 
 
-
 /////////////////////////////////////////////////////////////////
 //            FILTERS                                         //
 ///////////////////////////////////////////////////////////////
 
   sortTable(ordering?) {
-    let orderingFilter: string;
+    this.filtermessage = this.child.filterForm.value;
+    let orderingFilter = this.child.filterForm.value;
+    console.log(orderingFilter)
 
     switch(this.orderSortCase) {
       case (1):
-        orderingFilter = ordering;
-        console.log(orderingFilter);
+        orderingFilter['ordering'] = ordering;
         this.orderSortCase = 2;
           break;
       case(2):
-        orderingFilter = '-' + ordering;
-        console.log(orderingFilter);
+        orderingFilter['ordering'] = '-' + ordering;
         this.orderSortCase = 1;
         break;
       default:
-        orderingFilter = ordering;
-        console.log(orderingFilter);
+        orderingFilter['ordering'] = ordering;
         this.orderSortCase = 2;
     }
 
+    if (orderingFilter['start_date'] === "") {
+      orderingFilter['start_date'] = '';
 
-    this.ordersService.setParameters({ordering: orderingFilter})
-    this.ordersService.findOrders2();
+    } else { orderingFilter['start_date'] = moment(orderingFilter['start_date']).format('YYYY-MM-DD') }
+    if (orderingFilter['end_date'] === "") {
+      orderingFilter['end_date'] = '';
+    } else { orderingFilter['end_date'] = moment(orderingFilter['end_date']).format('YYYY-MM-DD') }
+
+    console.log(orderingFilter)
+    this.ordersService.setParameters({
+      buyer: orderingFilter['buyers'],
+      buyerStyle: orderingFilter['buyer_style_number'],
+      dueDateAfter: orderingFilter['start_date'],
+      dueDateBefore: orderingFilter['end_date'],
+      jpStyle:orderingFilter['jp_style_number'],
+      isActive: orderingFilter['isActive'],
+      ordering: orderingFilter['ordering']});
+     this.ordersService.findOrders2();
   }
 
 }

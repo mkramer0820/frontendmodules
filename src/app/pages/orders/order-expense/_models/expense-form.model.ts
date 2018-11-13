@@ -2,11 +2,11 @@ import { FormControl, Validators, FormArray } from '@angular/forms'
 import { Expense, ExpenseItem } from './expense.model';
 
 export class ExpenseForm {
-  id = new FormControl()
+  order = new FormControl()
   totalExpense = new FormControl();
   expenseItems = new FormArray([]);
 
-  constructor(expense: Expense) {
+  constructor(expense?: Expense) {
     if (expense.expenseItems) {
       this.expenseItems.setValue([expense.expenseItems]);
     }
@@ -17,16 +17,19 @@ export class ExpenseItemForm {
     expenseItemName = new FormControl()
     expenseItemCost = new FormControl()
     expenseItemTotal = new FormControl()
+    qty: number;
     constructor(
-      expenseItem: ExpenseItem,
+      expenseItem?: ExpenseItem,
+      qty?: number,
     ) {
       this.expenseItemName.setValue(expenseItem.itemName);
       this.expenseItemCost.setValue(expenseItem.itemCost);
+      this.expenseItemTotal.setValue(expenseItem.itemTotal);
 
     }
 
-    calcCost() {
-        let cost = this.expenseItemCost.value * 100;
+    calcCost(qty: number) {
+        let cost = this.expenseItemCost.value * qty;
         return cost;
     }
 

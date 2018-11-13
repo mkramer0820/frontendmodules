@@ -13,15 +13,13 @@
         </td>
         <td>
             <mat-form-field>
-              <input matInput formControlName="expenseItemTotal" placeholder="Total Item Cost" (keyUp)="onTotal($event)">
+              <input matInput formControlName="expenseItemTotal" placeholder="Total Item Cost">
             </mat-form-field>
         </td>
         <td>
           <button mat-icon-button (click)="delete()"><mat-icon>delete</mat-icon></button>
         </td>
     </table>
-    <pre>Todos Form Status: <span class="status">{{expenseItemForm.status}}</span></pre>
+    <!--<pre>Todos Form Status: <span class="status">{{expenseItemForm.status}}</span></pre>-->
   </form>
-
-  {{expenseItems | json}}
   <mat-divider></mat-divider>

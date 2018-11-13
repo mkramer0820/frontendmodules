@@ -14,7 +14,14 @@ export class OrderService {
   private orders = new BehaviorSubject<Order[]>([]);
   currentOrders = this.orders.asObservable();
   sort: string;
-  parameters: {};
+  parameters: {
+    buyer?: string;
+    dueDateBefore?: string;
+    dueDateAfter?: string;
+    ordering?: string;
+    buyerStyle?: string;
+    jpStyle?:string;
+    isActive?: boolean; }; 
   buyer?: string;
   dueDateBefore?: string;
   dueDateAfter?: string;
@@ -45,10 +52,11 @@ export class OrderService {
 
 
   findOrders2() {
+    console.log(this.parameters)
     return this.http.get( `${AppConfig.endpoints.url + AppConfig.urlOptions.orders +'?'}`,
         {
           params: new HttpParams()
-              .set('buyer', this.parameters['buyer'].toString())
+              .set('buyer', this.parameters.buyer.toString())
               .set('due_date_before', this.parameters['dueDateBefore'].toString())
               .set('due_date_after', this.parameters['dueDateAfter'].toString())
               .set('ordering', this.parameters['ordering'].toString())
