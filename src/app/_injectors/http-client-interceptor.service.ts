@@ -23,7 +23,9 @@ export class HttpClientInterceptorService implements HttpInterceptor {
     //const httpRequest = new HttpRequest(<any>request.method, environment.host + request.url, request.body);
     //request = Object.assign(request, httpRequest);
 
-    const token = JSON.parse(localStorage.getItem('currentUser'));
+    // const token = JSON.parse(localStorage.getItem('currentUser'));
+    const token = localStorage.getItem('currentUser');
+    console.log('injection toekn', token);
 
     if (token) {
       const newReq = request.clone(
@@ -50,9 +52,9 @@ export class HttpClientInterceptorService implements HttpInterceptor {
               this.router.navigate(['login']); }
           }
         })
-      )
+      );
     } else {
       return next.handle(request);
     }
-  };
+  }
 }

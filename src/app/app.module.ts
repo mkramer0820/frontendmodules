@@ -57,6 +57,7 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
     { provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptorService, multi: true },
     // {
     //      provide: HTTP_INTERCEPTORS,
     //      useClass: HttpClientInterceptorService,
