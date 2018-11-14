@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AppConfig } from '../config/app.config';
 
-const BASE_URL = 'http://127.0.0.1:8000/';
 
 @Injectable({ providedIn:'root' })
 export class HttpClientService {
-  BASE_URL = 'http://127.0.0.1:8000/';
+  BASE_URL = AppConfig.base;
   //BASE_URL = 'http://104.248.10.237/'
 
   constructor(private http: HttpClient) { }

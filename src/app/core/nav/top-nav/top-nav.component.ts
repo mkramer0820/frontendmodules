@@ -11,6 +11,7 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   username: string;
   token_expires: Date;
   hidden: boolean = true;
+  user: any;
 
   constructor(
     public navService: NavService,
@@ -28,7 +29,7 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   }
 
   updateData() {
-    let token = localStorage.getItem('currentUser')
+    let token = localStorage.getItem('currentUser');
     if (token) {
       let errors = [];
 

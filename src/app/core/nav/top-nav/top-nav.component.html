@@ -5,6 +5,6 @@
       <span>Jeanne Pierre Order Organizer</span>
       <span  class="example-fill-remaining-space"></span>
       <span>{{username}}</span>
-      <button mat-button  color="accent" (click)='logOut()' class="bold-font">Logout</button>
+      <button mat-button  color="accent" (click)='logOut()' class="bold-font" [routerLink]="['login/']">Logout</button>
 
     </mat-toolbar>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import {Headers} from '@angular/http';
 import { map, filter, catchError, mergeMap } from 'rxjs/operators';
+import {AppConfig} from './app.config';
 
 import {Order} from '../modules/models/orders.model';
 import {Observable, /*of, throwError as observableThrowError*/ } from 'rxjs';
@@ -26,7 +27,7 @@ const httpOptions = {
 export class ApiService {
 
   cred: any;
-  API_URL = 'http://127.0.0.1:8000';
+  API_URL = AppConfig.base;
   //API_URL = 'http://104.248.10.237'
   private token = localStorage.getItem('currentUser');
   private headers: any;
@@ -45,41 +46,41 @@ export class ApiService {
   }
   getCustomers(): Observable<Customer[]> {
 
-    return this.httpClient.get<Customer[]>(`${this.API_URL}/customer/`, )
+    return this.httpClient.get<Customer[]>(`${this.API_URL}customer/`, )
     }
 
   createCustomer(customer) {
-    return this.httpClient.post(`${this.API_URL}/customer/`, customer);
+    return this.httpClient.post(`${this.API_URL}customer/`, customer);
   }
   getCustomerDetail(id): Observable<Customer[]> {
-    return this.httpClient.get<any>(`${this.API_URL}/customer/${id}/`);
+    return this.httpClient.get<any>(`${this.API_URL}customer/${id}/`);
   }
   updateCustomer(customer, id){
-   return this.httpClient.put(`${this.API_URL}/customer/${id}/`, customer);
+   return this.httpClient.put(`${this.API_URL}customer/${id}/`, customer);
   }
 
   //factories
   factories() {
-    return this.httpClient.get(`${this.API_URL}/factory/`);
+    return this.httpClient.get(`${this.API_URL}factory/`);
   }
   getFactoryDetails(id): Observable<any[]> {
-    return this.httpClient.get<any>(`${this.API_URL}/factory/${id}/`)
+    return this.httpClient.get<any>(`${this.API_URL}factory/${id}/`)
   }
   createFactory(factory) {
-    return this.httpClient.post(`${this.API_URL}/factory/`, factory);
+    return this.httpClient.post(`${this.API_URL}factory/`, factory);
   }
   //factory contacts
   updateFactory(factory, id){
-   return this.httpClient.put(`${this.API_URL}/factory/${id}/`, factory);
+   return this.httpClient.put(`${this.API_URL}factory/${id}/`, factory);
   }
   getFactoryContacts() {
-    return this.httpClient.get(`${this.API_URL}/factory/contacts/`);
+    return this.httpClient.get(`${this.API_URL}factory/contacts/`);
   }
   updateFactoryContacts(id, contact) {
-    return this.httpClient.put(`${this.API_URL}/factory/contacts/${id}`, contact);
+    return this.httpClient.put(`${this.API_URL}factory/contacts/${id}`, contact);
   }
   createFactoryContact(contact) {
-    return this.httpClient.post(`${this.API_URL}/factory/contacts/`, contact);
+    return this.httpClient.post(`${this.API_URL}factory/contacts/`, contact);
   }
   decodeJwt(){
     this.cred = this.authService.updateData(this.token);
@@ -88,7 +89,7 @@ export class ApiService {
   getOrders(ordering?: string): Observable<Order[]> {
     let headers = this.setHeaders();
     this.setHeaders();
-    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/?ordering=${ordering}`, {headers});
+    return this.httpClient.get<Order[]>(`${this.API_URL}orders/?ordering=${ordering}`, {headers});
   }
   getMyOrders(): Observable<Order[]> {
     let headers: HttpHeaders = new HttpHeaders();
@@ -96,7 +97,7 @@ export class ApiService {
     //headers = headers.append('content-type', 'application/json');
     headers = headers.append('Authorization', `Bearer ${currentUser.token}`);
     console.log(headers);
-    return this.httpClient.get<Order[]>(`${this.API_URL}/orders/`, {headers: headers});
+    return this.httpClient.get<Order[]>(`${this.API_URL}orders/`, {headers: headers});
   }
 /*
   let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -109,13 +110,13 @@ export class ApiService {
   }*/
 
   getOrdersDetails(id) {
-    return this.httpClient.get(`${this.API_URL}/orders/${id}`);
+    return this.httpClient.get(`${this.API_URL}orders/${id}`);
   }
   createOrder(order) {
-    return this.httpClient.post(`${this.API_URL}/orders/`, order)
+    return this.httpClient.post(`${this.API_URL}orders/`, order)
   }
   uploadSweaterImg(id, uploadData) {
-    return this.httpClient.post(`${this.API_URL}/orders/imgupload/${id}/`, uploadData, {
+    return this.httpClient.post(`${this.API_URL}orders/imgupload/${id}/`, uploadData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {
@@ -125,44 +126,44 @@ export class ApiService {
   }
 
   getOrderDetials(id) {
-    return this.httpClient.get<any>(`${this.API_URL}/orders/${id}/`);
+    return this.httpClient.get<any>(`${this.API_URL}orders/${id}/`);
   }
   updateOrder(id, order) {
-    return this.httpClient.put(`${this.API_URL}/orders/${id}/`, order);
+    return this.httpClient.put(`${this.API_URL}orders/${id}/`, order);
   }
 
   //tasks
   getTasks() {
-    return this.httpClient.get(`${this.API_URL}/task/`);
+    return this.httpClient.get(`${this.API_URL}task/`);
   }
   getTaskDetail(id) {
-    return this.httpClient.get(`${this.API_URL}/task/${id}`, id);
+    return this.httpClient.get(`${this.API_URL}task/${id}`, id);
   }
   updateTask(id, task) {
-    return this.httpClient.put(`${this.API_URL}/task/${id}/`, task);
+    return this.httpClient.put(`${this.API_URL}task/${id}/`, task);
   }
   createTask(task) {
-    return this.httpClient.post(`${this.API_URL}/task/`, task)
+    return this.httpClient.post(`${this.API_URL}task/`, task)
   }
   taskOptions() {
-    return this.httpClient.options(`${this.API_URL}/task/`).subscribe(response => {
+    return this.httpClient.options(`${this.API_URL}task/`).subscribe(response => {
       console.log(response)
     })
   }
   getTaskGroups() {
-    return this.httpClient.get(`${this.API_URL}/task/group/`);
+    return this.httpClient.get(`${this.API_URL}task/group/`);
   }
   addTaskGroups(group) {
-    return this.httpClient.post(`${this.API_URL}/task/group/`, group);
+    return this.httpClient.post(`${this.API_URL}task/group/`, group);
   }
   addTaskToOrder(task) {
-    return this.httpClient.post(`${this.API_URL}/orders/tasks/`, task);
+    return this.httpClient.post(`${this.API_URL}orders/tasks/`, task);
   }
   updateOrderTask(task, id) {
-    return this.httpClient.put(`${this.API_URL}/orders/tasks/${id}`, task);
+    return this.httpClient.put(`${this.API_URL}orders/tasks/${id}`, task);
   }
 
   getDashBoardTask() {
-    this.httpClient.get(`${this.API_URL}/dashboard/}`);
+    this.httpClient.get(`${this.API_URL}dashboard/}`);
   }
 }

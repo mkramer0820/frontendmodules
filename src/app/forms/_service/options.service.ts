@@ -15,7 +15,7 @@ import {HttpClientService} from '../../_services/http-client.service';
 export class OptionsService {
 
   customerEndPoint: string;
-  BASE_URL = "http://127.0.0.1:8000/"
+  BASE_URL = AppConfig.base;
   apiUrl: any;
   test: any[] = [];
   dropdownOption: any;
