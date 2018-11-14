@@ -43,7 +43,7 @@ export class AddTaskGroupComponent implements OnInit {
   ////////////
   // message: string = 'Snack Bar opened.';
   actionButtonLabel: string = 'Retry';
-  action: boolean = true;
+  action: boolean = false;
   setAutoHide: boolean = true;
   autoHide: number = 2000;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -87,8 +87,9 @@ export class AddTaskGroupComponent implements OnInit {
           
           this.error = 'Group with this name already exists';
           console.log('yoyo',this.error);
-          this.openSnackBar(rsp);
           this.formGroup.reset();
+          this.openSnackBar('Group Created');
+
         });
         this.openSnackBar('Group Created');
   }

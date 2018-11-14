@@ -7,6 +7,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
 import {FormComponent} from './dynamic-form/form/form.component';
+import {DynamicFormSnackBar} from './_snackbar/dynamic-form-snackbar';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import {FormComponent} from './dynamic-form/form/form.component';
     DynamicFormsComponent,
     JpDynamicFormTaskSetComponent,
     FormComponent,
+
     
   ],
   exports: [JpFormsComponent, JpDynamicFormComponent, JpDynamicFormTaskSetComponent, FormComponent]

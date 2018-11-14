@@ -20,8 +20,17 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
 import { MessageService } from './_services/message.service';
-import { PostService } from './_services/post.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
+import {ErrorsHandler} from './_injectors/errors-handler/errors-handler';
+
+import { ErrorsModule } from './_injectors/errors-module';
+import { HttpService } from './_injectors/services/http/http.service';
+import { NotificationService } from './_injectors/services/notification.service';
+import { PageResolver } from './_injectors/resolvers/page.resolver';
+
+
+
+
 
 
 @NgModule({
@@ -45,6 +54,7 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
     MatIconModule,
     MatButtonModule,
     LayoutModule,
+    ErrorsModule,
   ],
   declarations: [
     AppComponent,
@@ -57,15 +67,17 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
     { provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptorService, multi: true },
-    // {
-    //      provide: HTTP_INTERCEPTORS,
-    //      useClass: HttpClientInterceptorService,
-    //      multi: true
-    //  },
+    {
+      provide: ErrorsHandler,
+      useClass: ErrorsHandler,
+      multi: true,
+    },
+    HttpService,
+    NotificationService,
+    PageResolver,
+
     NavService,
     MessageService,
-    PostService,
 
   ],
   bootstrap: [AppComponent]

@@ -14,18 +14,47 @@ $smallFont: small;
 $fw: 10px;
 $fsze: 14px;
 $mat-header-row-height: 65px;
-
+/*
 .mat-table {
    //overflow: auto;
     //max-height : 350px;
     
 
 
+}*/
+
+.my-dialog {
+    .mat-dialog-container {
+        padding: 0;
+    }
+}
+
+mat-cell p {
+    text-align: center;
+   line-height: 100px;
+   
+   }
+p {
+    padding-left: 10px;
+    word-wrap:break-word;
+
 }
 
 mat-cell.mat-cell{
-    font-size: 12px;
-    max-height: 2.5em;
+    font-size: 13px;
+    max-height: 1.5em;
+
+}
+.border-cell {
+    border-left: .2px left #E0E0E0;
+
+}
+
+
+
+
+#updates{
+    border-left: .5px solid #E0E0E0;
 }
       
 mat-mini-fab.mat-mini-fab {
@@ -47,24 +76,40 @@ mat-mini-fab.mat-mini-fab {
     height: 100%;
 
 }
-mat-header-cell:nth-child(1), mat-cell:nth-child(1) {
-    flex: 0 0 200px;
-}
+
 mat-header-row {
     min-height: $mat-header-row-height;
     font-size: 2em;
+
   }
 mat-row {
     display: block;
-    font-size: .8em;
-    overflow : hidden;
-    text-overflow : auto;
     min-height: $mat-header-row-height;
+    text-align:center;
+    //overflow: auto;
+
+}
+
+.container {
+    display:flex;
+    width:100%;
+    flex-flow:row wrap;
+    justify-content: space-between;
+  
+    
+  }
+  .block {
+
+  }
+.overflow {
+
+    word-wrap:break-word;
 }
 
 img {
     // width:$imgW;
     height:$imgH;
+    padding-left: 30px;
 }
 .Complete {
     color:rgb(14, 151, 14);

@@ -30,7 +30,6 @@ import { OrderDetailComponent } from './orders/order-detail/order-detail.compone
 import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
 import { JpFormsModule } from '../forms/jp-forms.module';
 import { DashboardComponent } from '../core/dashboard/dashboard.component';
-import {PostService} from '../_services/post.service';
 import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
@@ -98,7 +97,6 @@ import { OrdersComponent } from './orders/orders.component';
     TaskGroupService,
     ModalService,
     OrderTaskFormService,
-    PostService,
     OptionsFormService,
     ExpenseFormService,
 

@@ -66,6 +66,8 @@ export class FormComponent implements AfterContentChecked {
         response = this.form.value;
         console.log(response);
         this.form.reset();
+        this.submitService.openSnackBar('Created');
+
       });
     } else {
       let formdata = new FormData()
@@ -82,8 +84,10 @@ export class FormComponent implements AfterContentChecked {
         response = this.form.value;
         console.log(response);
         this.form.reset();
+        this.submitService.openSnackBar('Updated');
+
       });
-    }
+    } 
   }
   toFormGroup(models) {
     return this.form = this.fcs.toFormGroup(models)

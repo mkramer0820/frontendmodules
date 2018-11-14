@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,  ViewChild, Input} from '@angular/core';
+import { Component, OnInit, AfterViewInit,  ViewChild, Input, Inject} from '@angular/core';
 import {FormGroup, FormControl, ReactiveFormsModule, } from '@angular/forms';
 import {Order} from '../../../modules/models/orders.model';
 import {AppConfig} from '../../../config/app.config';
@@ -8,7 +8,7 @@ import {Subscription, of, } from 'rxjs';
 import { catchError} from 'rxjs/operators';
 import {Factory} from '../../../modules/models/factory.model';
 import {Customer} from '../../../modules/models/customer.model';
-import {MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import {MatDialog, MatTableDataSource, MatPaginator, MatSort, MatDialogConfig, MatDialogContainer } from '@angular/material';
 import { AuthenticationService } from '../../_services';
 import {ModalService} from '../../_services/modal.service';
 import {TaskGroupService} from '../../task/_service/task-group.service';
@@ -55,10 +55,12 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   displayColumns: string [] = [
    'ID', 'DUE DATE', 'BUYER', 'FACTORY', 'ORDER TYPE', 'BUYER STYLE #', 'JP STYLE #',
    'FACTORY SHIP DT', 'COST FROM FACTORY', 'BUYER PRICE',
-    'QTY','TOT. EXPENSE', 'SWEATER IMG', 'BRAND', 'SWEATER DESCRIPTION',
-    'FIBER CONTENT', 'COLOR', 'UPDATE', 'TASKS', 'EXPENSE'];
+    'QTY','TOT. EXPENSE', 'SWEATER IMG', 'BRAND',/* 'SWEATER DESCRIPTION',
+    'FIBER CONTENT', 'COLOR',*/ 'UPDATE', 'TASKS', 'EXPENSE'];
 
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
+  dialogConfig: MatDialogConfig;
+  dialogRow: any;
 
   ///////
   // shared message for order
@@ -116,6 +118,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       this.orders = message;
     });
     this.getTotalCost(this.orders);
+    console.dir(`Dialog config: ${this.dialogConfig}`);
+
   }
   ngAfterViewInit() {
     this.getTotalCost(this.orders);
@@ -126,6 +130,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   onRowClicked(row) {
     this.order = row;
     this.selectedTask = row.tasks;
+    this.dialogRow = row;
 
     console.log('Row clicked: ', row);
   }
@@ -216,8 +221,15 @@ openUpdateDialog(order): void {
 /////////////////////////////////
 
   openDetailDialog(order): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'custom-dialog-container';
+    dialogConfig.data = {order:order}
     const dialogRef = this.dialog.open(OrderDetailComponent, {
-      data: {order: order}
+      data: {order:order},
+      autoFocus: false,
+      panelClass: 'my-dialog',
+
     });
     dialogRef.afterClosed().subscribe(result => {
       this.apiService.getOrders().subscribe((orders: Array<Order>) => {

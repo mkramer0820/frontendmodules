@@ -1,5 +1,5 @@
 <!--{{orderDetail|json}}-->
-<mat-dialog-content>
+<mat-dialog-content class="child">
   <mat-card>
   <mat-card-header>
     <div mat-card-avatar ><mat-icon> local_grocery_store</mat-icon></div>
@@ -15,6 +15,7 @@
         <li style="list-style-type:none">Phone: {{customer.phone}}</li>
         <li style="list-style-type:none">Email: {{customer.email}}</li>
       </mat-card-subtitle>
+      <div><button mat-button (click)="updateSize()">update size</button></div>
   </mat-card-header>
   <mat-divider></mat-divider>
 
@@ -23,8 +24,7 @@
 
     <mat-card-title>Factory: {{orderDetail.factory_name}} </mat-card-title>
 
-    <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }}</mat-card-subtitle>
-    <mat-card-subtitle>Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
+    <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }} &nbsp; Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
     <mat-card-subtitle *ngFor="let factory of orderDetail.factory_set">
       <li style="list-style-type:none">Address:</li>
       <li style="list-style-type:none"> {{factory.address1}}</li> 
@@ -105,7 +105,7 @@
               [colspan]="tile.cols"
               [rowspan]="tile.rows"
               [ngStyle]="{'background-image':'url('+ tile.img +')',
-              'background-repeat': 'no-repeat', 'background-size':'cover', 
+              'background-repeat': 'no-repeat', 'background-size':'100px auto', 
               'background-position': 'center center'}">
               <div *ngIf="tile.texts">
                 

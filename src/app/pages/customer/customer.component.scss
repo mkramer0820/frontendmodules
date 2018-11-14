@@ -1,16 +1,12 @@
 /* ProfileEditorComponent's private CSS styles */
-:host {
-    display: flex;
-    flex-direction: column;
-    padding-top: 24px;
-  }
+
   mat-form-field {
   
     width: 100%;
     
   }
   mat-form-field.mat-form-field {
-    font-size: 12px;
+    font-size: 16px;
   }
   label {
     display: block;

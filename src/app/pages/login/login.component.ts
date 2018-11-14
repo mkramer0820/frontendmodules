@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services';
+import {HttpClientService} from '../../_services/http-client.service'
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
      private route: ActivatedRoute,
      private router: Router,
-     private authenticationService: AuthenticationService
+     private authenticationService: AuthenticationService,
+     private httpClientSerivce: HttpClientService,
   ) { }
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
        }
 
        this.loading = true;
-       this.authenticationService.login(this.f.username.value, this.f.password.value)
+       this.httpClientSerivce.login(this.f.username.value, this.f.password.value)
            .pipe(first())
            .subscribe(
                data => {
@@ -56,6 +58,8 @@ export class LoginComponent implements OnInit {
                error => {
                    this.error = error;
                    this.loading = false;
+                   console.log('Login Error')
+                   this.httpClientSerivce.openSnackBar('Try Again Incorrect user Name')
                });
    }
    getJwt() {

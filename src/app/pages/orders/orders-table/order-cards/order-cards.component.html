@@ -14,8 +14,8 @@
     <mat-card-content *ngFor="let todo of tasks.todos">
         <div class="inner">
           <ol>
-            <li >Task Type {{todo.todo}} -- Status: {{todo.status}}</li >
-            <li #time ><app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{todo.duedate}}></app-time-difference><li>
+            <li >Task Type {{todo.todo}} -- Status: {{todo.status}}</li>
+            <li #time ><app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{todo.duedate}}></app-time-difference></li>
             <li >Comment: {{todo.comment}}</li >
           </ol>
         </div>
