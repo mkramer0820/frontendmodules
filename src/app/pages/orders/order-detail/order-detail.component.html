@@ -10,9 +10,7 @@
         <li style="list-style-type:none"> {{customer.address1}}</li> 
         <li style="list-style-type:none"> {{customer.address2}}</li> 
         <li style="list-style-type:none"> {{customer.address3}}</li> 
-        <li style="list-style-type:none">{{customer.city}}</li>
-        <li style="list-style-type:none">{{customer.state}}</li>
-        <li style="list-style-type:none">{{customer.zipcode}}</li>
+        <li style="list-style-type:none">{{customer.city}}, &nbsp; {{customer.state}} &nbsp; {{customer.zipcode}}</li>
         <li style="list-style-type:none">{{customer.country}}</li>
         <li style="list-style-type:none">Phone: {{customer.phone}}</li>
         <li style="list-style-type:none">Email: {{customer.email}}</li>
@@ -27,30 +25,28 @@
 
     <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }}</mat-card-subtitle>
     <mat-card-subtitle>Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
-    <mat-card-subtitle *ngFor="let customer of orderDetail.factory_set">
+    <mat-card-subtitle *ngFor="let factory of orderDetail.factory_set">
       <li style="list-style-type:none">Address:</li>
-      <li style="list-style-type:none"> {{customer.address1}}</li> 
-      <li style="list-style-type:none"> {{customer.address2}}</li> 
-      <li style="list-style-type:none"> {{customer.address3}}</li> 
-      <li style="list-style-type:none">{{customer.city}}</li>
-      <li style="list-style-type:none">{{customer.state}}</li>
-      <li style="list-style-type:none">{{customer.zipcode}}</li>
-      <li style="list-style-type:none">{{customer.country}}</li>
-      <li style="list-style-type:none">Phone: {{customer.phone}}</li>
-      <li style="list-style-type:none">Email: {{customer.email}}</li>
+      <li style="list-style-type:none"> {{factory.address1}}</li> 
+      <li style="list-style-type:none"> {{factory.address2}}</li> 
+      <li style="list-style-type:none"> {{factory.address3}}</li> 
+      <li style="list-style-type:none">{{factory.city}}, &nbsp; {{factory.state}} &nbsp; {{factory.zipcode}}</li>
+      <li style="list-style-type:none">{{factory.country}}</li>
+      <li style="list-style-type:none">Phone: {{factory.phone}}</li>
+      <li style="list-style-type:none">Email: {{factory.email}}</li>
 
 
       </mat-card-subtitle>
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <table  border="1"> 
+    <table  style='border: thin solid'> 
       <th>Quantity</th>
       <th>Factory Cost Per Unit </th>
       <th>Buyer Price Per Unit</th>
       <th>JP Total Cost</th>
       <th>Buyer Total Cost</th>
-      <th> Profit/Loss</th>
+      <th> Profit/Loss Before Expenses</th>
       <tr>
         <td>{{orderDetail.qty}}</td>
         <td>{{orderDetail.cost_from_factory | currency}}</td>
@@ -59,9 +55,46 @@
         <td>{{buyerCost | currency}}</td>
         <td>{{profit | currency}}</td>
       </tr>
+      <th style='border: none;'></th>
+      <th style='border: none;'></th>
+      <th style='border: none;'></th>
+      <th >Expense Name</th>
+      <th>Cost Per Sweater</th>
+      <th>Expense Item total</th>
+        <ng-container *ngFor="let item of orderDetail.orderExpense">
+          <ng-container *ngFor='let i of item.expenseItems'>
+          <tr>
+            <td style='border: none'></td>
+            <td style='border: none;'></td>
+            <td style='border: none;'></td>
+            <td>{{i.expenseItemName}}</td>
+            <td>{{i.expenseItemCost}}</td>
+            <td>{{i.expenseItemTotal | currency}}</td>
+          </tr>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngFor="let item of orderDetail.orderExpense">
+          <th style='border: none;'></th>
+          <th style='border: none;'></th>
+          <th style='border: none;'></th>
+          <th style='border: none;'></th>
+          <th style='border: none;'></th>
+          <tr>
+              <td style='border: none;'></td>
+              <td style='border: none;'></td>
+              <td style='border: none;'></td>
+              <td></td>
+              <td style="font-weight: bolder">P&L After Expenses</td>
+              <td >
+                {{ (profit) - (item.totalExpense) | currency }}
+              </td>
+          </tr>
+        </ng-container>
+
     </table>
-    
+
   </mat-card-content>
+
 
   <mat-divider></mat-divider>
 

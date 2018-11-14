@@ -52,8 +52,7 @@ export class OrderDetailComponent implements OnInit {
              cols: 3 , rows: 2},
   ];
 
-  orderAddress: OrderAddress[] = [
-  ]
+  orderAddress: OrderAddress[] = []
 
   jpCost?: number;
   buyerCost?: number;
