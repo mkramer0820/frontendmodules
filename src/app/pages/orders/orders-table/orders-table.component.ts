@@ -197,6 +197,16 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       width: '700px',
       data: {url: AppConfig.urlOptions.orderTasks, order: order, formData: order.tasks, update: true}
     });
+    dialogRef.afterClosed().subscribe((orders: Order[]) => {
+      this.ordersService.findPaginatedOrders();
+      this.ordersService.currentOrders.subscribe((orders: Order[]) => {
+        this.orders = orders;
+        this.length = this.ordersService.url.length;
+        this.pageSize = this.ordersService.url.pageSize;
+        this.getTotalCost(orders)
+  
+       })
+    })
 
   }
 
@@ -217,6 +227,10 @@ openUpdateDialog(order): void {
     height: '800px',
     data: {formData: order, url: AppConfig.urlOptions.orders, update: true}
   });
+  dialogRef.afterClosed().subscribe((orders: Order[]) => {
+    this.ordersService.findPaginatedOrders();
+    
+  })
 
 
 
