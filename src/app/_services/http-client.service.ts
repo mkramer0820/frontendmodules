@@ -71,8 +71,8 @@ export class HttpClientService {
         );
   }
 
-  delete(url: string, options?: any): Observable<ArrayBuffer> {
-    return this.http.delete(`${this.BASE_URL}${url}`, options);
+  delete(url: string) {
+    return this.http.delete(`${this.BASE_URL + url}/`);
   }
 
   options(url, options?: any): Observable<ArrayBuffer> {

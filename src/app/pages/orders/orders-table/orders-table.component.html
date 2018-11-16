@@ -16,7 +16,16 @@
 
       </mat-expansion-panel>
     </mat-accordion> -->
-    <mat-table id="orderTable" class="primary" [dataSource]="orders" matSort class="mat-elevation-z8">
+    <div  fxLayout="row" fxLayoutAlign="space-evenly stretch" >
+        
+
+    </div>
+    <div [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive">
+    <mat-list [class.mat-elevation-z8]>
+        <app-filter-form #newFilters ></app-filter-form>
+    </mat-list>
+  </div>
+    <mat-table id="orderTable" [dataSource]="orders" matSort class="mat-elevation-z8">
 
           <ng-container matColumnDef="id" style="padding:0;">
             <mat-header-cell *matHeaderCellDef mat-sort-header (click)='sortTable(displayColumns)'  fxFlex="1 1 5%"> <p>Id</p> </mat-header-cell>
@@ -134,6 +143,8 @@
             <mat-header-cell *matHeaderCellDef ><p> Update Order </p></mat-header-cell>
             <mat-cell mat-cell  id="updates"  *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  >
               <button mat-icon-button (click)="openUpdateDialog(order)"><mat-icon >update</mat-icon></button>
+              <button mat-icon-button (click)="openDeleteDialog(order)"><mat-icon >delete</mat-icon></button>
+
               </mat-cell>
             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
@@ -166,7 +177,7 @@
             </ng-container>
 
             
-      <mat-header-row *matHeaderRowDef="displayColumns" ></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayColumns;" (click)="onRowClicked(row)" (click)="onRowHighlight(row)"  ></mat-row>
       <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>
         

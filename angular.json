@@ -30,7 +30,9 @@
               "src/assets/logo.png"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/pages/orders/orders-table/theme/orders-table-theme.component.scss",
+              "src/candy-app-theme.scss"
             ],
             "scripts": []
           },
@@ -79,7 +81,9 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/pages/orders/orders-table/theme/orders-table-theme.component.scss",
+              "src/candy-app-theme.scss"
             ],
             "scripts": [],
             "assets": [

@@ -4,6 +4,17 @@
 @import '~@angular/material/theming';
 @include mat-core();
 
+$primary-color-dark:   #616161;
+$primary-color:        #9E9E9E;
+$primary-color-light:  #F5F5F5;
+$primary-color-text:   #212121;
+$accent-color:         #03A9F4;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+$accent-color:         #03A9F4;
+
+
 $app-primary: mat-palette($mat-gray, 800);
 // $app-accent: mat-palette($mat-yellow, 50);
 
@@ -27,6 +38,27 @@ $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
   $alternate-accent:  mat-palette($mat-yellow, 400);
   $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
   @include angular-material-theme($alternate-theme);
+}
+
+
+.orders-theme {
+
+  $orders-app-primary: mat-palette($mat-gray, 100);
+  $orders-app-accent:  mat-palette($mat-light-blue, 500);
+  $orders-app-warn:    mat-palette($mat-deep-orange);
+
+  $orders-app-theme: mat-light-theme($orders-app-primary, $orders-app-accent, $orders-app-warn);@include angular-material-theme($orders-app-theme);
+}
+
+
+
+body { 
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 5px;
 }
 
 /*

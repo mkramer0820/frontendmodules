@@ -22,8 +22,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 location.reload(false);
                 this.httpCS.openSnackBar('Error Try again')
-            } else {this.httpCS.openSnackBar('success');}
-        
+            }
+            if (err.status === 404) {
+                    // auto logout if 401 response returned from api
+                    this.httpCS.openSnackBar('Not Found')
+
+            }
 
             const error = err.error.message || err.statusText;
             return throwError(error);

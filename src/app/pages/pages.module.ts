@@ -33,6 +33,7 @@ import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-
 import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
 import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form.component';
+import {FilterFormInputComponent} from '../forms/dynamic-form/filter-form/filter-form-input/filter-form-input.component';
 import { OrderExpenseComponent } from './orders/order-expense/order-expense.component';
 import { OrderExpenseItemComponent } from './orders/order-expense/order-expense-item/order-expense-item.component';
 import {ExpenseFormService} from './orders/order-expense/_service/expense-form.service';
@@ -73,12 +74,14 @@ import { OrdersComponent } from './orders/orders.component';
     OrderExpenseComponent,
     OrderExpenseItemComponent,
     OrderCardsComponent,
-    OrdersComponent
+    OrdersComponent,
+    FilterFormInputComponent,
   ],
   entryComponents: [
     DynamicFormRequestComponent,
     OrderDetailComponent,
     FilterFormComponent,
+    FilterFormInputComponent,
 
   ],
   exports: [

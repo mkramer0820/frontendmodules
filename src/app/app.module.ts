@@ -21,6 +21,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
 import { MessageService } from './_services/message.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
+import {DeleteModalComponent} from './_helpers/delete-modal/delete-modal.component';
+
 
 
 
@@ -54,8 +56,13 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
     AppComponent,
     DatetimeFormat,
     DateFormat,
+    DeleteModalComponent,
     ],
   exports: [
+    DeleteModalComponent
+  ],
+  entryComponents: [
+    DeleteModalComponent
   ],
   providers: [
     { provide: APP_CONFIG, useValue: AppConfig},

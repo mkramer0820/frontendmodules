@@ -28,6 +28,7 @@ import { OrderExpenseComponent } from '../order-expense/order-expense.component'
 import { unescapeIdentifier } from '@angular/compiler';
 import { Url } from 'url';
 import {PageEvent} from '@angular/material';
+import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
 
 
 const moment = _rollupMoment || _moment;
@@ -65,6 +66,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     'qty', 'total_expense', 'sweater_image', 'brand',/* 'sweater_description', 
     'fiber_content', 'color',*/ 'update', 'tasks' , 'expenses'
   ];
+  filterForm: FormGroup;
 
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
   dialogConfig: MatDialogConfig;
@@ -84,7 +86,6 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   panelOpenState: boolean;
   urlset = AppConfig.urlOptions.orders;
   opt: any[];
-  filterForm: FormGroup;
   filters: any;
 
   /////////////
@@ -231,9 +232,17 @@ openUpdateDialog(order): void {
     this.ordersService.findPaginatedOrders();
     
   })
-
-
-
+}
+  openDeleteDialog(order): void {
+  const dialogRef = this.dialog.open(DeleteModalComponent, {
+      width: '700px',
+      height: '800px',
+      data: {url: AppConfig.urlOptions.orders, id: order.id}
+  });
+  dialogRef.afterClosed().subscribe((orders: Order[]) => {
+    this.ordersService.findPaginatedOrders();
+    
+  })
 }
 
 ///////////////////////////////////

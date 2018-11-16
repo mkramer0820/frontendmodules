@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
+import { isType } from '@angular/core/src/type';
 
 const moment = _rollupMoment || _moment;
 
@@ -58,7 +59,6 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.onSubmit();
 
     this.ordersService.currentOrders.subscribe(orders => {
       this.order = orders;
@@ -80,7 +80,21 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
     this.filtersEvent.emit(event);
   }
   onSubmit() {
-   
+    
+    
+    if (this.filterForm.value['start_date']) {
+    this.ordersService.url.dueDateAfter = moment(this.filterForm.value['start_date']).format("YYYY-MM-DD")
+    }
+    if (this.filterForm.value['end_date']) {
+
+      this.ordersService.url.dueDateBefore = moment(this.filterForm.value['end_date']).format("YYYY-MM-DD")
+      }
+    this.ordersService.url.jpStyle = this.filterForm.value['jp_style_number'];
+    this.ordersService.url.buyerStyle = this.filterForm.value['buyer_style_number'];
+    this.ordersService.url.buyer = this.filterForm.value['buyers']
+
+    console.log(this.ordersService.url)
+
     
     this.ordersService.findPaginatedOrders();
   }
