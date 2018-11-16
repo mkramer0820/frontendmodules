@@ -21,12 +21,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
 import { MessageService } from './_services/message.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
-import {ErrorsHandler} from './_injectors/errors-handler/errors-handler';
 
-import { ErrorsModule } from './_injectors/errors-module';
-import { HttpService } from './_injectors/services/http/http.service';
-import { NotificationService } from './_injectors/services/notification.service';
-import { PageResolver } from './_injectors/resolvers/page.resolver';
 
 
 
@@ -54,7 +49,6 @@ import { PageResolver } from './_injectors/resolvers/page.resolver';
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    ErrorsModule,
   ],
   declarations: [
     AppComponent,
@@ -67,15 +61,6 @@ import { PageResolver } from './_injectors/resolvers/page.resolver';
     { provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    {
-      provide: ErrorsHandler,
-      useClass: ErrorsHandler,
-      multi: true,
-    },
-    HttpService,
-    NotificationService,
-    PageResolver,
-
     NavService,
     MessageService,
 

@@ -12,7 +12,6 @@ import {NavService} from './nav.service';
 
 import { Observable } from 'rxjs/Observable';
 
-import { NotificationService } from './_injectors/services/notification.service';
 
 
 //declare const Modernizr;
@@ -23,7 +22,7 @@ import { NotificationService } from './_injectors/services/notification.service'
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements  AfterViewInit {
   isOnline: boolean;
   token_expires: any;
   username: string;
@@ -108,19 +107,11 @@ export class AppComponent implements OnInit, AfterViewInit {
               //private snackBar: MatSnackBar,
               //private router: Router,
               private navService: NavService,
-              private notificationService: NotificationService,
 
             ) {
     this.isOnline = navigator.onLine;
   }
-  ngOnInit() {
-    this.notificationService
-            .notification$
-            .subscribe(message => { 
-              this.notification = message;
-              this.showNotification = true;
-            });
-  }
+
   ngAfterViewInit() {
     this.navService.appDrawer = this.appDrawer;
   }

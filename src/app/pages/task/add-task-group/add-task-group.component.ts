@@ -22,7 +22,6 @@ import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnac
   <button  type="submit" mat-button-raised color="accent"  (click)="onSubmit()">Create Task Group </button>
 
 </div>
-{{this.formGroup.value | json}}
 
 `
   ,

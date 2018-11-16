@@ -29,7 +29,6 @@ import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picke
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
 import { JpFormsModule } from '../forms/jp-forms.module';
-import { DashboardComponent } from '../core/dashboard/dashboard.component';
 import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
@@ -67,7 +66,6 @@ import { OrdersComponent } from './orders/orders.component';
     DatePickerComponent,
     OrderDetailComponent,
     TimeDifferenceComponent,
-    DashboardComponent,
     DynamicFormRequestComponent,
     CustomerComponent,
     OrderDetailComponent,

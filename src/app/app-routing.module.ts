@@ -1,5 +1,3 @@
-import { JpDynamicFormComponent } from './forms/components/jp-dynamic-form/jp-dynamic-form.component';
-import { JpFormsComponent } from './forms/components/jp-forms.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -17,7 +15,6 @@ import {TaskSetComponent} from './pages/task/create-task-set/task-set.component'
 import {TaskUpdateComponent} from './pages/task/create-task-set/task-update/task-update.component';
 import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component';
 import { OrderTaskComponent } from './pages/orders/order-task/order-task.component';
-import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { OrderExpenseComponent } from './pages/orders/order-expense/order-expense.component';
 
 const routes: Routes = [
@@ -34,10 +31,8 @@ const routes: Routes = [
   { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
   { path: 'task-update', component: TaskUpdateComponent },
   { path: 'task-test', component: TaskComponent, canActivate: [AuthGuard] },
-  { path: 'jp-task-forms-component', component: JpFormsComponent, canActivate: [AuthGuard] },
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
-  { path: 'home', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'order-expense', component: OrderExpenseComponent}
 ];
 

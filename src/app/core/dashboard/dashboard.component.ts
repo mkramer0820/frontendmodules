@@ -8,7 +8,7 @@ import {OptionsService} from '../../forms/_service/options.service';
   selector: 'app-core-dash-board-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [OptionsService]
+  providers: []
 })
 export class DashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
@@ -16,7 +16,7 @@ export class DashboardComponent {
 
   cards = false;
 
-  constructor( private breakpointObserver: BreakpointObserver, private optService: OptionsService) {}
+  constructor( private breakpointObserver: BreakpointObserver) {}
 
 
 }

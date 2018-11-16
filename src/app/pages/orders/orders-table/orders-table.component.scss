@@ -79,9 +79,13 @@ mat-mini-fab.mat-mini-fab {
 
 mat-header-row {
     min-height: $mat-header-row-height;
-    font-size: 2em;
 
   }
+mat-header-cell p {
+    font-size: 1em;
+    color: black;
+    font-weight: bold;
+}
 mat-row {
     display: block;
     min-height: $mat-header-row-height;

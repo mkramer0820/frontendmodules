@@ -62,7 +62,6 @@ import { Router} from '@angular/router';
   
     <button  type="submit" mat-button-raised color="accent" (click)="clearTodosForm()" style="indent:50px">Clear Form</button>
     &nbsp;
-    <button  type="submit" mat-button-raised color="accent" (click)="addToOrder()" [disabled]="taskForm.invalid">Add To Order Test</button>
     &nbsp;
     <pre>Parent Form Status: <span class="status">{{taskForm.status}} <br />{{taskForm.value | json}}</span></pre>
   </form>
@@ -90,7 +89,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
   updateName = false;
   masterGroupMessage: any;
   selectedId: any;
-
+  updateId: string;
 
   constructor(
     private taskFormService: TaskFormService,
@@ -149,6 +148,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(response);
         });
       this.clearTodosForm();
+      this.tgs.getTaskGroups();
       this.getTaskGroup();
     }
     getTodos(){
@@ -157,19 +157,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
         return this.todos = todos['todos'];
       });
     }
-    addToOrder() {
-      console.log('Todo saved!');
-      let tasks = this.orderTask;
-      let items = this.taskForm.value;
-      tasks['order'] = '3';
-      tasks['todos'] = items['todos'];
-      tasks['set_name'] = items['set_name'];
-      console.log(JSON.stringify(tasks));
-      //console.log(this.taskForm.value);
-      this.apiService.addTaskToOrder(tasks).subscribe(response => {
-        console.log(response);
-        });
-    }
+    
 
     clearTodosForm() {
       // this.taskFormService.clearForm();
@@ -191,6 +179,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
     getBlanketTask(id) {
+      this.updateId = id;
       this.apiService.getTaskDetail(id).subscribe(res => {
         this.clearTodosForm();
         if (this.taskForm.get('todos').value.length == 0) {
@@ -203,23 +192,23 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
               currentTodos.push(
               this.fb.group(
                 new TodosForm(new Todo(todoslist['todo'], ))
-              )
-            );
-            } else {
-            console.log('field');
+                )
+              );
             }
-          }
-        } else {
-          console.log('error');
-        }
+          } 
+        };
       });
     }
     updateTodoSet() {
-      this.apiService.updateTask(this.selectedId, this.taskForm.value).subscribe(response => {
+      let id = this.updateId
+      this.apiService.updateTask(id, this.taskForm.value).subscribe(response => {
         console.log(response);
       });
       this.clearTodosForm();
-      this.router.navigate(['task-component']);
+      this.tgs.getTaskGroups();
+      this.getTaskGroup();
+
+
     }
   }
 /*

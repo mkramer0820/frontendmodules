@@ -86,19 +86,12 @@ export class ApiService {
     this.cred = this.authService.updateData(this.token);
   }
   //orders
-  getOrders(ordering?: string): Observable<Order[]> {
+  getOrders() {
     let headers = this.setHeaders();
     this.setHeaders();
-    return this.httpClient.get<Order[]>(`${this.API_URL}orders/?ordering=${ordering}`, {headers});
+    return this.httpClient.get(`${this.API_URL}orders/`, {headers});
   }
-  getMyOrders(): Observable<Order[]> {
-    let headers: HttpHeaders = new HttpHeaders();
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //headers = headers.append('content-type', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${currentUser.token}`);
-    console.log(headers);
-    return this.httpClient.get<Order[]>(`${this.API_URL}orders/`, {headers: headers});
-  }
+
 /*
   let currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if (currentUser && currentUser.token) {

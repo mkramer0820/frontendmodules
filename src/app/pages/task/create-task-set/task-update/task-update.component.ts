@@ -36,9 +36,5 @@ export class TaskUpdateComponent implements OnInit {
     this.taskFormService.deleteTodos(index)
     }
 
-    saveTodos() {
-      console.log('team saved!')
-      console.log(this.taskForm.value)
-    }
-
+   
   }

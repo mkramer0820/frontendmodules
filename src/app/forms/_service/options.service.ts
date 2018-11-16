@@ -23,7 +23,6 @@ export class OptionsService {
 
   newForm: FormBase<any>[] = [];
 
-
   constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService ) {
     this.apiUrl = AppConfig.endpoints['url'];
     this.optionsRequest(), console.log(this.newForm); }

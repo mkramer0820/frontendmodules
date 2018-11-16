@@ -125,7 +125,9 @@ export class OptionsFormService {
                   required: false,
                   text: 'text',
                   max_length: optionJson['max_length'],
+                  type: optionJson['formType']
                 });
+                console.log(form)
                 newForm.push(form);
               }
             }
