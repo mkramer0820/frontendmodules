@@ -3,11 +3,7 @@
 
 <div (ngSubmit)="onSubmit()" [formGroup]="filterForm"  fxLayout="row" fxLayoutAlign="space-evenly stretch">
     <div  fxLayout="row" fxLayoutGap="30px">
-    <!--   
-    <ng-container *ngFor="let item of models">
-        <app-filter-form-input [form]="filterForm" [items]="item"></app-filter-form-input>
-    </ng-container>
--->
+
         <div *ngFor="let item of models">
 
 

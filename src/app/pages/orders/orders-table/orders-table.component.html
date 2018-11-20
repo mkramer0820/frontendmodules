@@ -20,12 +20,10 @@
         
 
     </div>
-    <div [class.mat-elevation-z2]="!isActive" [class.mat-elevation-z8]="isActive">
     <mat-list [class.mat-elevation-z8]>
         <app-filter-form #newFilters ></app-filter-form>
-        <button mat-mini-fab color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Custmer
+        <button mat-mini-fab color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Order
     </mat-list>
-  </div>
     <mat-table id="orderTable" [dataSource]="orders" matSort class="mat-elevation-z8">
 
           <ng-container matColumnDef="id" style="padding:0;">

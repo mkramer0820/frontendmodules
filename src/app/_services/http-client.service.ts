@@ -78,6 +78,9 @@ export class HttpClientService {
   options(url, options?: any): Observable<ArrayBuffer> {
     return this.http.options(`${this.BASE_URL}${url}`, options);
   }
+  formOptions(url, options?: any): Observable<any> {
+    return this.http.options(`${this.BASE_URL}${url}`, options);
+  }
 
   private updateUrl(req: string) {
     return environment.apiUrl + req;

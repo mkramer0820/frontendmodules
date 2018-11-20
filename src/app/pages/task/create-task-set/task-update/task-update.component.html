@@ -12,6 +12,6 @@
     </li>
   </ul>
 
-  <button  type="submit" mat-button-raised color="accent" (click)="saveTodos()" [disabled]="taskForm.invalid">Submit</button>
+  <button  type="submit" mat-button-raised color="accent"  [disabled]="taskForm.invalid">Submit</button>
   <pre>Parent Form Status: <span class="status">{{taskForm.status}} <br />{{taskForm.value | json}}</span></pre>
 </form>

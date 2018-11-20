@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services';
 import {HttpClientService} from '../../_services/http-client.service'
+import {MessageService} from '../../_services/message.service';
 
 @Component({
   selector: 'app-login',

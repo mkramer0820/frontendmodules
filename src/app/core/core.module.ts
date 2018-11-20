@@ -35,6 +35,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     Error404Component,
     MenuListItemComponent,
     TopNavComponent,
+    DashboardComponent,
   ],
   exports: [
     TopNavComponent,
