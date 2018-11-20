@@ -190,6 +190,16 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       width: '700px',
       data: {url: AppConfig.urlOptions.orderTasks, order: data, update: false}
     });
+    dialogRef.afterClosed().subscribe((orders: Order[]) => {
+      this.ordersService.findPaginatedOrders();
+      this.ordersService.currentOrders.subscribe((orders: Order[]) => {
+        this.orders = orders;
+        this.length = this.ordersService.url.length;
+        this.pageSize = this.ordersService.url.pageSize;
+        this.getTotalCost(orders)
+  
+       })
+    })
 
 
   }
@@ -220,6 +230,16 @@ openAddDialog(): void {
     height: '800px',
     data: {url: AppConfig.urlOptions.orders, order: this.order, update: false}
   });
+  dialogRef.afterClosed().subscribe((orders: Order[]) => {
+    this.ordersService.findPaginatedOrders();
+    this.ordersService.currentOrders.subscribe((orders: Order[]) => {
+      this.orders = orders;
+      this.length = this.ordersService.url.length;
+      this.pageSize = this.ordersService.url.pageSize;
+      this.getTotalCost(orders)
+
+     })
+  })
 
 }
 openUpdateDialog(order): void {
@@ -269,13 +289,29 @@ openUpdateDialog(order): void {
 
 openAddExpenseDialog(order): void {
   let update: boolean;
+  let updateId: number;
   if (order.orderExpense.length === 0 ) {
     update = false;
-  } else { update = true};
+    updateId = null;
+
+  } else { 
+    update = true
+    updateId = order.orderExpense[0]['id']
+  };
   console.log(update)
   const dialogRef = this.dialog.open(OrderExpenseComponent, {
-    data: {order: order, url: AppConfig.urlOptions.orderExpense, update: update}
+    data: {order: order, url: AppConfig.urlOptions.orderExpense, update: update, updateId : updateId }
   });
+  dialogRef.afterClosed().subscribe((orders: Order[]) => {
+    this.ordersService.findPaginatedOrders();
+    this.ordersService.currentOrders.subscribe((orders: Order[]) => {
+      this.orders = orders;
+      this.length = this.ordersService.url.length;
+      this.pageSize = this.ordersService.url.pageSize;
+      this.getTotalCost(orders)
+
+       })
+    })
   }
 
 

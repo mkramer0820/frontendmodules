@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {ModalService} from '../../_services/modal.service';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import { AppConfig } from '../../../config/app.config';
+import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class FactoryTableComponent implements OnInit {
   displayedColumns: string[] = [
     'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
     'COUNTRY', 'STATE', 'ZIP', 'EMAIL', 'PHONE',
-    'WEBSITE', 'DESCRIPTION', 'UPDATE',
+    'WEBSITE', 'DESCRIPTION', 'UPDATE', "DELETE"
   ];
   message: any;
   subscription: Subscription;
@@ -84,4 +85,16 @@ export class FactoryTableComponent implements OnInit {
       });
     });
   }
+  openDeleteDialog(factory): void {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      data: {url: AppConfig.urlOptions.factory, id: factory.id}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.factories().subscribe((factories: Array<Factory>) => {
+        this.factories = factories;
+        result = this.factories;
+        console.log(result)
+      });
+    });
+   }
 }

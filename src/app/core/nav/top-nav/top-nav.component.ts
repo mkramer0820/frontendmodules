@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import {NavService} from '../../../nav.service';
 import { AuthenticationService } from '../../../pages/_services';
+import {MessageService} from '../../../_services/message.service';
 
 @Component({
   selector: 'app-top-nav',
@@ -16,30 +17,34 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   constructor(
     public navService: NavService,
     private authService: AuthenticationService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.updateData();
   }
   ngAfterViewInit() {
-    this.updateData;
+    this.updateData();
   }
   logOut() {
     this.authService.logout()
+    this.username = null;
   }
 
   updateData() {
-    let token = localStorage.getItem('currentUser');
-    if (token) {
+    let username = this.messageService.getUsername();
+    console.log(username)
+    /*if (username) {
       let errors = [];
 
-      const token_parts = token.split(/\./);
+      const token_parts = username.split(/\./);
       const token_decoded = JSON.parse(window.atob(token_parts[1]));
       this.token_expires = new Date(token_decoded.exp * 1000);
       this.username = token_decoded.username;
+      console.log(this.username)
       this.hidden = false;
     } else {
       this.hidden = true;
-    }
+    }*/
   }
 }

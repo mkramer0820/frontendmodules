@@ -13,6 +13,7 @@ export interface DialogData {
   order: any;
   url: string;
   update: boolean;
+  updateId?: any;
 }
 
 @Component({
@@ -40,6 +41,7 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
     update: boolean;
     currentExpenseItems: any;
     totalExpense: number;
+    expenseId: number;
   
   
     constructor(
@@ -62,7 +64,8 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
           this.expenseForm = expense;
           this.expenseItems = this.expenseForm.get('expenseItems') as FormArray;
         });
-      this.expenseForm.get('order').setValue(this.orderId)
+      this.expenseForm.get('order').setValue(this.orderId);
+
       this.updateExpenseItems();
       }
     ngAfterViewInit() {
@@ -80,7 +83,6 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
     calculatGrandTotal() {
       this.expenseForm.value;
 
-      console.log(this.expenseForm.value);
     }
 
     addExpenseItems() {
@@ -107,7 +109,7 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
     saveExpenseForm() {
       this.calculatTotals();
       if (this.update === true) {
-        this.httpClient.put(`${this.data.url + this.orderId}/`, this.expenseForm.value)
+        this.httpClient.put(`${this.data.url + this.data.updateId}/`, this.expenseForm.value)
         .subscribe(response => {
           console.log(response);
           this.clearExpenseForm();
@@ -115,7 +117,6 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
       } else {
         this.httpClient.post(`${this.data.url}`, this.expenseForm.value)
         .subscribe(response => {
-          console.log(response);
           this.clearExpenseForm();
         })
       }
@@ -135,18 +136,19 @@ export class OrderExpenseComponent implements OnInit, OnDestroy {
     updateExpenseItems() {
       if (this.update) {
         this.currentExpenseItems = this.data.order.orderExpense[0];
-        console.log(this.currentExpenseItems);
         let expenseItemList = this.currentExpenseItems.expenseItems;
         let currentExpenseItem = this.expenseForm.get('expenseItems') as FormArray;
 
         for (let item of expenseItemList) {
           let expItem = new ExpenseItem(item.expenseItemName, item.expenseItemCost, this.qty);
+          console.log(expItem);
           currentExpenseItem.push(
             this.fb.group(
               new ExpenseItemForm(expItem)
               )
             );
-          } 
+          }
+        // this.expenseForm.setValue(expenseItemList.id) 
         }
       }
   }

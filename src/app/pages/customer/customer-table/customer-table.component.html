@@ -1,15 +1,9 @@
 
 
-<div *ngIf="recieve">
-  updating: {{recieve | json}}
-  <span *ngFor="let c of recieve">{{recieve.id}}</span>
-</div>
-
-
 <div>
-<button mat-raised-button (click)="openAddDialog()">
-  Add New Customer<i class="material-icons" style="font-size:40px; color: forestgreen">add_box</i>
-</button>
+<button mat-mini-fab color="primary" (click)="openAddDialog()">
+ <mat-icon>add</mat-icon>
+</button> Add New Customer
 </div>
   <table mat-table [dataSource]="customers" matSort class="mat-elevation-z8" >
 
@@ -76,8 +70,13 @@
     </ng-container>
     <ng-container matColumnDef="UPDATE">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
-      <mat-cell  *matCellDef="let customers"> <button mat-raised-button (click)="openUpdateDialog(customers)">Update</button></mat-cell>
+      <mat-cell  *matCellDef="let customers"> <button mat-raised-button color="primary" (click)="openUpdateDialog(customers)">Update</button></mat-cell>
     </ng-container>
+    <ng-container matColumnDef="DELETE">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
+        <mat-cell  *matCellDef="let customers"> <button mat-raised-button color="primary"  (click)="openDeleteDialog(customers)">Delete</button></mat-cell>
+      </ng-container>
+    
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
   </table>

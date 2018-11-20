@@ -32,6 +32,7 @@ $mat-header-row-height: 65px;
 mat-cell p {
     text-align: center;
    line-height: 100px;
+   font-weight: bold;
    
    }
 p {
@@ -74,7 +75,7 @@ mat-mini-fab.mat-mini-fab {
 }
 .highlight{
     background-color: #424242; /* green */
-    color: #824E1C;
+    color: rgb(106, 172, 235);
     width: 100%;
     height: 100%;
     font-weight: bold;
@@ -88,7 +89,7 @@ mat-header-row {
 mat-header-cell p {
     font-size: 1em;
     color: black;
-    font-weight: bold;
+    font-weight: bolder;
 }
 mat-row {
     display: block;

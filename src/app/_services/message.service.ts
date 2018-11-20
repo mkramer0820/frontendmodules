@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class MessageService {
     public subject = new Subject<any>();
+    public username = new Subject<string>();
 
     public url = new Subject<any>();
 
@@ -32,6 +33,17 @@ export class MessageService {
     getUrl() {
         return this.url.asObservable();
         //return this.customer.asObservable();
+    }
+
+    sendUsername() {
+        this.username = JSON.parse(localStorage.getItem('currentUser'));
+
+    }
+    getUsername() {
+        return this.username;
+    }
+    clearUserName() {
+        this.username.next();
     }
 
 }

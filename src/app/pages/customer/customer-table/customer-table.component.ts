@@ -8,6 +8,7 @@ import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-f
 import {MessageService} from '../../../_services/message.service';
 import { AppComponent } from 'src/app/app.component';
 import { AppConfig } from 'src/app/config/app.config';
+import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-customer-table',
@@ -19,7 +20,7 @@ export class CustomerTableComponent implements OnInit {
   displayedColumns: string[] = [
     'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3', "CITY",
     'STATE', 'ZIP', 'COUNTRY', 'EMAIL', 'PHONE', 'EXT',
-    'WEBSITE', 'DESCRIPTION', 'UPDATE',
+    'WEBSITE', 'DESCRIPTION', 'UPDATE', 'DELETE'
   ];
   message: any;
   subscription: Subscription;
@@ -98,4 +99,16 @@ export class CustomerTableComponent implements OnInit {
       });
     });
   }
+  openDeleteDialog(customer): void {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      data: {url: AppConfig.urlOptions.customer, id: customer.id}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+        this.customers = customers;
+        result = this.customers;
+      });
+
+    });
+   }
 }

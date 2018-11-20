@@ -1,8 +1,16 @@
 
 <h2  mat-dialog-title>Delete this item?</h2>
-<mat-dialog-content  class="delete">Are you sure?</mat-dialog-content>
-<button mat-raised-button (click)="delete()">Delete</button>
+<mat-dialog-content  class="delete">This will perminantly delete your entry are you 100% sure? If so type delete to proceed. 
+
+  <div [formGroup]="deleteForm">
+    <mat-form-field>
+      <input matInput placeholder="Type delete to proceed" formControlName='delete'>
+    </mat-form-field>
+   </div>
+</mat-dialog-content>
 
 <mat-dialog-actions>
-  <button  mat-raised-button (click)="closeDialog()">Ok</button>
+  <button  mat-raised-button (click)="closeDialog()">Exit</button>
+  <button mat-raised-button (click)="delete()">Delete</button>
+
 </mat-dialog-actions>
