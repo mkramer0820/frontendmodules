@@ -136,23 +136,11 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
       this.pageSize = this.ordersService.url.pageSize;
       this.getTotalCost(orders)
 
-     });/*
-      for (let order in this.order) {
-        this.opt.push(this.order.buyer)
-      }
-      this.opt = this.opt.filter((v, i, a) => a.indexOf(v) === i); 
-    });*/
-
-      // this.getTotalCost(orders);
-      // this.sentFilters(this.orders);
-
+     });
     
   }
   ngAfterViewInit() {
-    
 
-    this.options(this.orders);
-    //this.filtermessage = this.child.filterForm.value;
   }
   onRowClicked(row) {
     this.order = row;
@@ -360,10 +348,17 @@ openAddExpenseDialog(order): void {
       ordering: orderingFilter['ordering']});
      //this.ordersService.findOrders2(); */
   }
-  paginate() {
+  paginate(col?) {
+    let direction: string;
  
     this.ordersService.url.pageSize = this.paginator.pageSize;
     this.ordersService.url.djangoPageNumber = this.paginator.pageIndex + 1;
+    if(this.sort.direction === 'asc') {
+      direction = col
+    } else if ( this.sort.direction === 'desc') {
+      direction = '-'+col } else {
+      direction = 'id'};
+    this.ordersService.url.ordering = direction;
     this.ordersService.findPaginatedOrders()
   }
 
