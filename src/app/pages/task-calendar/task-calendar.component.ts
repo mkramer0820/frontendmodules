@@ -125,10 +125,7 @@ export class TaskCalendarComponent implements OnInit {
         } else {
           this.activeDayIsOpen = true;
           this.viewDate = date;
-          console.log(this.asyncEvents$);
-
         }
-        console.log(events);
       }
     }
   
