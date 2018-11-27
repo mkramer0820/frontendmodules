@@ -22,7 +22,8 @@ import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
 import { MessageService } from './_services/message.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
 import {DeleteModalComponent} from './_helpers/delete-modal/delete-modal.component';
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 
@@ -51,6 +52,10 @@ import {DeleteModalComponent} from './_helpers/delete-modal/delete-modal.compone
     MatIconModule,
     MatButtonModule,
     LayoutModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   declarations: [
     AppComponent,

@@ -91,7 +91,8 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
       }
     this.ordersService.url.jpStyle = this.filterForm.value['jp_style_number'];
     this.ordersService.url.buyerStyle = this.filterForm.value['buyer_style_number'];
-    this.ordersService.url.buyer = this.filterForm.value['buyers']
+    this.ordersService.url.buyer = this.filterForm.value['buyers'];
+    this.ordersService.url.isActive = this.filterForm.value['isActive'];
 
     console.log(this.ordersService.url)
 

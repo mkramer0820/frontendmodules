@@ -21,7 +21,7 @@ export class HttpClientService {
   constructor(private http: HttpClient, public snackBar: MatSnackBar,
     ) { }
 
-  get(url: string, options?: any): Observable<ArrayBuffer> {
+  get(url: string, options?: any): Observable<any> {
     return this.http.get(`${this.BASE_URL}${url}`, options);
   }
 
@@ -47,7 +47,7 @@ export class HttpClientService {
   
   login(username: string, password: string) {
 
-    return this.http.post<any>(`${AppConfig.base + 'api-token-auth/'}`, { username, password })
+    return this.http.post<any>(`${AppConfig.base + AppConfig.urlOptions.auth}`, { username, password })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.token) {

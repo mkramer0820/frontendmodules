@@ -85,21 +85,12 @@ export class AppComponent implements  AfterViewInit {
         iconName: 'done',
         children: [
           {
-            displayName: 'Add Todos New',
+            displayName: 'Add / Delete Tasks',
             iconName: 'add',
             route: 'task',
           },
         ]},
-      {
-      displayName: 'Add Task Group',
-      iconName: 'add',
-      route: 'add-task-group',
-      },
-      {
-        displayName: 'Work Space',
-        iconName: 'add',
-        route: 'jp-task-forms-component',
-      }
+
 
   ];
   constructor(//private title: Title,

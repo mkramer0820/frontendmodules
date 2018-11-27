@@ -14,57 +14,87 @@ import { Router} from '@angular/router';
   selector: 'app-task-set',
   template:
 `
-    <h1>{{title}} order id {{order}}</h1>
-<!--  Task Group id: {{taskForm.controls.todos_group.value}} -->
-  <br />
-  <form [formGroup]="taskForm" >
 
-  <mat-form-field class="form-element">
-    <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group'>
-      <mat-option *ngFor="let group of sentGroups; let i=index" value={{group.id}}
-       (click)="setmasterGroupMessage(group)">
-        <span class="mat-option-text">{{group.group_name}}</span>
-      </mat-option>
-    </mat-select>
-    </mat-form-field>
 
-    <div *ngIf="masterGroupMessage">
-      <mat-form-field class="form-element">
-      <input type="text" placeholder="Choose Boiler Plate Task Or Add A New One" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
-        {{set.set_name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    </div>
-    
-   <h3>Add Tasks To Set</h3>
-    <button mat-button-raised color="primary"(click)="addTodos()">Add Todos</button>
-    <ul>
-      <li *ngFor="let todo of todos?.controls; let i = index">
-        <app-todos [index]="i" [todosForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-todos>
-      </li>
-    </ul>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="20%"></div>
+  <div class="item item-2" fxFlex="20%" fxFlexOrder="3"></div>
+  <div class="item item-3" fxFlex>
 
-    {{case}}
-    <div [ngSwitch]="case">
-      <div *ngSwitchCase="'1'">
-      <button  type="submit" mat-button-raised color="accent" (click)="updateTodoSet()"
-      [disabled]="taskForm.invalid">Update</button>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          {{title}}
+        </mat-card-title>
+      </mat-card-header>
+      <br />
+      <form [formGroup]="taskForm" >
+
+      
+      <div fxLayout
+      fxLayout.xs="column"
+      fxLayoutAlign="center"
+      fxLayoutGap="10px"
+      fxLayoutGap.xs="0">
+        <mat-form-field class="form-element" fxFLex="50%">
+          <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group'>
+            <mat-option *ngFor="let group of sentGroups; let i=index" value={{group.id}}
+            (click)="setmasterGroupMessage(group)">
+               <span class="mat-option-text">{{group.group_name}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="masterGroupMessage">
+          <mat-form-field class="form-element">
+             <input type="text" placeholder="Choose Boiler Plate Task Or Add A New One" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto"> 
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
+                   {{set.set_name}}
+                  </mat-option>
+                </mat-autocomplete>
+          </mat-form-field>
+        </ng-container>
       </div>
-      <div *ngSwitchCase="'2'">
-      <button  type="submit" mat-button-raised color="accent" (click)="saveTodos()"
-      [disabled]="taskForm.invalid">Save New Task Set</button>
-      </div>
+        
+      <h3>Add Tasks To Set</h3>
+        <button mat-mini-fab color="primary"(click)="addTodos()"><mat-icon>add</mat-icon></button> Add Items To Set
+        <ul>
+          <li *ngFor="let todo of todos?.controls; let i = index">
+            <app-todos [index]="i" [todosForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-todos>
+          </li>
+        </ul>
+
+        <div [ngSwitch]="case">
+          <div *ngSwitchCase="'1'">
+          <button mat-mini-fab color="primary" type="submit" mat-button-raised  (click)="updateTodoSet()"
+          [disabled]="taskForm.invalid"><mat-icon>update</mat-icon></button>Update 
+          <button mat-button type="submit" mat-button-raised (click)="clearTodosForm()" style="indent:50px" color="primary">Clear Form</button>
+
+          </div>
+          <div *ngSwitchCase="'2'">
+          <button mat-mini-fab color="primary"  type="submit" mat-button-raised (click)="saveTodos()"
+          [disabled]="taskForm.invalid"><mat-icon>save</mat-icon></button> Save
+
+          <button mat-button type="submit" mat-button-raised (click)="clearTodosForm()" style="indent:50px">Clear Form</button>
+
+          </div>
+
+        </div>
+        
+      
+        &nbsp;
+        &nbsp;
+      </form>
+      </mat-card>
     </div>
-    
-  
-    <button  type="submit" mat-button-raised color="accent" (click)="clearTodosForm()" style="indent:50px">Clear Form</button>
-    &nbsp;
-    &nbsp;
-    <pre>Parent Form Status: <span class="status">{{taskForm.status}} <br />{{taskForm.value | json}}</span></pre>
-  </form>
+  </div>
+
   `,
   styleUrls: ['./task-set.component.scss']
 })
@@ -147,7 +177,8 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
       this.apiService.createTask(this.taskForm.value).subscribe(response => {
         console.log(response);
         });
-      this.clearTodosForm();
+      // this.clearTodosForm();
+      this.taskFormService.clearForm();
       this.tgs.getTaskGroups();
       this.getTaskGroup();
     }

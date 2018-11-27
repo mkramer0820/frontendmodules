@@ -1,3 +1,4 @@
+@import '../styles.scss';
 @import "./styles/mixins.scss";
 @import "./styles/colors.scss";
 @import "./styles/functions.scss";
@@ -5,12 +6,16 @@
 @import "./core/nav/menu-list-item/menu-list-item.component.scss";
 @import "./pages/orders/orders-table/orders-table.component.scss";
 @import "./pages/orders/orders-table/order-cards/order-cards.component.scss";
-
+@import "./pages/factory/factory-table/factory-table.component.scss";
+@import "./pages/factory/factory-contact/factory-contact.component.scss";
 @import './styles/breakpoints';
-// @import './styles/theme.scss';
-@import '../styles.scss';
 @import './pages/customer/customer.component.scss';
 @import './pages/login/login.component.scss';
+@import '../../node_modules/angular-calendar/css/angular-calendar.css';
+@import './pages/task-calendar/task-calendar.component.scss';
+
+
+
 .mat-sidenav {
   width: 360px;
   background-color:#212121!important;

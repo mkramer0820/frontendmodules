@@ -1,14 +1,12 @@
 import { Component, AfterViewInit, ViewChild} from '@angular/core';
 //import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
-import {Factory} from '../../../modules/models/factory.model';
 import {Contact} from '../../../modules/models/contact.model';
-import {ApiService} from '../../../config/api.service';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Observable} from 'rxjs';
+import {HttpClientService} from '../../../_services/http-client.service';
+import {AppConfig} from '../../../config/app.config';
 import {FormBuilder, FormControl, FormGroup, FormArray} from '@angular/forms';
-import { Validators } from '@angular/forms';
-
-
+import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import {DeleteModalComponent} from "../../../_helpers/delete-modal/delete-modal.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-factory-contact',
@@ -17,7 +15,7 @@ import { Validators } from '@angular/forms';
 })
 export class FactoryContactComponent implements AfterViewInit {
   displayedColumns = ['id','first_name', 'contact_last_name',
-                      'contact_phone_number', 'contact_email'];
+                      'contact_phone_number', 'contact_email', 'update', 'delete'];
   contacts: Contact[];
   dataSource = this.contacts;
   contactForm = this.fb.group({
@@ -28,8 +26,9 @@ export class FactoryContactComponent implements AfterViewInit {
   });
 
   constructor(
-    private apiService: ApiService,
+    private http: HttpClientService,
     private fb: FormBuilder,
+    private dialog: MatDialog,
   ) {
       this.getfactories();
       this.contactForm = this.fb.group({
@@ -43,18 +42,42 @@ export class FactoryContactComponent implements AfterViewInit {
   ngAfterViewInit() {
 
   }
+  onRowClick(row) {
+    console.log(row)
+  }
 
   getfactories() {
-    this.apiService.getFactoryContacts().subscribe((contact: Array<Contact>) => {
-      this.contacts = contact;
+    this.http.get(AppConfig.urlOptions.factoryContact).subscribe((response: Contact[]) => {
+      this.contacts = response;
     });
   }
   addContact(form) {
     const newform = form.value;
-    return this.apiService.createFactoryContact(newform).subscribe(rsp => {
-      console.log(rsp)
+    return this.http.post(AppConfig.urlOptions.factoryContact, newform).subscribe(rsp => {
+      console.log(rsp);
       this.getfactories();
 
     });
+  }
+  openUpdateDialog(contact): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+
+      data: {formData: contact, url: AppConfig.urlOptions.factoryContact, update: true}
+    });
+    dialogRef.afterClosed().subscribe((contact: Contact[]) => {
+      console.log(contact)
+      this.getfactories();
+      
+    })
+  }
+  openDeleteDialog(factory) {
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      data: {url: AppConfig.urlOptions.factoryContact, id: factory.id }
+    });
+    dialogRef.afterClosed().subscribe((contact: Contact[]) => {
+      console.log(contact)
+      this.getfactories();
+      
+    })
   }
 }

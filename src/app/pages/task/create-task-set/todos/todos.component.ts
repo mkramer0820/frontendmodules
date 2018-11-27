@@ -10,6 +10,7 @@ import {TodosForm} from '../../_models';
   selector: 'app-todos',
   template:
   `
+
     <form [formGroup]="todosForm">
       <table>
         <tr>
@@ -20,16 +21,13 @@ import {TodosForm} from '../../_models';
           </td>
           <td>
             <mat-form-field>
-              <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
+            <input matInput formControlName="comment" placeholder="Comment">
+
             </mat-form-field>
           </td>
           <td>
-          <!--
+    
             <mat-form-field>
-              <input matInput formControlName="duedate" placeholder="Due Date">
-            </mat-form-field>
-          -->
-            <mat-form-field class="example-full-width">
               <input matInput [matDatepicker]="picker" placeholder="Due Date" formControlName="duedate">
               <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -38,7 +36,7 @@ import {TodosForm} from '../../_models';
             </mat-form-field>
           </td>
           <td>
-          <mat-form-field class="form-element">
+          <mat-form-field>
           <mat-select matInput  placeholder="Status" formControlName='status'>
             <mat-option *ngFor="let status of status; let i=index" value={{status}}>
               <span class="mat-option-text">{{status}}</span>
@@ -48,16 +46,13 @@ import {TodosForm} from '../../_models';
           </td>
           <td>
             <!-- emit delete event up w/ index of todos -->
-            <button (click)="delete()">Delete</button>
+            <button mat-icon-button (click)="delete()" ><mat-icon>delete</mat-icon></button>
           </td>
         </tr>
       </table>
-      <pre>Todos Form Status: <span class="status">{{todosForm.status}}</span></pre>
+    <!--  <pre>Todos Form Status: <span class="status">{{todosForm.status}}</span></pre>-->
     </form>
-    <div *ngIf='todos'>
-    {{todos}}
-    </div>
-    {{todos | json}}
+   
     <mat-divider></mat-divider>
     `,
   styleUrls: ['./todos.component.scss'],

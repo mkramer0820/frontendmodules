@@ -25,3 +25,23 @@ img {
    width:$imgW;
     height:$imgH;
 }
+
+.contact-card mat-card {
+  height: 200px;
+}
+.contact-card mat-card-content {
+  margin-bottom: 24px;
+}
+
+.contact-card .mat-card-actions {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.contact-card {
+  height: 100px;
+}
+
+mat-cell .mat-cell {
+  font-size: 3em;
+}

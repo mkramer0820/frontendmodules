@@ -4,12 +4,53 @@
 
 
 
-<mat-card class="alternate-theme">
+<mat-card class="contact-card">
     <mat-card-header>
         <mat-card-title>Add Contact</mat-card-title>
     </mat-card-header>
     <mat-card-content>
 
+      <form [formGroup]="contactForm" >    
+
+      <div fxflexfill="" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%;">
+        <div fxflexfill="" fxlayoutgap="10px grid" style="cursor: pointer; height: 100%; margin: 0px -10px -10px 0px; min-height: 100%; min-width: 100%; width: 100%; flex-flow: row wrap; box-sizing: border-box; display: flex;">
+          <div fxflex="25" style="margin-right: 0px; flex: 1 1 19%; box-sizing: border-box; padding: 0px 10px 10px 0px; max-width: 25%;">
+            <div class="one" fxflexfill="" fxlayoutalign="center center" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; place-content: center; align-items: center; flex-direction: row; box-sizing: border-box; display: flex;">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="First Name" formControlName='first_name'>
+                </mat-form-field>
+            </div>
+          </div>
+          <div fxflex="25" style="margin-right: 0px; flex: 1 1 19%; box-sizing: border-box; padding: 0px 10px 10px 0px; max-width: 25%;">
+            <div class="two" fxflexfill="" fxlayoutalign="center center" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; place-content: center; align-items: center; flex-direction: row; box-sizing: border-box; display: flex;">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="Last Name" formControlName="contact_last_name">
+                    </mat-form-field>
+            </div>
+          </div>
+          <div fxflex="25" style="margin-right: 0px; flex: 1 1 19%; box-sizing: border-box; padding: 0px 10px 10px 0px; max-width: 25%;">
+            <div class="three" fxflexfill="" fxlayoutalign="center center" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; place-content: center; align-items: center; flex-direction: row; box-sizing: border-box; display: flex;">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="Phone #" formControlName="contact_phone_number">
+                    </mat-form-field>
+            </div>
+          </div>
+          <div fxflex="25" style="margin-right: 0px; flex: 1 1 19%; box-sizing: border-box; padding: 0px 10px 10px 0px; max-width: 25%;">
+            <div class="four" fxflexfill="" fxlayoutalign="center center" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; place-content: center; align-items: center; flex-direction: row; box-sizing: border-box; display: flex;">
+                <mat-form-field class="form-element">
+                    <input matInput placeholder="Email" formControlName="contact_email">
+                    </mat-form-field>
+            </div>
+          </div>
+          <div fxflex="25" style="margin-right: 0px; flex: 1 1 19%; box-sizing: border-box; padding: 0px 10px 10px 0px; max-width: 25%;">
+            <div class="five" fxflexfill="" fxlayoutalign="center center" style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%; place-content: center; align-items: center; flex-direction: row; box-sizing: border-box; display: flex;">
+                <button mat-raised-button  color="primary" class='mat-elevation-z8' (click)="addContact(contactForm)">Submit</button>
+            </div>
+          </div>
+         
+          </div>
+        </div>
+      </form> <!--
 
       <form [formGroup]="contactForm" class="alternate-theme">      
           &nbsp;
@@ -33,7 +74,7 @@
           &nbsp;
           <button mat-raised-button  color="primary" class='mat-elevation-z8' (click)="addContact(contactForm)">Submit</button>
 
-       </form>
+       </form>-->
     </mat-card-content>
 </mat-card>
 
@@ -42,7 +83,7 @@
 <div class="mat-elevation-z8">
 
 
-    <mat-table #table [dataSource]="contacts" fromGroupName='contactForm'>
+    <mat-table class="contact-table" [dataSource]="contacts" fromGroupName='contactForm'>
 
       <!--- Note that these columns can be defined in any order.
       <mat-table #table [dataSource]="dataSource" formArrayName="contact">
@@ -51,25 +92,25 @@
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> Id. </mat-header-cell>
-        <mat-cell *matCellDef="let contacts"> {{contacts.id}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let contacts"> {{contacts.id}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="first_name">
         <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
-        <mat-cell *matCellDef="let contacts"> {{contacts.first_name}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let contacts"> {{contacts.first_name}} </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="contact_last_name">
         <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-        <mat-cell *matCellDef="let contacts"> {{contacts.last_name}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let contacts"> {{contacts.last_name}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="contact_phone_number">
         <mat-header-cell *matHeaderCellDef> Phone # </mat-header-cell>
-        <mat-cell *matCellDef="let contacts"> {{contacts.contact_phone_number}} </mat-cell>
+        <mat-cell mat-cell *matCellDef="let contacts"> {{contacts.contact_phone_number}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="contact_email">
@@ -77,8 +118,22 @@
         <mat-cell *matCellDef="let contacts"> {{contacts.contact_email}} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="update">
+          <mat-header-cell *matHeaderCellDef> Update </mat-header-cell>
+          <mat-cell *matCellDef="let contacts">
+            <button mat-icon-button (click)="openUpdateDialog(contacts)"><mat-icon>update</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+            <mat-cell *matCellDef="let contacts" >
+              <button mat-icon-button (click)="openDeleteDialog(contacts)"><mat-icon>delete</mat-icon></button>
+            </mat-cell>
+          </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <mat-row  mat-cell (click)="onRowClick(row)" *matRowDef="let row; columns: displayedColumns;" ></mat-row>
     </mat-table>
 
 </div>

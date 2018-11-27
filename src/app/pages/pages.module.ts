@@ -38,6 +38,7 @@ import { OrderExpenseItemComponent } from './orders/order-expense/order-expense-
 import {ExpenseFormService} from './orders/order-expense/_service/expense-form.service';
 import { OrderCardsComponent } from './orders/orders-table/order-cards/order-cards.component';
 import { OrdersComponent } from './orders/orders.component';
+import { TaskCalendarModule } from './task-calendar/task-calendar.module';
 @NgModule({
   imports: [
     FormsModule,
@@ -46,6 +47,7 @@ import { OrdersComponent } from './orders/orders.component';
     SharedModule,
     BrowserAnimationsModule,
     JpFormsModule,
+    TaskCalendarModule,
   ],
   declarations: [
     CustomerTableComponent,

@@ -2,6 +2,7 @@
 
 // @import 'app/lab-editor/file-tree/file-tree-theme.scss';
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 $primary-color-dark:   #616161;

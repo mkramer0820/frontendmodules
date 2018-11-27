@@ -16,17 +16,33 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
   selector: 'app-task',
   template:
   `
-  <div> 
-    <h2> Choose an Option:</h2>
-    {{databaseId}}
-    &nbsp;
-    <div *ngIf="ordertask == true">
-      <button mat-raised-button  (click)="openAddDialog()"> Create A Task Group </button>
-      &nbsp;
-      <button mat-raised-button (click)="selectedUpdate()"> Update A Task Set </button>
-      &nbsp;
-      <button mat-raised-button (click)="selectedCreate()"> Create A Task Set </button>
-      &nbsp;
+  <div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+    
+    <div class="item item-1" fxFlex="20%"></div>
+    <div class="item item-2" fxFlex="20%" fxFlexOrder="3"></div>
+  
+    <div class="item item-3" fxFlex>
+
+      <mat-card>
+
+        <mat-card-header>
+          <mat-card-title>Choose An Option</mat-card-title>
+        </mat-card-header>
+        <div *ngIf="ordertask == true">
+            <button mat-raised-button color="primary" (click)="openAddDialog()"> Create A Task Group </button>
+            &nbsp;
+            <button mat-raised-button color="primary" (click)="selectedUpdate()"> Update A Task Set </button>
+            &nbsp;
+            <button mat-raised-button color="primary" (click)="selectedCreate()"> Create A Task Set </button>
+            &nbsp;
+          </div>
+       
+      </mat-card>
     </div>
 
     <div *ngIf="ordertask == false">
@@ -51,10 +67,7 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
       </div>
       <div *ngSwitchDefault></div>
     </div>
-  
-  <ng-template #order>
-    order
-  </ng-template>
+
 
   `,
   styleUrls: ['./task.component.scss']

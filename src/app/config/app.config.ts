@@ -24,7 +24,7 @@ export const AppConfig: IAppConfig = {
     // url: 'http://104.248.10.237/api/',
   },
   base: 'http://127.0.0.1:8000/api/',
-  // base: 'http://104.248.10.237/api/',
+  //base: 'http://104.248.10.237/api/',
   urlOptions: {
     customer: 'customer/',
     factory: 'factory/',
@@ -34,7 +34,8 @@ export const AppConfig: IAppConfig = {
     taskGroup: `task/group/`,
     orderTasks: `orders/tasks/`,
     orderExpense: `order-expense/`,
-    auth: `api/api-token-auth/`,
+    auth: `api-token-auth/`,
+    factoryContact: `factory/contacts/`,
   },
 };
 

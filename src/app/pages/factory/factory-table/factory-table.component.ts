@@ -19,7 +19,7 @@ export class FactoryTableComponent implements OnInit {
 
   factories: Factory[];
   displayedColumns: string[] = [
-    'ID', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
+    'ID','CONTACT', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
     'COUNTRY', 'STATE', 'ZIP', 'EMAIL', 'PHONE',
     'WEBSITE', 'DESCRIPTION', 'UPDATE', "DELETE"
   ];
