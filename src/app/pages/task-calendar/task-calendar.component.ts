@@ -85,41 +85,9 @@ export class TaskCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     // this.fetchEvents();
-    console.log(this.events$)
     this.loadEvents();
-    console.log(this.asyncEvents$)
   }
 
-  fetchEvents(): void {
-    const getStart: any = {
-      month: startOfMonth,
-      week: startOfWeek,
-      day: startOfDay
-    }[this.view];
-
-    const getEnd: any = {
-      month: endOfMonth,
-      week: endOfWeek,
-      day: endOfDay
-    }[this.view];
-
-
-    this.events$ = this.http
-      .get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
-      .pipe(
-        map(({ results }: { results: TaskEvent[] }) => {
-          return results.map((task: TaskEvent) => {
-            return {
-              title: task.buyer_style_number + " - " + task.set_name,
-              start: new Date(
-                task.order_due_date + getTimezoneOffsetString(this.viewDate)
-              ),
-              color: colors.yellow,
-            };
-          });
-        })
-      );
-  }
 
   loadEvents() {
     this.asyncEvents$ = this.http.get<TaskEvent[]>(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
@@ -142,18 +110,25 @@ export class TaskCalendarComponent implements OnInit {
 
   }
   
+  
 
   dayClicked({ date, events }: {date: Date; events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>; }): void {
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
           events.length === 0
+
         ) {
           this.activeDayIsOpen = false;
+          console.log(events);
+
         } else {
           this.activeDayIsOpen = true;
           this.viewDate = date;
+          console.log(this.asyncEvents$);
+
         }
+        console.log(events);
       }
     }
   
