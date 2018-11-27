@@ -124,6 +124,7 @@ export class TaskCalendarComponent implements OnInit {
   loadEvents() {
     this.asyncEvents$ = this.http.get<TaskEvent[]>(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
     .pipe(map(res => { 
+
         return res.map(event => { 
           return {
               title: event.buyer_style_number + " - " + event.set_name,
@@ -132,20 +133,17 @@ export class TaskCalendarComponent implements OnInit {
               meta: {
                 event
               },
-              allDay: true
+              allDay: true,
+              todo: event.todos,
+              
             };
-        });
-      }));
-    }
+        })
+    }))
+
+  }
   
 
-    dayClicked({
-      date,
-      events
-    }: {
-      date: Date;
-      events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>;
-    }): void {
+  dayClicked({ date, events }: {date: Date; events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>; }): void {
       if (isSameMonth(date, this.viewDate)) {
         if (
           (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -161,6 +159,8 @@ export class TaskCalendarComponent implements OnInit {
   
     eventClicked(event: CalendarEvent<{ taskEvent: TaskEvent }>): void {
       console.log(event);
+      console.log(event.meta)
+      console.log(event.meta['event']['id'])
     }
   }
 
