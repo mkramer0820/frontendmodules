@@ -30,6 +30,7 @@ interface TaskEvent {
   buyer_style_number: string;
   jp_style_number: string;
   order_due_date: string;
+  buyer: string;
   isActive: boolean;
   set_name: string;
   todos_group: string;
@@ -105,19 +106,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
     this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
     
     .pipe(map((res: TaskEvent[]) => {
-      res.forEach((res, index) => {
-        res.todos.forEach((todo, index) => {
-          this.todoEvents$.push(todo);
-          return this.todoEvents$.map(event => {
-            let items = {
-              title: event.todo,
-              color: colors.yellow,
-              start: new Date(event.duedate),
-            }
-            return items;
-          })
-        });
-      });          
+            
       return res.map(event => {
         return {
             title: event.buyer_style_number + " - " + event.set_name,
@@ -141,16 +130,19 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
       .subscribe((res: TaskEvent[]) => {
         res.map((res, index)=> {
           let items = {
-            title: res.buyer_style_number,
+            title: 'Order For Buyer Style Number '+ res.buyer +' ' +res.buyer_style_number +" Is Due",
             color: {primary: colors.blue, secondary: "#D1E8FF"},
             start: new Date(res.order_due_date)
           }
           todoItems.push(items)
         })
         let todo = res.map((res, index)=> {
+          let order = res.buyer_style_number
+          let jp = res.jp_style_number
+          let buyer = res.buyer
           return res.todos.forEach((todo, index)=> {
             let items = {
-              title: todo.todo,
+              title: `${'Task '+ todo.todo + ' Is Due For '+ buyer +"'s Buyer Style Number "+order}`,
               color: colors.yellow,
               start: new Date(todo.duedate),
             }
