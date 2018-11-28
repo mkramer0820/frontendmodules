@@ -175,7 +175,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 //////////////////////////////////////////////////////////////
   openAddTask(data): void {
     const dialogRef = this.dialog.open(OrderTaskComponent, {
-      width: '700px',
+      width: '80%',
+      height: '80%',
       data: {url: AppConfig.urlOptions.orderTasks, order: data, update: false}
     });
     dialogRef.afterClosed().subscribe((orders: Order[]) => {

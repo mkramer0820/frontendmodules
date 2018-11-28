@@ -14,7 +14,7 @@
     }
 }
 mat-form-field.mat-form-field {
-    font-size: 10px;
+    font-size: 1.2em;
   }
 
 .my-fab{
@@ -23,4 +23,8 @@ mat-form-field.mat-form-field {
     padding-right: 4px;
     padding-top: 4px;
   }
+}
+
+figure.mat-figure{
+    padding-bottom: -20%;
 }
