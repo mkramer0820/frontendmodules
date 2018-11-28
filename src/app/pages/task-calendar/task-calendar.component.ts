@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {HttpClientService} from '../../_services/http-client.service';
 import {AppConfig} from '../../config/app.config';
-import { map } from 'rxjs/operators';
+import { map, flatMap, filter, delay } from 'rxjs/operators';
+import {pipe, Subject} from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
 import {
   isSameMonth,
@@ -17,6 +18,8 @@ import {
 } from 'date-fns';
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
+import { analyzeFileForInjectables } from '@angular/compiler';
+import { TestBed } from '@angular/core/testing';
 
 interface TaskEvents {
   taskEvent: TaskEvent[];
@@ -69,7 +72,7 @@ function getTimezoneOffsetString(date: Date): string {
   styleUrls: ['./task-calendar.component.scss'],
   templateUrl: './task-calendar.component.html'
 })
-export class TaskCalendarComponent implements OnInit {
+export class TaskCalendarComponent implements OnInit, OnChanges {
   view: string = 'month';
 
   viewDate: Date = new Date();
@@ -79,6 +82,10 @@ export class TaskCalendarComponent implements OnInit {
   activeDayIsOpen: boolean = false;
 
   asyncEvents$: Observable<CalendarEvent[]>;
+  todoEvents$: Todo[] = [];
+  async2$: CalendarEvent[];
+  isLoading: boolean;
+  
 
 
   constructor(private http: HttpClient) {}
@@ -86,29 +93,75 @@ export class TaskCalendarComponent implements OnInit {
   ngOnInit(): void {
     // this.fetchEvents();
     this.loadEvents();
+    this.loadEvents2()
+  }
+  ngOnChanges() {
+    this.isLoading = false;
   }
 
 
   loadEvents() {
-    this.asyncEvents$ = this.http.get<TaskEvent[]>(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
-    .pipe(map(res => { 
-
-        return res.map(event => { 
-          return {
-              title: event.buyer_style_number + " - " + event.set_name,
-              start: new Date(event.order_due_date),
-              color: {primary: colors.blue, secondary: "#D1E8FF"},
-              meta: {
-                event
-              },
-              allDay: true,
-              todo: event.todos,
-              
-            };
+    this.isLoading = true;
+    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
+    
+    .pipe(map((res: TaskEvent[]) => {
+      res.forEach((res, index) => {
+        res.todos.forEach((todo, index) => {
+          this.todoEvents$.push(todo);
+          return this.todoEvents$.map(event => {
+            let items = {
+              title: event.todo,
+              color: colors.yellow,
+              start: new Date(event.duedate),
+            }
+            return items;
+          })
+        });
+      });          
+      return res.map(event => {
+        return {
+            title: event.buyer_style_number + " - " + event.set_name,
+            start: new Date(event.order_due_date),
+            color: {primary: colors.blue, secondary: "#D1E8FF"},
+            meta: {
+              event
+            },
+            allDay: false,
+            todo: event.todos,
+          }
         })
-    }))
+      }))
+      this.isLoading = false;
+  };
+    loadEvents2() {
+     // this.asyncEvents$ 
+    let todoItems: CalendarEvent[] =[];
+    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
+      
+      .subscribe((res: TaskEvent[]) => {
+        res.map((res, index)=> {
+          let items = {
+            title: res.buyer_style_number,
+            color: {primary: colors.blue, secondary: "#D1E8FF"},
+            start: new Date(res.order_due_date)
+          }
+          todoItems.push(items)
+        })
+        let todo = res.map((res, index)=> {
+          return res.todos.forEach((todo, index)=> {
+            let items = {
+              title: todo.todo,
+              color: colors.yellow,
+              start: new Date(todo.duedate),
+            }
+            todoItems.push(items);
+          })
+        })
+        return this.async2$ =  todoItems
+      })
+    }
 
-  }
+ 
   
   
 
