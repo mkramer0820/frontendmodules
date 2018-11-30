@@ -13,10 +13,14 @@
 
     <mat-form-field *ngSwitchCase="'dropdown'" class="form-element" >
         <mat-select [placeholder]="item.label" [formControlName]="item.key">
-         <mat-option *ngFor="let opt of item.options" [value]="opt.key" >
-             {{opt.value}}
-         </mat-option>
+         <mat-option *ngFor="let opt of item.options" [value]="opt.key" >{{opt.value}}</mat-option>
        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field  *ngSwitchCase="'many'" class="form-element">
+            <mat-select [placeholder]="item.label" [formControlName]="item.key" multiple>
+                    <mat-option *ngFor="let opt of item.options" (onSelectionChange)="change($event)" [(value)]='opt.key'>{{opt.key}}&nbsp;{{opt.value}}</mat-option>
+            </mat-select>
     </mat-form-field>
     
     <mat-checkbox  *ngSwitchCase="'checkbox'"  [formControlName]="item.key" [value]=true >{{item.label}}</mat-checkbox>
@@ -29,6 +33,8 @@
     </mat-form-field>
 
     <input *ngSwitchCase="'image_upload'" (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
+
+
 
    
 

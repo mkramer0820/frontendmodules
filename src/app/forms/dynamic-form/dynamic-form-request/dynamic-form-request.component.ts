@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, OnDestroy, Input, Inject, AfterViewChecked } from '@angular/core';
 import { OptionsFormService } from '../../_service/';
-import { FormControlService } from 'src/app/pages/task/_models/forms/form-control.service';
+import { FormControlService } from '../../_service/form-control.service';
 import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
 import {MessageService} from '../../../_services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';

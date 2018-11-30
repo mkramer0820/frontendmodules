@@ -9,3 +9,14 @@ export class FormDropdown extends FormBase<string> {
     this.options = options['options'] || [];
   }
 }
+
+
+export class FormManyDropDown extends FormBase<string> {
+  controlType = 'many';
+  options: {key: string, value: string}[] = [];
+
+  constructor(options: {} = {}) {
+    super(options);
+    this.options = options['options'] || [];
+  }
+}

@@ -1,6 +1,7 @@
-<div fxLayout="col" fxLayoutAlign="center" style="padding-top: 25px;">
+<div fxLayout="col" fxLayoutAlign="center" style="padding-top: 20px">
 
-<mat-card>
+<mat-card [class.dark-theme]="isDarkTheme">
+    <div><button mat-button color="primary">BOOO</button></div>
     <mwl-demo-utils-calendar-header
       [(view)]="view"
       [(viewDate)]="viewDate"

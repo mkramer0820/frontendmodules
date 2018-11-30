@@ -9,6 +9,7 @@
         <div class="form-row">
 
           <button type="submit" [disabled]="!form.valid">Save</button> 
+          {{form.value | json}}
         </div>
      </form>
 </div>

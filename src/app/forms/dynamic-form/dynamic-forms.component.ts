@@ -6,6 +6,7 @@ import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {FormManyDropDown} from '../_models/form-dropdown';
 
 
 
@@ -35,7 +36,7 @@ export const DD_MM_YYYY_Format = {
 })
 export class DynamicFormsComponent {
 
-
+  multi: any[] = [];
   @Input() item: FormBase<any>;
   @Input() form: FormGroup;
   get isValid() { return this.form.controls[this.item.key].valid; }
@@ -60,6 +61,38 @@ export class DynamicFormsComponent {
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+  }
+  change(event) {
+    console.log(event)
+    /*
+    if(event.isUserInput) {
+      if (event.source.selected === true) {
+        let source = event.source._changeDetectorRef._view.parent.component.item
+        if (source instanceof FormManyDropDown) {
+          console.log('got it')
+          let key = source.key
+          if (event.source.selected === true) {
+            let currvalue = this.form.get(key).value;
+            console.log(currvalue)
+            console.log(currvalue.indexOf(source.value))
+          }
+          if (event.source.selected === false ) { 
+            let currvalue = this.form.get(key).value;
+            for (let item of currvalue) {
+              if (item === event.value) {
+                console.log(currvalue.indexOf(item))
+              }
+            }
+            console.log(currvalue)
+            currvalue.indexOf(key)
+        }
+      }
+
+
+      
+      }
+      console.log(event.source.value, event.source.selected);
+    }*/
   }
   maxLength(event: any) {
     this.max_len = event.toString();

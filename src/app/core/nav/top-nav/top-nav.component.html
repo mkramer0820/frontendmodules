@@ -4,7 +4,9 @@
       </button>
       <span>Jeanne Pierre Production</span>
       <span  class="example-fill-remaining-space"></span>
+      <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"></mat-slide-toggle>
       <span>{{username}}</span>
+      
       <button mat-button  color="accent" (click)='logOut()' class="bold-font" [routerLink]="['login/']">Logout</button>
 
     </mat-toolbar>

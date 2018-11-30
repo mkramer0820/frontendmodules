@@ -126,7 +126,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
      // this.asyncEvents$ 
     let todoItems: CalendarEvent[] =[];
     this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
-      
+       
       .subscribe((res: TaskEvent[]) => {
         res.map((res, index)=> {
           let items = {

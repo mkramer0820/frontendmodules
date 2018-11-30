@@ -1,0 +1,25 @@
+$indigo-primary: mat-palette($mat-indigo, 700, 300, 900);
+$indigo-accent: mat-palette($mat-light-blue);
+$indigo-warn: mat-palette($mat-deep-orange, A200);
+$indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
+
+$teal-primary: mat-palette($mat-teal, 700, 300, 900);
+$teal-accent: mat-palette($mat-cyan, A200);
+$teal-warn: mat-palette($mat-amber, A700);
+$teal-theme: mat-light-theme($teal-primary, $teal-accent, $teal-warn);
+
+
+$indigo-theme: mat-light-theme(
+    $indigo-primary, $indigo-accent, $indigo-warn
+);
+$indigo-theme-dark: mat-dark-theme(
+    $indigo-primary, $indigo-accent, $indigo-warn
+);
+$teal-theme: mat-light-theme(
+    $teal-primary, $teal-accent, $teal-warn
+);
+$teal-theme-dark: mat-dark-theme(
+    $teal-primary, $teal-accent, $teal-warn
+);
+
+

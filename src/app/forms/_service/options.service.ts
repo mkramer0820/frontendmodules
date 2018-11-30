@@ -69,6 +69,19 @@ export class OptionsService {
                 options: optionJson,
               });
               this.newForm.push(form);
+            } else if (response[item]['read_only'] === false && response[item]['type'] === 'many') {
+              let optionJson = response[item]['choices'];
+              response[item] = response[item];
+              let form = new FormDropdown({
+                key: item,
+                label: response[item]['label'],
+                controlType: 'many',
+                required: response[item]['required'],
+                text: 'text',
+                options: optionJson,
+              });
+              console.log('checkbox item', item, optionJson)
+              this.newForm.push(form);
             } else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
               let optionJson = response[item];
               let form = new FormCheckBox({

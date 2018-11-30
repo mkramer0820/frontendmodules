@@ -6,15 +6,9 @@ import {Component, ViewChild, ElementRef, ViewEncapsulation, AfterViewInit, OnIn
 import {VERSION} from '@angular/material';
 import {NavItem} from './core/nav/nav-item';
 import {NavService} from './nav.service';
-
-
-
-
-import { Observable } from 'rxjs/Observable';
-
-
-
-//declare const Modernizr;
+import {Observable} from 'rxjs';
+import {ThemeService} from './core/services/theme.service';
+import {LoggedInService} from 
 
 @Component({
   selector: 'app-root',
@@ -22,13 +16,15 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements  AfterViewInit {
+export class AppComponent implements OnInit,  AfterViewInit {
   isOnline: boolean;
   token_expires: any;
   username: string;
   hidden: boolean;
   notification: string;
   showNotification: boolean;
+  isDarkTheme: Observable<boolean>;
+  isLoggedIn: Observable<boolean>;
 
   @ViewChild('appDrawer') appDrawer: ElementRef;
   version = VERSION;
@@ -98,9 +94,15 @@ export class AppComponent implements  AfterViewInit {
               //private snackBar: MatSnackBar,
               //private router: Router,
               private navService: NavService,
+              private themeService: ThemeService,
 
             ) {
     this.isOnline = navigator.onLine;
+  }
+
+  ngOnInit() {
+    this.isDarkTheme = this.themeService.isDarkTheme;
+    console.log(this.isDarkTheme)
   }
 
   ngAfterViewInit() {
@@ -118,7 +120,10 @@ export class AppComponent implements  AfterViewInit {
     if (this.username) {
       this.hidden === false;
     }
+    
   }
+  
+ }
 /*
 ngOnInit() {
   this.title.setTitle('Front End On Init');

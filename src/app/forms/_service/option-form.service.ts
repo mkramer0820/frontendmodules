@@ -6,7 +6,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
 import { map, filter} from 'rxjs/operators';
 
-import { FormDropdown } from '../_models/form-dropdown';
+import { FormDropdown, FormManyDropDown } from '../_models/form-dropdown';
 import { FormImageField } from '../_models/form-image';
 import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
@@ -82,7 +82,37 @@ export class OptionsFormService {
                   options: optionJson,
                 });
                 newForm.push(form);
-              } else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
+              } else if (response[item]['read_only'] === false && response[item]['type'] === 'many') {
+              //let optionJson = response[item]['choices'];
+              let optionJson= [];
+                let choices = response[item]['choices']
+                for (let dict of  choices) {
+                  if (dict.hasOwnProperty('display_name')) {
+                    console.log("dcik value", dict.value)
+                    let choice = {}
+                    choice['key'] = dict.value
+                    choice['value'] = dict.display_name
+                    optionJson.push(choice)
+                  } else { 
+                    let choice = {}
+                    choice['key'] = dict.key
+                    choice['value'] = dict.value
+                    optionJson.push(choice)
+                  }
+                }
+                console.log('opt json', optionJson);
+                response[item] = response[item];
+                let form = new FormManyDropDown({
+                  key: item,
+                  label: response[item]['label'],
+                  controlType: 'many',
+                  required: response[item]['required'],
+                  text: 'text',
+                  options: optionJson,
+                });
+                newForm.push(form);
+              }  
+              else if (response[item]['read_only'] === false && response[item]['type'] === 'boolean') {
                 let optionJson = response[item];
                 let form = new FormCheckBox({
                   value: true,

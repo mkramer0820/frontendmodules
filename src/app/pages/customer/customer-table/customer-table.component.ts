@@ -6,8 +6,7 @@ import {SharedService} from '../shared.service';
 import {Subscription} from 'rxjs';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {MessageService} from '../../../_services/message.service';
-import { AppComponent } from 'src/app/app.component';
-import { AppConfig } from 'src/app/config/app.config';
+import { AppConfig } from '../../../config/app.config';
 import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
 
 @Component({

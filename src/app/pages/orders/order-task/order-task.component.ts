@@ -4,7 +4,7 @@ import { ApiService } from '../../../config/api.service';
 import { Subscription } from 'rxjs';
 import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
-import { Order } from 'src/app/modules/models/orders.model';
+import { Order } from '../../../modules/models/orders.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
