@@ -4,17 +4,9 @@ import {FormGroup, FormControl, ReactiveFormsModule, } from '@angular/forms';
 import {Order, Paginator} from './_service/order.service';
 import {AppConfig} from '../../../config/app.config';
 import {ApiService} from '../../../config/api.service';
-import {OrdersSharedService} from '../orders-shared.service';
-import {Subscription, of, pipe } from 'rxjs';
-import {tap} from 'rxjs/operators'
-import { catchError} from 'rxjs/operators';
-import {Factory} from '../../../modules/models/factory.model';
-import {Customer} from '../../../modules/models/customer.model';
 import {MatDialog, MatTableDataSource, MatPaginator, MatSort, MatDialogConfig, MatDialogContainer } from '@angular/material';
-import { AuthenticationService } from '../../_services';
-import {ModalService} from '../../_services/modal.service';
-import {TaskGroupService} from '../../task/_service/task-group.service';
-import {ActivatedRoute, Router, ChildActivationEnd} from '@angular/router';
+import {HttpClientService} from 'app/_services/http-client.service';
+
 import {OrderService} from './_service/order.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -126,6 +118,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private dialog: MatDialog,
     private ordersService: OrderService,
+    private http: HttpClientService,
   ) {  }
 
   ngOnInit() {
@@ -175,8 +168,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
 //////////////////////////////////////////////////////////////
   openAddTask(data): void {
     const dialogRef = this.dialog.open(OrderTaskComponent, {
-      width: '80%',
-      height: '80%',
+      width: '70%',
+      height: '70%',
       data: {url: AppConfig.urlOptions.orderTasks, order: data, update: false}
     });
     dialogRef.afterClosed().subscribe((orders: Order[]) => {
@@ -195,6 +188,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   openUpdateTask(order): void {
     const dialogRef = this.dialog.open(OrderTaskComponent, {
       width: '700px',
+      height: '800px',
       data: {url: AppConfig.urlOptions.orderTasks, order: order, formData: order.tasks, update: true}
     });
     dialogRef.afterClosed().subscribe((orders: Order[]) => {
@@ -232,6 +226,7 @@ openAddDialog(): void {
 
 }
 openUpdateDialog(order): void {
+
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
     height: '800px',
@@ -271,6 +266,22 @@ openUpdateDialog(order): void {
     });
 
   }
+
+///////////////////////////////////
+// modal sweater size           //
+/////////////////////////////////
+
+openSweaterSizeDialog(update?: boolean): void {
+  const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+    width: '700px',
+    height: '800px',
+    data: {url: AppConfig.urlOptions.sweaterSizes, update: update}
+  });
+  dialogRef.afterClosed().subscribe((orders: Order[]) => {
+    this.ordersService.findPaginatedOrders();
+    
+  })
+}
 
 ///////////////////////////////////
 // modal Expense                //
@@ -363,6 +374,12 @@ openAddExpenseDialog(order): void {
     this.ordersService.findPaginatedOrders()
   }
 
+}
+
+export interface DialogData {
+  url: string;
+  formData?: any;
+  update?: boolean;
 }
 
 export interface Orders {

@@ -9,7 +9,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export interface DialogData {
   url: string;
   formData?: any;
-  update: boolean;
+  update?: boolean;
 }
 
 @Component({
@@ -27,6 +27,7 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
   id: any;
   update: boolean = this.data.update;
   loading: boolean;
+  @Input() inputData: any;
   
   // loading: boolean = true;
 

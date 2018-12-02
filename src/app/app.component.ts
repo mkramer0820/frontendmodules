@@ -8,7 +8,6 @@ import {NavItem} from './core/nav/nav-item';
 import {NavService} from './nav.service';
 import {Observable} from 'rxjs';
 import {ThemeService} from './core/services/theme.service';
-import {LoggedInService} from 
 
 @Component({
   selector: 'app-root',
@@ -24,7 +23,6 @@ export class AppComponent implements OnInit,  AfterViewInit {
   notification: string;
   showNotification: boolean;
   isDarkTheme: Observable<boolean>;
-  isLoggedIn: Observable<boolean>;
 
   @ViewChild('appDrawer') appDrawer: ElementRef;
   version = VERSION;
@@ -108,60 +106,6 @@ export class AppComponent implements OnInit,  AfterViewInit {
   ngAfterViewInit() {
     this.navService.appDrawer = this.appDrawer;
   }
-
-  updateData() {
-    let token = localStorage.getItem('currentUser');
-    let errors = [];
-
-    const token_parts = token.split(/\./);
-    const token_decoded = JSON.parse(window.atob(token_parts[1]));
-    this.token_expires = new Date(token_decoded.exp * 1000);
-    this.username = token_decoded.username;
-    if (this.username) {
-      this.hidden === false;
-    }
-    
-  }
-  
+ 
  }
-/*
-ngOnInit() {
-  this.title.setTitle('Front End On Init');
-   this.router.events.subscribe((event: any) => {
-     if (event instanceof NavigationEnd) {
-       switch (event.urlAfterRedirects) {
-         case '/':
-           this.meta.updateTag({
-             name: 'description',
-             content: 'Angular Example app with Angular CLI, Angular Material and more'
-           });
-           break;
-         case '/' + AppConfig.routes.customer:
-           this.title.setTitle('Customer list');
-           this.meta.updateTag({
-             name: 'description',
-             content: 'List of Customers'
-           });
-           break;
-       }
-     }
-   });
-   this.checkBrowserFeatures();
- }
- checkBrowserFeatures() {
-    let supported = true;
-    for (const feature in Modernizr) {
-      if (Modernizr.hasOwnProperty(feature) &&
-        typeof Modernizr[feature] === 'boolean' && Modernizr[feature] === false) {
-        supported = false;
-        break;
-      }
-    }
-    if (!supported) {
-        this.snackBar.open('updateBrowser', 'OK');
-    }
 
-    return supported;
-  }*/
-
-}

@@ -17,6 +17,7 @@ import {DynamicComponent} from './modules/dynamicform/dynamic/dynamic.component'
 import { OrderTaskComponent } from './pages/orders/order-task/order-task.component';
 import { OrderExpenseComponent } from './pages/orders/order-expense/order-expense.component';
 import {TaskCalendarComponent} from './pages/task-calendar/task-calendar.component';
+import {SweaterSizeUpdateComponent} from './pages/sweater-size/sweater-size-update/sweater-size-update.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
@@ -35,7 +36,8 @@ const routes: Routes = [
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
   { path: 'order-expense', component: OrderExpenseComponent},
-  { path: 'calendar', component: TaskCalendarComponent}
+  { path: 'calendar', component: TaskCalendarComponent},
+  { path: 'sweater-sizes', component: SweaterSizeUpdateComponent}
 ];
 
 @NgModule({

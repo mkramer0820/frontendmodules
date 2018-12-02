@@ -23,6 +23,8 @@
     <mat-list [class.mat-elevation-z8]>
         <app-filter-form #newFilters ></app-filter-form>
         <button mat-mini-fab color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Order
+        <button mat-mini-fab color="primary" (click)="openSweaterSizeDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Sweater Size
+
     </mat-list>
     <mat-table id="orderTable" [dataSource]="orders" matSort class="mat-elevation-z8">
 

@@ -7,9 +7,12 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material';
 import {map} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+
 
 @Injectable({ providedIn:'root' })
 export class HttpClientService {
+
   BASE_URL = AppConfig.base;
   //BASE_URL = 'http://104.248.10.237/'
   actionButtonLabel: string = 'Retry';
@@ -44,15 +47,17 @@ export class HttpClientService {
       return throwError(error);
     }))
   };
-  
+
+ 
   login(username: string, password: string) {
 
     return this.http.post<any>(`${AppConfig.base + AppConfig.urlOptions.auth}`, { username, password })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.token) {
+                const token = user.token
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user.token));
+                localStorage.setItem('currentUser', JSON.stringify(token));
             }
             return user;
         }),
@@ -92,5 +97,6 @@ export class HttpClientService {
     config.duration = this.setAutoHide ? this.autoHide : 0;
     this.snackBar.open(message, this.action ? this.actionButtonLabel : undefined, config);
   }
+  
 }
 

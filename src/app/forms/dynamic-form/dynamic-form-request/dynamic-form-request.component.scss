@@ -12,6 +12,10 @@
   
       margin: auto;
   }
+  mat-card {
+    width: calc(100%);
+    height: calc(100% );
+  }
   
   .spinner > div {
     background-color: #1e88e5;

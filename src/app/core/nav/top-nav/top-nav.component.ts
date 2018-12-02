@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import {NavService} from '../../../nav.service';
-import { AuthenticationService } from '../../../pages/_services';
+import { AuthenticationService, LoggedInUser } from '../../../pages/_services';
 import {MessageService} from '../../../_services/message.service';
 import {Observable} from 'rxjs';
 import {ThemeService} from '../../services/theme.service';
@@ -16,16 +16,21 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   hidden: boolean = true;
   user: any;
   isDarkTheme: Observable<boolean>;
+  isLoggedIn$: Observable<boolean>; 
+  isLoggedInUser: string;
 
   constructor(
     public navService: NavService,
     private authService: AuthenticationService,
     private messageService: MessageService,
-    private themeService: ThemeService;
+    private themeService: ThemeService,
+
   ) { }
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
+    this.isLoggedIn$ = this.authService.isLoggedIn; // {2}
+    this.authService.currentUser.subscribe(user => this.isLoggedInUser = user )
   }
   ngAfterViewInit() {
   }

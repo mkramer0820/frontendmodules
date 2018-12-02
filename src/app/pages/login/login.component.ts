@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services';
-import {HttpClientService} from '../../_services/http-client.service'
-import {MessageService} from '../../_services/message.service';
+import {HttpClientService} from '../../_services/http-client.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +13,7 @@ import {MessageService} from '../../_services/message.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/customer-table';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/order-table';
   }
 
   get f() { return this.loginForm.controls; }
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
        }
 
        this.loading = true;
-       this.httpClientSerivce.login(this.f.username.value, this.f.password.value)
+       this.authenticationService.login(this.f.username.value, this.f.password.value)
            .pipe(first())
            .subscribe(
                data => {

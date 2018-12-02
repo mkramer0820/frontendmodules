@@ -36,6 +36,7 @@ export const AppConfig: IAppConfig = {
     orderExpense: `order-expense/`,
     auth: `api-token-auth/`,
     factoryContact: `factory/contacts/`,
+    sweaterSizes: `sweater-sizes/`,
   },
 };
 

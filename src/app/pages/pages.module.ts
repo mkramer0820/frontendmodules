@@ -39,6 +39,8 @@ import {ExpenseFormService} from './orders/order-expense/_service/expense-form.s
 import { OrderCardsComponent } from './orders/orders-table/order-cards/order-cards.component';
 import { OrdersComponent } from './orders/orders.component';
 import { TaskCalendarModule } from './task-calendar/task-calendar.module';
+import { SweaterSizeComponent } from './sweater-size/sweater-size.component';
+import { SweaterSizeUpdateComponent } from './sweater-size/sweater-size-update/sweater-size-update.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -76,6 +78,8 @@ import { TaskCalendarModule } from './task-calendar/task-calendar.module';
     OrderExpenseItemComponent,
     OrderCardsComponent,
     OrdersComponent,
+    SweaterSizeComponent,
+    SweaterSizeUpdateComponent,
   ],
   entryComponents: [
     DynamicFormRequestComponent,

@@ -1,12 +1,14 @@
   <mat-toolbar  color="primary" class="mat-elevation-z1">
-      <button mat-icon-button id="menu" (click)="navService.openNav()">
+      
+    <button *ngIf="isLoggedIn$ | async" mat-icon-button id="menu" (click)="navService.openNav()">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Jeanne Pierre Production</span>
       <span  class="example-fill-remaining-space"></span>
       <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"></mat-slide-toggle>
-      <span>{{username}}</span>
       
-      <button mat-button  color="accent" (click)='logOut()' class="bold-font" [routerLink]="['login/']">Logout</button>
+      {{isLoggedInUser}}
+  
+      <button *ngIf="isLoggedIn$ | async" mat-button  color="accent" (click)='logOut()' class="bold-font" [routerLink]="['login/']">Logout</button>
 
     </mat-toolbar>

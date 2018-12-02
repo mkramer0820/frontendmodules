@@ -2,14 +2,19 @@
   <div>
       <form (ngSubmit)="onSubmit()" [formGroup]="form">
      
-        <div *ngFor="let item of models" class="form-row">
-           <app-dynamic-forms [item]="item" [form]="form"></app-dynamic-forms>
+        <div *ngFor="let item of models" 
+          class="container"
+          fxLayout
+          fxLayout.xs="col"
+          fxLayoutAlign="center"
+          fxLayoutGap="10px"
+          fxLayoutGap.xs="0">
+           <app-dynamic-forms fxFlex="row" [item]="item" [form]="form"></app-dynamic-forms>
         </div>
      
         <div class="form-row">
 
           <button type="submit" [disabled]="!form.valid">Save</button> 
-          {{form.value | json}}
         </div>
      </form>
 </div>
