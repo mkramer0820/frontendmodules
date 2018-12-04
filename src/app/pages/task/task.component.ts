@@ -16,58 +16,46 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
   selector: 'app-task',
   template:
   `
-  <div class="container"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="10px"
-     fxLayoutGap.xs="0">
+
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+
     
-    <div class="item item-1" fxFlex="20%"></div>
-    <div class="item item-2" fxFlex="20%" fxFlexOrder="3"></div>
-  
-    <div class="item item-3" fxFlex>
-
-      <mat-card>
-
         <mat-card-header>
-          <mat-card-title>Choose An Option</mat-card-title>
+            <mat-card-title>Choose An Option</mat-card-title>
         </mat-card-header>
+  
         <div *ngIf="ordertask == true">
-            <button mat-raised-button color="primary" (click)="openAddDialog()"> Create A Task Group </button>
-            &nbsp;
-            <button mat-raised-button color="primary" (click)="selectedUpdate()"> Update A Task Set </button>
-            &nbsp;
-            <button mat-raised-button color="primary" (click)="selectedCreate()"> Create A Task Set </button>
-            &nbsp;
-          </div>
-       
-      </mat-card>
+          <button mat-raised-button color="primary" (click)="openAddDialog()"> Create A Task Group </button>
+          &nbsp;
+          <button mat-raised-button color="primary" (click)="selectedUpdate()"> Update A Task Set </button>
+          &nbsp;
+          <button mat-raised-button color="primary" (click)="selectedCreate()"> Create A Task Set </button>
+          &nbsp;
+        </div>
     </div>
+    
 
     <div *ngIf="ordertask == false">
-       <button mat-raised-button (click)="selectedUpdateOrder()"> Add Tasks To Order </button>
+        <button mat-raised-button (click)="selectedUpdateOrder()"> Add Tasks To Order </button>
     </div>
-
-  </div>
-
 
     <div [ngSwitch]="num">
-      <div *ngSwitchCase="'1'">
-        <app-task-set [title]="title" [(sentGroups)]="groups" [case]="num" [order]="databaseId"></app-task-set>
-      </div>
-      
-      <div *ngSwitchCase="'2'">
-        <app-task-set [title]="createTitle" [(sentGroups)]="groups" [case]="num"  [order]="databaseId"></app-task-set>
-      </div>
-      
-      <div *ngSwitchCase="'3'">
-        <app-task-set [title]="createTitle" [(OrderTask)]="ordertask"  [(sentGroups)]="groups"
-         [case]="num"  [order]="databaseId"></app-task-set>
-      </div>
-      <div *ngSwitchDefault></div>
+        <div *ngSwitchCase="'1'">
+            <app-task-set [title]="title" [(sentGroups)]="groups" [case]="num" [order]="databaseId"></app-task-set>
+        </div>
+        
+        <div *ngSwitchCase="'2'">
+            <app-task-set [title]="createTitle" [(sentGroups)]="groups" [case]="num"  [order]="databaseId"></app-task-set>
+        </div>
+        
+        <div *ngSwitchCase="'3'">
+            <app-task-set [title]="createTitle" [(OrderTask)]="ordertask"  [(sentGroups)]="groups"
+                [case]="num"  [order]="databaseId"></app-task-set>
+        </div>
+        <div *ngSwitchDefault></div>
     </div>
-
+  </mat-card>
 
   `,
   styleUrls: ['./task.component.scss']

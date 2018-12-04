@@ -1,0 +1,37 @@
+<form [formGroup]="todosForm">
+
+    <div  class="top-continer" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+        
+   
+              <mat-form-field>
+                <input matInput formControlName="todo" placeholder="Task Name">
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="picker" placeholder="Due Date" formControlName="duedate">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            
+            
+            <mat-form-field class="form-element">
+            <mat-select matInput  placeholder="Status" formControlName='status'>
+              <mat-option *ngFor="let status of status; let i=index" value={{status}}>
+                <span class="mat-option-text">{{status}}</span>
+              </mat-option>
+            </mat-select>
+            </mat-form-field>
+            
+            
+              <!-- emit delete event up w/ index of todos -->
+            <button mat-mini-fab color="primary" (click)="delete()"><mat-icon>delete</mat-icon></button>
+        
+    </div>
+        <mat-form-field style="margin-top: -30px">
+            <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
+        </mat-form-field>
+</form>
+
+

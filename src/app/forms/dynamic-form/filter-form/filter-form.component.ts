@@ -33,8 +33,6 @@ export const DD_MM_YYYY_Format = {
         monthYearA11yLabel: 'MMMM YYYY',
     },
 };
-
-
 @Component({
   selector: 'app-filter-form',
   templateUrl: './filter-form.component.html',
@@ -88,14 +86,17 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   }
   onSubmit() {
     
+    let start = this.filterForm.value['start_date'];
+    let end = this.filterForm.value['end_date']
     
-    if (this.filterForm.value['start_date']) {
-    this.ordersService.url.dueDateAfter = moment(this.filterForm.value['start_date']).format("YYYY-MM-DD")
-    }
-    if (this.filterForm.value['end_date']) {
-
+    if (start instanceof(_moment)) {
+      console.log(start instanceof(_moment))
+      this.ordersService.url.dueDateAfter = moment(this.filterForm.value['start_date']).format("YYYY-MM-DD")
+     } else if (start === null || '') {  this.ordersService.url.dueDateAfter = '' }
+    if (end instanceof(_moment)) {
       this.ordersService.url.dueDateBefore = moment(this.filterForm.value['end_date']).format("YYYY-MM-DD")
-      }
+      } else if (end === null || '') {  this.ordersService.url.dueDateBefore = '' }
+
     this.ordersService.url.jpStyle = this.filterForm.value['jp_style_number'];
     this.ordersService.url.buyerStyle = this.filterForm.value['buyer_style_number'];
     this.ordersService.url.buyer = this.filterForm.value['buyers'];

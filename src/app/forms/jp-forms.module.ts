@@ -8,6 +8,7 @@ import {FormComponent} from './dynamic-form/form/form.component';
 import {FilterFormComponent} from './dynamic-form/filter-form/filter-form.component';
 import {DynamicFormRequestComponent} from './dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from './_service/option-form.service';
+import {DatePickerComponent} from './date-picker/date-picker.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {OptionsFormService} from './_service/option-form.service';
     FormComponent,
     FilterFormComponent,
     DynamicFormRequestComponent,
+    DatePickerComponent,
   ],
   entryComponents: [
     DynamicFormRequestComponent
