@@ -28,7 +28,11 @@ import { OrderTodosComponent } from './orders/order-task/order-todos/order-todos
 import { DatePickerComponent } from '../_util/date-picker/date-picker/date-picker.component';
 import { OrderDetailComponent } from './orders/order-detail/order-detail.component';
 import { TimeDifferenceComponent } from './_directives/time-diff/time-difference/time-difference.component';
+import { JpFormsModule } from '../forms/jp-forms.module';
+import { DynamicFormRequestComponent } from '../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
+import {OptionsFormService} from '../forms/_service'
 import {CustomerComponent} from './customer/customer.component';
+import {FilterFormComponent} from '../forms/dynamic-form/filter-form/filter-form.component';
 import { OrderExpenseComponent } from './orders/order-expense/order-expense.component';
 import { OrderExpenseItemComponent } from './orders/order-expense/order-expense-item/order-expense-item.component';
 import {ExpenseFormService} from './orders/order-expense/_service/expense-form.service';
@@ -37,9 +41,6 @@ import { OrdersComponent } from './orders/orders.component';
 import { TaskCalendarModule } from './task-calendar/task-calendar.module';
 import { SweaterSizeComponent } from './sweater-size/sweater-size.component';
 import { SweaterSizeUpdateComponent } from './sweater-size/sweater-size-update/sweater-size-update.component';
-
-import {JpFormsModule} from 'app/forms/jp-forms.module';
-
 @NgModule({
   imports: [
     FormsModule,
@@ -47,8 +48,8 @@ import {JpFormsModule} from 'app/forms/jp-forms.module';
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
+    JpFormsModule,
     TaskCalendarModule,
-    JpFormsModule
   ],
   declarations: [
     CustomerTableComponent,
@@ -69,8 +70,10 @@ import {JpFormsModule} from 'app/forms/jp-forms.module';
     DatePickerComponent,
     OrderDetailComponent,
     TimeDifferenceComponent,
+    DynamicFormRequestComponent,
     CustomerComponent,
     OrderDetailComponent,
+    FilterFormComponent,
     OrderExpenseComponent,
     OrderExpenseItemComponent,
     OrderCardsComponent,
@@ -79,7 +82,10 @@ import {JpFormsModule} from 'app/forms/jp-forms.module';
     SweaterSizeUpdateComponent,
   ],
   entryComponents: [
+    DynamicFormRequestComponent,
     OrderDetailComponent,
+    FilterFormComponent,
+
   ],
   exports: [
     CustomerTableComponent,
@@ -95,6 +101,7 @@ import {JpFormsModule} from 'app/forms/jp-forms.module';
     TaskGroupService,
     ModalService,
     OrderTaskFormService,
+    OptionsFormService,
     ExpenseFormService,
 
 

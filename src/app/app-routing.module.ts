@@ -31,13 +31,13 @@ const routes: Routes = [
   { path: 'add-task-group', component: AddTaskGroupComponent, canActivate: [AuthGuard] },
   { path: 'task-form', component: DynamicComponent, canActivate: [AuthGuard] },
   { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
-  { path: 'task-update', component: TaskUpdateComponent },
+  { path: 'task-update', component: TaskUpdateComponent,  canActivate: [AuthGuard] },
   { path: 'task-test', component: TaskComponent, canActivate: [AuthGuard] },
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
-  { path: 'order-expense', component: OrderExpenseComponent},
-  { path: 'home', component: TaskCalendarComponent},
-  { path: 'sweater-sizes', component: SweaterSizeUpdateComponent}
+  { path: 'order-expense', component: OrderExpenseComponent,  canActivate: [AuthGuard]},
+  { path: 'home', component: TaskCalendarComponent,  canActivate: [AuthGuard]},
+  { path: 'sweater-sizes', component: SweaterSizeUpdateComponent,  canActivate: [AuthGuard]}
 ];
 
 @NgModule({
