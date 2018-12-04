@@ -30,7 +30,7 @@ export class AppComponent implements OnInit,  AfterViewInit {
     {
       displayName: 'Home',
       iconName: 'home',
-      class: 'primary-accent',
+      class: 'primary',
       route: 'home'
     },
     {

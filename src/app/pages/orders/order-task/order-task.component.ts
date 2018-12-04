@@ -6,6 +6,8 @@ import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
 import { Order } from '../../../modules/models/orders.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {HttpClientService} from 'app/_services/http-client.service';
+import {AppConfig} from 'app/config/app.config';
 
 
 
@@ -43,6 +45,7 @@ export class OrderTaskComponent implements OnInit {
     private orderTFS: OrderTaskFormService,
     private apiService: ApiService,
     private fb: FormBuilder,
+    private httpClient: HttpClientService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
 
   ) {}
@@ -70,11 +73,14 @@ export class OrderTaskComponent implements OnInit {
   setmasterGroupMessage(event) {
     this.ordertaskForm.get('order').setValue(this.data.order.id);
     let set_names = event.set_names;
+    console.log(event, 'this is where the break is');
     this.masterGroupMessage = set_names;
     console.log('message', this.masterGroupMessage);
   }
-  getBlanketTask(id) {
-    this.apiService.getTaskDetail(id).subscribe(res => {
+  getBlanketTask(set) {
+    console.log(set.id)
+    this.httpClient.get(AppConfig.urlOptions.task + set.id+ '/').subscribe(res => {
+      console.log(res)
       this.orderTFS.clearForm();
       if (this.ordertaskForm.get('todos').value.length == 0) {
         const todos = res['todos'];
@@ -82,6 +88,7 @@ export class OrderTaskComponent implements OnInit {
           if (todos.hasOwnProperty(todo)) {
             const todoslist =  todos[todo];
             // const currentTask = this.taskForm.getValue();
+            console.log(todoslist, "todos list here yoyo")
             const currentTodos = this.ordertaskForm.get('todos') as FormArray;
             currentTodos.push(
             this.fb.group(
@@ -129,7 +136,7 @@ export class OrderTaskComponent implements OnInit {
   //  TODO: ADD ORDER TASK CREATE TO API
 
   createOrderTask() {
-    this.apiService.addTaskToOrder(this.ordertaskForm.value).subscribe(response => {
+    this.httpClient.post(AppConfig.urlOptions.orderTasks,  this.ordertaskForm.value).subscribe(response => {
       console.log(response);
       });
     this.orderTFS.clearForm();

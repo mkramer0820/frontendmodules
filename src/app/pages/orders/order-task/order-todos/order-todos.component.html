@@ -1,15 +1,12 @@
     <form [formGroup]="orderTaskTodoForm">
-    <mat-grid-list cols="10" rows="1">
 
             <!-- emit delete event up w/ index of todos -->
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
 
-        <mat-grid-tile colspan="2"  rowspan="1"> 
             <mat-form-field >
               <input matInput formControlName="todo" placeholder="Task Name">
             </mat-form-field>
-        </mat-grid-tile>
         
-          <mat-grid-tile colspan="2"  rowspan="1">
             <mat-form-field>
               <input matInput [matDatepicker]="picker" placeholder="Due Date"formControlName="duedate">
               <mat-datepicker-toggle matSuffix [for]="picker">
@@ -17,8 +14,6 @@
               </mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="2"  rowspan="1">
           <mat-form-field class="form-element">
           <mat-select matInput  placeholder="Status" formControlName='status'>
             <mat-option *ngFor="let status of status; let i=index" value={{status}}>
@@ -26,25 +21,19 @@
             </mat-option>
           </mat-select>
           </mat-form-field>
-          </mat-grid-tile>
 
 
-          <mat-grid-tile colspan="3"  rowspan="1">
   
               <mat-form-field>
                 <input matInput formControlName="comment" placeholder="Comment">
               </mat-form-field>
-            </mat-grid-tile>
-          
-      <mat-grid-tile colspan="1"  rowspan="1">
+      
         <button mat-mini-fab (click)="delete()" class="my-fab" >
           <mat-icon>delete</mat-icon>
         </button>
-      </mat-grid-tile>
 
-    
+      </div>
 
-    </mat-grid-list>
 
 
   <!--<span class="status">{{orderTaskTodoForm.status} style="background-color:firebrick; color:white}</span> -->

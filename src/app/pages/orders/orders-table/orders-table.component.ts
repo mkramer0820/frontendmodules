@@ -187,8 +187,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   }
   openUpdateTask(order): void {
     const dialogRef = this.dialog.open(OrderTaskComponent, {
-      width: '700px',
-      height: '800px',
+      width: '70%',
+      height: '70%',
       data: {url: AppConfig.urlOptions.orderTasks, order: order, formData: order.tasks, update: true}
     });
     dialogRef.afterClosed().subscribe((orders: Order[]) => {
@@ -274,8 +274,7 @@ openUpdateDialog(order): void {
 openSweaterSizeDialog(update?: boolean): void {
   const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
     width: '700px',
-    height: '800px',
-    data: {url: AppConfig.urlOptions.sweaterSizes, update: update}
+    data: {url: AppConfig.urlOptions.sweaterSizes , update: update}
   });
   dialogRef.afterClosed().subscribe((orders: Order[]) => {
     this.ordersService.findPaginatedOrders();

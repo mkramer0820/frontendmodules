@@ -25,11 +25,36 @@ export class HttpClientService {
     ) { }
 
   get(url: string, options?: any): Observable<any> {
-    return this.http.get(`${this.BASE_URL}${url}`, options);
-  }
+    return this.http.get(`${this.BASE_URL}${url}`, options)
+    .pipe(catchError(err => {
+      if (err.status > 399) {
+        this.openSnackBar(err);
 
-  post(url: string, body: any, options?: any): Observable<ArrayBuffer> {
-    return this.http.post(`${this.BASE_URL}${url}`, body, options);
+        
+          // auto logout if 401 response returned from api
+          location.reload(false);
+      }
+
+      const error = err.error.message || err.statusText;
+      return throwError(error);
+    }))
+  };
+  
+
+  post(url: string, body?: any, options?: any): Observable<any> {
+    return this.http.post(`${this.BASE_URL}${url}`, body, options)
+    .pipe(catchError(err => {
+      if (err.status === 400) {
+        this.openSnackBar(err);
+
+        
+          // auto logout if 401 response returned from api
+          location.reload(false);
+      }
+
+      const error = err.error.message || err.statusText;
+      return throwError(error);
+    }));
   }
 
   put(url: string, body: any, options?: any) {
@@ -47,7 +72,6 @@ export class HttpClientService {
       return throwError(error);
     }))
   };
-
  
   login(username: string, password: string) {
 

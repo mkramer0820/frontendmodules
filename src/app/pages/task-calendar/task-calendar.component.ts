@@ -103,26 +103,28 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
 
   loadEvents() {
     this.isLoading = true;
-    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
+    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
     
-    .pipe(map((res: TaskEvent[]) => {
+    .pipe(map((res: Orders[]) => {
             
       return res.map(event => {
-        return {
-            title: event.buyer_style_number + " - " + event.set_name,
-            start: new Date(event.order_due_date),
+        console.log(event)
+        let order = {
+            title: 'Order For Buyer Style Number '+ event.buyer +' ' +event.buyer_style_number +" Is Due",
+            start: new Date(event.due_date),
             color: {primary: colors.blue, secondary: "#D1E8FF"},
             meta: {
               event
             },
             allDay: false,
-            todo: event.todos,
           }
+          console.log(order);
+          return order;
         })
       }))
       this.isLoading = false;
   };
-    loadEvents2() {
+  loadEvents2() {
      // this.asyncEvents$ 
     let todoItems: CalendarEvent[] =[];
     this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
@@ -181,4 +183,94 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
     }
   }
 
+interface Orders {
+  id: number;
+  buyer: number;
+  factory: number;
+  buyer_name: string;
+  factory_name: string;
+  tasks: Task[];
+  due_date: string;
+  factory_ship_date: string;
+  sweater_image: string;
+  size?: any;
+  sizing: any[];
+  factory_set: Factoryset[];
+  customer_set: Customerset[];
+  orderExpense: any[];
+  completeTasks: any[];
+  incompleteTasks: Task[];
+  isActive: boolean;
+  customer_order_number: number;
+  buyer_style_number: string;
+  jp_style_number: string;
+  cost_from_factory: number;
+  buyers_price: number;
+  order_type: string;
+  qty: number;
+  sweater_description: string;
+  brand: string;
+  fiber_content: string;
+  jp_care_instructions: string;
+  color: string;
+  jp_style_number_test: any[];
+}
 
+interface Customerset {
+  id: number;
+  isActive: boolean;
+  name: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  email: string;
+  phone: string;
+  extension: string;
+  website: string;
+  description: string;
+  createdOn: string;
+}
+
+interface Factoryset {
+  id: number;
+  isActive: boolean;
+  name: string;
+  contact_name_id: number;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  email: string;
+  phone: string;
+  website: string;
+  description: string;
+  createdOn: string;
+}
+
+interface Task {
+  id: number;
+  buyer_style_number: string;
+  jp_style_number: string;
+  order_due_date: string;
+  buyer: string;
+  isActive: boolean;
+  set_name: string;
+  todos_group: string;
+  set_status?: any;
+  todos: Todo[];
+  order: number;
+}
+
+interface Todo {
+  todo: string;
+  status: string;
+  comment: string;
+  duedate: string;
+}

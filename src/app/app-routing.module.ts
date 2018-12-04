@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
   { path: 'order-expense', component: OrderExpenseComponent},
-  { path: 'calendar', component: TaskCalendarComponent},
+  { path: 'home', component: TaskCalendarComponent},
   { path: 'sweater-sizes', component: SweaterSizeUpdateComponent}
 ];
 

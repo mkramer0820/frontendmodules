@@ -1,7 +1,6 @@
 <div fxLayout="col" fxLayoutAlign="center" style="padding-top: 20px">
 
-<mat-card [class.dark-theme]="isDarkTheme">
-    <div><button mat-button color="primary">BOOO</button></div>
+<mat-card >
     <mwl-demo-utils-calendar-header
       [(view)]="view"
       [(viewDate)]="viewDate"
@@ -20,7 +19,7 @@
     </ng-template>
        
           <ng-template *ngIf="asyncEvents$ | async; else loading; let asyncEvents">
-            <!--
+            
               <div [ngSwitch]="view">
                 <mwl-calendar-month-view
                   *ngSwitchCase="'month'"
@@ -29,22 +28,22 @@
                   [events]="async2$"
                   [activeDayIsOpen]="activeDayIsOpen"
                   (dayClicked)="dayClicked($event.day)"
-                  (eventClicked)="eventClicked($event.event)">
+                  (eventClicked)="eventClicked(asyncEvents.event)">
                 </mwl-calendar-month-view>
                 <mwl-calendar-week-view
                   *ngSwitchCase="'week'"
                   [viewDate]="viewDate"
                   [events]="asyncEvents"
-                  (eventClicked)="eventClicked($event.event)">
+                  (eventClicked)="eventClicked(asyncEvents.event)">
                 </mwl-calendar-week-view>
                 <mwl-calendar-day-view
                   *ngSwitchCase="'day'"
                   [viewDate]="viewDate"
                   [events]="asyncEvents"
                   [events]="async2$"
-                  (eventClicked)="eventClicked($event.event)">
+                  (eventClicked)="eventClicked(asyncEvents.event)">
                 </mwl-calendar-day-view>
-            </div>-->
+            </div>
           </ng-template>
 
             <ng-template ngIf="isLoading === false" fxLayout="row" fxLayoutAlign="strech">

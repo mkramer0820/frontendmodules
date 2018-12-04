@@ -5,7 +5,7 @@
 @include mat-core();
 @import './my-theme.scss';
 
-$app-primary: mat-palette($mat-gray, 800);
+$app-primary: mat-palette($mat-gray, 800, 50);
 // $app-accent: mat-palette($mat-yellow, 50);
 $app-accent: mat-palette($mat-orange, A200, A100, A400);
 $app-warn: mat-palette($mat-red);

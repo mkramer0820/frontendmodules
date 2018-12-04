@@ -20,10 +20,13 @@
         
 
     </div>
-    <mat-list [class.mat-elevation-z8]>
+    <mat-list >
         <app-filter-form #newFilters ></app-filter-form>
-        <button mat-mini-fab color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Order
-        <button mat-mini-fab color="primary" (click)="openSweaterSizeDialog()"><mat-icon>add</mat-icon></button> &nbsp; Add New Sweater Size
+        <mat-toolbar  class="mat-elevation-z1" fxLayoutAlign="center center">
+
+        <button mat-raised-button color="primary" (click)="openAddDialog()">Add New Order</button> &nbsp;
+        <button mat-raised-button color="primary" (click)="openSweaterSizeDialog(false)"> Add New Sweater Size</button> &nbsp;
+        </mat-toolbar>
 
     </mat-list>
     <mat-table id="orderTable" [dataSource]="orders" matSort class="mat-elevation-z8">
@@ -117,8 +120,8 @@
           </ng-container>
 
           <ng-container matColumnDef="brand">
-            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("brand")'> <p>Brand</p> </mat-header-cell>
-            <mat-cell mat-cell   *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}"  > <p>{{order.brand}}</p> </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("brand")' fxFlex="1 1 3.5%"> <p>Brand</p> </mat-header-cell>
+            <mat-cell mat-cell   *matCellDef="let order; row"  [ngClass]="{'highlight': selectedRowIndex == order.id}" fxFlex="1 1 3.5%" > <p>{{order.brand}}</p> </mat-cell>
             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
           </ng-container>
 
@@ -199,12 +202,9 @@
     ></mat-paginator>
 
 
-    <div fxLayout="row" style="padding-bottom: 1em">
-
-    </div>
   
-    <div  fxLayout="row" fxLayoutAlign="space-evenly stretch" >
-
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'> 
+      
 
           <ng-container *ngIf='order && order.tasks.length > 0'>
               <span *ngFor="let tasks of order.tasks">

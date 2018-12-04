@@ -26,8 +26,8 @@
         
             <mat-form-field  *ngIf='masterGroupMessage' class="form-element">
               <mat-select matInput  placeholder="Select Task Set" formControlName='set_name'>
-                <mat-option *ngFor="let set of masterGroupMessage; let i=index" value={{set.set_name}} (click)="getBlanketTask(set.id)">
-                  <span class="mat-option-text">{{set.set_name}}</span>
+                <mat-option *ngFor="let set of masterGroupMessage; let i=index" value={{set.set_name}} (click)="getBlanketTask(set)">
+                  <span class="mat-option-text">{{set.id}}{{set.set_name}}</span>
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -45,11 +45,11 @@
       
         <button mat-mini-fab (click)="addOrderTodos()" style="background-color:black;"><mat-icon style="color: whitesmoke">add</mat-icon></button>
           Add Tasks To Set
-        <ul >
-          <li *ngFor="let todo of orderTodos?.controls; let i = index">
-            <app-order-todos [index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
-          </li>
-        </ul>
+          <span *ngFor="let todo of orderTodos?.controls; let i = index">
+            <div class="todo-rows">
+              <app-order-todos fxFlex="row"[index]="i" [orderTaskTodoForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-order-todos>
+            </div>
+          </span>
 
 
 

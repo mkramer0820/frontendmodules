@@ -31,7 +31,14 @@ export class FilterFormService {
     console.log(customerNames)
 
     let filter: FormBase<any>[] = [
-      
+      new FormCheckBox({
+        key: 'isActive',
+        value: true,
+        label: 'Active/Inactive',
+        controlType: 'checkbox',
+        require: false,
+        order: 0
+      }),
       new FormDropdown({
         key: 'buyers',
         label: 'Buyer',
@@ -75,14 +82,7 @@ export class FilterFormService {
         required: false,
         order: 5,
       }),
-      new FormCheckBox({
-        key: 'isActive',
-        value: true,
-        label: 'Active/Inactive',
-        controlType: 'checkbox',
-        require: false,
-        order: 6
-      })
+      
     ];
     return filter.sort((a, b) => a.order - b.order);
   }
