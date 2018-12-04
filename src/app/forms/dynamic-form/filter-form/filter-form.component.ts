@@ -14,6 +14,9 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import { isType } from '@angular/core/src/type';
+import {DynamicFormRequestComponent} from '../dynamic-form-request/dynamic-form-request.component';
+import {AppConfig} from "app/config/app.config";
+import {MatDialog} from "@angular/material";
 
 const moment = _rollupMoment || _moment;
 
@@ -50,11 +53,15 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   order: Order[];
   opt: any[] = [''];
   totalCost: any = {};
+  pageSize: number;
+  length: number;
 
 
   constructor(
      private ffs: FilterFormService,
      private fcs: FormControlService,
+     private dialog: MatDialog,
+
      private ordersService: OrderService) { this.models = this.getForm();
   }
 
@@ -113,6 +120,24 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
       options.push(order.buyer_name)
     }
     return options;
+  }
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      height: '800px',
+      data: {url: AppConfig.urlOptions.orders, order: this.order, update: false}
+    });
+    dialogRef.afterClosed().subscribe((orders: Order[]) => {
+      this.ordersService.findPaginatedOrders();
+      this.ordersService.currentOrders.subscribe((orders: Order[]) => {
+        this.orders = orders;
+        this.length = this.ordersService.url.length;
+        this.pageSize = this.ordersService.url.pageSize;
+        this.getTotalCost(orders)
+  
+       })
+    })
+  
   }
 }
 

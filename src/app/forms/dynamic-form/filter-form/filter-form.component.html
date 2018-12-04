@@ -1,47 +1,52 @@
 
 
-<mat-toolbar class="indigo" class="mat-elevation-z7" fxLayoutAlign="center center">
-
-    <div (ngSubmit)="onSubmit()" [formGroup]="filterForm"  fxLayout="row" fxLayoutGap="35px">
-            
-            <div *ngFor="let item of models">
-
-
-                <div [ngSwitch]="item.controlType">
+<div class="p-lighter"  color="primary">
+    <mat-toolbar color="white" mat-elevation-z8 fxLayoutAlign="center center">
+            <button mat-raised-button (click)="openAddDialog()">Add New Order</button> &nbsp;
+            <button mat-raised-button (click)="openSweaterSizeDialog(false)"> Add Sweater Size</button> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        <div (ngSubmit)="onSubmit()" [formGroup]="filterForm"  fxLayout="row" fxLayoutGap="35px">
                 
-                
-                    <mat-form-field *ngSwitchCase="'textbox'" >
-                        <input matInput  #input [type]="item.type"  maxlength={{item.lengthValidator}} [formControlName]="item.key" [placeholder]="item.label" (length)="maxLength($event)" >
-                    </mat-form-field>
-                
-                    <mat-form-field *ngSwitchCase="'dropdown'" class="form-element" >
-                        <mat-select [placeholder]="item.label" [formControlName]="item.key">
-                        <mat-option *ngFor="let opt of item.options" [value]="opt" >
-                            {{opt}}
-                        </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <div *ngFor="let item of models">
+
+
+                    <div [ngSwitch]="item.controlType">
                     
-                    <mat-checkbox  *ngSwitchCase="'checkbox'" [formControlName]="item.key" [value]=true style="font-size: .5em; padding-top: 30px" >{{item.label}}</mat-checkbox>
-                
                     
-                    <mat-form-field *ngSwitchCase="'datepicker'">
-                        <input  matInput [matDatepicker]="picker2" [placeholder]="item.label" [formControlName]="item.key" >
-                        <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-                    </mat-form-field>
-                
-                    <input *ngSwitchCase="'image_upload'" (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
+                        <mat-form-field *ngSwitchCase="'textbox'" >
+                            <input matInput  #input [type]="item.type"  maxlength={{item.lengthValidator}} [formControlName]="item.key" [placeholder]="item.label" (length)="maxLength($event)" >
+                        </mat-form-field>
+                    
+                        <mat-form-field *ngSwitchCase="'dropdown'" class="form-element" >
+                            <mat-select [placeholder]="item.label" [formControlName]="item.key">
+                            <mat-option *ngFor="let opt of item.options" [value]="opt" >
+                                {{opt}}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <mat-checkbox  *ngSwitchCase="'checkbox'" [formControlName]="item.key" [value]=true style="font-size: .5em; padding-top: 30px" >{{item.label}}</mat-checkbox>
+                    
+                        
+                        <mat-form-field *ngSwitchCase="'datepicker'">
+                            <input  matInput [matDatepicker]="picker2" [placeholder]="item.label" [formControlName]="item.key" >
+                            <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    
+                        <input *ngSwitchCase="'image_upload'" (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
+                    
+
+                    </div>
                 
 
                 </div>
-            
 
+                
             </div>
-
-            
-        </div>
-        <button mat-raised-button color="primary" (click)="onSubmit()" style="padding-left: 20px">Send Filter</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button (click)="onSubmit()" style="padding-left: 20px">Send Filter</button>
 
 
-</mat-toolbar>
+    </mat-toolbar>
+</div>

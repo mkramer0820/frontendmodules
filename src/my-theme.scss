@@ -8,6 +8,13 @@ $teal-accent: mat-palette($mat-cyan, A200);
 $teal-warn: mat-palette($mat-amber, A700);
 $teal-theme: mat-light-theme($teal-primary, $teal-accent, $teal-warn);
 
+$grey-primary: mat-palette($mat-gray, 400);
+$grey-accent: mat-palette($mat-light-blue, A200);
+$grey-warn: mat-palette($mat-deep-orange, 500);
+$grey-theme: mat-light-theme($grey-primary, $grey-accent, $grey-warn);
+
+
+
 
 $indigo-theme: mat-light-theme(
     $indigo-primary, $indigo-accent, $indigo-warn
@@ -22,4 +29,7 @@ $teal-theme-dark: mat-dark-theme(
     $teal-primary, $teal-accent, $teal-warn
 );
 
+$grey-light-them: mat-light-theme(
+    $grey-primary, $grey-accent, $grey-warn
+)
 

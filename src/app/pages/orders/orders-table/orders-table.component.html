@@ -21,12 +21,9 @@
 
     </div>
     <mat-list >
-        <app-filter-form #newFilters ></app-filter-form>
-        <mat-toolbar  class="mat-elevation-z1" fxLayoutAlign="center center">
 
-        <button mat-raised-button color="primary" (click)="openAddDialog()">Add New Order</button> &nbsp;
-        <button mat-raised-button color="primary" (click)="openSweaterSizeDialog(false)"> Add New Sweater Size</button> &nbsp;
-        </mat-toolbar>
+        <app-filter-form #newFilters ></app-filter-form>
+
 
     </mat-list>
     <mat-table id="orderTable" [dataSource]="orders" matSort class="mat-elevation-z8">
@@ -198,7 +195,7 @@
     [pageSizeOptions]='pageSizeOptions'
     showFirstLastButtons='false'
     (page)="paginate()"
-    
+    class="mat-elevation-z8"
     ></mat-paginator>
 
 

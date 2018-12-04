@@ -25,6 +25,17 @@ $primary-dark: mat-dark-theme(
   @include angular-material-theme($alternate-theme);
 }
 
+.black-white {
+  $black-white-primary: #000000;
+  $black-white-white: #FFFFFF;
+}
+
+.p-lighter{
+  @include angular-material-theme($grey-theme);
+
+}
+
+
 
 .indigo {
   @include angular-material-theme($indigo-theme);
