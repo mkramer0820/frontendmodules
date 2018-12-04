@@ -39,9 +39,11 @@ import { SweaterSizeComponent } from './sweater-size/sweater-size.component';
 import { SweaterSizeUpdateComponent } from './sweater-size/sweater-size-update/sweater-size-update.component';
 
 import {JpFormsModule} from 'app/forms/jp-forms.module';
+import {AppRoutingModule} from '../app-routing.module';
 
 @NgModule({
   imports: [
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,

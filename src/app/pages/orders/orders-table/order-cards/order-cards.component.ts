@@ -13,8 +13,7 @@ export class OrderCardsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.tasks)
-    console.log(this.avatar)
+
   }
 
 }

@@ -138,7 +138,16 @@ export class FilterFormComponent implements OnInit, AfterViewInit {
   
        })
     })
-  
+  }
+  openSweaterSizeDialog(update?: boolean): void {
+    const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
+      width: '700px',
+      data: {url: AppConfig.urlOptions.sweaterSizes , update: update}
+    });
+    dialogRef.afterClosed().subscribe((orders: Order[]) => {
+      this.ordersService.findPaginatedOrders();
+      
+    })
   }
 }
 

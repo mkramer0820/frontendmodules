@@ -31,7 +31,7 @@
           <ng-container matColumnDef="id" style="padding:0;">
             <mat-header-cell *matHeaderCellDef mat-sort-header (click)="paginate('id')"  fxFlex="1 1 5%"> <p>Id</p> </mat-header-cell>
             <mat-cell mat-cell   *matCellDef="let order; row"  
-            [ngClass]="{'highlight': selectedRowIndex == order.id}"  fxFlex="1 1 5%"> <mat-icon (click)="openDetailDialog(order)">pageview</mat-icon><p>{{order.id}}</p></mat-cell>
+            [ngClass]="{'highlight': selectedRowIndex == order.id}"  fxFlex="1 1 5%"> <mat-icon (click)="openDetailDialog(order)">pageview</mat-icon><p><a [routerLink]="[ '/order-detail', order.id ]">{{order.id}}</a></p></mat-cell>
             <mat-footer-cell *matFooterCellDef  fxFlex="1 1 5%"></mat-footer-cell>
           </ng-container>
 

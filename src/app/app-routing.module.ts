@@ -18,12 +18,14 @@ import { OrderTaskComponent } from './pages/orders/order-task/order-task.compone
 import { OrderExpenseComponent } from './pages/orders/order-expense/order-expense.component';
 import {TaskCalendarComponent} from './pages/task-calendar/task-calendar.component';
 import {SweaterSizeUpdateComponent} from './pages/sweater-size/sweater-size-update/sweater-size-update.component';
+import {OrderDetailComponent} from './pages/orders/order-detail/order-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
   {path: 'factory-table', component: FactoryTableComponent, canActivate: [AuthGuard]},
   {path: 'order-table', component: OrdersTableComponent, canActivate: [AuthGuard]},
+  {path: 'order-detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard]},
   {path: 'test-customer', component: CustomersComponent, canActivate: [AuthGuard]},
   {path: 'factory-contact', component: FactoryContactComponent, canActivate: [AuthGuard]},
 
