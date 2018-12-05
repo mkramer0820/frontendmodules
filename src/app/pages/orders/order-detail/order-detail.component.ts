@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig, MatDialogModule} from '@angular/material';
 import {Order} from '../../../modules/models/orders.model';
 import { Url } from 'url';
 import {HttpClientService} from 'app/_services/http-client.service';
@@ -46,14 +46,13 @@ export interface Address {
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
-  providers: [
-  { provide: MatDialogRef, useValue: {} }]
+  providers: [],
 })
 export class OrderDetailComponent implements OnInit {
   orderDetail: any;
   httpOrder: Order
   buyer: string;
-
+  isDialog: boolean = true;
   tiles: Tile[]
 
   orderAddress: OrderAddress[] = []
@@ -66,11 +65,15 @@ export class OrderDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private httpClient: HttpClientService,
-    // @Inject(MAT_DIALOG_DATA) private order?: DialogData,
-
-    public dialogRef?: MatDialogRef<OrderDetailComponent>
+    @Optional() @Inject(MAT_DIALOG_DATA) private order?: DialogData,
+    @Optional() public dialogRef?: MatDialogRef<OrderDetailComponent>,
      ) { 
       const id = +this.route.snapshot.params["id"];
+      if (this.order) {
+        this.isDialog = true;
+        this.orderDetail = order['order'];
+        console.log("got orderDeatil from dialog inject")
+      }
       this.getOrder({orderD: null , id: id|| null})}
 
     ngOnInit(
@@ -102,6 +105,7 @@ export class OrderDetailComponent implements OnInit {
             return Tile
         }*/
         if (id) {
+
           this.orderDetail = this.getOrderDetail(id);
          }
       }

@@ -41,6 +41,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { TaskCalendarModule } from './task-calendar/task-calendar.module';
 import { SweaterSizeComponent } from './sweater-size/sweater-size.component';
 import { SweaterSizeUpdateComponent } from './sweater-size/sweater-size-update/sweater-size-update.component';
+import {MatDialogModule} from '@angular/material';
 @NgModule({
   imports: [
     FormsModule,
@@ -50,6 +51,7 @@ import { SweaterSizeUpdateComponent } from './sweater-size/sweater-size-update/s
     BrowserAnimationsModule,
     JpFormsModule,
     TaskCalendarModule,
+    MatDialogModule
   ],
   declarations: [
     CustomerTableComponent,
