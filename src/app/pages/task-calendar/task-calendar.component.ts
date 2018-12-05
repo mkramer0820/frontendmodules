@@ -94,7 +94,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // this.fetchEvents();
-    // this.loadEvents();
+    this.loadEvents();
     this.loadEvents2();
   }
   ngOnChanges() {
@@ -102,7 +102,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
   }
 
 
- /* loadEvents() {
+ loadEvents() {
     this.isLoading = true;
     this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
 
@@ -121,7 +121,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
         });
       }));
       this.isLoading = false;
-  }*/
+  }
   loadEvents2() {
 
     let todoItems: CalendarEvent[] = [];
