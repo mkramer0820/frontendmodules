@@ -5,6 +5,7 @@ import {AppConfig} from '../../config/app.config';
 import { map, flatMap, filter, delay } from 'rxjs/operators';
 import {pipe, Subject} from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
+import {}
 import {
   isSameMonth,
   isSameDay,
@@ -93,69 +94,68 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // this.fetchEvents();
-    this.loadEvents();
-    this.loadEvents2()
+    // this.loadEvents();
+    this.loadEvents2();
   }
   ngOnChanges() {
     this.isLoading = false;
   }
 
 
-  loadEvents() {
+ /* loadEvents() {
     this.isLoading = true;
-    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
-    
-    .pipe(map((res: TaskEvent[]) => {
-            
+    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
+
+    .pipe(map((res: Order[]) => {
       return res.map(event => {
         return {
-            title: event.buyer_style_number + " - " + event.set_name,
-            start: new Date(event.order_due_date),
-            color: {primary: colors.blue, secondary: "#D1E8FF"},
+          title: 'Order For Buyer Style Number ' + event.buyer_name + ' ' + event.buyer_style_number + ' Is Due',
+          color: {primary: colors.blue, secondary: '#D1E8FF'},
+          start: new Date(event.due_date),
             meta: {
               event
             },
             allDay: false,
-            todo: event.todos,
-          }
-        })
-      }))
+            tasks: event.tasks,
+          };
+        });
+      }));
       this.isLoading = false;
-  };
-    loadEvents2() {
-     // this.asyncEvents$ 
-    let todoItems: CalendarEvent[] =[];
-    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orderTasks}`)
-       
-      .subscribe((res: TaskEvent[]) => {
-        res.map((res, index)=> {
-          let items = {
-            title: 'Order For Buyer Style Number '+ res.buyer +' ' +res.buyer_style_number +" Is Due",
+  }*/
+  loadEvents2() {
+
+    let todoItems: CalendarEvent[] = [];
+    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
+      .subscribe((res: Order[]) => {
+        res.map((order , index) => {
+          const items = {
+            title: 'Order For Buyer Style Number '+ order.buyer_name +' ' + order.buyer_style_number + ' Is Due',
             color: {primary: colors.blue, secondary: "#D1E8FF"},
-            start: new Date(res.order_due_date)
+            start: new Date(order.due_date)
           }
           todoItems.push(items)
-        })
-        let todo = res.map((res, index)=> {
-          let order = res.buyer_style_number
-          let jp = res.jp_style_number
-          let buyer = res.buyer
-          return res.todos.forEach((todo, index)=> {
-            let items = {
-              title: `${'Task '+ todo.todo + ' Is Due For '+ buyer +"'s Buyer Style Number "+order}`,
-              color: colors.yellow,
-              start: new Date(todo.duedate),
-            }
-            todoItems.push(items);
-          })
-        })
-        return this.async2$ =  todoItems
-      })
+        });
+        let todo = res.map((orderTodo, index)=> {
+          let order = orderTodo.buyer_style_number;
+          let jp = orderTodo.jp_style_number;
+          let buyer = orderTodo.buyer_name;
+          let orderTaskItem = orderTodo.tasks;
+          return orderTaskItem.forEach((todo, index)=> {
+            todo.todos.forEach((todo,index) => {
+              let items = {
+                title: todo.todo,
+                color: colors.red,
+                start: new Date(todo.duedate)
+              };
+              todoItems.push(items);
+            });
+          });
+        });
+        this.isLoading = false;
+        console.log(todoItems);
+        return this.async2$ =  todoItems;
+      });
     }
-
- 
-  
-  
 
   dayClicked({ date, events }: {date: Date; events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>; }): void {
       if (isSameMonth(date, this.viewDate)) {
@@ -182,3 +182,93 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
   }
 
 
+interface Order {
+  id: number;
+  buyer: number;
+  factory: number;
+  buyer_name: string;
+  factory_name: string;
+  tasks: Task[];
+  due_date: string;
+  factory_ship_date: string;
+  sweater_image: string;
+  size?: any;
+  sizing: any[];
+  factory_set: Factoryset[];
+  customer_set: Customerset[];
+  orderExpense: any[];
+  completeTasks: any[];
+  incompleteTasks: Task[];
+  isActive: boolean;
+  customer_order_number: number;
+  buyer_style_number: string;
+  jp_style_number: string;
+  cost_from_factory: number;
+  buyers_price: number;
+  order_type: string;
+  qty: number;
+  sweater_description: string;
+  brand: string;
+  fiber_content: string;
+  jp_care_instructions: string;
+  color: string;
+}
+
+interface Customerset {
+  id: number;
+  isActive: boolean;
+  name: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  email: string;
+  phone: string;
+  extension: string;
+  website: string;
+  description: string;
+  createdOn: string;
+}
+
+interface Factoryset {
+  id: number;
+  isActive: boolean;
+  name: string;
+  contact_name_id: number;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  email: string;
+  phone: string;
+  website: string;
+  description: string;
+  createdOn: string;
+}
+
+interface Task {
+  id: number;
+  buyer_style_number: string;
+  jp_style_number: string;
+  order_due_date: string;
+  buyer: string;
+  isActive: boolean;
+  set_name: string;
+  todos_group: string;
+  set_status?: any;
+  todos: Todo[];
+  order: number;
+}
+
+interface Todo {
+  todo: string;
+  status: string;
+  comment: string;
+  duedate: string;
+}
