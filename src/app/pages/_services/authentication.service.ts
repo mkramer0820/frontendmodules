@@ -59,7 +59,7 @@ export class AuthenticationService {
                     this.loggedIn.next(true);
                     console.log(this.loggedInUser);
                 }
-                this.router.navigate(['/order-table']);
+                this.router.navigate(['/home']);
 
                 return user;
             }));

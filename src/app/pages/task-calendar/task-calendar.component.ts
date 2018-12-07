@@ -5,7 +5,6 @@ import {AppConfig} from '../../config/app.config';
 import { map, flatMap, filter, delay } from 'rxjs/operators';
 import {pipe, Subject} from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
-import {}
 import {
   isSameMonth,
   isSameDay,
