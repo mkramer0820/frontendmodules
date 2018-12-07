@@ -54,8 +54,8 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(token));
-                    const user = this.updateData(token);
-                    this.loggedInUser.next(user);
+                    user = this.updateData(token);
+                    this.loggedInUser.next(user['user']);
                     this.loggedIn.next(true);
                     console.log(this.loggedInUser);
                 }
@@ -68,14 +68,28 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        this.loggedIn.next(false);
+        this.loggedInUser.next(null);
     }
-    updateData(token) {
+    updateData(token: any) {
         const token_parts = token.split(/\./);
-        const token_decoded = JSON.parse(window.atob(token_parts[1]));
+        let token_decoded: Jwt;
+        token_decoded = JSON.parse(window.atob(token_parts[1]));
         console.log(token_decoded);
-        const token_expires = new Date(token_decoded.exp * 1000);
-        const username = token_decoded.username;
-        return username;
+        const data: {} = {
+          user: token_decoded.username,
+          expiration: new Date(token_decoded.exp * 1000),
+          email:  token_decoded.email,
+          id: token_decoded.user_id
+          }
+        return data;
       }
+
+}
+export interface Jwt {
+  user_id: number;
+  username: string;
+  exp: number;
+  email: string;
 
 }

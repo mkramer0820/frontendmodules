@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
     private token = localStorage.getItem('currentUser');
+    constructor(private router: Router) { }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    intercept(request: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with jwt token if available
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser) {
@@ -16,6 +20,10 @@ export class JwtInterceptor implements HttpInterceptor {
                     Authorization: `${'Bearer ' + currentUser}`
                 }
             });
+        }
+        if (!currentUser) {
+            this.router.navigate(['/login']);
+
         }
         return next.handle(request);
     }

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { TaskGroup } from '../_models/task-group.model'
 import { first } from 'rxjs/operators';
 import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material';
+import {TaskGroupService} from '../_service/task-group.service';
 
 @Component({
   selector: 'add-task-group',
@@ -52,7 +53,8 @@ export class AddTaskGroupComponent implements OnInit {
   constructor(
     private api: ApiService,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
+    private tgs: TaskGroupService,
   ) {this.taskGroupForm = this.fb.group({
       'group_name': new FormControl(''),
      })
@@ -88,6 +90,7 @@ export class AddTaskGroupComponent implements OnInit {
           console.log('yoyo',this.error);
           this.formGroup.reset();
           this.openSnackBar('Group Created');
+          this.tgs.getTaskGroups();
 
         });
         this.openSnackBar('Group Created');

@@ -4,6 +4,7 @@ import { AuthenticationService, LoggedInUser } from '../../../pages/_services';
 import {MessageService} from '../../../_services/message.service';
 import {Observable} from 'rxjs';
 import {ThemeService} from '../../services/theme.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-top-nav',
@@ -18,11 +19,11 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   isDarkTheme: Observable<boolean>;
   isLoggedIn$: Observable<boolean>; 
   isLoggedInUser: string;
+  jwt: string;
 
   constructor(
     public navService: NavService,
     private authService: AuthenticationService,
-    private messageService: MessageService,
     private themeService: ThemeService,
 
   ) { }
@@ -41,5 +42,12 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   toggleDarkTheme(checked: boolean) {
     this.themeService.setDarkTheme(checked);
   }
+  
 }
 
+export interface Jwt {
+  user_id: number;
+  username: string;
+  exp: number;
+  email: string;
+}

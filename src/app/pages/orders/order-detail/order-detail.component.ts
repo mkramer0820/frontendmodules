@@ -4,9 +4,9 @@ import {Order} from '../../../modules/models/orders.model';
 import { Url } from 'url';
 import {HttpClientService} from 'app/_services/http-client.service';
 import { AppConfig } from 'app/config/app.config';
-import {OrderDetail, Customerset, Factoryset, Task, Todo } from './iorder.model';
+import {OrderDetail, Customerset, Factoryset, Task, Todo, Sizing } from './iorder.model';
 import {Observable, pipe} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
+import {filter, map, flatMap} from 'rxjs/operators';
 import { ActivatedRoute } from "@angular/router";
 
 export interface DialogData {
@@ -17,8 +17,8 @@ export interface Tile {
   rows?: number;
   text?: string;
   color?: string;
-  texts?: string[];
-  img?: Url;
+  texts?: any[];
+  img?: string;
   address?: String[];
 }
 
@@ -74,7 +74,7 @@ export class OrderDetailComponent implements OnInit {
         this.orderDetail = order['order'];
         console.log("got orderDeatil from dialog inject")
       }
-      this.getOrder({orderD: null , id: id|| null})}
+      this.getOrder(id || null)}
 
     ngOnInit(
       ) {}
@@ -90,38 +90,29 @@ export class OrderDetailComponent implements OnInit {
          this.dialogRef.updateSize('80%', '80%')
          this.dialogRef._containerInstance._config.position = {top: '0px', left:'px'}
       }
-      getOrder({orderD, id}) {
-        /*if (orderD) {
-          console.log(orderD)
-          this.orderDetail = orderD['order'];
-          let Tile: Tile[] = [ 
-            {text: 'Two', cols: 1, rows: 2, img: this.orderDetail['sweater_image']},
-            {texts: ['Fiber Content: ' + this.orderDetail['fiber_content'],
-                    'Descrption: ' + this.orderDetail['sweater_description'],
-                    'Care Instructions: ' + this.orderDetail['jp_care_instructions']
-                    ],
-                     cols: 3 , rows: 2},
-                  ]
-            return Tile
-        }*/
+      getOrder(id) {
         if (id) {
 
           this.orderDetail = this.getOrderDetail(id);
-         }
+         } else {this.orderDetail = 'No Info'}
       }
       getOrderDetail(id) {
         this.httpClient.get(AppConfig.urlOptions.orders + id + '/')
         .pipe(map((order: OrderDetail) => {
-          return order
+          let sizing_detail = Object.values(order.sizing).map((size: Sizing)  => size.size_detail );
+          let sizing_type = Object.values(order.sizing).map((size: Sizing)  => size.size_type );
+          let orderProp  = {order, sizing_detail, sizing_type}
+          return orderProp
         }))
         .subscribe(res => {
-          this.orderDetail = res;
-          this.calculateCosts(res);
+          this.orderDetail = res.order;
+          this.calculateCosts(res.order);
           let Tile: Tile[] = [ 
-            {text: 'Two', cols: 1, rows: 2, img: res['sweater_image']},
-            {texts: ['Fiber Content: ' + res['fiber_content'],
-                    'Descrption: ' + res['sweater_description'],
-                    'Care Instructions: ' + res['jp_care_instructions']
+            {text: 'Two', cols: 1, rows: 2, img: res.order['sweater_image']},
+            {texts: ['Size: ' + res.sizing_type+ " -- " + res.sizing_detail,
+                    'Fiber Content: ' + res.order['fiber_content'],
+                    'Descrption: ' + res.order['sweater_description'],
+                    'Care Instructions: ' + res.order['jp_care_instructions']
                     ],
                      cols: 3 , rows: 2},
                   ];

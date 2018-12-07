@@ -83,6 +83,8 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
     setmasterGroupMessage(event) {
       let set_names = event.set_names;
       this.masterGroupMessage = set_names;
+      this.clearTodosForm();
+
     }
     
       /**
@@ -94,7 +96,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(this.taskForm.value);
       this.apiService.createTask(this.taskForm.value).subscribe(response => {
         console.log(response);
-        this.taskFormService.clearForm();
+        this.taskFormService.clearTodos();
         this.tgs.getTaskGroups();
         this.getTaskGroup();
         });
