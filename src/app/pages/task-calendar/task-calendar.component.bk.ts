@@ -105,6 +105,7 @@ export class TaskCalendarComponentBk implements OnInit, OnChanges {
     let todoItems: CalendarEvent[] = [];
     this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
       .subscribe((res: Order[]) => {
+        let len = Object.keys(res).length;
         res.map((order , index) => {
           const items = {
             title: 'Order For Buyer '+ order.buyer_name +' -- Buyer Sytle Number ' + order.buyer_style_number + ' Is Due',
