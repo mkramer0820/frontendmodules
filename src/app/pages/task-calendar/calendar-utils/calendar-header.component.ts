@@ -39,29 +39,16 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
           </div> <!--end of left-->
 
           <div class="calViews" fxFlex="20%" fxFlexOrder="3"> <!-- start of right-->
-            <button mat-raised-button
-              color="primary"
-              class="child-right"
-              (click)="viewChange.emit('month')"
-              [class.active]="view === 'month'">
-                Month
-              </button>
-            <button mat-raised-button
-              class="child-right"
+          <mat-form-field>
 
-              color="primary"
-              (click)="viewChange.emit('week')"
-              [class.active]="view === 'week'">
-                Week
-            </button>
-            <button mat-raised-button
-             class="child-right"
+          <mat-select placeholder="Select View">
+            <mat-option (click)="viewChange.emit('month')" [class.active]="view === 'month'"> Month </mat-option>
+            <mat-option (click)="viewChange.emit('week')" [class.active]="view === 'week'"> Week </mat-option>
+            <mat-option (click)="viewChange.emit('day')" [class.active]="view === 'day'"> Day </mat-option>
+          </mat-select>
 
-              color="primary"
-              (click)="viewChange.emit('day')"
-              [class.active]="view === 'day'">
-                Day
-            </button>
+          </mat-form-field>
+            
           </div> <!-- end of right-->
 
           <div class="item item-3" fxFlex> <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3></div> <!-- center div-->

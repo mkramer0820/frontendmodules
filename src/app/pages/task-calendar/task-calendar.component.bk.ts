@@ -80,7 +80,7 @@ export class TaskCalendarComponentBk implements OnInit, OnChanges {
   viewDate: Date = new Date();
 
   // events$: Observable<Array<CalendarEvent<{ film: Film }>>>;
-  events$: Observable<Array<CalendarEvent<{ task: TaskEvent }>>>;
+  events$: Observable<Array<CalendarEvent<{ calEvent: CalendarEvent }>>>;
   activeDayIsOpen: boolean = false;
 
   asyncEvents$: Observable<CalendarEvent[]>;
@@ -93,48 +93,53 @@ export class TaskCalendarComponentBk implements OnInit, OnChanges {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // this.fetchEvents();
-    this.loadEvents2();
+    this.events$ = this.loadEvents();
+    console.log(this.events$)
+    // this.asyncEvents$ = this.loadEvents();
+    console.log(this.asyncEvents$)
   }
   ngOnChanges() {
   }
+  
+  loadEvents() {
+    return this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
+    .pipe(
+      map((res: Order[]) => {
+        const calitems = []
 
-
-  loadEvents2() {
-
-    let todoItems: CalendarEvent[] = [];
-    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
-      .subscribe((res: Order[]) => {
-        let len = Object.keys(res).length;
-        res.map((order , index) => {
-          const items = {
-            title: 'Order For Buyer '+ order.buyer_name +' -- Buyer Sytle Number ' + order.buyer_style_number + ' Is Due',
-            color: {primary: colors.blue, secondary: "#D1E8FF"},
-            start: new Date(order.due_date)
+        let orderItem = res.map(event => {
+          let item = {
+            title: event.buyer_name +' Style Number ' + event.buyer_style_number + ' Is Due',
+            color:  colors.blue,
+            start: new Date(event.due_date),
+            meta: {
+              event
+            },
+            allDay: false,
+            tasks: event.tasks,
+          };
+          calitems.push(item);
+        })
+      res.map(event => {
+        for (let orderTask of event.tasks) {
+          let setName = orderTask.set_name;
+          let style = orderTask.buyer_style_number;
+          let buyer = orderTask.buyer;
+          for (let task of orderTask.todos) {
+            let taskItem = {
+              title: task.todo  +' For ' + buyer + ' Style Number' + style + ' Is Due' + "\n status: " + task.status,
+              color: colors.yellow,
+              start: new Date(task.duedate),
           }
-          todoItems.push(items)
-        });
-        let todo = res.map((orderTodo, index)=> {
-          let order = orderTodo.buyer_style_number;
-          let jp = orderTodo.jp_style_number;
-          let buyer = orderTodo.buyer_name;
-          let orderTaskItem = orderTodo.tasks;
-          return orderTaskItem.forEach((todo, index)=> {
-            todo.todos.forEach((todo,index) => {
-              let items = {
-                title: todo.todo,
-                color: colors.red,
-                start: new Date(todo.duedate)
-              };
-              todoItems.push(items);
-            });
-          });
-        });
-        this.isLoading = false;
-        console.log(todoItems);
-        return this.async2$ =  todoItems;
-      });
-    }
+          calitems.push(taskItem);
+        }
+      }
+    })
+    return calitems;
+   }));
+  }
+
+ 
 
   dayClicked({ date, events }: {date: Date; events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>; }): void {
       if (isSameMonth(date, this.viewDate)) {

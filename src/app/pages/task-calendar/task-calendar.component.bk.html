@@ -1,7 +1,7 @@
 <div fxLayout="col" fxLayoutAlign="center" style="padding-top: 20px">
 
         <mat-card>
-            <div><button mat-button color="primary">BOOO</button></div>
+            <div><button mat-button color="primary"></button></div>
             <mwl-demo-utils-calendar-header
               [(view)]="view"
               [(viewDate)]="viewDate"
@@ -18,32 +18,30 @@
                 Loading events...
               </div>
             </ng-template>
-                    <ng-template ngIf="async2$ | async; else loading" fxLayout="row" fxLayoutAlign="strech">
-                      <div >
-                        <div [ngSwitch]="view">
-                            <mwl-calendar-month-view
-                              *ngSwitchCase="'month'"
-                              [viewDate]="viewDate"
-                              [events]="async2$"
-                              [activeDayIsOpen]="activeDayIsOpen"
-                              (dayClicked)="dayClicked($event.day)"
-                              (eventClicked)="eventClicked($event.event)">
-                            </mwl-calendar-month-view>
-                            <mwl-calendar-week-view
-                              *ngSwitchCase="'week'"
-                              [viewDate]="viewDate"
-                              [events]="async2$"
-                              (eventClicked)="eventClicked($event.event)">
-                            </mwl-calendar-week-view>
-                            <mwl-calendar-day-view
-                              *ngSwitchCase="'day'"
-                              [viewDate]="viewDate"
-                              [events]="async2$"
-                              (eventClicked)="eventClicked($event.event)">
-                            </mwl-calendar-day-view>
-                         </div>
-                        </div>
-                     </ng-template>
+              <div *ngIf="events$ | async; else loading; let events">
+                  <div [ngSwitch]="view">
+                    <mwl-calendar-month-view
+                      *ngSwitchCase="'month'"
+                      [viewDate]="viewDate"
+                      [events]="events"
+                      [activeDayIsOpen]="activeDayIsOpen"
+                      (dayClicked)="dayClicked($event.day)"
+                      (eventClicked)="eventClicked($event.event)">
+                    </mwl-calendar-month-view>
+                    <mwl-calendar-week-view
+                      *ngSwitchCase="'week'"
+                      [viewDate]="viewDate"
+                      [events]="events"
+                      (eventClicked)="eventClicked($event.event)">
+                    </mwl-calendar-week-view>
+                    <mwl-calendar-day-view
+                      *ngSwitchCase="'day'"
+                      [viewDate]="viewDate"
+                      [events]="events"
+                      (eventClicked)="eventClicked($event.event)">
+                    </mwl-calendar-day-view>
+                </div>
+              </div>
         </mat-card>
         </div>
         

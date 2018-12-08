@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnChanges } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {HttpClientService} from '../../_services/http-client.service';
 import {AppConfig} from '../../config/app.config';
