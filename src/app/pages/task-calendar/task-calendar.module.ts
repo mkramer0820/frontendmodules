@@ -6,6 +6,7 @@ import { TaskCalendarComponent } from './task-calendar.component';
 import { CalendarUtilsModule } from './calendar-utils/calendar-utils.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TaskCalendarComponentBk} from './task-calendar.component.bk';
+import {CalendarService} from './_service/calendar.service';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {TaskCalendarComponentBk} from './task-calendar.component.bk';
     CalendarUtilsModule
   ],
   declarations: [TaskCalendarComponent, TaskCalendarComponentBk],
-  exports: [TaskCalendarComponent]
+  exports: [TaskCalendarComponent],
+  providers: [CalendarService]
 })
 export class TaskCalendarModule {}

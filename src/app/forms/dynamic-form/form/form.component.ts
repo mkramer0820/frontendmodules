@@ -51,41 +51,29 @@ export class FormComponent implements AfterContentChecked {
   }
 
   onSubmit() {
-    if (this.update === false) {
-      let formdata = new FormData()
-      for (let field in this.form.value) {
-        if (field === 'due_date' || field ==='factory_ship_date' ) {
-          let formatdate = this.form.get(field).value;
-          formatdate = moment(formatdate).format('YYYY-MM-DD hh:mm');
-          formdata.append(field, formatdate)
+    let formdata = new FormData();
+    for (let field in this.form.value) {
+      if (field === 'due_date' || field ==='factory_ship_date' ) {
+        let formatdate = this.form.get(field).value;
+        formatdate = moment(formatdate).format('YYYY-MM-DD hh:mm');
+        formdata.append(field, formatdate)
         } else {
           formdata.append(field, this.form.get(field).value)
         }
       }
-      this.submitService.post(this.submitUrl, formdata).subscribe(response => {
-        response = this.form.value;
-        console.log(response);
-        this.form.reset();
-        this.submitService.openSnackBar('Created');
-
-      });
-    } else {
-      let formdata = new FormData()
-      for (let field in this.form.value) {
-        if (field === 'due_date' || field ==='factory_ship_date' ) {
-          let formatdate = this.form.get(field).value;
-          formatdate = moment(formatdate).format('YYYY-MM-DD hh:mm');
-          formdata.append(field, formatdate)
-        } else {
-          formdata.append(field, this.form.get(field).value)
-        }
-      }
-      this.submitService.put(this.submitUrl, formdata).subscribe(response => {
-        response = this.form.value;
-        console.log(response);
-        this.form.reset();
-        this.submitService.openSnackBar('Updated');
-
+      if (this.update === false) {
+        this.submitService.post(this.submitUrl, formdata).subscribe(response => {
+          response = this.form.value;
+          console.log(response);
+          this.form.reset();
+          this.submitService.openSnackBar('Created');
+        })
+      } else {
+        this.submitService.put(this.submitUrl, formdata).subscribe(response => {
+          response = this.form.value;
+          console.log(response);
+          this.form.reset();
+          this.submitService.openSnackBar('Updated');
       });
     } 
   }
@@ -93,4 +81,3 @@ export class FormComponent implements AfterContentChecked {
     return this.form = this.fcs.toFormGroup(models)
   }
 }
-
