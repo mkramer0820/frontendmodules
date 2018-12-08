@@ -14,23 +14,19 @@ import { colors } from '../calendar-utils/colors';
 export class CalendarService {
   calendarEvents: Observable<CalendarEvent[]>;
 
-  private _calendarEvent: BehaviorSubject<CalendarEvent[]>; 
-  private calEventDataStore: {  // This is where we will store our data in memory
-    calEvents: CalendarEvent[]
-  };
-  private baseUrl: string;
+  private _calendarEvent: BehaviorSubject<Observable<CalendarEvent[]>>; 
+  calEventDataStore = this._calendarEvent.asObservable();
 
 
 
   constructor(private http: HttpClientService) {
-    this.baseUrl  = AppConfig.urlOptions.orders,
-    this.calEventDataStore = { calEvents: [] };
-    this._calendarEvent = <BehaviorSubject<CalendarEvent[]>>new BehaviorSubject([]);
     this.loadAll();
-    this.calendarEvents = this._calendarEvent.asObservable();
 
   }
   get calEvents() {
+    return this._calendarEvent.asObservable();
+  }
+  toObs(evnt: any) {
     return this._calendarEvent.asObservable();
   }
 
@@ -60,8 +56,8 @@ export class CalendarService {
                 color: colors.red,
                 start: new Date(todo.duedate)
               };
-              this.calEventDataStore.calEvents.push(items);
-              this._calendarEvent.next(Object.assign({}, this.calEventDataStore).calEvents);
+
+              this._calendarEvent.next(items);
             });
           });
         });
