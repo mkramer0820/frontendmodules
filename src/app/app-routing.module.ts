@@ -1,7 +1,6 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-//import {AppConfig} from './config/app.config';
 import {CustomerTableComponent} from './pages/customer/customer-table/customer-table.component';
 import {FactoryTableComponent} from './pages/factory/factory-table/factory-table.component';
 import {OrdersTableComponent} from './pages/orders/orders-table/orders-table.component';
@@ -19,7 +18,6 @@ import { OrderExpenseComponent } from './pages/orders/order-expense/order-expens
 import {TaskCalendarComponent} from './pages/task-calendar/task-calendar.component';
 import {SweaterSizeUpdateComponent} from './pages/sweater-size/sweater-size-update/sweater-size-update.component';
 import {OrderDetailComponent} from './pages/orders/order-detail/order-detail.component';
-import {TaskCalendarComponentBk} from './pages/task-calendar/task-calendar.component.bk';
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
@@ -38,9 +36,8 @@ const routes: Routes = [
   { path: 'task-component', component: TaskSetComponent, canActivate: [AuthGuard]},
   { path: 'order-task', component: OrderTaskComponent, canActivate: [AuthGuard]},
   { path: 'order-expense', component: OrderExpenseComponent,  canActivate: [AuthGuard]},
-  { path: 'home', component: TaskCalendarComponentBk,  canActivate: [AuthGuard]},
+  { path: 'home', component: TaskCalendarComponent,  canActivate: [AuthGuard]},
   { path: 'sweater-sizes', component: SweaterSizeUpdateComponent,  canActivate: [AuthGuard]},
-  { path: 'cal', component: TaskCalendarComponentBk,  canActivate: [AuthGuard]},
 
 ];
 

@@ -12,8 +12,8 @@ export const colors: any = {
       secondary: '#FDF1BA'
     },
     green: {
-      primay: "#a9f9b9",
-      secondary: '#00a521'
+      primay: "#33CC33",
+      secondary: '#adebad'
     }
   };
   
