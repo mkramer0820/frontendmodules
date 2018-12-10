@@ -147,7 +147,12 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     }
   }
   onRowHighlight(row){
-    this.selectedRowIndex = row.id;
+
+    if (this.selectedRowIndex === row) {
+      this.selectedRowIndex = null
+    } 
+    if (this.selectedRowIndex != row) {
+      this.selectedRowIndex = row.id };
   }
 
 
