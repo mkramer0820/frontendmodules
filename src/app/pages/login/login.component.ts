@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services';
 import {HttpClientService} from '../../_services/http-client.service';
 import {Observable} from 'rxjs';
+import {AppConfig} from 'app/config/app.config';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
+  BASE = AppConfig.base;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/order-table';
+        console.log(AppConfig.base)
   }
 
   get f() { return this.loginForm.controls; }

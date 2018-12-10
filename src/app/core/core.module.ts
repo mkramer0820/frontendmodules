@@ -6,12 +6,10 @@ import {RouterModule} from '@angular/router';
 import {CustomersService} from '.././modules/customers/customers.service';
 import {throwIfAlreadyLoaded} from './module-import-guard';
 import {LoggerService} from './services/logger.service';
-import { HomePage } from './pages/home/home.component';
 import { Error404Component } from './pages/error404/error404.component';
 import {ApiService} from '../config/api.service';
 import { MenuListItemComponent } from './nav/menu-list-item/menu-list-item.component';
 import { TopNavComponent } from './nav/top-nav/top-nav.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -21,17 +19,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
+    
     LayoutModule,
   ],
   declarations: [
     // HomePage,
     // Error404Page,
-    HomePage,
     Error404Component,
     MenuListItemComponent,
     TopNavComponent,

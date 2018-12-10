@@ -5,8 +5,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { TaskCalendarComponent } from './task-calendar.component';
 import { CalendarUtilsModule } from './calendar-utils/calendar-utils.module';
 import {SharedModule} from '../../shared/shared.module';
-import {TaskCalendarComponentBk} from './task-calendar.component.bk';
-import {CalendarService} from './_service/calendar.service';
 
 
 @NgModule({
@@ -19,8 +17,7 @@ import {CalendarService} from './_service/calendar.service';
     }),
     CalendarUtilsModule
   ],
-  declarations: [TaskCalendarComponent, TaskCalendarComponentBk],
-  exports: [TaskCalendarComponent],
-  providers: [CalendarService]
+  declarations: [TaskCalendarComponent],
+  exports: [TaskCalendarComponent]
 })
 export class TaskCalendarModule {}

@@ -25,14 +25,14 @@ fxLayoutGap.xs="0">
      <mat-select matInput  placeholder="Choose Group Set" formControlName='todos_group'>
        <mat-option *ngFor="let group of sentGroups; let i=index" value={{group.id}}
        (click)="setmasterGroupMessage(group)">
-          <span class="mat-option-text">{{group.group_name}}</span>
+          <span class="mat-option-text">{{group.group_name}} - Total Sets: {{group.set_names.length}}</span>
        </mat-option>
      </mat-select>
    </mat-form-field>
 
    <ng-container *ngIf="masterGroupMessage">
      <mat-form-field class="form-element">
-        <input type="text" placeholder="Choose Boiler Plate Task Or Add A New One" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto"> 
+        <input type="text" placeholder="Net Set Net Or Select One To Copy" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto"> 
            <mat-autocomplete #auto="matAutocomplete">
              <mat-option *ngFor="let set of masterGroupMessage" value={{set.set_name}} (click)="getBlanketTask(set.id)">
               {{set.set_name}}
@@ -48,17 +48,41 @@ fxLayoutGap.xs="0">
        <app-todos [index]="i" [todosForm]="todo" [selectedId]="selectedId" (deleteTodos)="deleteTodos($event)"></app-todos>
      </div>
 
-   <div [ngSwitch]="case"><!-- open case-->
-     <div *ngSwitchCase="'1'">
-        <button mat-mini-fab color="primary" type="submit" mat-button-raised  (click)="updateTodoSet()"
-        [disabled]="taskForm.invalid"><mat-icon>update</mat-icon></button>Update 
-        <button mat-button type="submit" mat-button-raised (click)="clearTodosForm()" style="indent:50px" color="primary">Clear Form</button>
-     </div>
+    
+  
+
+   <div [ngSwitch]="case" ><!-- open case-->
+     
+    <div *ngSwitchCase="'1'" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
+        <button mat-mini-fab color="primary" type="submit" mat-button-raised
+          (click)="updateTodoSet()"
+          [disabled]="taskForm.value.todos.length === 0"
+          matTooltip="Update">
+            <mat-icon>update</mat-icon>
+          </button> 
+          
+          <button mat-mini-fab color="primary" type="submit"
+            mat-button-raised (click)="clearTodosForm()"
+            style="indent: 50px"
+            matTooltip="Clear Form">
+              <mat-icon>clear</mat-icon>
+          </button>
+    </div>
     
      <div *ngSwitchCase="'2'">
-        <button mat-mini-fab color="primary"  type="submit" mat-button-raised (click)="saveTodos()"
-        [disabled]="taskForm.invalid"><mat-icon>save</mat-icon></button> Save
-        <button mat-button type="submit" mat-button-raised (click)="clearTodosForm()" style="indent: 50px">Clear Form</button>
+        <button mat-mini-fab color="primary"  type="submit" mat-button-raised
+        (click)="saveTodos()"
+        [disabled]="taskForm.value.todos.length === 0"
+        matTooltip="Save">
+          <mat-icon>save</mat-icon>
+        </button>
+        
+        <button mat-mini-fab color="primary" type="submit"
+           mat-button-raised (click)="clearTodosForm()"
+           style="indent: 50px"
+           matTooltip="Clear Form">
+            <mat-icon>clear</mat-icon>
+        </button>
      </div>
 
    </div> <!-- close switch case-->

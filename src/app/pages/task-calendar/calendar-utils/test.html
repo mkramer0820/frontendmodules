@@ -1,0 +1,5 @@
+<mat-select placeholder="Favorite food">
+    <mat-option *ngFor="let food of foods" (click)="viewChange.emit('month')" [class.active]="view === 'month'"> Month </mat-option>
+    <mat-option *ngFor="let food of foods" (click)="viewChange.emit('week')" [class.active]="view === 'week'"> Week </mat-option>
+    <mat-option *ngFor="let food of foods" (click)="viewChange.emit('day')" [class.active]="view === 'day'"> Day </mat-option>
+</mat-select>

@@ -26,11 +26,11 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
         </mat-card-header>
   
         <div *ngIf="ordertask == true">
-          <button mat-raised-button color="primary" (click)="openAddDialog()"> Create A Task Group </button>
+          <button mat-raised-button [ngClass]="{'first': true, 'second': true, 'third': false}" color="primary" (click)="openAddDialog()"> Create A Task Group </button>
           &nbsp;
-          <button mat-raised-button color="primary" (click)="selectedUpdate()"> Update A Task Set </button>
+          <button mat-raised-button color="primary" (click)="switchCases(1)"> Update A Task Set </button>
           &nbsp;
-          <button mat-raised-button color="primary" (click)="selectedCreate()"> Create A Task Set </button>
+          <button mat-raised-button color="primary" (click)="switchCases(2)"> Create A Task Set </button>
           &nbsp;
         </div>
     </div>
@@ -46,11 +46,11 @@ import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
         </div>
         
         <div *ngSwitchCase="'2'">
-            <app-task-set [title]="createTitle" [(sentGroups)]="groups" [case]="num"  [order]="databaseId"></app-task-set>
+            <app-task-set [title]="title" [(sentGroups)]="groups" [case]="num"  [order]="databaseId"></app-task-set>
         </div>
         
         <div *ngSwitchCase="'3'">
-            <app-task-set [title]="createTitle" [(OrderTask)]="ordertask"  [(sentGroups)]="groups"
+            <app-task-set [title]="title" [(OrderTask)]="ordertask"  [(sentGroups)]="groups"
                 [case]="num"  [order]="databaseId"></app-task-set>
         </div>
         <div *ngSwitchDefault></div>
@@ -65,7 +65,7 @@ export class TaskComponent implements OnInit {
   title: any;
   createTitle: any;
   orderTitle: any;
-  num: string;
+  num: number;
 
   taskForm: FormGroup;
   taskFormSub: Subscription;
@@ -94,7 +94,6 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.default();
     this.taskFormSub = this.taskFormService.taskForm$
     .subscribe(task => {
         this.taskForm = task;
@@ -103,50 +102,48 @@ export class TaskComponent implements OnInit {
       });
     this.getTaskGroups();
     }
+  
+  clearTodosForm() {
+      // this.taskFormService.clearForm();
+      this.taskFormService.clearTodos();
+  }
+  switchCases(casenum) {
+  
+    switch (casenum) {
+      case (1):
+          this.title = 'Update Existing Task Set';
+          this.num = casenum;
+          this.clearTodosForm()
+          break;
+      case (2):
+        this.title = 'Create New Task Set'
+        this.num = casenum
+        this.clearTodosForm()
 
-  getTaskGroup() {
-    this.tgs.getMessage().subscribe(rsp => {
-      this.groups = rsp;
-    });
-  }
-    
-  default() {
-    this.num= '0';
+          break; 
+      case (3):
+        this.num = casenum
+        this.title = 'Add Task Set To Group'
+        this.clearTodosForm()
+
+          break;
+    }
   }
 
-  selectedUpdate() {
-    this.num = '1';
-    this.getTaskGroup();
-    return this.title = 'Update Existing Task Set';
-    console.log('Update Selected')
-  }
-  selectedUpdateOrder() {
-    
-    this.getTaskGroups();
-    this.num = '3';
-    return this.orderTitle = 'Add Task Set To Group';
-    console.log('Update Selected')
-  }
-  selectedCreate() {
-    this.getTaskGroup();
-    this.num = '2';
-    return this.createTitle = 'Create New Task Set';
-    console.log('Update Selected');
-  }
+
   openAddDialog() {
     const dialogRef = this.dialog.open(AddTaskGroupComponent, {
       width:'300px',
       height: '150px',
     });
     dialogRef.afterClosed().subscribe(rsp => {
-      this.tgs.getTaskGroups();
       rsp = this.tgs.getMessage();
+      this.getTaskGroups();
     });
   }
   getTaskGroups() {
     this.apiService.getTaskGroups().subscribe(resp => {
       return this.groups = resp;
-      console.log(this.groups);
     });
   }
 }

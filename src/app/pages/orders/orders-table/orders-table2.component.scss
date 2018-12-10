@@ -1,0 +1,40 @@
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+}
+
+mat-header-cell {
+    display:flex;
+    justify-content: center;
+    font-size: inherit;
+    font-weight: bold;
+
+        
+   }
+
+mat-cell {
+    display:flex;
+    justify-content: center;
+    font-size: inherit;
+    overflow: hidden;
+}
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+    font-size: 14px;
+    min-height: 60px;
+
+}
+
+
+
+
+.highlight{
+    background-color: #b8adad; /* green */
+    font-weight: bold;
+}
+
+  

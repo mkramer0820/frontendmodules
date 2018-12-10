@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnChanges } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {HttpClientService} from '../../_services/http-client.service';
 import {AppConfig} from '../../config/app.config';
 import { map, flatMap, filter, delay } from 'rxjs/operators';
-import {pipe, Subject} from 'rxjs';
+import {pipe, Subject, from} from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
 import {
   isSameMonth,
@@ -18,8 +18,7 @@ import {
 } from 'date-fns';
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
-import { analyzeFileForInjectables } from '@angular/compiler';
-import { TestBed } from '@angular/core/testing';
+
 
 interface TaskEvents {
   taskEvent: TaskEvent[];
@@ -78,83 +77,61 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
 
   viewDate: Date = new Date();
 
-  // events$: Observable<Array<CalendarEvent<{ film: Film }>>>;
-  events$: Observable<Array<CalendarEvent<{ task: TaskEvent }>>>;
+  events$: Observable<Array<CalendarEvent<{ calEvent: CalendarEvent }>>>;
   activeDayIsOpen: boolean = false;
 
   asyncEvents$: Observable<CalendarEvent[]>;
-  todoEvents$: Todo[] = [];
-  async2$: CalendarEvent[];
   isLoading: boolean;
   
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClientService) {}
 
   ngOnInit(): void {
-    // this.fetchEvents();
-    this.loadEvents();
-    this.loadEvents2();
+    this.events$ = this.loadEvents();
   }
   ngOnChanges() {
-    this.isLoading = false;
   }
+  
+  loadEvents() {
+    return this.http.get(AppConfig.urlOptions.orders)
+    .pipe(
+      map((res: Order[]) => {
+        const calitems = []
 
-
- loadEvents() {
-    this.isLoading = true;
-    this.asyncEvents$ = this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
-
-    .pipe(map((res: Order[]) => {
-      return res.map(event => {
-        return {
-          title: 'Order For Buyer Style Number ' + event.buyer_name + ' ' + event.buyer_style_number + ' Is Due',
-          color: {primary: colors.blue, secondary: '#D1E8FF'},
-          start: new Date(event.due_date),
+        let orderItem = res.map(event => {
+          let item = {
+            title: event.buyer_name +' Style Number ' + event.buyer_style_number + ' Is Due',
+            color:  colors.blue,
+            start: new Date(event.due_date),
             meta: {
               event
             },
             allDay: false,
             tasks: event.tasks,
           };
-        });
-      }));
-      this.isLoading = false;
-  }
-  loadEvents2() {
-
-    let todoItems: CalendarEvent[] = [];
-    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
-      .subscribe((res: Order[]) => {
-        res.map((order , index) => {
-          const items = {
-            title: 'Order For Buyer Style Number '+ order.buyer_name +' ' + order.buyer_style_number + ' Is Due',
-            color: {primary: colors.blue, secondary: "#D1E8FF"},
-            start: new Date(order.due_date)
+          calitems.push(item);
+        })
+      res.map(event => {
+        for (let orderTask of event.tasks) {
+          let setName = orderTask.set_name;
+          let style = orderTask.buyer_style_number;
+          let buyer = orderTask.buyer;
+          for (let task of orderTask.todos) {
+            let taskItem = {
+              title: task.todo  +' For ' + buyer + ' Style Number ' + style + ' Is Due' + "\n status: " + task.status,
+              color: colors.yellow,
+              start: new Date(task.duedate),
           }
-          todoItems.push(items)
-        });
-        let todo = res.map((orderTodo, index)=> {
-          let order = orderTodo.buyer_style_number;
-          let jp = orderTodo.jp_style_number;
-          let buyer = orderTodo.buyer_name;
-          let orderTaskItem = orderTodo.tasks;
-          return orderTaskItem.forEach((todo, index)=> {
-            todo.todos.forEach((todo,index) => {
-              let items = {
-                title: todo.todo,
-                color: colors.red,
-                start: new Date(todo.duedate)
-              };
-              todoItems.push(items);
-            });
-          });
-        });
-        this.isLoading = false;
-        console.log(todoItems);
-        return this.async2$ =  todoItems;
-      });
-    }
+          calitems.push(taskItem);
+        }
+      }
+    })
+    return calitems;
+   }));
+  }
+
+ 
 
   dayClicked({ date, events }: {date: Date; events: Array<CalendarEvent<{ taskEvent: TaskEvent }>>; }): void {
       if (isSameMonth(date, this.viewDate)) {
@@ -175,8 +152,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
   
     eventClicked(event: CalendarEvent<{ taskEvent: TaskEvent }>): void {
       console.log(event);
-      console.log(event.meta)
-      console.log(event.meta['event']['id'])
+
     }
   }
 
@@ -196,7 +172,7 @@ interface Order {
   factory_set: Factoryset[];
   customer_set: Customerset[];
   orderExpense: any[];
-  completeTasks: any[];
+  completeTasks: Task[];
   incompleteTasks: Task[];
   isActive: boolean;
   customer_order_number: number;

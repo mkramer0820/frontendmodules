@@ -1,5 +1,7 @@
 import {InjectionToken} from '@angular/core';
 import {IAppConfig, IAppUrlBody} from './iapp.config';
+import { environment } from '../../environments/environment';
+
 
 export let APP_CONFIG = new InjectionToken('app.config');
 
@@ -20,10 +22,10 @@ export const AppConfig: IAppConfig = {
     error404: '404',
   },
   endpoints: {
-    url: 'http://127.0.0.1:8000/api/',
+    url: environment.baseUrl,
     // url: 'http://104.248.10.237/api/',
   },
-  base: 'http://127.0.0.1:8000/api/',
+  base: environment.baseUrl,
   // base: 'http://104.248.10.237/api/',
   urlOptions: {
     customer: 'customer/',
