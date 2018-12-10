@@ -18,6 +18,7 @@ import {
 } from 'date-fns';
 import { Observable } from 'rxjs';
 import { colors } from './calendar-utils/colors';
+import {CalendarService} from './_service/calendar.service';
 
 
 interface TaskEvents {
@@ -80,12 +81,7 @@ export class TaskCalendarComponent implements OnInit, OnChanges {
   events$: Observable<Array<CalendarEvent<{ calEvent: CalendarEvent }>>>;
   activeDayIsOpen: boolean = false;
 
-  asyncEvents$: Observable<CalendarEvent[]>;
-  isLoading: boolean;
-  
-
-
-  constructor(private http: HttpClientService) {}
+  constructor(private http: HttpClientService, private calService: CalendarService ) {}
 
   ngOnInit(): void {
     this.events$ = this.loadEvents();

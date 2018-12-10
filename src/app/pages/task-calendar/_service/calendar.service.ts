@@ -12,59 +12,63 @@ import { colors } from '../calendar-utils/colors';
   providedIn: 'root'
 })
 export class CalendarService {
-  calendarEvents: Observable<CalendarEvent[]>;
+  private _calendarEvents =  new BehaviorSubject<CalendarEvent[]>([]);
+  calEvents$ = this._calendarEvents;
 
-  private _calendarEvent: BehaviorSubject<Observable<CalendarEvent[]>>; 
-  calEventDataStore = this._calendarEvent.asObservable();
 
 
 
   constructor(private http: HttpClientService) {
-    this.loadAll();
-
-  }
-  get calEvents() {
-    return this._calendarEvent.asObservable();
-  }
-  toObs(evnt: any) {
-    return this._calendarEvent.asObservable();
+    this.loadEvents().subscribe(res => {
+      this._calendarEvents.next(res);
+    })
   }
 
-  loadAll() {
 
-    let todoItems: CalendarEvent[] = [];
-    this.http.get(`${AppConfig.base + AppConfig.urlOptions.orders}`)
-      .subscribe((res: Order[]) => {
-        res.map((order , index) => {
-          const items = {
-            title: 'Order For Buyer Style Number '+ order.buyer_name +' ' + order.buyer_style_number + ' Is Due',
-            color: {primary: colors.blue, secondary: "#D1E8FF"},
-            start: new Date(order.due_date)
+
+
+  getMessage(): Observable<CalendarEvent[]> {
+      return this.calEvents$.asObservable();
+      //return this.customer.asObservable();
+  }
+
+  loadEvents() {
+    return this.http.get(AppConfig.urlOptions.orders)
+    .pipe(
+      map((res: Order[]) => {
+        const calitems:CalendarEvent[] = []
+
+        let orderItem = res.map(event => {
+          let item = {
+            title: event.buyer_name +' Style Number ' + event.buyer_style_number + ' Is Due',
+            color:  colors.blue,
+            start: new Date(event.due_date),
+            meta: {
+              event
+            },
+            allDay: false,
+            tasks: event.tasks,
+          };
+          calitems.push(item);
+        })
+      res.map(event => {
+        for (let orderTask of event.tasks) {
+          let setName = orderTask.set_name;
+          let style = orderTask.buyer_style_number;
+          let buyer = orderTask.buyer;
+          for (let task of orderTask.todos) {
+            let taskItem = {
+              title: task.todo  +' For ' + buyer + ' Style Number ' + style + ' Is Due' + "\n status: " + task.status,
+              color: colors.yellow,
+              start: new Date(task.duedate),
           }
-          this.calEventDataStore.calEvents.push(items)
-          this._calendarEvent.next(Object.assign({}, this.calEventDataStore).calEvents);
-        });
-        let todo = res.map((orderTodo, index)=> {
-          let order = orderTodo.buyer_style_number;
-          let jp = orderTodo.jp_style_number;
-          let buyer = orderTodo.buyer_name;
-          let orderTaskItem = orderTodo.tasks;
-          orderTaskItem.forEach((todo, index)=> {
-            todo.todos.forEach((todo,index) => {
-              let items = {
-                title: todo.todo,
-                color: colors.red,
-                start: new Date(todo.duedate)
-              };
-
-              this._calendarEvent.next(items);
-            });
-          });
-        });
-      console.log(this.calendarEvents)
-      });
-    }
+          calitems.push(taskItem);
+        }
+      }})
+      return calitems;
+     }));
   }
+}
 
 
 interface Order {
