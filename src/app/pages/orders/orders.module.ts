@@ -14,6 +14,7 @@ import {OrderService} from './orders-table/_service/order.service';
 import {JpFormsModule} from 'app/forms/jp-forms.module';
 import {AppRoutingModule} from 'app/app-routing.module';
 import {TimeDifferenceComponent} from '../_directives/time-diff/time-difference/time-difference.component';
+import {OrdersComponent} from './orders.component';
 
 
 @NgModule({
@@ -32,8 +33,7 @@ import {TimeDifferenceComponent} from '../_directives/time-diff/time-difference/
     OrderDetailComponent,
     OrderCardsComponent,
     TimeDifferenceComponent,
-
-
+    OrdersComponent,
   ],
   providers: [
     OrderService,

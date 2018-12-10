@@ -42,7 +42,7 @@ export const DD_MM_YYYY_Format = {
 @Component({
   selector: 'app-orders-table',
   templateUrl: './orders-table.component.html',
-  styleUrls: ['./orders-table.component.scss'],
+  styleUrls: ['./orders-table2.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
@@ -55,7 +55,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   displayColumns: string [] = [
     'id', 'due_date', 'buyer_name', 'factory_name', 'order_type', 'buyer_style_number',
     'jp_style_number', 'factory_ship_date', 'cost_from_factory', 'buyers_price',
-    'qty', 'total_expense', 'sweater_image', 'brand',/* 'sweater_description', 
+    'qty', 'total_expense', 'sweater_image', 'brand',/* 'sweater_description',
     'fiber_content', 'color',*/ 'update', 'tasks' , 'expenses'
   ];
   filterForm: FormGroup;

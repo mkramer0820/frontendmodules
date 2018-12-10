@@ -25,12 +25,14 @@
             </mat-form-field>
         
             <mat-form-field  *ngIf='masterGroupMessage' class="form-element">
-              <mat-select matInput  placeholder="Select Task Set" formControlName='set_name'>
+              <input type="text" placeholder="New Set Or Select One To Copy" aria-label="Number" matInput [formControl]="set_name" [matAutocomplete]="auto"> 
+                <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let set of masterGroupMessage; let i=index" value={{set.set_name}} (click)="getBlanketTask(set)">
                   <span class="mat-option-text">{{set.id}}{{set.set_name}}</span>
                 </mat-option>
-              </mat-select>
+                </mat-autocomplete>
             </mat-form-field>
+
 
           <mat-form-field *ngIf='masterGroupMessage' class="form-element">
             <mat-select matInput  placeholder="Master Set Status" formControlName='set_status'>

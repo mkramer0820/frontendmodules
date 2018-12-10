@@ -18,6 +18,7 @@ import { OrderExpenseComponent } from './pages/orders/order-expense/order-expens
 import {TaskCalendarComponent} from './pages/task-calendar/task-calendar.component';
 import {SweaterSizeUpdateComponent} from './pages/sweater-size/sweater-size-update/sweater-size-update.component';
 import {OrderDetailComponent} from './pages/orders/order-detail/order-detail.component';
+import {Error404Component} from './core/pages/error404/error404.component';
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'order-expense', component: OrderExpenseComponent,  canActivate: [AuthGuard]},
   { path: 'home', component: TaskCalendarComponent,  canActivate: [AuthGuard]},
   { path: 'sweater-sizes', component: SweaterSizeUpdateComponent,  canActivate: [AuthGuard]},
+
 
 ];
 

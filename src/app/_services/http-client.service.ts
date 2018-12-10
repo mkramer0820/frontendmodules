@@ -112,7 +112,7 @@ export class HttpClientService {
   }
 
   private updateUrl(req: string) {
-    return environment.apiUrl + req;
+    return environment.baseUrl + req;
   }
   openSnackBar(message) {
     let config = new MatSnackBarConfig();
