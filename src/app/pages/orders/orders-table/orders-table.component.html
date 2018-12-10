@@ -53,9 +53,9 @@
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="factory_name" class="overflow">
-           <mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("factory__name")' class="overflow">Factory</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"  ><p class="overflow" >{{order.factory_name}}</mat-cell>
+         <ng-container matColumnDef="factory_name" >
+           <mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("factory__name")'>Factory</mat-header-cell>
+           <mat-cell   *matCellDef="let order; row"  >{{order.factory_name}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
@@ -86,7 +86,7 @@
 
          <ng-container matColumnDef="cost_from_factory">
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("cost_from_factory")'  >Cost From Factory</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   id="updates" >{{order.cost_from_factory | currency}}</mat-cell>
+           <mat-cell   *matCellDef="let order; row"   >{{order.cost_from_factory | currency}}</mat-cell>
            <mat-footer-cell *matFooterCellDef ></mat-footer-cell>
          </ng-container>
 
@@ -116,7 +116,7 @@
          <ng-container matColumnDef="sweater_image">
            <mat-header-cell *matHeaderCellDef >Image</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"
-              id="updates" >
+              >
              <ng-container *ngFor="let val of order.sizing">
              <img src='{{order.sweater_image}}' 
                matTooltip="Size: {{val.size_type}} {{val.size_detail}}" />
@@ -131,14 +131,14 @@
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="sweater_description" class="overflow">
+         <ng-container matColumnDef="sweater_description" >
            <mat-header-cell *matHeaderCellDef >Description</mat-header-cell>
            <mat-cell  *matCellDef="let order; row"   >{{order.sweater_description}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
 
-         <ng-container matColumnDef="fiber_content" class="overflow">
+         <ng-container matColumnDef="fiber_content" >
            <mat-header-cell *matHeaderCellDef >Fiber Content </mat-header-cell>
            <mat-cell *matCellDef="let order; row"   >{{order.fiber_content}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
@@ -152,7 +152,7 @@
 
          <ng-container matColumnDef="update">
            <mat-header-cell *matHeaderCellDef >Update Order</mat-header-cell>
-           <mat-cell  id="updates"  *matCellDef="let order; row"   >
+           <mat-cell   *matCellDef="let order; row"   >
              <button mat-icon-button (click)="openUpdateDialog(order)"><mat-icon matTooltip="Update Order">update</mat-icon></button>
              <button mat-icon-button (click)="openDeleteDialog(order)"><mat-icon matTooltip="Delete Order">delete</mat-icon></button>
 
@@ -163,7 +163,7 @@
          <ng-container matColumnDef="tasks">
            <mat-header-cell *matHeaderCellDef >Add Update Tasks</mat-header-cell>
            <div>
-           <mat-cell  id="updates"  *matCellDef="let order; row"   >
+           <mat-cell   *matCellDef="let order; row"   >
                    <button mat-icon-button (click)="openAddTask(order)"><mat-icon matTooltip="Add Tasks">add</mat-icon></button>
                    <button mat-icon-button (click)="openUpdateTask(order)" [disabled]="order.tasks.length === 0">
                        <span  matBadge={{order.completeTasks.length}}
@@ -181,7 +181,7 @@
 
          <ng-container matColumnDef="expenses">
              <mat-header-cell *matHeaderCellDef >EXPENSES</mat-header-cell>
-             <mat-cell id="updates"    *matCellDef="let order; row"   >
+             <mat-cell    *matCellDef="let order; row"   >
                      <button mat-icon-button (click)="openAddExpenseDialog(order)">
                          <mat-icon matBadgeSize="small"  matBadgeColor="warn" matTooltip="Add Order Expense">
                             attach_money
@@ -193,12 +193,13 @@
 
             
      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
-     <mat-row *matRowDef="let row; columns: displayColumns;" 
+     <mat-row *matRowDef="let row;
+                          let even = even;
+                          columns: displayColumns;" 
      (click)="onRowClicked(row)" (click)="onRowHighlight(row)"
-      [ngClass]="{'highlight': selectedRowIndex == row.id}"  color="primary" ></mat-row>
+      [ngClass]="{'gray': even, 'highlight': selectedRowIndex == row.id}" color="primary" ></mat-row>
      <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>
         
-
 
    </mat-table>
    <mat-paginator class="marginless-paginator-range-label" #paginator

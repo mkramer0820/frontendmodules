@@ -75,9 +75,7 @@ function getTimezoneOffsetString(date: Date): string {
 })
 export class TaskCalendarComponent implements OnInit, OnChanges {
   view: string = 'month';
-
   viewDate: Date = new Date();
-
   events$: Observable<Array<CalendarEvent<{ calEvent: CalendarEvent }>>>;
   activeDayIsOpen: boolean = false;
 

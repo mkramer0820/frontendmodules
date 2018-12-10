@@ -5,3 +5,15 @@ $height: auto;
 table {
     width: $width;
 }
+th {
+    color : "primary",
+}
+
+mat-cell.mat-cell{
+    font-size: 13px;
+    max-height: 1.5em;
+    border-bottom-color: black;
+   // background-color: #f5f5f5;
+ 
+    
+}
