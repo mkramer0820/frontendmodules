@@ -1,4 +1,4 @@
-<div mat-table__wrapper>
+<div class="wrapper">
 
        <app-filter-form #newFilters ></app-filter-form>
 
@@ -6,19 +6,21 @@
    
 
    <mat-table id="orderTable" #table [dataSource]="orders" matSort class="mat-elevation-z8">
+      <div class="wrapper">
+
 
          <ng-container matColumnDef="id" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)="paginate('id')"  >Id</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"  
              ><a [routerLink]="[ '/order-detail', order.id ]"><mat-icon matTooltip="View Full Details">pageview</mat-icon></a>{{order.id}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef  ></mat-footer-cell>
+           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="due_date">
+         <ng-container matColumnDef="due_date" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("due_date")' >Due Date</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"  >
               {{order.due_date | date:'MM/dd/yyyy'}}
-       <!--<app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference>-->
+       <!--<app-time-difference (reached)="callback($event)" units="Mon| Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference>-->
              </mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
@@ -35,20 +37,20 @@
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="order_type">
+         <ng-container matColumnDef="order_type" >
              <mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("order_type")'  >Order Type</mat-header-cell>
              <mat-cell   *matCellDef="let order; row"  >{{order.order_type}}</mat-cell>
              <mat-footer-cell *matFooterCellDef >P&L</mat-footer-cell>
            </ng-container>
 
 
-         <ng-container matColumnDef="buyer_style_number">
+         <ng-container matColumnDef="buyer_style_number" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyer_style_number")' >Buyer Style #</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"   >{{order.buyer_style_number}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="jp_style_number">
+         <ng-container matColumnDef="jp_style_number" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("jp_style_number")'>JP Style #</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"   >{{order.jp_style_number}}</mat-cell>
            <mat-footer-cell *matFooterCellDef [ngClass]="{'aligne-right': true}"></mat-footer-cell>
@@ -66,7 +68,7 @@
            <mat-footer-cell *matFooterCellDef ></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="buyers_price">
+         <ng-container matColumnDef="buyers_price" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyers_price")' >Price Buyer Paid</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"   >{{order.buyers_price | currency}}</mat-cell>
            <mat-footer-cell *matFooterCellDef><span style="font-size:xx-small">Customers Paid: {{totalCost.buyerCost | currency}}</span></mat-footer-cell>
@@ -74,7 +76,7 @@
 
           
 
-         <ng-container matColumnDef="qty">
+         <ng-container matColumnDef="qty" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("qty")' >Quantity</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"   >{{order.qty}}</mat-cell>
            <mat-footer-cell *matFooterCellDef style="font-size:xx-small" >P&L Before Expense: {{totalCost.simpleProfit | currency}}</mat-footer-cell>
@@ -100,7 +102,7 @@
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="brand">
+         <ng-container matColumnDef="brand" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("brand")' >Brand</mat-header-cell>
            <mat-cell   *matCellDef="let order; row"   >{{order.brand}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
@@ -119,7 +121,7 @@
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
-         <ng-container matColumnDef="color">
+         <ng-container matColumnDef="color" >
            <mat-header-cell *matHeaderCellDef >Color</mat-header-cell>
            <mat-cell *matCellDef="let order; row"    >{{order.color}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
@@ -132,26 +134,22 @@
              <button mat-icon-button (click)="openDeleteDialog(order)"><mat-icon matTooltip="Delete Order">delete</mat-icon></button>
 
              </mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <mat-footer-cell *matFooterCellDef ></mat-footer-cell>
          </ng-container>
-
          <ng-container matColumnDef="tasks">
            <mat-header-cell *matHeaderCellDef >Tasks</mat-header-cell>
-           <div>
-           <mat-cell  id="updates"  *matCellDef="let order; row"   >
+           <mat-cell  id="updates"  *matCellDef="let order; row">
                    <button mat-icon-button (click)="openAddTask(order)"><mat-icon matTooltip="Add Tasks">add</mat-icon></button>
-                   <button mat-icon-button (click)="openUpdateTask(order)" [disabled]="order.tasks.length === 0">
+                   <button mat-icon-button (click)="openUpdateTask(order)" [disabled]="order.tasks.leng=== 0">
                        <span  matBadge={{order.completeTasks.length}}
                         matBadgeSize="small"  matBadgeColor="#CBE9CB" matBadgePosition="above before"></span>
                      <mat-icon matBadge={{order.incompleteTasks.length}}
                        matBadgeSize="small"  matBadgeColor="warn" matTooltip="Update Tasks" >
-                      
                         update
                      </mat-icon>
                    </button>
            </mat-cell>
-           </div>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <mat-footer-cell *matFooterCellDef ></mat-footer-cell>
          </ng-container>
 
          <ng-container matColumnDef="expenses">
@@ -166,6 +164,8 @@
              <mat-footer-cell *matFooterCellDef></mat-footer-cell>
            </ng-container>
 
+
+
             
      <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
      <mat-row *matRowDef="
@@ -177,7 +177,7 @@
      <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>
         
 
-
+    </div>
    </mat-table>
    <mat-paginator class="marginless-paginator-range-label" #paginator
     [length]=length
@@ -187,18 +187,14 @@
     (page)="paginate()"
     class="mat-elevation-z8"
     ></mat-paginator>
-
-
-
- </div>
-  
-   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'>
+<!--
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'>
       
 
-         <ng-container *ngIf='order && order.tasks.length >0'>
+         <ng-container *ngIf='order && order.tasks.leng>0'>
              <span *ngFor="let tasks of order.tasks">
                  <app-order-cards [tasks]='tasks' [avatar]='order.sweater_image'></app-order-cards>
              </span>
          </ng-container>
 
-   </div>
+   </div>-->

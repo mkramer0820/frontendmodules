@@ -2,11 +2,18 @@
     min-width: 1200px;
     display: flex;
     flex-direction: column;
-    max-height: 200px;
+    max-height: 800px;
     justify-content: flex-end;
 
       
     
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    min-height: 100%;
+    overflow-x: auto;
 }
 
 mat-header-row{
@@ -38,10 +45,10 @@ mat-row {
     border-bottom: solid black 1px;
     min-width: 1400px;
 }
-matt-footer-row, mat-paginator {
+mat-footer-row, mat-paginator {
     min-width: 1400px;
 }
-mat-footer
+
 
 .mat-cell-buyer_name {
     border-right: solid black 1px;

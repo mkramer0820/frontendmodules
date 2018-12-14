@@ -1,7 +1,21 @@
+
+
+.card-wrapper .mat-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 400px;
+    
+      
+    
+}
 .Complete {
     color:rgb(14, 151, 14);
 }
 
 .Not-Complete {
     color: rgb(173, 16, 16);
+}
+
+div.mat-card-avatar {
+    background-size: cover;
 }
