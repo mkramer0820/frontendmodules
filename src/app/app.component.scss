@@ -1,4 +1,4 @@
-/*
+
 @import '../styles.scss';
 @import "./styles/mixins.scss";
 @import "./styles/colors.scss";
@@ -27,7 +27,6 @@
 
 
 }
-/*
 @include breakpoint-max(600px) {
   .fixed-topnav {
     color: #ECEFF1;
@@ -45,7 +44,7 @@
 
 
   }
-}*/
+}
 
 modal {
   /* modals are hidden by default */
