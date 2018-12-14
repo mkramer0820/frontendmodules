@@ -1,11 +1,9 @@
 import { Component, OnInit, AfterViewInit,  ViewChild, Input, Inject} from '@angular/core';
-import {FormGroup, FormControl, ReactiveFormsModule, } from '@angular/forms';
+import {FormGroup, FormControl } from '@angular/forms';
 // import {Order} from '../../../modules/models/orders.model';
 import {Order, Paginator} from './_service/order.service';
 import {AppConfig} from '../../../config/app.config';
-import {ApiService} from '../../../config/api.service';
-import {MatDialog, MatTableDataSource, MatPaginator, MatSort, MatDialogConfig, MatDialogContainer } from '@angular/material';
-import {HttpClientService} from 'app/_services/http-client.service';
+import {MatDialog, MatTableDataSource, MatPaginator, MatSort, MatDialogConfig} from '@angular/material';
 
 import {OrderService} from './_service/order.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -15,9 +13,8 @@ import {default as _rollupMoment} from 'moment';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OrderTaskComponent} from '../order-task/order-task.component';
 import {OrderDetailComponent} from '../order-detail/order-detail.component';
-import {FilterFormComponent} from '../../../forms/dynamic-form/filter-form/filter-form.component';
+import {FilterFormComponent} from '../../../forms/filter-form/filter-form.component';
 import { OrderExpenseComponent } from '../order-expense/order-expense.component';
-import { unescapeIdentifier } from '@angular/compiler';
 import { Url } from 'url';
 import {PageEvent} from '@angular/material';
 import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
@@ -42,7 +39,7 @@ export const DD_MM_YYYY_Format = {
 @Component({
   selector: 'app-orders-table',
   templateUrl: './orders-table.component.html',
-  styleUrls: ['./orders-table2.component.scss'],
+  styleUrls: ['./orders-table.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
@@ -115,10 +112,8 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   public secondDate = moment();
 
   constructor(
-    private apiService: ApiService,
     private dialog: MatDialog,
     private ordersService: OrderService,
-    private http: HttpClientService,
   ) {  }
 
   ngOnInit() {
@@ -137,18 +132,14 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   }
   onRowClicked(row) {
     this.order = row;
-    this.selectedTask = row.tasks;
-    this.dialogRow = row;
-
+    this.selectedRowIndex = row.id
   }
   options(orders: Order[]) {
     for (let order of orders) {
       this.opt.push(order.buyer_name);
     }
   }
-  onRowHighlight(row){
-    this.selectedRowIndex = row.id;
-  }
+
 
 
 /////////////////////////////////////////////////

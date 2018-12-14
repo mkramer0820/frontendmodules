@@ -42,11 +42,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/app/pages/customer/customer.component.scss",
+              "src/app/pages/login/login.component.scss",
+              "src/app/pages/orders/orders-table/orders-table.component.scss",
+              "src/app/pages/orders/orders-table/order-cards/order-cards.component.scss",
+              "src/app/pages/factory/factory-contact/factory-contact.component.scss",
             ],
             "scripts": []
           },
@@ -59,7 +63,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
@@ -96,10 +100,14 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/styles.scss",
+              "src/app/pages/customer/customer.component.scss",
+              "src/app/pages/login/login.component.scss",
+              "src/app/pages/orders/orders-table/orders-table.component.scss",
+              "src/app/pages/orders/orders-table/order-cards/order-cards.component.scss",
+              "src/app/pages/factory/factory-contact/factory-contact.component.scss",
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ]
           }

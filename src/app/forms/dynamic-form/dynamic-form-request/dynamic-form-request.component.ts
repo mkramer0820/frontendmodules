@@ -1,9 +1,8 @@
 import { Component, OnInit, DoCheck, OnDestroy, Input, Inject, AfterViewChecked } from '@angular/core';
 import { OptionsFormService } from '../../_service/';
 import { FormControlService } from '../../_service/form-control.service';
-import { FormGroup, FormArray, FormBuilder }                 from '@angular/forms';
-import {MessageService} from '../../../_services/message.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { FormGroup}                 from '@angular/forms';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 
 export interface DialogData {
@@ -16,7 +15,7 @@ export interface DialogData {
   selector: 'dynamic-form-request',
   templateUrl: './dynamic-form-request.component.html',
   styleUrls: ['./dynamic-form-request.component.scss'],
-  providers: [MessageService, FormControlService]
+  providers: [FormControlService]
 })
 export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewChecked, OnDestroy {
 
@@ -33,7 +32,6 @@ export class DynamicFormRequestComponent implements OnInit, DoCheck, AfterViewCh
 
   constructor(
     // private factoryFormService: FactoryFormService,
-    private urlServ: MessageService,
     private formService: OptionsFormService,
     private fcs: FormControlService,
     public dialogRef: MatDialogRef<DynamicFormRequestComponent>,

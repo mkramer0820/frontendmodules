@@ -1,11 +1,16 @@
 
 
 <div class="p-lighter"  color="primary">
-    <mat-card color="white" mat-elevation-z8 fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon>Order</button> &nbsp;
-            <button mat-raised-button color="primary" (click)="openSweaterSizeDialog(false)"><mat-icon>add</mat-icon> New Size</button> &nbsp;&nbsp;&nbsp;&nbsp;
-        
+    <div [ngStyle]="{'background-color': '#ffff'}" mat-elevation-z8 fxLayoutAlign="start center">
+           
+            
         <div (ngSubmit)="onSubmit()" [formGroup]="filterForm"  fxLayout="row" fxLayoutGap="35px">
+                <mat-form-field class="form-element" >
+                    <mat-select placeholder='Tools'>
+                            <mat-option (click)="openAddDialog()">New Order</mat-option>
+                            <mat-option (click)="openSweaterSizeDialog(false)">New Size</mat-option>
+                    </mat-select>
+                </mat-form-field>
                 
                 <div *ngFor="let item of models">
 
@@ -48,7 +53,6 @@
             <button mat-raised-button color="primary" (click)="onSubmit()" style="padding-left: 20px"><mat-icon>send</mat-icon> Filter</button>
 
 
-    </mat-card>
 
 </div>
 

@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DynamicFormsComponent } from './dynamic-form/dynamic-forms.component';
 import {FormComponent} from './dynamic-form/form/form.component';
-import {FilterFormComponent} from './dynamic-form/filter-form/filter-form.component';
+import {FilterFormComponent} from './filter-form/filter-form.component';
 import {DynamicFormRequestComponent} from './dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import {OptionsFormService} from './_service/option-form.service';
 import {DatePickerComponent} from './date-picker/date-picker.component';

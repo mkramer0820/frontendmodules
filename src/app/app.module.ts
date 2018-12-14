@@ -12,9 +12,7 @@ import {PagesModule} from './pages/pages.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SharedModule} from './shared/shared.module';
 import {NavService} from './nav.service';
-import {CustomersModule} from './modules/customers/customers.module';
 import { JwtInterceptor, ErrorInterceptor } from './pages/_helpers';
-import {DynamicformModule} from './modules/dynamicform/dynamicform.module';
 import {JpFormsModule} from './forms/jp-forms.module';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -42,9 +40,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     PagesModule,
     FlexLayoutModule,
     SharedModule,
-    CustomersModule,
     ReactiveFormsModule,
-    DynamicformModule,
     JpFormsModule,
     MatGridListModule,
     MatCardModule,

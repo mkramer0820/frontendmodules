@@ -14,7 +14,6 @@ import {AppConfig} from 'app/config/app.config';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  BASE = AppConfig.base;
   loginForm: FormGroup;
   loading = false;
   submitted = false;

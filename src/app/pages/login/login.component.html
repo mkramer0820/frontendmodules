@@ -1,6 +1,6 @@
 
 <div class="login-main-div">
-<mat-card class="example-card" class="z-depth center" flex="50" >
+<mat-card class="z-depth center" flex="50" >
 
     <mat-card-content>
 
@@ -22,7 +22,7 @@
                 </div>
 
             <div class="form-group">
-                <button mat-button [disabled]="loading" color="primary">Login</button>
+                <button mat-raised-button [disabled]="loading" color="primary">Login</button>
                 <div *ngIf="loading" >
                         <mat-spinner></mat-spinner>
                 </div>
@@ -32,20 +32,3 @@
     </mat-card-content>
 </mat-card>
 </div>
-<!--
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-        </div>
-    </div>-->
-
-

@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Observable, of, BehaviorSubject, Subject /* throwError as observableThrowError*/} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { AppConfig } from '../../config/app.config';
 import { LoggerService } from '../../core/services/logger.service';
-import {catchError, tap} from 'rxjs/operators';
-import {FormGroup, FormBuilder, FormControl} from '@angular/forms';
-import { map, filter} from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 import { FormDropdown, FormManyDropDown } from '../_models/form-dropdown';
-import { FormImageField } from '../_models/form-image';
 import { FormBase }     from '../_models/form-base';
 import { FormTextbox, FormCheckBox }  from '../_models/form-textbox';
 import { FormDatePicker }  from '../_models/form-date-picker';
-import { ApiService } from '../../config/api.service';
 import {HttpClientService} from '../../_services/http-client.service';
-import { FormControlService } from './form-control.service';
 
 @Injectable()
 export class OptionsFormService {
@@ -26,7 +21,7 @@ export class OptionsFormService {
   newForm: FormBase<any>[] = [];
 
 
-  constructor(private http: HttpClientService, private fb: FormBuilder, private api: ApiService, private fcs: FormControlService, ) {
+  constructor(private http: HttpClientService) {
     this.apiUrl = AppConfig.endpoints['url'] }
 
   private static handleError<T>(operation = 'operation', result?: T) {
@@ -47,8 +42,7 @@ export class OptionsFormService {
 
   formRequest(url: string) {
     const newForm = []
-    let headers = this.api.setHeaders();
-    return this.http.options(`${url}`, {headers})
+    return this.http.options(`${url}`)
       .pipe(map(response  => {
           response = response['actions']['POST'];
           for (const item in response) {
