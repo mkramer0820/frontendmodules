@@ -43,7 +43,7 @@ p {
 
 mat-cell{
     font-size: 13px;
-    max-height: 1.5em;
+    max-height: 2em;
     border-bottom-color: black;
     // background-color: #f5f5f5;
     
@@ -193,3 +193,89 @@ modal {
 body.modal-open {
   overflow: hidden;
 } */
+/*
+mat-header-row{
+    mat-header-cell {
+        font-size: .9em;
+        display:flex;
+        justify-content: center;
+        color: black;
+        
+        .mat-sort-header {
+            color: black;
+            font-size: .9em;
+            display:flex;
+            justify-content: center;
+        }
+        div.mat-sort-header-container{
+            padding-left: 12px;
+        }
+    
+        .mat-column {
+            flex: 0 0 25;
+            min-width: 200px;
+        }
+
+            
+    }
+}
+mat-cell {
+    display: flex;
+    justify-content: center;
+    font-size: 1em;
+    overflow: hidden;
+}
+.mat-row {
+    
+    font-size: 14px;
+    min-height: 60px;
+    max-height: 100px;
+    
+
+
+
+
+}
+
+
+img {
+    max-height: 80px;
+}
+
+.mat-column-factory_name, .mat-column-buyer_name, .mat-column-due_date, .mat-column-factory_ship_date{
+    flex-grow: 1.3;
+}
+.mat-column-id {
+
+    flex-grow: .5;
+}
+.mat-column-brand {
+    flex-grow: .75
+}
+.mat-column-buyers_price {
+    flex-grow: .75
+}
+.mat-column-cost_from_factory {
+    flex-grow: .75
+}
+
+
+.gray {background-color: #eff3f9;}
+
+
+
+.highlight {
+    background-color: #424242; 
+    font-weight: bold;
+    * {
+        color: #A0F4E1;
+
+    }
+}
+
+
+mat-row:hover * {
+    color: #d611f4;
+   
+}
+/*

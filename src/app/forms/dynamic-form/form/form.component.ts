@@ -1,10 +1,8 @@
-import { Component, Input, OnInit, AfterContentChecked, AfterViewChecked, OnDestroy }  from '@angular/core';
+import { Component, Input, }  from '@angular/core';
 import { FormGroup }                 from '@angular/forms';
 import {AppConfig} from          '../../../config/app.config';
 import {HttpClientService} from   '../../../_services/http-client.service';
-import { FormBase }              from '../../_models/form-base';
 import { FormControlService }    from '../../_service/form-control.service';
-import {ApiService} from '../../../config/api.service';
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
@@ -34,21 +32,15 @@ export const DD_MM_YYYY_Format = {
     {provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format},
   ]
 })
-export class FormComponent implements AfterContentChecked {
+export class FormComponent {
 
   @Input() models: any;
   @Input() form: FormGroup;
   @Input() submitUrl: string;
   @Input() update: boolean;
   // form: FormGroup;
-  payLoad = '';
  
   constructor(private fcs: FormControlService, private submitService: HttpClientService ) {  }
-
-  ngAfterContentChecked() {
-    this.payLoad = this.form.value;
-
-  }
 
   onSubmit() {
     let formdata = new FormData();

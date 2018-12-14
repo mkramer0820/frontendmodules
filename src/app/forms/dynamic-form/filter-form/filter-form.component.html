@@ -1,12 +1,12 @@
 
 
 <div class="p-lighter"  color="primary">
-    <mat-card color="white" mat-elevation-z8 fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon>Order</button> &nbsp;
-            <button mat-raised-button color="primary" (click)="openSweaterSizeDialog(false)"><mat-icon>add</mat-icon> New Size</button> &nbsp;&nbsp;&nbsp;&nbsp;
-        
-        <div (ngSubmit)="onSubmit()" [formGroup]="filterForm"  fxLayout="row" fxLayoutGap="35px">
-                
+  
+        <div (ngSubmit)="onSubmit()" [formGroup]="filterForm" >
+            
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <button mat-raised-button color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon>Order</button>
+                    <button mat-raised-button color="primary" (click)="openSweaterSizeDialog(false)"><mat-icon>add</mat-icon> New Size</button>
                 <div *ngFor="let item of models">
 
 
@@ -37,19 +37,19 @@
                         <input *ngSwitchCase="'image_upload'" (change)="uploadImage($event)" type="file" accept=".png, .pdf, .jpg, .jpeg"> <br>
                     
 
+
                     </div>
                 
 
                 </div>
 
-                
-            </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button mat-raised-button color="primary" (click)="onSubmit()" style="padding-left: 20px"><mat-icon>send</mat-icon> Filter</button>
+                <button mat-raised-button color="primary" (click)="onSubmit()" style="padding-left: 20px"><mat-icon>send</mat-icon> Filter</button>
 
 
-    </mat-card>
+        </div>
 
 </div>
+
+
 
     

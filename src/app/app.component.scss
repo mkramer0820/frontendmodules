@@ -1,16 +1,17 @@
+/*
 @import '../styles.scss';
 @import "./styles/mixins.scss";
 @import "./styles/colors.scss";
-// @import "./styles/functions.scss";
+@import "./styles/functions.scss";
 @import "./core/nav/top-nav/top-nav.component.scss";
 @import "./core/nav/menu-list-item/menu-list-item.component.scss";
 @import "./pages/orders/orders-table/orders-table2.component.scss";
 @import "./pages/orders/orders-table/order-cards/order-cards.component.scss";
-//@import "./pages/factory/factory-table/factory-table.component.scss";
+@import "./pages/factory/factory-table/factory-table.component.scss";
 @import "./pages/factory/factory-contact/factory-contact.component.scss";
 @import './styles/breakpoints';
 @import './pages/customer/customer.component.scss';
-@import './pages/login/login.component.scss';
+@import './pages/login/login.component.scss';*/
 @import '../../node_modules/angular-calendar/css/angular-calendar.css';
 @import './pages/task-calendar/task-calendar.component.scss';
 
@@ -32,7 +33,9 @@
   background-color: "black" !important;
   color: "black";
 
+
 }
+/*
 @include breakpoint-max(600px) {
   .fixed-topnav {
     color: #ECEFF1;
@@ -50,7 +53,7 @@
 
 
   }
-}
+}*/
 
 modal {
   /* modals are hidden by default */

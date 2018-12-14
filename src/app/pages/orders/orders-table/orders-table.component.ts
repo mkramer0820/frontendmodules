@@ -56,7 +56,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     'id', 'due_date', 'buyer_name', 'factory_name', 'order_type', 'buyer_style_number',
     'jp_style_number', 'factory_ship_date', 'cost_from_factory', 'buyers_price',
     'qty', 'total_expense', 'sweater_image', 'brand',/* 'sweater_description',
-    'fiber_content', 'color',*/ 'update', 'tasks' , 'expenses'
+    'fiber_content', 'color',*/ 'update', 'tasks' , 'expenses', 
   ];
   filterForm: FormGroup;
 
@@ -125,6 +125,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     this.ordersService.findPaginatedOrders()
     this.ordersService.currentOrders.subscribe((orders: Order[]) => {
       this.orders = orders;
+      console.log(this.orders)
       this.length = this.ordersService.url.length;
       this.pageSize = this.ordersService.url.pageSize;
       this.getTotalCost(orders)

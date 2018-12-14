@@ -1,207 +1,177 @@
-   
-
-  <!--mat-accordion class="primary">
-     <mat-expansion-panel (opened)="panelOpenState = true"
-                          (closed)="panelOpenState = false">
-       <mat-expansion-panel-header>
-         <mat-panel-title>
-            Filters
-         </mat-panel-title>
-         <app-filter-form #newFilters  ></app-filter-form>
-
-      
-         <mat-panel-description>
-         </mat-panel-description>
-       </mat-expansion-panel-header>
-
-     </mat-expansion-panel>
-   </mat-accordion>-->
-   <div  fxLayout="row" fxLayoutAlign="space-evenly stretch" >
-        
-
-   </div>
-   <mat-list >
-
-       <app-filter-form #newFilters ></app-filter-form>
 
 
-   </mat-list>
-   
-  <div mat-table__wrapper>
+   <app-filter-form #newFilters ></app-filter-form> 
+   <div class="wrapper">
 
-   <mat-table id="orderTable" #table [dataSource]="orders" matSort class="mat-elevation-z8">
+
+   <table mat-table #table [dataSource]="orders" matSort class="mat-elevation-z8">
 
          <ng-container matColumnDef="id" >
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)="paginate('id')"  >Id</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"  
-             ><a [routerLink]="[ '/order-detail', order.id ]"><mat-icon matTooltip="View Full Details">pageview</mat-icon></a>{{order.id}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef  ></mat-footer-cell>
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="paginate('id')"  >Id</th>
+           <td mat-cell   *matCellDef="let order; row"  
+             ><a [routerLink]="[ '/order-detail', order.id ]"><mat-icon matTooltip="View Full Details">pageview</mat-icon></a>{{order.id}}</td>
+           <td mat-footer-cell *matFooterCellDef  ></td>
          </ng-container>
 
-         <ng-container matColumnDef="due_date">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("due_date")' >Due Date</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"  >
+         <ng-container matColumnDef="due_date" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("due_date")' >Due Date</th>
+           <td mat-cell   *matCellDef="let order; row"  >
               {{order.due_date | date:'MM/dd/yyyy'}}
        <!--<app-time-difference (reached)="callback($event)" units="Month | Days | Hours | Minutes"  end={{order.due_date}}></app-time-difference>-->
-             </mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+             </td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
          <ng-container matColumnDef="buyer_name" >
-           <mat-header-cell *matHeaderCellDef  mat-sort-header  (click)='paginate("buyer__name")' >Buyer</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   id="updates">{{order.buyer_name}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <th mat-header-cell *matHeaderCellDef  mat-sort-header  (click)='paginate("buyer__name")' >Buyer</th>
+           <td mat-cell   *matCellDef="let order; row"   id="updates">{{order.buyer_name}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
          <ng-container matColumnDef="factory_name" >
-           <mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("factory__name")'>Factory</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"  >{{order.factory_name}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <th mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("factory__name")'>Factory</th>
+           <td mat-cell   *matCellDef="let order; row"  >{{order.factory_name}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
-         <ng-container matColumnDef="order_type">
-             <mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("order_type")'  >Order Type</mat-header-cell>
-             <mat-cell   *matCellDef="let order; row"  >{{order.order_type}}</mat-cell>
-             <mat-footer-cell *matFooterCellDef >P&L</mat-footer-cell>
+         <ng-container matColumnDef="order_type" >
+             <th mat-header-cell *matHeaderCellDef  mat-sort-header (click)='paginate("order_type")'  >Order Type</th>
+             <td mat-cell   *matCellDef="let order; row"  >{{order.order_type}}</td>
+             <td mat-footer-cell *matFooterCellDef >P&L</td>
            </ng-container>
 
 
-         <ng-container matColumnDef="buyer_style_number">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyer_style_number")' >Buyer Style #</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.buyer_style_number}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+         <ng-container matColumnDef="buyer_style_number" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyer_style_number")' >Buyer Style #</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.buyer_style_number}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
-         <ng-container matColumnDef="jp_style_number">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("jp_style_number")'>JP Style #</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.jp_style_number}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef [ngClass]="{'aligne-right': true}"></mat-footer-cell>
+         <ng-container matColumnDef="jp_style_number" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("jp_style_number")'>JP Style #</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.jp_style_number}}</td>
+           <td mat-footer-cell *matFooterCellDef [ngClass]="{'aligne-right': true}"></td>
          </ng-container>
 
-         <ng-container matColumnDef="factory_ship_date">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("factory_ship_date")' >Factory Ship Date</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.factory_ship_date | date:'MM/dd/yyyy' }}</mat-cell>
-           <mat-footer-cell *matFooterCellDef><span  style="font-size:xx-small">JP Cost: {{totalCost.jpCost | currency}}</span></mat-footer-cell>
+         <ng-container matColumnDef="factory_ship_date" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("factory_ship_date")' >Factory Ship Date</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.factory_ship_date | date:'MM/dd/yyyy' }}</td>
+           <td mat-footer-cell *matFooterCellDef><span  style="font-size:xx-small">JP Cost: {{totalCost.jpCost | currency}}</span></td>
          </ng-container>
 
-         <ng-container matColumnDef="cost_from_factory">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("cost_from_factory")'  >Cost From Factory</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.cost_from_factory | currency}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef ></mat-footer-cell>
+         <ng-container matColumnDef="cost_from_factory" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("cost_from_factory")'  >Cost From Factory</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.cost_from_factory | currency}}</td>
+           <td mat-footer-cell *matFooterCellDef ></td>
          </ng-container>
 
-         <ng-container matColumnDef="buyers_price">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyers_price")' >Price Buyer Paid</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.buyers_price | currency}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef><span style="font-size:xx-small">Customers Paid: {{totalCost.buyerCost | currency}}</span></mat-footer-cell>
+         <ng-container matColumnDef="buyers_price" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("buyers_price")' >Price Buyer Paid</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.buyers_price | currency}}</td>
+           <td mat-footer-cell *matFooterCellDef><span style="font-size:xx-small">Customers Paid: {{totalCost.buyerCost | currency}}</span></td>
          </ng-container>
 
           
 
-         <ng-container matColumnDef="qty">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("qty")' >Quantity</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.qty}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef style="font-size:xx-small" >P&L Before Expense: {{totalCost.simpleProfit | currency}}</mat-footer-cell>
+         <ng-container matColumnDef="qty" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("qty")' >Quantity</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.qty}}</td>
+           <td mat-footer-cell *matFooterCellDef style="font-size:xx-small" >P&L Before Expense: {{totalCost.simpleProfit | currency}}</td>
          </ng-container>
-         <ng-container matColumnDef="total_expense">
-             <mat-header-cell *matHeaderCellDef >Agg. Exp. Cost</mat-header-cell>
-             <mat-cell   *matCellDef="let order; row"   >
+         <ng-container matColumnDef="total_expense" >
+             <th mat-header-cell *matHeaderCellDef >Agg. Exp. Cost</th>
+             <td mat-cell   *matCellDef="let order; row"   >
                 <span *ngFor="let expense of order.orderExpense">{{expense.totalExpense | currency}}</span>
-               </mat-cell>
-             <mat-footer-cell *matFooterCellDef style="font-style: xx-small "></mat-footer-cell>
+               </td>
+             <td mat-footer-cell *matFooterCellDef style="font-style: xx-small "></td>
            </ng-container>
           
             
 
-         <ng-container matColumnDef="sweater_image">
-           <mat-header-cell *matHeaderCellDef >Image</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"
-              >
-             <ng-container *ngFor="let val of order.sizing">
-             <img src='{{order.sweater_image}}' 
-               matTooltip="Size: {{val.size_type}} {{val.size_detail}}" />
-           </ng-container>
-          </mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+         <ng-container matColumnDef="sweater_image" >
+           <th mat-header-cell *matHeaderCellDef >Image</th>
+           <td mat-cell   *matCellDef="let order; row">
+            <img src='{{order.sweater_image}}'>
+              
+          </td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
-         <ng-container matColumnDef="brand">
-           <mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("brand")' >Brand</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >{{order.brand}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+         <ng-container matColumnDef="brand" >
+           <th mat-header-cell *matHeaderCellDef mat-sort-header (click)='paginate("brand")' >Brand</th>
+           <td mat-cell   *matCellDef="let order; row"   >{{order.brand}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
          <ng-container matColumnDef="sweater_description" >
-           <mat-header-cell *matHeaderCellDef >Description</mat-header-cell>
-           <mat-cell  *matCellDef="let order; row"   >{{order.sweater_description}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <th mat-header-cell *matHeaderCellDef >Description</th>
+           <td mat-cell  *matCellDef="let order; row"   >{{order.sweater_description}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
 
          <ng-container matColumnDef="fiber_content" >
-           <mat-header-cell *matHeaderCellDef >Fiber Content </mat-header-cell>
-           <mat-cell *matCellDef="let order; row"   >{{order.fiber_content}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           <th mat-header-cell *matHeaderCellDef >Fiber Content </th>
+           <td mat-cell *matCellDef="let order; row"   >{{order.fiber_content}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
-         <ng-container matColumnDef="color">
-           <mat-header-cell *matHeaderCellDef >Color</mat-header-cell>
-           <mat-cell *matCellDef="let order; row"    >{{order.color}}</mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+         <ng-container matColumnDef="color" >
+           <th mat-header-cell *matHeaderCellDef >Color</th>
+           <td mat-cell *matCellDef="let order; row"    >{{order.color}}</td>
+           <td mat-footer-cell *matFooterCellDef></td>
          </ng-container>
 
-         <ng-container matColumnDef="update">
-           <mat-header-cell *matHeaderCellDef >Update Order</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"   >
+         <ng-container matColumnDef="update" > 
+           <th mat-header-cell *matHeaderCellDef >Update Order</th>
+           <td mat-cell   *matCellDef="let order; row"   >
              <button mat-icon-button (click)="openUpdateDialog(order)"><mat-icon matTooltip="Update Order">update</mat-icon></button>
              <button mat-icon-button (click)="openDeleteDialog(order)"><mat-icon matTooltip="Delete Order">delete</mat-icon></button>
 
-             </mat-cell>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+             </td>
+           <td mat-footer-cell *matFooterCellDef ></td>
          </ng-container>
-
          <ng-container matColumnDef="tasks">
-           <mat-header-cell *matHeaderCellDef >Add Update Tasks</mat-header-cell>
-           <div>
-           <mat-cell   *matCellDef="let order; row"   >
-                   <button mat-icon-button (click)="openAddTask(order)"><mat-icon matTooltip="Add Tasks">add</mat-icon></button>
-                   <button mat-icon-button (click)="openUpdateTask(order)" [disabled]="order.tasks.length === 0">
-                       <span  matBadge={{order.completeTasks.length}}
-                        matBadgeSize="small"  matBadgeColor="#CBE9CB" matBadgePosition="above before"></span>
+           <th mat-header-cell *matHeaderCellDef >Tasks</th>
+            <td mat-cell   *matCellDef="let order; row" >
+              <button mat-icon-button (click)="openAddTask(order)"><mat-icon matTooltip="Add Tasks">add</mat-icon></button>
+              <button mat-icon-button (click)="openUpdateTask(order)" [disabled]="order.tasks.length === 0">
+                 <span  matBadge={{order.completeTasks.length}} matBadgeSize="small"  matBadgeColor="#CBE9CB" matBadgePosition="above before"></span>
                      <mat-icon matBadge={{order.incompleteTasks.length}}
                        matBadgeSize="small"  matBadgeColor="warn" matTooltip="Update Tasks" >
-                      
                         update
                      </mat-icon>
                    </button>
-           </mat-cell>
-           </div>
-           <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+           </td>
+           <td mat-footer-cell *matFooterCellDef ></td>
          </ng-container>
-
          <ng-container matColumnDef="expenses">
-             <mat-header-cell *matHeaderCellDef >EXPENSES</mat-header-cell>
-             <mat-cell    *matCellDef="let order; row"   >
+             <th mat-header-cell *matHeaderCellDef >Expense</th>
+             <td mat-cell    *matCellDef="let order; row"   >
                      <button mat-icon-button (click)="openAddExpenseDialog(order)">
                          <mat-icon matBadgeSize="small"  matBadgeColor="warn" matTooltip="Add Order Expense">
                             attach_money
                          </mat-icon>
                        </button>
-             </mat-cell>
-             <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+             </td>
+             <td mat-footer-cell *matFooterCellDef></td>
            </ng-container>
 
+
+
             
-     <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
-     <mat-row *matRowDef="let row;
+     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+     <tr mat-row *matRowDef="let row;
                           let even = even;
                           columns: displayColumns;" 
      (click)="onRowClicked(row)" (click)="onRowHighlight(row)"
-      [ngClass]="{'gray': even, 'highlight': selectedRowIndex == row.id}" color="primary" ></mat-row>
-     <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>
-        
+      [ngClass]="{'gray': even, 'highlight': selectedRowIndex == row.id}" color="primary" ></tr>
+     <tr mat-footer-row *matFooterRowDef="displayColumns"></tr>
 
-   </mat-table>
+
+   </table>
+  </div>
+
    <mat-paginator class="marginless-paginator-range-label" #paginator
     [length]=length
     [pageSize]=pageSize
@@ -210,12 +180,8 @@
     (page)="paginate()"
     class="mat-elevation-z8"
     ></mat-paginator>
-
-
-
- </div>
-  
-   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'>
+<!--
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'>
       
 
          <ng-container *ngIf='order && order.tasks.length >0'>
@@ -224,4 +190,4 @@
              </span>
          </ng-container>
 
-   </div>
+   </div>-->

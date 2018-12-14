@@ -1,12 +1,40 @@
-.mat-table__wrapper .mat-table {
+.wrapper {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    max-height: 200px;
-      
+    overflow: auto;
     
+  }
+  
+  table  {
+    min-width: 100%;
+    text-align: center;
+
+
+  }
+  table > button {
+      align-content: center;
+  }
+
+td{
+    min-width: 100px;
+}
+mat-header-cell {
+    justify-content:center;
+
 }
 
+.mat-sort-header-container{
+    justify-content: inherit;
+
+}
+td.mat-column-star {
+width: 20px;
+}
+
+th{
+    vertical-align: center;
+}
+
+/*
 mat-header-row{
     mat-header-cell {
         font-size: .9em;
@@ -14,52 +42,35 @@ mat-header-row{
         justify-content: center;
         color: black;
         
-        .mat-sort-header-button {
+        .mat-sort-header {
             color: black;
             font-size: .9em;
             display:flex;
             justify-content: center;
         }
+        div.mat-sort-header-container{
+            padding-left: 12px;
+        }
+    
+        .mat-column {
+            flex: 0 0 25;
+        }
 
             
     }
 }
-img {
-    height: 100%;
-}
-
-.mat-column-id {
-    flex: 0 2% !important;
-}
-.mat-column-brand {
-    flex: 0 3.5%;   
-}
-.mat-column-buyers_price {
-    flex: 0 3.5%;   
-}
-.mat-column-cost_from_factory {
-    flex: 0 3.5%;   
-}
-
-
 mat-cell {
+    display: flex;
     justify-content: center;
     font-size: 1em;
     overflow: hidden;
 }
-
-.mat-row {
-    width: 100%;
-    font-size: 14px;
-    min-height: 60px;
-    
-    img{
-        min-height: inherit;
-    }
-
-
-
+*/
+img {
+    max-height: 40px;
 }
+
+
 
 .gray {background-color: #eff3f9;}
 
