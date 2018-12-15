@@ -1,12 +1,11 @@
 
-<div class="wrapper">
 
 <div>
 <button mat-mini-fab color="primary" (click)="openAddDialog()">
  <mat-icon>add</mat-icon>
 </button> Add New Customer
 </div>
-  <table mat-table [dataSource]="customers" matSort class="mat-elevation-z8" >
+  <mat-table [dataSource]="customers" matSort class="mat-elevation-z8" >
       <div class="wrapper">
 
 
@@ -83,5 +82,4 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
     </div>
-  </table>
-</div>
+  </mat-table>

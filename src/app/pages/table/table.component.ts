@@ -25,7 +25,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   params= new UrlParameters();
   order: Result[];
   displayColumns = ["id", "buyer", "factory", "due_date", "factory_ship_date", "sweater_image", "size", "isActive", "customer_order_number", "buyer_style_number", "jp_style_number", "cost_from_factory", "buyers_price", "order_type", "qty", "sweater_description", "brand", "fiber_content", "jp_care_instructions", "color"]
-  data: Array<any>
+  data: Array<Array<any>>
   cols: Array<any>
   rows: any[];
 

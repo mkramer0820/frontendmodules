@@ -1,1 +1,26 @@
-{{cols}}
+
+
+
+    <mat-table #table [dataSource]="dataSource" *ngFor="let value of data" matSort>
+        <div *ngFor="let value of data">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of value.cols">
+                <mat-header-cell *matHeaderCellDef mat-sort-header > {{column}} </mat-header-cell>
+
+                <mat-cell  *matCellDef="let order; row" >{{order}}</mat-cell>
+                <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+            </ng-container>
+
+        </div>
+
+            
+     <mat-header-row *matHeaderRowDef="cols"></mat-header-row>
+     <mat-row *matRowDef="
+      let row;
+      let even = even;
+      columns: cols;" 
+     (click)="onRowClicked(row)" color="primary"></mat-row>
+     <mat-footer-row *matFooterRowDef="cols"></mat-footer-row>
+        
+
+    </mat-table>-->
+
