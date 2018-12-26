@@ -1,125 +1,50 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClientService} from 'app/_services/http-client.service'
-import {AppConfig} from 'app/config/app.config'
-import {ActivatedRoute} from "@angular/router";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Iorder} from "./_models/iorder";
-import {TableService} from "./_service/table-service.service";
-import {pipe, Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, startWith, tap, delay, map} from 'rxjs/operators';
-import {merge} from "rxjs/observable/merge";
-import {fromEvent} from 'rxjs/observable/fromEvent';
-import {TableDataSource} from "./_service/table.datasource";
-import {Order} from "./_models/orders.model";
-import {Result} from './_service/table-service.service';
-import { keyValuesToMap } from '@angular/flex-layout/extended/typings/style/style-transforms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {TableService} from './_service/table.service'
+import {BehaviorSubject, pipe, Observable} from 'rxjs';
+import { mergeMap, groupBy, reduce, toArray, map, first } from 'rxjs/operators';
+import {MatSort, MatTableDataSource, MatTable, MatPaginator} from '@angular/material';
+
+
+import {combineLatest} from 'rxjs/operators';
+import { Result } from './_models/ipaginator';
+import { HttpClient } from '@angular/common/http';
+import {AppConfig} from 'app/config/app.config';
+
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit, AfterViewInit {
+export class TableComponent implements OnInit {
+  
+  base = AppConfig.base
+  url = AppConfig.base + AppConfig.urlOptions.orders
 
-  dataSource: TableDataSource;
-  params= new UrlParameters();
-  order: Result[];
-  displayColumns = ["id", "buyer", "factory", "due_date", "factory_ship_date", "sweater_image", "size", "isActive", "customer_order_number", "buyer_style_number", "jp_style_number", "cost_from_factory", "buyers_price", "order_type", "qty", "sweater_description", "brand", "fiber_content", "jp_care_instructions", "color"]
-  data: Array<any>
-  cols: Array<any>
-  rows: any[];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: Array<string> = ['id', 'buyer_name', 'customer_order_number', 'buyer_style_number',
+                              'jp_style_number', 'factory_name', 'due_date', 'factory_ship_date', 
+                              'qty', 'sweater_image', 'cost_from_factory', 'buyers_price']
+  // displayedColumns: String[] = []
 
-  @ViewChild('input') input: ElementRef;
-  page = 0
 
-  constructor(private http: HttpClientService,
-              private route: ActivatedRoute,
-              private tableService: TableService) {}
+  constructor(private ts: TableService, private http: HttpClient) { this.ts.getPaginatorOrder() }
 
   ngOnInit() {
-        this.dataSource = new TableDataSource(this.tableService);
 
-    this.dataSource = new TableDataSource(this.tableService);
-    this.dataSource.loadOrders(this.params);
-    this.dataSource.orderData.subscribe(orders=> {
-      this.data = orders
-      this.cols = orders[0].cols
-      return this.data = orders
-    });
-    console.log(this.data)    
-   
+    this.ts.dataSource.subscribe(dataSource => {
+      this.dataSource = new MatTableDataSource(dataSource)
+      this.dataSource.sort = this.sorted();
+      this.dataSource.paginator = this.paginator;
+    })
   }
-  ngAfterViewInit() {
-
-    this.sort.sortChange.subscribe(() => this.params.page = 0);
-    
-
-
-    merge(this.sort.sortChange, this.paginator.page)
-    .pipe(
-        tap(() => this.loadOrders())
-    )
-    .subscribe();
+  sorted() {
+    return this.dataSource.sort = this.sort
   }
-  loadOrders() {
-    this.dataSource.loadOrders(this.params)
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-
-  }
-
-  export class UrlParameters {
-
-    buyer?: string;
-    dueDateBefore?: string;
-    dueDateAfter?: string;
-    ordering?: string;
-    buyerStyle?: string;
-    jpStyle?:string;
-    isActive?: boolean;
-    page?: number;
-    pageSize?: number;
-    currentPage?: number;
-    length?: number;
-    djangoPageNumber: number;
-   
-    constructor(options: {
-        
-        ordering?: string;
-        buyer?: string;
-        dueDateBefore?: string;
-        dueDateAfter?: string;
-        buyerStyle?: string;
-        jpStyle?:string;
-        isActive?: boolean;
-        page?: number;
-        pageSize?: number;
-        currentPage?: number;
-        length?: number;
-        djangoPageNumber? : number;
-         } = {}) {
-      this.ordering = options.ordering || 'id';
-      this.buyer = options.buyer || '';
-      this.dueDateBefore = options.dueDateBefore || '';
-      this.dueDateAfter = options.dueDateAfter || '';
-      this.buyerStyle = options.buyerStyle || '';
-      this.jpStyle = options.jpStyle || '';
-      this.isActive = options.isActive || true;
-      this.page = options.page || 0;
-      this.pageSize = options.pageSize || 5;
-      this.currentPage = options.currentPage || 0;
-      this.length = options.length || 100;
-      this.djangoPageNumber = options.djangoPageNumber || 1;
-      }
-    
-    updateToDjango(pageNum: number) {
-        this.djangoPageNumber = pageNum;
-    }
-    
-      
-  }
+}

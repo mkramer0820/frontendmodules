@@ -4,15 +4,13 @@
 
 
    
-
    <mat-table id="orderTable" #table [dataSource]="orders" matSort class="mat-elevation-z8">
-      <div class="wrapper">
-
 
          <ng-container matColumnDef="id" >
            <mat-header-cell *matHeaderCellDef mat-sort-header (click)="paginate('id')"  >Id</mat-header-cell>
-           <mat-cell   *matCellDef="let order; row"  
-             ><a [routerLink]="[ '/order-detail', order.id ]"><mat-icon matTooltip="View Full Details">pageview</mat-icon></a>{{order.id}}</mat-cell>
+           <mat-cell   *matCellDef="let order; row" >
+             <a [routerLink]="[ '/order-detail', order.id ]"><mat-icon matTooltip="View Full Details">pageview</mat-icon></a>
+             {{order.id}}</mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
 
@@ -94,10 +92,8 @@
          <ng-container matColumnDef="sweater_image">
            <mat-header-cell *matHeaderCellDef >Image</mat-header-cell>
            <mat-cell   *matCellDef="let order; row">
-             <ng-container *ngFor="let val of order.sizing">
-             <img src='{{order.sweater_image}}' 
-               matTooltip="Size: {{val.size_type}} {{val.size_detail}}" />
-           </ng-container>
+              <img src='{{order.sweater_image}}' />
+
           </mat-cell>
            <mat-footer-cell *matFooterCellDef></mat-footer-cell>
          </ng-container>
@@ -177,7 +173,6 @@
      <mat-footer-row *matFooterRowDef="displayColumns"></mat-footer-row>
         
 
-    </div>
    </mat-table>
    <mat-paginator class="marginless-paginator-range-label" #paginator
     [length]=length
@@ -187,7 +182,10 @@
     (page)="paginate()"
     class="mat-elevation-z8"
     ></mat-paginator>
-  </div>
+</div>
+
+
+
 <!--
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px" style='padding-top: 20px'>
       

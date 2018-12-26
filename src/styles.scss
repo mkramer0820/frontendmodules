@@ -64,13 +64,20 @@ $primary-dark: mat-dark-theme(
   @include angular-material-theme($dark-theme);
 }*/
 
-body { 
+html, body { 
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
-.basic-container {
-  padding: 5px;
+.wrap {
+  width: 100%;
+  overflow: auto;
+  display: flex;
+}
+app-root{
+  width: 100%;
 }
 
 /*

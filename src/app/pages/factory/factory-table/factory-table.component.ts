@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
 import {Factory} from '../../../modules/models/factory.model';
 import {ApiService} from '../../../config/api.service';
@@ -8,6 +8,7 @@ import {ModalService} from '../../_services/modal.service';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import { AppConfig } from '../../../config/app.config';
 import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
+import {MatSort, MatTableDataSource, MatTable, MatPaginator} from '@angular/material';
 
 
 @Component({
@@ -19,13 +20,15 @@ export class FactoryTableComponent implements OnInit {
 
   factories: Factory[];
   displayedColumns: string[] = [
-    'ID','CONTACT', 'NAME', 'ADDRESS1', 'ADDRESS2', 'ADDRESS3',
-    'COUNTRY', 'STATE', 'ZIP', 'EMAIL', 'PHONE',
-    'WEBSITE', 'DESCRIPTION', 'UPDATE', "DELETE"
+    'id','contacts', 'name', 'address1', 'address2', 'address3',
+    'country', 'state', 'zip', 'email', 'phone',
+    'website', 'description', 'update', "delete"
   ];
-  message: any;
-  subscription: Subscription;
-  recieve: any;
+
+  dataSource = new  MatTableDataSource();
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   selectedrow: any;
   constructor(
     private apiService: ApiService,
@@ -36,21 +39,19 @@ export class FactoryTableComponent implements OnInit {
 
   ngOnInit() {
     this.getfactories();
-    this.subscription = this.service.getMessage().subscribe(message => this.recieve = message);
   }
-  sendMessage(message): void {
-        // send message to subscribers via observable subject
-        this.service.sendMessage(message);
-    }
-  clearMessage(): void {
-          // clear message
-          this.service.clearMessage();
-        }
-
+  sorted() {
+    return this.dataSource.sort = this.sort
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   getfactories() {
     this.apiService.factories().subscribe((factories: Array<Factory>) => {
-      this.factories = factories;
+      console.log(factories)
+      this.dataSource = new MatTableDataSource(factories);
+      this.dataSource.sort = this.sorted();
     });
   }
   onRowClicked(row) {

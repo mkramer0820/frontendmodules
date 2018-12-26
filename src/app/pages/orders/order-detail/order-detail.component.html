@@ -10,15 +10,15 @@
    <div mat-card-avatar ><mat-icon> local_grocery_store</mat-icon></div>
      <mat-card-title>{{orderDetail.buyer_name}} - Buyer Style Number: {{orderDetail.buyer_style_number}}</mat-card-title>
      <mat-card-subtitle>Due Date: {{orderDetail.due_date | date: "MM/dd/yy"}}</mat-card-subtitle>
-     <mat-card-subtitle *ngFor="let customer of orderDetail.customer_set">
+     <mat-card-subtitle >
        <li style="list-style-type:none">Address:</li>
-       <li style="list-style-type:none"> {{customer.address1}}</li> 
-       <li style="list-style-type:none"> {{customer.address2}}</li> 
-       <li style="list-style-type:none"> {{customer.address3}}</li> 
-       <li style="list-style-type:none">{{customer.city}}, &nbsp; {{customer.state}} &nbsp; {{customer.zipcode}}</li>
-       <li style="list-style-type:none">{{customer.country}}</li>
-       <li style="list-style-type:none">Phone: {{customer.phone}}</li>
-       <li style="list-style-type:none">Email: {{customer.email}}</li>
+       <li style="list-style-type:none"> {{orderDetail.customer_set.cust_address1}}</li> 
+       <li style="list-style-type:none"> {{orderDetail.customer_set.cust_address2}}</li> 
+       <li style="list-style-type:none"> {{orderDetail.customer_set.cust_address3}}</li> 
+       <li style="list-style-type:none">{{orderDetail.customer_set.cust_city}}, &nbsp; {{orderDetail.customer_set.cust_state}} &nbsp; {{orderDetail.customer_set.cust_zipcode}}</li>
+       <li style="list-style-type:none">{{orderDetail.customer_set.cust_country}}</li>
+       <li style="list-style-type:none">Phone: {{orderDetail.customer_set.cust_phone}}</li>
+       <li style="list-style-type:none">Email: {{orderDetail.customer_set.cust_email}}</li>
      </mat-card-subtitle>
      <!--<div><button mat-button (click)="updateSize()">update size</button></div>-->
  </mat-card-header>
@@ -30,15 +30,15 @@
    <mat-card-title>Factory: {{orderDetail.factory_name}} </mat-card-title>
 
    <mat-card-subtitle>Ship Date: {{orderDetail.factory_ship_date | date:"MM/dd/yy" }} &nbsp; Ship Type: {{orderDetail.order_type}}</mat-card-subtitle>
-   <mat-card-subtitle *ngFor="let factory of orderDetail.factory_set">
+   <mat-card-subtitle>
      <li style="list-style-type:none">Address:</li>
-     <li style="list-style-type:none"> {{factory.address1}}</li> 
-     <li style="list-style-type:none"> {{factory.address2}}</li> 
-     <li style="list-style-type:none"> {{factory.address3}}</li> 
-     <li style="list-style-type:none">{{factory.city}}, &nbsp; {{factory.state}} &nbsp; {{factory.zipcode}}</li>
-     <li style="list-style-type:none">{{factory.country}}</li>
-     <li style="list-style-type:none">Phone: {{factory.phone}}</li>
-     <li style="list-style-type:none">Email: {{factory.email}}</li>
+     <li style="list-style-type:none"> {{orderDetail.factory_set.factory_address1}}</li> 
+     <li style="list-style-type:none"> {{orderDetail.factory_set.factory_address2}}</li> 
+     <li style="list-style-type:none"> {{orderDetail.factory_set.factory_address3}}</li> 
+     <li style="list-style-type:none">{{orderDetail.factory_set.factory_city}}, &nbsp; {{orderDetail.factory_set.factory_state}} &nbsp; {{orderDetail.factory_set.factory_zipcode}}</li>
+     <li style="list-style-type:none">{{orderDetail.factory_set.factory_country}}</li>
+     <li style="list-style-type:none">Phone: {{orderDetail.factory_set.factory_phone}}</li>
+     <li style="list-style-type:none">Email: {{orderDetail.factory_set.factory_email}}</li>
 
 
      </mat-card-subtitle>

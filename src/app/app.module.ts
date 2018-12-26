@@ -22,7 +22,6 @@ import { HttpClientInterceptorService } from './_injectors/http-client-intercept
 import {DeleteModalComponent} from './_helpers/delete-modal/delete-modal.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import {TableModule} from './pages/table/table.module'
 
 
 
@@ -49,7 +48,6 @@ import {TableModule} from './pages/table/table.module'
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    TableModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

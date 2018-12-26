@@ -1,6 +1,8 @@
 <div [formGroup]="form">
 
-
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+    
+ 
   <span [ngSwitch]="item.controlType">
     
 
@@ -40,6 +42,7 @@
 
  
   </span> 
+  </div>
   
   <mat-hint class="errorMessage" style="font-size: .5em" *ngIf="!isValid">* {{item.label}} is required: </mat-hint>
   {{form.controls.values}}
