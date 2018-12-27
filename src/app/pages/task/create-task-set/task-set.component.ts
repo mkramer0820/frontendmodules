@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Input} from '@angular/core
 import { FormGroup, FormArray, FormControl, FormBuilder,  } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TaskFormService } from '../_service/task-form-service.service';
-import { ApiService } from '../../../config/api.service';
 import {HttpClientService} from 'app/_services/http-client.service';
 import { TaskGroupService } from '../_service/task-group.service';
 import {MatDialog } from '@angular/material';
 import { AddTaskGroupComponent } from '../add-task-group/add-task-group.component';
-import {Todo, TodosForm, TaskForm} from '../_models';
+import {Todo, TodosForm} from '../_models';
 import { Router} from '@angular/router';
 import {AppConfig} from 'app/config/app.config';
 
@@ -42,12 +41,11 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private taskFormService: TaskFormService,
-    private apiService: ApiService,
+    private http: HttpClientService,
     private httpClientService: HttpClientService,
     private tgs: TaskGroupService,
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private router: Router
 
   ) { this.getTaskGroup()}
 
@@ -94,7 +92,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
     saveTodos() {
       console.log('Todo saved!');
       console.log(this.taskForm.value);
-      this.apiService.createTask(this.taskForm.value).subscribe(response => {
+      this.http.post(AppConfig.urlOptions.task, this.taskForm.value).subscribe(response => {
         console.log(response);
         this.taskFormService.clearTodos();
         this.tgs.getTaskGroups();
@@ -103,13 +101,11 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
 
     }
     getTodos(){
-      this.apiService.getTaskDetail(this.selectedId).subscribe(todos => {
+      this.http.get(AppConfig.urlOptions.task + this.selectedId).subscribe(todos => {
         console.log(todos['todos']);
         return this.todos = todos['todos'];
       });
     }
-    
-
     clearTodosForm() {
       // this.taskFormService.clearForm();
       this.taskFormService.clearTodos();
@@ -154,7 +150,7 @@ export class TaskSetComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     updateTodoSet() {
       let id = this.updateId
-      this.apiService.updateTask(id, this.taskForm.value).subscribe(response => {
+      this.http.put(AppConfig.urlOptions.task + id, this.taskForm.value).subscribe(response => {
         console.log(response);
       });
       this.clearTodosForm();

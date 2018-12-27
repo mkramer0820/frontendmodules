@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import {AppConfig} from 'app/config/app.config';
 import { TaskForm } from '../_models/task-form';
 import { Task } from '../_models/task.model';
 import { TodosForm } from '../_models/todos-form.model';
 import { Todo } from '../_models/todos.model';
-import { ApiService } from '../../../config/api.service';
-import { map, take } from 'rxjs/operators';
+import { HttpClientService } from '@app/_services/http-client.service';
 
 
 
@@ -22,7 +22,7 @@ export class TaskFormService {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private http: HttpClientService
   ) {
     this.getTaskGroups();
     console.log(this.taskGroups)
@@ -50,7 +50,7 @@ export class TaskFormService {
     this.taskForm.next(currentTask);
   }
   getTaskGroups() {
-    return this.apiService.getTaskGroups().subscribe(taskGroup => this.taskGroups = taskGroup);
+    return this.http.get(AppConfig.urlOptions.taskGroup).subscribe(taskGroup => this.taskGroups = taskGroup);
   }
   consoleTaskGroups() {
     const currentTask = this.taskForm.getValue();

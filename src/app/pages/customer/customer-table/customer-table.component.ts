@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog,/* MatTableDataSource*/} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {Customer} from '../../../modules/models/customer.model';
-import {ApiService} from '../../../config/api.service';
 import {SharedService} from '../shared.service';
-import {Subscription} from 'rxjs';
-import {BehaviorSubject, pipe, Observable} from 'rxjs';
 import {MatSort, MatTableDataSource, MatTable, MatPaginator} from '@angular/material';
 
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
-import {MessageService} from '../../../_services/message.service';
 import { AppConfig } from '../../../config/app.config';
 import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
+import { HttpClientService } from '@app/_services/http-client.service';
 
 @Component({
   selector: 'app-customer-table',
@@ -18,7 +15,6 @@ import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.
   styleUrls: ['./customer-table.component.scss']
 })
 export class CustomerTableComponent implements OnInit {
-  customers: Customer[];
   displayedColumns: string[] = [
     'id', 'name', 'address1', 'address2', 'address3', 'city', 'state',
     'zipcode', 'country', 'email', 'phone', 'extension', 'website', 'description', 
@@ -31,36 +27,16 @@ export class CustomerTableComponent implements OnInit {
 
 
   constructor(
-    private apiService: ApiService,
     private dialog: MatDialog,
     private service: SharedService,
-    private msgServ: MessageService
-  ) { this.msgServ.sendUrl(AppConfig.urlOptions.customer)
-  }
+    private http: HttpClientService,
+    ) {  }
 
-  ngOnInit() {
-    this.getCustomers();
-    this.sendUrl(this.customerUrl);
-    
-  }
-  sendMessage(message): void {
-        // send message to subscribers via observable subject
-        this.service.sendMessage(message);
-    }
-  clearMessage(): void {
-          // clear message
-          this.service.clearMessage();
-  }
-  
-  setUrl() {
-    const url = AppConfig.urlOptions.customer;
-    console.log(url);
-    return this.msgServ.sendUrl(url);
-  }
+  ngOnInit() { this.getCustomers()}
+
 
   getCustomers() {
-    this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
-      this.customers = customers;
+    this.http.get(AppConfig.urlOptions.customer).subscribe((customers: Array<Customer>) => {
       this.dataSource = new MatTableDataSource(customers)
       this.dataSource.sort = this.sorted();
       this.dataSource.paginator = this.paginator;
@@ -75,7 +51,6 @@ export class CustomerTableComponent implements OnInit {
   }
   onRowClicked(row) {
     this.selectedrow = row;
-    console.log(this.selectedrow);
   }
   openAddDialog(): void {
     const dialogRef = this.dialog.open(DynamicFormRequestComponent, {
@@ -83,7 +58,7 @@ export class CustomerTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.customer, update: false}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+      this.http.get(AppConfig.urlOptions.customer).subscribe((customers: Array<Customer>) => {
         this.dataSource = new MatTableDataSource(customers)
       });
     });
@@ -94,7 +69,7 @@ export class CustomerTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.customer, formData: customerdata, update: true}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+      this.http.get(AppConfig.urlOptions.customer).subscribe((customers: Array<Customer>) => {
         this.dataSource = new MatTableDataSource(customers)
       });
     });
@@ -104,7 +79,7 @@ export class CustomerTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.customer, id: customer.id}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.apiService.getCustomers().subscribe((customers: Array<Customer>) => {
+      this.http.get(AppConfig.urlOptions.customer).subscribe((customers: Array<Customer>) => {
         this.dataSource = new MatTableDataSource(customers)
       });
 

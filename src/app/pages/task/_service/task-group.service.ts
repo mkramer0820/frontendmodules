@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { ApiService } from '../../../config/api.service';
+import { HttpClientService } from '@app/_services/http-client.service';
+import {AppConfig} from 'app/config/app.config';
 
 @Injectable( /*{
   // providedIn: 'root'
@@ -14,7 +15,7 @@ export class TaskGroupService {
 
 
   constructor(
-    private apiService: ApiService,
+    private http: HttpClientService,
   ) {
     this.getTaskGroups();
     this.getMessage();
@@ -36,13 +37,13 @@ export class TaskGroupService {
       //return this.customer.asObservable();
   }
   getTaskGroups() {
-    this.apiService.getTaskGroups().subscribe(resp => {
+    this.http.get(AppConfig.urlOptions.taskGoup).subscribe(resp => {
       this.sendMessage(resp);
     });
     // console.log(this.group);
   }
   getTaskGroupTaskSet(){
-    this.apiService.getTasks().subscribe(resp => {
+    this.http.get(AppConfig.urlOptions.task).subscribe(resp => {
       let array = [];
       let setnameEnum = {};
       for (let item in resp) {
@@ -63,15 +64,3 @@ export class TaskGroupService {
     console.log("Get Detail TGS: ", this.groups)
   }
 }
-
-/*
-getCustomersById(id: string): Observable<Customer> {
-  this.urlOption = AppConfig.urlOptions['customer']
-
-  const url = `${this.apiUrl}/${this.urlOption}/${id}`;
-  return this.http.get<Customer>(url).pipe(
-    tap(() => LoggerService.log(`fetched customer id=${id}`)),
-    catchError(CustomersService.handleError<Customer>(`getCustomer id=${id}`))
-  );
-}
-*/

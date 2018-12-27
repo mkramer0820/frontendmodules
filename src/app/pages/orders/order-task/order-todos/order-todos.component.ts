@@ -1,10 +1,5 @@
 import { Component, OnInit,Input, Output, ChangeDetectionStrategy,EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import {ApiService} from '../../../../config/api.service';
-import { OrderTaskTodo } from '../_models/';
-import {OrderTaskTodosForm} from '../_models';
-import { MatMenuTrigger } from '@angular/material';
-
 
 
 @Component({
@@ -25,7 +20,7 @@ export class OrderTodosComponent implements OnInit {
 
   todos: any;
 
-    constructor(private api: ApiService,private fb: FormBuilder) { }
+    constructor() { }
 
     ngOnInit() {
 

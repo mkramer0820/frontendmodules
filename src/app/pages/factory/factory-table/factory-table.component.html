@@ -1,6 +1,9 @@
 
 <div>
 <button mat-raised-button (click)="openAddDialog()">Add Mat Modal</button>
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
 </div>
   <mat-table class="alternate-theme" [dataSource]="dataSource" matSort class="mat-elevation-z8" >
 

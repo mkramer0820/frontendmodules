@@ -1,13 +1,13 @@
 <form [formGroup]="todosForm">
 
-    <div  class="top-continer" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+    <div  class="top-continer" fxLayout="row" fxLayoutGap="10px">
         
    
-              <mat-form-field>
+              <mat-form-field style="flex: 1 1 30%">
                 <input matInput formControlName="todo" placeholder="Task Name">
               </mat-form-field>
 
-              <mat-form-field class="example-full-width">
+              <mat-form-field style="flex: 1 1 30%">
                 <input matInput [matDatepicker]="picker" placeholder="Due Date" formControlName="duedate">
                 <mat-datepicker-toggle matSuffix [for]="picker">
                   <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -16,7 +16,7 @@
               </mat-form-field>
             
             
-            <mat-form-field class="form-element">
+            <mat-form-field style="flex: 1 1 30%">
             <mat-select matInput  placeholder="Status" formControlName='status'>
               <mat-option *ngFor="let status of status; let i=index" value={{status}}>
                 <span class="mat-option-text">{{status}}</span>
@@ -29,9 +29,12 @@
             <button mat-mini-fab color="primary" (click)="delete()" matTooltip="Remove Line Item"><mat-icon>delete</mat-icon></button>
         
     </div>
-        <mat-form-field style="margin-top: -30px">
+    <div fxLayout="row" class="top-continer" fxLayout="row" fxLayoutAlign="space-around stretch" style="flex: 1 1 100%; margin-top: -20px">
+     
+        <mat-form-field style="margin-top: -30px" style="flex: 1 1 100%">
             <textarea matInput formControlName="comment" placeholder="Comment"></textarea>
         </mat-form-field>
+    </div>
 </form>
 
 
