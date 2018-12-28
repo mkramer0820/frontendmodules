@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {Factory} from '../../../modules/models/factory.model';
 import {DynamicFormRequestComponent} from '../../../forms/dynamic-form/dynamic-form-request/dynamic-form-request.component';
 import { AppConfig } from '../../../config/app.config';
 import {DeleteModalComponent} from '../../../_helpers/delete-modal/delete-modal.component';
 import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
 import { HttpClientService } from '@app/_services/http-client.service';
+import {pipe} from 'rxjs';
+import {map} from 'rxjs/operators'
 
 
 @Component({
@@ -15,12 +16,7 @@ import { HttpClientService } from '@app/_services/http-client.service';
 })
 export class FactoryTableComponent implements OnInit {
 
-  displayedColumns: string[] = [
-    'id','contacts', 'name', 'address1', 'address2', 'address3',
-    'country', 'state', 'zip', 'email', 'phone',
-    'website', 'description', 'update', "delete"
-  ];
-
+  displayedColumns: string[] = [];
   dataSource = new  MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,10 +39,25 @@ export class FactoryTableComponent implements OnInit {
   }
 
   getfactories() {
-    this.http.get(AppConfig.urlOptions.factory).subscribe((factories: Array<Factory>) => {
-      console.log(factories)
-      this.dataSource = new MatTableDataSource(factories);
+    this.http.get(AppConfig.urlOptions.factory)
+    .pipe(map((factories: Factory[]) => {
+      let dataItems = factories;
+      let cols = Array.from(Object.keys(factories[0]))
+      return {dataItems, cols}
+    }))
+    .subscribe(response => {
+      this.dataSource = new MatTableDataSource(response.dataItems);
       this.dataSource.sort = this.sorted();
+      response.cols.forEach(col => {
+        if ((col != 'isActive') && (col != 'contact_name')) {
+          this.displayedColumns.push(col)
+        }
+      });
+      this.displayedColumns.push('update')
+      this.displayedColumns.push('delete')
+      console.log(this.dataSource.data)
+      console.log(this.displayedColumns)
+
     });
   }
   onRowClicked(row) {
@@ -59,9 +70,7 @@ export class FactoryTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.factory, update: true, formData: updateData }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.http.get(AppConfig.urlOptions.factory).subscribe((factories: Array<Factory>) => {
-        this.dataSource = new MatTableDataSource(factories);
-      });
+      this.getfactories();
     });
   }
   openAddDialog(): void {
@@ -70,9 +79,7 @@ export class FactoryTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.factory, update: false}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.http.get(AppConfig.urlOptions.factory).subscribe((factories: Array<Factory>) => {
-        this.dataSource = new MatTableDataSource(factories);
-      });
+      this.getfactories();
     });
   }
   openDeleteDialog(factory): void {
@@ -80,9 +87,26 @@ export class FactoryTableComponent implements OnInit {
       data: {url: AppConfig.urlOptions.factory, id: factory.id}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.http.get(AppConfig.urlOptions.factory).subscribe((factories: Array<Factory>) => {
-        this.dataSource = new MatTableDataSource(factories);
-      });
+      this.getfactories();
     });
    }
+}
+
+interface Factory {
+  id: number;
+  contact: string;
+  contact_name: number;
+  isActive: boolean;
+  name: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  email: string;
+  phone: string;
+  website: string;
+  description: string;
 }

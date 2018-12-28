@@ -5,75 +5,36 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 </div>
-  <mat-table class="alternate-theme" [dataSource]="dataSource" matSort class="mat-elevation-z8" >
 
-  <!-- Name Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
-    </ng-container>
+  <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+  <div class="wrapper">
 
-    <ng-container matColumnDef="contacts">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Contact </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.contacts.first_name}} </mat-cell>
+    <div *ngFor="let item of displayedColumns">
+      <ng-container matColumnDef={{item}} *ngIf="item !== 'update' && item !== 'delete'">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> {{item}} </mat-header-cell>
+           <mat-cell *matCellDef="let row" > {{row[item]}} </mat-cell>
       </ng-container>
+    </div>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="update">
+           <mat-header-cell *matHeaderCellDef mat-sort-header> update </mat-header-cell>
+           <mat-cell *matCellDef="let row" >
+              <button mat-icon-button matTooltip="update" (click)="openUpdateDialog(row)">
+               <mat-icon>update</mat-icon>
+              </button>
+            </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> delete </mat-header-cell>
+           <mat-cell *matCellDef="let row" >
+             <button mat-icon-button matTooltip="delete">
+               <mat-icon (click)="openDeleteDialog(row)">delete</mat-icon>
+              </button>
+            </mat-cell>
+      </ng-container>
+    </div>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="address1">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 1 </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.address1}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="address2">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 2 </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.address2}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="address3">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Address 3 </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.address3}} </mat-cell>
-    </ng-container>
-  <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.country}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.state}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="zip">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Zip </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.zip}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> E-mail </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone # </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="website">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Website </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.website}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="update">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Update </mat-header-cell>
-      <mat-cell  *matCellDef="let row"> <button color="primary" mat-raised-button (click)="openUpdateDialog(row)">Update</button></mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
-      <mat-cell  *matCellDef="let row"> <button color="primary" mat-raised-button (click)="openDeleteDialog(row)">Delete</button></mat-cell>
-    </ng-container>
     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row  (click)="onRowClicked(row)" color="warm" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row  (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
   

@@ -1,18 +1,16 @@
 
 
 <div>
-<button mat-mini-fab color="primary" (click)="openAddDialog()">
- <mat-icon>add</mat-icon>
-</button> Add New Customer
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+    </button> Add New Customer
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
 </div>
-<<<<<<< HEAD
-  <mat-table [dataSource]="customers" matSort class="mat-elevation-z8" >
-=======
+
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
->>>>>>> a39acd2c345527369070597d0b56c6c5510f0edb
       <div class="wrapper">
 
 
@@ -94,4 +92,3 @@
               [pageSize]="5"
               [pageSizeOptions]="[1, 5, 10, 25, 100]">
 </mat-paginator>
-</div>
