@@ -39,6 +39,7 @@ export const AppConfig: IAppConfig = {
     auth: `api-token-auth/`,
     factoryContact: `factory/contacts/`,
     sweaterSizes: `sweater-sizes/`,
+    paginator: `orders/paginator/?`
   },
 };
 

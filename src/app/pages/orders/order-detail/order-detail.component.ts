@@ -99,17 +99,18 @@ export class OrderDetailComponent implements OnInit {
       getOrderDetail(id) {
         this.httpClient.get(AppConfig.urlOptions.orders + id + '/')
         .pipe(map((order: OrderDetail) => {
-          let sizing_detail = Object.values(order.sizing).map((size: Sizing)  => size.size_detail );
-          let sizing_type = Object.values(order.sizing).map((size: Sizing)  => size.size_type );
+          let sizing_detail = Object.values(order.sizing).map((size: Sizing)  => size.sizing_size_detail );
+          let sizing_type = Object.values(order.sizing).map((size: Sizing)  => size.sizing_size_type );
           let orderProp  = {order, sizing_detail, sizing_type}
           return orderProp
         }))
         .subscribe(res => {
+          console.log(res)
           this.orderDetail = res.order;
           this.calculateCosts(res.order);
           let Tile: Tile[] = [ 
-            {text: 'Two', cols: 1, rows: 2, img: res.order['sweater_image']},
-            {texts: ['Size: ' + res.sizing_type+ " -- " + res.sizing_detail,
+            {text: 'Two', cols: 1, rows: 2, img: res.order.sweater_image},
+            {texts: ['Size: ' + res.order.sizing.sizing_size_detail + " -- " + res.order.sizing.sizing_size_type,
                     'Fiber Content: ' + res.order['fiber_content'],
                     'Descrption: ' + res.order['sweater_description'],
                     'Care Instructions: ' + res.order['jp_care_instructions']

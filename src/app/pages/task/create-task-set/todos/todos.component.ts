@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, Output, ChangeDetectionStrategy, EventEmitter, AfterContentChecked } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import {ApiService} from '../../../../config/api.service';
-import { forEach } from '@angular/router/src/utils/collection';
-import { Todo } from '../../_models/';
-import {TodosForm} from '../../_models';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -23,14 +19,11 @@ export class TodosComponent implements OnInit {
 
   todos: any;
 
-    constructor(private api: ApiService,private fb: FormBuilder) { }
+    constructor() { }
 
     ngOnInit() {
 
     }
-    /*ngOnChanges() {
-      this.todos;
-    }*/
 
     delete() {
       this.deleteTodos.emit(this.index);

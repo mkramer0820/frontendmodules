@@ -1,10 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import {NavService} from '../../../nav.service';
 import { AuthenticationService, LoggedInUser } from '../../../pages/_services';
-import {MessageService} from '../../../_services/message.service';
 import {Observable} from 'rxjs';
 import {ThemeService} from '../../services/theme.service';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-top-nav',
@@ -41,6 +39,12 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   }
   toggleDarkTheme(checked: boolean) {
     this.themeService.setDarkTheme(checked);
+  }
+  checkJwt() {
+    this.authService.currentUser.subscribe(user => {
+      this.isLoggedInUser = user
+      console.log(user)
+    })
   }
   
 }

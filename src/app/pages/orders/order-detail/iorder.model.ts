@@ -9,70 +9,69 @@ export interface OrderDetail {
   factory_ship_date: string;
   sweater_image: string;
   size: number;
-  sizing: Sizing[];
-  factory_set: Factoryset[];
-  customer_set: Customerset[];
+  sizing: Sizing;
+  factory_set: Factoryset;
+  customer_set: Customerset;
   orderExpense: any[];
   completeTasks: Task[];
-  incompleteTasks: any[];
+  incompleteTasks: Task[];
   isActive: boolean;
   customer_order_number: number;
   buyer_style_number: string;
   jp_style_number: string;
-  cost_from_factory?: any;
-  buyers_price?: any;
-  order_type?: any;
-  qty?: any;
+  cost_from_factory: number;
+  buyers_price: number;
+  order_type: string;
+  qty: number;
   sweater_description: string;
   brand: string;
   fiber_content: string;
   jp_care_instructions: string;
   color: string;
-  jp_style_number_test: any[];
 }
 
 export interface Customerset {
-  id: number;
-  isActive: boolean;
-  name: string;
-  address1?: any;
-  address2?: any;
-  address3?: any;
-  city?: any;
-  state?: any;
-  zipcode?: any;
-  country?: any;
-  email?: any;
-  phone?: any;
-  extension?: any;
-  website?: any;
-  description: string;
-  createdOn: string;
+  cust_id: number;
+  cust_isActive: boolean;
+  cust_name: string;
+  cust_address1: string;
+  cust_address2: string;
+  cust_address3: string;
+  cust_city: string;
+  cust_state: string;
+  cust_zipcode: string;
+  cust_country: string;
+  cust_email: string;
+  cust_phone: string;
+  cust_extension: string;
+  cust_website: string;
+  cust_description: string;
+  cust_createdOn: string;
 }
 
 export interface Factoryset {
-  id: number;
-  isActive: boolean;
-  name: string;
-  contact_name_id: number;
-  address1: string;
-  address2: string;
-  address3: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  country: string;
-  email: string;
-  phone: string;
-  website: string;
-  description: string;
-  createdOn: string;
+  factory_id: number;
+  factory_isActive: boolean;
+  factory_name: string;
+  factory_contact_name_id: number;
+  factory_address1: string;
+  factory_address2: string;
+  factory_address3: string;
+  factory_city: string;
+  factory_state: string;
+  factory_zipcode: string;
+  factory_country: string;
+  factory_email: string;
+  factory_phone: string;
+  factory_website: string;
+  factory_description: string;
+  factory_createdOn: string;
 }
 
 export interface Sizing {
-  id: number;
-  size_type: string;
-  size_detail: string;
+  sizing_id: number;
+  sizing_size_type: string;
+  sizing_size_detail: string;
 }
 
 export interface Task {

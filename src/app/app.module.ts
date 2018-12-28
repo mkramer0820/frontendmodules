@@ -14,15 +14,13 @@ import {SharedModule} from './shared/shared.module';
 import {NavService} from './nav.service';
 import { JwtInterceptor, ErrorInterceptor } from './pages/_helpers';
 import {JpFormsModule} from './forms/jp-forms.module';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatetimeFormat, DateFormat } from './_pipes/datetime.pipe';
-import { MessageService } from './_services/message.service';
 import { HttpClientInterceptorService } from './_injectors/http-client-interceptor.service';
 import {DeleteModalComponent} from './_helpers/delete-modal/delete-modal.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import {TableModule} from './pages/table/table.module'
 
 
 
@@ -49,7 +47,6 @@ import {TableModule} from './pages/table/table.module'
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    TableModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -70,9 +67,9 @@ import {TableModule} from './pages/table/table.module'
   providers: [
     { provide: APP_CONFIG, useValue: AppConfig},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptorService, multi: true },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     NavService,
-    MessageService,
 
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -23,19 +23,13 @@ export class AuthenticationService {
 
   private loggedInUser = new BehaviorSubject('Please Log In');
   currentUser = this.loggedInUser.asObservable();
-  private httpOptions: any;
   public token: string;
   public token_expires: Date;
   public username: string;
   public errors: any = [];
   public loggedin: boolean;
 
-    constructor(private http: HttpClient, private router: Router)
-    {
-      this.httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
-   }
+    constructor(private http: HttpClient, private router: Router){ }
 
   get isLoggedIn() {
     return this.loggedIn.asObservable(); // {2}

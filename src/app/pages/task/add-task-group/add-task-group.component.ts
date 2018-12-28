@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../config/api.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { TaskGroup } from '../_models/task-group.model'
 import { first } from 'rxjs/operators';
 import {  MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material';
 import {TaskGroupService} from '../_service/task-group.service';
-
+import { HttpClientService } from '@app/_services/http-client.service';
+import {AppConfig} from 'app/config/app.config';
 @Component({
   selector: 'add-task-group',
   template:
@@ -51,7 +51,7 @@ export class AddTaskGroupComponent implements OnInit {
 
 
   constructor(
-    private api: ApiService,
+    private http: HttpClientService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private tgs: TaskGroupService,
@@ -76,18 +76,14 @@ export class AddTaskGroupComponent implements OnInit {
   onSubmit(){
     const task = this.formGroup.value;
     console.log(task);
-    this.api.addTaskGroups(task)
+    this.http.post(AppConfig.urlOptions.taskGroup, task)
       .pipe(first())
       .subscribe(
         (error:string) => {
           this.error = error;
-          console.log('Error ! : ', this.error);
         },
-        rsp => {
-          // console.log(rsp);
-          
+        rsp => {        
           this.error = 'Group with this name already exists';
-          console.log('yoyo',this.error);
           this.formGroup.reset();
           this.openSnackBar('Group Created');
           this.tgs.getTaskGroups();

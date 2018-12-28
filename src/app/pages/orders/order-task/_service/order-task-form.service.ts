@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { OrderTaskForm } from '../_models/order-task-form';
 import { OrderTask } from '../_models/order-task';
 import { OrderTaskTodosForm } from '../_models/order-task-todo-form';
 import {OrderTaskGroups} from '../_models';
 import { OrderTaskTodo } from '../_models/order-task-todo';
-import { ApiService } from '../../../../config/api.service';
-import { map, take } from 'rxjs/operators';
-
+import { HttpClientService } from '@app/_services/http-client.service';
+import {AppConfig} from 'app/config/app.config';
 
 @Injectable()
 export class OrderTaskFormService {
@@ -24,7 +23,7 @@ export class OrderTaskFormService {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private http: HttpClientService,
   ) {
     // this.getTaskGroups(); use for old
     // console.log(this.ordertaskGroups); use for old
@@ -52,11 +51,7 @@ export class OrderTaskFormService {
     currentOrderTaskTodos.removeAt(i);
     this.ordertaskForm.next(currentOrderTask);
   }
-  /*
-  getTaskGroups() {
-    return this.apiService.getTaskGroups()
-    .subscribe(taskGroup => this.ordertaskGroups = taskGroup);
-  }*/
+
   consoleTaskGroups() {
     const currentOrderTask = this.ordertaskForm.getValue();
     const currentGroupName = currentOrderTask.get('todos_group').value;
@@ -82,7 +77,7 @@ export class OrderTaskFormService {
  }
  getTaskGroups() {
   const options = [];
-  this.apiService.getTaskGroups().subscribe((taskSet: OrderTaskGroups) => {
+  this.http.get(AppConfig.urlOptions.taskGroup).subscribe((taskSet: OrderTaskGroups) => {
     const keys = Object.keys(taskSet[0]);
     const value = Object.values(taskSet);
     for (const set in taskSet) {

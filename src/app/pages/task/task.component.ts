@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormGroup, FormArray,  FormControl, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormArray} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TaskFormService } from './_service/task-form-service.service';
-import { ApiService } from '../../config/api.service';
 import { TaskGroupService } from './_service/task-group.service';
-import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {AddTaskGroupComponent} from './add-task-group/add-task-group.component';
+import { HttpClientService } from '@app/_services/http-client.service';
+import {AppConfig} from 'app/config/app.config';
 
 
 
@@ -88,7 +88,7 @@ export class TaskComponent implements OnInit {
 
   constructor(
     private taskFormService: TaskFormService,
-    private apiService: ApiService,
+    private http: HttpClientService,
     private tgs: TaskGroupService,
     private dialog: MatDialog,
   ) { }
@@ -114,19 +114,24 @@ export class TaskComponent implements OnInit {
           this.title = 'Update Existing Task Set';
           this.num = casenum;
           this.clearTodosForm()
+          this.getTaskGroups()
+
           break;
       case (2):
         this.title = 'Create New Task Set'
         this.num = casenum
         this.clearTodosForm()
+        this.getTaskGroups()
 
           break; 
       case (3):
         this.num = casenum
         this.title = 'Add Task Set To Group'
         this.clearTodosForm()
+        this.getTaskGroups()
 
-          break;
+
+        break;
     }
   }
 
@@ -142,7 +147,7 @@ export class TaskComponent implements OnInit {
     });
   }
   getTaskGroups() {
-    this.apiService.getTaskGroups().subscribe(resp => {
+    this.http.get(AppConfig.urlOptions.taskGroup).subscribe(resp => {
       return this.groups = resp;
     });
   }

@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormGroup, FormArray, FormControl, FormBuilder,  } from '@angular/forms';
-import { ApiService } from '../../../config/api.service';
 import { Subscription } from 'rxjs';
 import { OrderTaskFormService } from './_service/order-task-form.service';
 import {OrderTaskTodo, OrderTaskTodosForm, OrderTaskForm} from './_models';
-import { Order } from '../../../modules/models/orders.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HttpClientService} from 'app/_services/http-client.service';
 import {AppConfig} from 'app/config/app.config';
@@ -43,7 +41,7 @@ export class OrderTaskComponent implements OnInit {
 
   constructor(
     private orderTFS: OrderTaskFormService,
-    private apiService: ApiService,
+    private http: HttpClientService,
     private fb: FormBuilder,
     private httpClient: HttpClientService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
@@ -142,26 +140,11 @@ export class OrderTaskComponent implements OnInit {
     this.orderTFS.clearForm();
   }
   updateOrderTask() {
-    this.apiService.updateOrderTask(this.ordertaskForm.value, this.updateId ).subscribe(response => {
+    this.http.put(AppConfig.urlOptions.orderTasks + this.updateId, this.ordertaskForm.value).subscribe(response => {
       this.orderTFS.clearForm();
     });
   }
 
 }
-  /*
-  addOrdertASK(id) {
-    const task = this.ordertaskForm.value;
-    this.apiService.addTaskToOrder(task).subscribe(response => {
-      console.log(response);
-      });
-  }
-  /* TODO :: UPDATE ORDER TAK function
-  updateOrderTask() {
-    this.apiService.updateTask(this.selectedId, this.taskForm.value).subscribe(response => {
-      console.log(response);
-    });
-    this.clearTodosForm();
-    this.router.navigate(['task-component']);
-  }*/
 
 

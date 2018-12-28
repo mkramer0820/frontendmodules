@@ -56,6 +56,7 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
     'fiber_content', 'color',*/ 'update', 'tasks' , 'expenses', 
   ];
   filterForm: FormGroup;
+  dspColumns: Array<string>;
 
   tododisplayColumns: string [] = ['todo', 'comment', 'duedate', 'status']
   dialogConfig: MatDialogConfig;
@@ -119,18 +120,30 @@ export class OrdersTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.ordersService.findPaginatedOrders()
     this.ordersService.currentOrders.subscribe((orders: Order[]) => {
-      this.orders = orders;
-      console.log(this.orders)
+      let order = orders;
+      console.log(order[0])
+      this.orders = order;
       this.length = this.ordersService.url.length;
       this.pageSize = this.ordersService.url.pageSize;
       this.getTotalCost(orders)
-
+      
      });
     
   }
   ngAfterViewInit() {
-
+    this.getDisplayCol(this.orders[0])
   }
+  getDisplayCol(order: Order)  {
+    let displayColumn = [];
+    for (let key in order) {
+      key = key.toString()
+      displayColumn.push(key)
+    }
+    this.dspColumns = displayColumn;
+    console.log(this.displayColumns)
+  }
+    
+  
   onRowClicked(row) {
     this.order = row;
     this.selectedRowIndex = row.id
@@ -336,7 +349,7 @@ openAddExpenseDialog(order): void {
   }
   paginate(col?) {
     let direction: string;
- 
+    console.log(this.paginator.pageSize)
     this.ordersService.url.pageSize = this.paginator.pageSize;
     this.ordersService.url.djangoPageNumber = this.paginator.pageIndex + 1;
     if(this.sort.direction === 'asc') {

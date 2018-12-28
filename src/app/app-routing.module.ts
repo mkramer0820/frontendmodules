@@ -17,7 +17,7 @@ import {TaskCalendarComponent} from './pages/task-calendar/task-calendar.compone
 import {SweaterSizeUpdateComponent} from './pages/sweater-size/sweater-size-update/sweater-size-update.component';
 import {OrderDetailComponent} from './pages/orders/order-detail/order-detail.component';
 import {Error404Component} from './core/pages/error404/error404.component';
-import {TableComponent} from './pages/table/table.component';
+import {TableComponent} from './pages/table/table.component'
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'customer-table', component: CustomerTableComponent, canActivate: [AuthGuard]},

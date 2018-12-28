@@ -22,6 +22,7 @@ import { TaskCalendarModule } from './task-calendar/task-calendar.module';
 import {OrdersModule} from './orders/orders.module';
 import {TaskModule} from './task/task.module';
 import {LoginModule} from './login/login.module';
+import { TableModule } from './table/table.module'
 
 
 
@@ -40,6 +41,7 @@ import {LoginModule} from './login/login.module';
     OrdersModule,
     TaskModule,
     LoginModule,
+    TableModule,
   ],
   declarations: [
     ModalComponent,

@@ -4,7 +4,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>Jeanne Pierre Production</span>
-
+      <button (click)="checkJwt()">Check JWT</button>
       <span  class="example-fill-remaining-space"></span>
       <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)"></mat-slide-toggle>
       
